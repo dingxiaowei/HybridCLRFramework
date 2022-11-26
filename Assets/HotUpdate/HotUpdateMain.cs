@@ -205,9 +205,16 @@ public class HotUpdateMain : MonoBehaviour
         }
         //测试加载prefab
         AssetBundle prefabAb = AssetBundle.LoadFromFile($"{Application.streamingAssetsPath}/prefabs1");
-        GameObject testPrefab1 = Instantiate(prefabAb.LoadAsset<GameObject>("TestPrefab.prefab"));
-        prefabAb.Unload(false);
-        Debug.Log("测试加载的prefab");
+        if (prefabAb)
+        {
+            GameObject testPrefab1 = Instantiate(prefabAb.LoadAsset<GameObject>("TestPrefab.prefab"));
+            prefabAb.Unload(false);
+            Debug.Log("测试加载的prefab");
+        }
+        else
+        {
+            Debug.LogError("prefabs1没能正确加载");
+        }
 
         var headers = new Dictionary<string, string>();
         headers.Add("User", "dxw");
