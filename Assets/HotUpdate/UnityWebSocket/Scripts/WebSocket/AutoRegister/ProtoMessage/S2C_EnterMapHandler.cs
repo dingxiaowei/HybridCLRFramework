@@ -15,7 +15,7 @@ public class S2C_EnterMapHandler : AMHandler<S2C_EnterMap>
         s2cEnterMap.Debug();
         var voiceArray = s2cEnterMap.Voice.ToByteArray();
         UnityEngine.Debug.Log($"收到语音消息长度:{voiceArray.Length}");
-        AutoRegister.OnReceiveVoiceMsg.Invoke(voiceArray);
+        //AutoRegister.OnReceiveVoiceMsg.Invoke(voiceArray);
     }
 }
 

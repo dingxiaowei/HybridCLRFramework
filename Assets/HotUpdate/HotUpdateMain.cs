@@ -27,6 +27,35 @@ public class HotUpdateMain : MonoBehaviour
     private float recordStartTime;
 
     public static System.Action<byte[]> OnReceiveVoiceMsg;
+
+    private List<IMgr> mMgrList;
+
+    private void RegisterAllMgr()
+    {
+        mMgrList = new List<IMgr>();
+        mMgrList.Add(SystemEventManager.Instance);
+    }
+
+    void OnPlayAudio(SystemEventBase eventArg)
+    {
+        var arg = eventArg as PlayAudioEvent;
+        var voice = arg.audioBytes;
+        if (voice != null && voice.Length > 0)
+        {
+            if (!Microphone.IsRecording(null))
+            {
+                Debug.Log("------TODO:暂时有报错,解析语音异常");
+                audioSource.clip = WavUtility.ToAudioClip(voice.ToByteArray());
+                audioSource.Play();
+                Infotxt.text = "正在播放录音！";
+            }
+            else
+            {
+                Infotxt.text = "正在录音中，请先停止录音！";
+            }
+        }
+    }
+
     /// <summary>
     /// 开始录音
     /// </summary>
@@ -153,12 +182,36 @@ public class HotUpdateMain : MonoBehaviour
         {
             socketSession.Update();
         }
+
+        foreach (var mgr in mMgrList)
+        {
+            mgr.Update();
+        }
     }
+
+    private void LateUpdate()
+    {
+        foreach (var mgr in mMgrList)
+        {
+            mgr.LateUpdate();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        foreach (var mgr in mMgrList)
+        {
+            mgr.FixedUpdate();
+        }
+    }
+
 
     private void OnDestroy()
     {
         socketSession?.Disconnect();
         MessageDispatcher.sInstance.Dispose();
+
+        SystemEventManager.Instance.UnregisterEvent(EventType.PlayAudio, OnPlayAudio);
     }
 
     string BytesToString(byte[] bytes)
@@ -174,6 +227,11 @@ public class HotUpdateMain : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        RegisterAllMgr();
+
+        //注册语音事件
+        SystemEventManager.Instance.RegisterEvent(EventType.PlayAudio, OnPlayAudio);
+
         Debug.Log("这个热更新脚本挂载在prefab上，打包成ab。通过从ab中实例化prefab成功还原");
         Debug.LogFormat("hello, {0}.", text);
 
