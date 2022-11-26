@@ -1,6 +1,6 @@
 @echo off
 
-call update.bat
+call Pull.bat
 
 echo "================提交日志=========================="
 set BatDir=%~dp0
