@@ -1,0 +1,35 @@
+syntax="proto3";
+package protoc;
+option go_package="../protoc";
+message UserElement{
+   string imei_hmacsha256=1; //hmacsha256 加密的最优 imei
+   string persona_id=2; //hmacsha256 加密的最优 imei
+   string up_id=3;//设备唯一号
+  string gender=4;
+   string age=5;
+   string residence=6; //常驻省份（湖南省、广东省。。。）
+  string residence_city=7;
+   string up_constellation_up=8; //星座（金牛座、白羊座。。。）
+  string active_date_dev=9;
+  string inactive_date_dev=10;
+   string cp_dev=11;
+   string brand_dev=12;
+   string os=13;
+   string android_ver_dev=14;
+   string ios_ver_dev=15;
+}
+
+message ActionElement{
+  string uid=1; //用户 id,
+  string user_city=2;// 用户所在城市，
+  string item_id=3;// 作品 id,
+  string author_id=4; //作者 id,
+  string  item_city=5; //作者城市，
+  string  channel=6; //观看到该作品的来源，
+  string item_cate=7; //作品类别，
+  string  finish=8; //是否浏览完作品，
+  string  like=9; //是否对作品点赞，
+  string device=10; //设备 id,
+  string  time=11;//（track1:作品观看起始时间，track2:作品发布时间），
+  string  duration_time=12; //作品时长
+}

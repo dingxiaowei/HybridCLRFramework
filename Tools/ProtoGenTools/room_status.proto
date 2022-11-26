@@ -1,0 +1,61 @@
+syntax="proto3";
+package protoc;
+option go_package="../protoc";
+import "room.proto";
+
+enum ROOM_STATUS_MSG_TYPE {
+  RSM_DEFAULT = 0;
+  RSM_CURRENT_USERS_REQUEST=3001;
+  RSM_CURRENT_USERS_RESPONSE=3005;
+  RSM_USER_DATA = 3010;
+  RSM_CURRENT_USERS_DATA =3020;
+  RSM_CLOSE_MIC_REQUEST=3030;
+  RSM_CLOSE_MIC_RESPONSE=3040;
+  RSM_CLOSE_MIC_COMMAND=3045;
+  RSM_OPEN_MIC_REQUEST=3050;
+  RSM_OPEN_MIC_RESPONSE=3060;
+  RSM_OPEN_MIC_COMMAND=3065;
+  RSM_SKILL_ACTION_REQUEST=3070;
+  RSM_SKILL_ACTION_RESPONSE=3080;
+  RSM_SKILL_ACTION_COMMAND=3090;
+}
+
+message UserData {
+  string userId=1;
+  string name=2;
+  int32 timestamp=3;
+  bool followed=4;
+  bool mic=5;
+  string avatar=6;
+  bool leader=7;
+  bool self=8;
+  bool online=9;
+  int32 offLineTime=10;
+  bool forbidWord=11;
+}
+
+message CurrentUsersData{
+  repeated UserData users=1;
+  int32 max=2;
+  int32 now=3;
+}
+message CloseMicRequest{
+  string userId=1;
+}
+message OpenMicRequest{
+  string userId=1;
+}
+
+
+message SkillActionRequest{
+  int32 action=1;
+  QuaternionData direction=2;
+  string targetId=3;
+}
+
+message SkillActionCommand{
+  string userId=1;
+  int32 action=2;
+  QuaternionData direction=3;
+  string targetId=4;
+}

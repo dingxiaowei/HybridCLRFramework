@@ -1,0 +1,19 @@
+syntax="proto3";
+package protoc;
+
+message NetMessage{
+  int32 type=1;
+  bytes content=2;
+  string oid=3;
+  string xid=4;
+}
+
+//客户端和服务器的心跳协议
+message C2S_HeartBeatRequest {
+  int64 clientTimestamp = 1; //客户端发送消息时的时间戳(ms)
+}
+
+message S2C_HeartBeatResponse {
+  int64 clientTimestamp = 1; //客户端发送消息时的时间戳(ms)
+  int64 serverTimestamp = 2; //服务器收到PingRequest的时间戳(ms)
+}

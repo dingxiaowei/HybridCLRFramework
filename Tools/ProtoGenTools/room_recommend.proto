@@ -1,0 +1,11 @@
+syntax="proto3";
+package protoc;
+option go_package="../protoc";
+message FriendRecommendRequest{
+   string user_id=1;
+
+}
+
+message FriendRecommendResponse{
+  repeated string users=2;
+}

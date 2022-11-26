@@ -1,0 +1,114 @@
+syntax="proto3";
+package protoc;
+option go_package="../protoc";
+
+
+enum ROOM_CHAT_MSG_TYPE {
+  RCM_DEFAULT = 0;
+  RCM_CHAT_REQUEST = 2001;
+  RCM_CHAT_RESPONSE = 2005;
+  RCM_CHAT_DATA = 2010;
+  RCM_LAST_CHATS_DATA =2020;
+  RCM_QUERY_LAST_CHATS_REQUEST=2030;
+  RCM_QUERY_LAST_CHATS_RESPONSE=2040;
+  RCM_BEGIN_VOICE_REQUEST=2050;
+  RCM_BEGIN_VOICE_RESPONSE=2060;
+  RCM_BEGIN_VOICE_COMMAND=2065;
+  RCM_END_VOICE_REQUEST=2070;
+  RCM_END_VOICE_RESPONSE=2090;
+  RCM_END_VOICE_COMMAND=2095;
+  RCM_AT_COMMAND=2100;
+  RCM_SECRET_CHAT_REQUEST = 2110;
+  RCM_SECRET_CHAT_RESPONSE = 2120;
+  RCM_SECRET_CHAT_DATA=2130;
+  RCM_FOLLOW_REQUEST=2140; //关注
+  RCM_FOLLOW_RESPONSE=2150;
+  RCM_FOLLOW_LIST_REQUEST=2160; //关注列表
+  RCM_FOLLOW_LIST_RESPONSE=2170;
+  RCM_FOLLOW_LIST_DATA=2180;
+
+}
+message ChatRequest {
+    string content=1;
+    int64 timestamp=2;
+}
+
+message ChatData {
+  string content=1;
+  int32 timestamp=2;
+  bytes attachment=3;
+  string userId=4;
+  string avatar=5;
+  string name=7;
+  string lang=8;
+  string id=9;
+}
+
+
+message SecretChatRequest {
+  string content=1;
+  int64 timestamp=2;
+  string userId=3;
+}
+
+
+message LastChatsData{
+  repeated ChatData chats=1;
+}
+
+
+message VoiceData{
+  repeated ChatData chats=1;
+}
+
+message EndVoiceCommand{
+  string userId=1;
+}
+message BeginVoiceCommand{
+  string userId=1;
+}
+
+message AtCommand{
+  string userId=1;
+  string fromUserId=2;
+  string fromUserName=3;
+  string userName=4;
+  int64 timestamp=5;
+}
+
+
+//关注
+message FollowRequest {
+  string userId=1;
+  string status=2; //0是取关，1是关注
+  string uidToken=3;
+}
+
+//关注列表
+message FollowListRequest {
+  int32 StartNum =1;
+  int32 PageSize =2;
+  string uidToken=3;
+}
+
+
+message FollowListResponse  {
+  string   RetCode =1;
+  string RetMsg =2  ;
+  FollowData Data=3;
+}
+
+message FollowData  {
+  int32 Total   =1;
+  int32 StartNum =2;
+  int32 PageSize   = 3;
+  repeated   FollowDataList List =4;
+}
+
+message FollowDataList  {
+  string Uid     =1;
+  int32 Status   =2; //关注状态0取关 1关注 2互关
+  string Avatar  =3;
+  string Name    =4;
+  string Account =5;
+}

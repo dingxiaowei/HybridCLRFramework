@@ -1,0 +1,381 @@
+syntax="proto3";
+package protoc;
+option go_package="../protoc";
+
+//进入第一个房间
+//列出房间列表
+//进入选定房间
+//邀请account进入房间
+//列出关注列表
+//退出房间
+//永远都有一个房间
+enum ROOM_MSG_TYPE {
+  RM_DEFAULT = 0;
+  RM_KEEP_ALIVE = 1;
+  RM_ENTER_REQUEST = 1001;    // SM_CHALLENGE ->
+  RM_ENTER_RESPONSE = 1005;    // SM_CHALLENGE ->
+  RM_ENTER_ROOM_COMMAND =1010;
+  RM_QUERY_ROOM_REQUEST=1020;
+  RM_QUERY_ROOM_RESPONSE=1025;
+  RM_ROOM_DATA=1030;
+  RM_ROOM_PLAYER_DATA=1040;
+  RM_ROOM_POSITION_DATA=1050;
+  RM_LIST_ROOM_REQUEST=1060;
+  RM_LIST_ROOM_RESPONSE=1065;
+  RM_CURRENT_ROOM_REQUEST=1067;
+  RM_CURRENT_ROOM_RESPONSE=1068;
+  RM_CURRENT_ROOM_DATA=1070;
+  RM_JOIN_ROOM_REQUEST=1080;
+  RM_JOIN_ROOM_RESPONSE=1085;
+  RM_INVITE_ROOM_COMMAND=1090;
+  RM_INVITE_ROOM_REQUEST=1095;
+  RM_INVITE_ROOM_RESPONSE=1097;
+  RM_CREATE_ROOM_REQUEST=1100;
+  RM_CREATE_ROOM_RESPONSE=1110;
+  RM_QUIT_ROOM_REQUEST=1120;
+  RM_QUIT_ROOM_RESPONSE=1130;
+  RM_ROOM_MOVE_DATA=1140;
+  RM_LOAD_READY_REQUEST=1150;
+  RM_LOAD_READY_RESPONSE=1160;
+  RM_KEEPALIVE_REQUEST=1190;
+  RM_KEEPALIVE_RESPONSE=1200;
+  RM_LOOK_REQUEST=1210;
+  RM_LOOK_RESPONSE=1220;
+  RM_LOOK_DATA=1230;
+  RM_SET_PASSWORD_REQUEST=1240; //设置房间密码
+  RM_SET_PASSWORD_RESPONSE=1250;
+  RM_SET_ROOM_TYPE_REQUEST=1260;
+  RM_SET_ROOM_TYPE_RESPONSE=1270;
+  RM_PACK_DATA=1280;
+  RM_KICK_REQUEST=1290;
+  RM_KICK_RESPONSE=1300;
+  RM_KICK_COMMAND=1310;
+  RM_QUIT_COMMAND=1320;
+  RM_SET_ROOM_PUBLIC_TYPE_REQUEST=1330;
+  RM_SET_ROOM_PUBLIC_TYPE_RESPONSE=1340;
+  RM_AOI_DATA=1350;
+  RM_MOVE_REQUEST=1360;
+  RM_MOVE_RESPONSE=1370;
+  RM_CLIENT_MOVE_REQUEST=1380;
+  RM_CLIENT_MOVE_RESPONSE=1390;
+  RM_CLIENT_MOVE_DATA=1400;
+  RM_CLIENT_ANIMATION_REQUEST=1410;
+  RM_CLIENT_ANIMATION_RESPONSE=1420;
+  RM_CLIENT_ANIMATION_DATA=1430;
+  RM_SERVER_MOVE_REQUEST=1440;
+  RM_SERVER_MOVE_RESPONSE=1450;
+  RM_SERVER_MOVE_DATA=1460;
+  RM_CLEAR_ROOM_REQUEST=1470; //主持人清场功能
+  RM_CLEAR_ROOM_RESPONSE=1480;
+  RM_CLEAR_ROOM_DATA=1490;
+  RM_OUT_ROOM_REQUEST=1500; //主持人踢人功能
+  RM_OUT_ROOM_RESPONSE=1510;
+  RM_OUT_ROOM_DATA=1520;
+  RM_FORBIDDEN_WORD_ROOM_REQUEST=1530; //主持人禁言功能
+  RM_FORBIDDEN_WORD_ROOM_RESPONSE=1540;
+  RM_FORBIDDEN_WORD_ROOM_DATA=1550;
+  RM_SET_ROOM_NAME_REQUEST=1560; //修改房间名字
+  RM_SET_ROOM_NAME_RESPONSE=1570;
+  RM_JOIN_ROOM_MEMBER_DATA=1585;
+  RM_QUIT_ROOM_MEMBER_DATA=1590;
+  RM_ONLINE_REQUEST=1600;
+  RM_ONLINE_RESPONSE=1610;
+  RM_OFFLINE_REQUEST=1620;
+  RM_OFFLINE_RESPONSE=1630;
+  RM_SET_ROOM_LOCATION_REQUEST=1640;
+  RM_SET_ROOM_LOCATION_RESPONSE=1650;
+  RM_SELF_REPORT_TEMP_REQUEST=1660;
+  RM_SELF_REPORT_TEMP_RESPONSE=1670;
+  RM_JOIN_COMMAND=1680; //加入房间推送
+}
+
+message StandardResponse {
+  string errMsg=1;
+  int32 retCode=2;
+}
+message StandardRequest{
+}
+//一开始进入，发起请求
+message IdRequest {
+  string id=1;
+}
+
+//服务器通知客户端，加载资源，进入房间，目前就一个资源，无视resID直接加载就好
+message EnterRoomCommand{
+  string roomType=2; //room类型
+  string roomId=3;
+  string roomResId=4; //room资源id
+  string roomName=5; //房间名称
+  string roomDescription=6; //房间概述
+  int32 roomPlayerNum=7; //房间人数
+}
+
+
+message AoiData{
+  map<string,bool> aoiMap=9;
+}
+
+
+
+//服务器收到QueryRoom推送RoomData,有角色信息，客户端加载角色模型
+message RoomData{
+  string roomId=2;
+  string roomName=3; //房间名称
+  string roomDescription=4; //房间概述
+  string roomType=5;
+  int32 roomPublicType=6; //0公开 1邀请 2密码
+  int32 max=7;
+  int32 current=8;
+  bool owner=9;
+  map<string,RoomPlayerData> playerMap=11;
+  string password=12;
+  string roomLocation=13; //房间位置信息
+}
+//角色详细的信息位置，朝向，模型信息
+message RoomPlayerData{
+  string userId=2;
+  string avatar=3;
+  bool online=4;
+  int64 lastUpdate=5;
+  RoomPositionData position=6;
+  QuaternionData direction=7; //四元数
+  string userName=8;
+  string userCode=9;
+  string userAccount=10;
+  string avatar3d=11;
+}
+
+message MoveData{
+  string userId=1;
+  RoomPositionData position=2;
+  QuaternionData direction=3; //四元数
+  int32 status=4;
+}
+//角色位置信息，local是相对坐标，暂时使用，global是wgs84坐标，后面要引入
+message RoomPositionData{
+  Vector3Data local=2;
+  Vector3Data global=3;
+  string coordinate=4;
+}
+//坐标系三维坐标
+message Vector3Data{
+  double x=1;
+  double y=2;
+  double z=3;
+}
+message Vector2Data{
+  double x=1;
+  double y=2;
+}
+
+message QuaternionData{
+  double x=1;
+  double y=2;
+  double z=3;
+  double w=4;
+}
+
+//列出当前有的房间
+message ListRoomRequest{
+
+}
+
+//端侧发送了ListRoom之后，服务器发送CurrentRoom信息
+message CurrentRoomsData{
+  map<string,RoomData> roomMap=2;
+}
+//RM_CURRENT_ROOM_DATA
+//用户选择一个加入的房间，以房间号为参数
+message JoinRoomRequest{
+  string roomId=2;
+  string password=3;
+}
+
+//设置房间密码
+message SetPasswordRequest{
+  string password=1;
+}
+message SetPasswordResponse{
+  string errMsg=1;
+  int32 retCode=2;
+  string password=3;
+}
+message SetRoomTypeRequest{
+  int32 roomType=1;
+}
+message SetRoomPublicTypeRequest{
+  int32 roomPublicType=1;
+}
+
+//一个用户邀请另一个用户，此时可能弹窗，提示房间信息和邀请人的信息
+message InviteRoomCommand{
+  string roomId=2;
+  string roomName=3;
+  string inviterName=4;
+  string inviterAccount=5;
+}
+
+message InviteRoomRequest{
+  string account=2;
+}
+message InviteRoomResponse{
+  string errMsg=2;
+  int32 retCode=3;
+}
+// 用户创建一个新的房间，给房间一个简单描述
+message CreateRoomRequest{
+  string roomName=2; //房间名称
+  string roomDescription=3; //房间概述
+  string roomType=4;
+  string roomLocation=5; //房间位置信息
+}
+
+//用户申请离开房间
+message QuitRoomRequest{
+}
+//quitroom的结果
+message QuitRoomResponse{
+  string errMsg=2;
+  int32 retCode=3;
+}
+//用户的同步的位移信息
+message RoomMoveData{
+  string userId=2;
+  RoomPositionData position=3;
+  QuaternionData direction=4;
+  int32 state=5;
+}
+
+message RegServerRequest{
+  string serverId=2;
+  string serviceType=3;
+}
+message RegServerResponse{
+  string errMsg=2;
+  int32 retCode=3;
+}
+
+message KeepaliveRequest{
+  string serverId=2;
+  string serviceType=3;
+}
+
+message KeepaliveResponse{
+  string errMsg=2;
+  int32 retCode=3;
+}
+message LookData{
+  string userId=1;
+  map<int32,int32> looks=2;
+  int64 timestamp=3;
+}
+message LookRequest{
+  map<int32,int32> looks=1;
+}
+
+message PoseData{
+  string userId=1;
+  map<int32,double> poses=2;
+  int64 timestamp=3;
+}
+message PoseRequest{
+  map<int32,double> poses=1;
+}
+
+message PackData{
+  repeated PoseData poses=1;
+  repeated LookData looks=2;
+  int64 timestamp=3;
+}
+message KickRequest{
+  map<string,bool> kicks=1;
+}
+message KickCommand{
+  string userId=1;
+  string userName=2;
+}
+message QuitCommand{
+  string userId=1;
+  string userName=2;
+}
+
+message ClientMoveData{
+
+  string userID=1;
+  Vector3Data pos=2;
+  Vector3Data rotate=3;
+  float moveSpeed=4;
+  bool isMove=5;
+  Vector3Data global=6;
+  float deltaTime=7;
+  float realtimeSinceStartup=8;
+
+}
+
+
+message ClientAnimationData{
+  string userID=1;
+  float normalizedTime=2;
+  string animConditions=3;
+  string animName=4;
+}
+
+message ServerMoveData{
+
+  string userID=1;
+  Vector3Data pos=2;
+  Vector3Data rotate=3;
+  Vector3Data global=4;
+  float realtimeSinceStartup=5;
+
+}
+
+//房主踢人
+message PlayerGetOutRoomRequest{
+  string userId=1;
+  string roomId=2;
+}
+
+//房主禁言
+message PlayerForbiddenWordRequest{
+  string userId=1;
+  string roomId=2;
+  bool forbidWord=3; //false 禁言 true 取消禁言
+}
+
+//修改房间名字
+message SetRoomNameRequest{
+  string roomName=2; //房间名称
+}
+
+
+//服务器收到QueryRoom推送RoomData,有角色信息，客户端加载角色模型
+message RoomMemberData{
+  string roomId=1;
+  map<string,PlayerData> playerMap=2;
+}
+message PlayerData{
+  string userId=1;
+  string avatar=2;
+  string userName=3;
+  string userCode=4;
+  string userAccount=5;
+  string avatar3d=6;
+}
+//修改房间地理位置 RoomLocationRequest
+message RoomLocationRequest{
+  string roomLocation=1;
+}
+
+message SelfReportTempRequest{
+  string userName=1;
+  string avatar=2;
+  string avatar3d=3;
+  string userCode=4;
+  string account=6;
+}
+
+message JOINRoomData{
+  string userId=1;
+  string userName=3;
+}
