@@ -60,7 +60,7 @@ public class AutoRegister : MonoBehaviour
     public void Stop()
     {
         isInRecord = false;
-        data = TestMicro.GetRealAudio(ref RecordedClip);
+        data = ToolUtility.GetRealAudio(ref RecordedClip);
         Microphone.End(null);
         Infotxt.text = "录音结束！";
     }

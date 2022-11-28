@@ -17,16 +17,14 @@ public abstract class AMHandler<T> : IMHandler where T : class
         {
             UnityEngine.Debug.LogError($"消息类型转换错误: {msg.GetType().Name} to {typeof(T).Name}");
         }
-        UnityEngine.Debug.Log($"------收到了返回来的语音消息   {msg.GetType().Name} to {typeof(T).Name}");
 
-        SystemEventManager.Instance.RaiseEvent(EventType.PlayAudio, new PlayAudioEvent() { EventType = EventType.PlayAudio, audioBytes = message });
-        //try
-        //{
-        //    this.Run(message);
-        //}
-        //catch (Exception e)
-        //{
-        //    UnityEngine.Debug.LogError(e);
-        //}
+        try
+        {
+            this.Run(message);
+        }
+        catch (Exception e)
+        {
+            UnityEngine.Debug.LogError(e);
+        }
     }
 }

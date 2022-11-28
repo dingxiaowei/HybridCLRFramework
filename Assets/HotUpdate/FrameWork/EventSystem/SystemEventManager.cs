@@ -17,7 +17,7 @@ public class DisconnectEvent : SystemEventBase
 
 public class PlayAudioEvent : SystemEventBase
 {
-    public ByteString audioBytes;
+    public byte[] audioBytes;
 }
 
 public class SystemEventManager : ManagerBase<SystemEventManager>

@@ -48,14 +48,14 @@ public class TestLogic : MonoBehaviour
     {
         BuildData();
         
-        heroList.ForEach((o) =>
-        {
-            Debug.Log($"武将id:{o.heroId.ToString()} 武将名称:{o.heroName}");
-        });
-        
-        skillList.ForEach((o) =>
-        {
-            Debug.Log($"技能id:{o.skillId.ToString()} 技能名称:{o.skillName}");
-        });
+        // heroList.ForEach((o) =>
+        // {
+        //     Debug.Log($"武将id:{o.heroId.ToString()} 武将名称:{o.heroName}");
+        // });
+        //
+        // skillList.ForEach((o) =>
+        // {
+        //     Debug.Log($"技能id:{o.skillId.ToString()} 技能名称:{o.skillName}");
+        // });
     }
 }

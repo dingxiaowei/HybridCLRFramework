@@ -44,8 +44,7 @@ public class HotUpdateMain : MonoBehaviour
         {
             if (!Microphone.IsRecording(null))
             {
-                Debug.Log("------TODO:暂时有报错,解析语音异常");
-                audioSource.clip = WavUtility.ToAudioClip(voice.ToByteArray());
+                audioSource.clip = WavUtility.ToAudioClip(voice);
                 audioSource.Play();
                 Infotxt.text = "正在播放录音！";
             }
@@ -61,7 +60,6 @@ public class HotUpdateMain : MonoBehaviour
     /// </summary>
     public void Begin()
     {
-        Debug.Log("点击开始录音------------");
         Screen.sleepTimeout = SleepTimeout.NeverSleep; //设置不息屏
         Application.runInBackground = true;
         if (micConnected)
@@ -89,7 +87,7 @@ public class HotUpdateMain : MonoBehaviour
     public void Stop()
     {
         isInRecord = false;
-        data = TestMicro.GetRealAudio(ref RecordedClip);
+        data = ToolUtility.GetRealAudio(ref RecordedClip);
         Microphone.End(null);
         Infotxt.text = "录音结束！";
     }
@@ -227,8 +225,9 @@ public class HotUpdateMain : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        MessageDispatcher.sInstance.AutoRegistHandlers();
         RegisterAllMgr();
-
+        
         //注册语音事件
         SystemEventManager.Instance.RegisterEvent(EventType.PlayAudio, OnPlayAudio);
 
@@ -281,8 +280,6 @@ public class HotUpdateMain : MonoBehaviour
             var connectState = res ? "连接成功" : "连接失败";
             Debug.Log($"websocket {connectState}");
         });
-
-        MessageDispatcher.sInstance.AutoRegistHandlers();
 
         //语音测试
         if (Microphone.devices.Length <= 0)
