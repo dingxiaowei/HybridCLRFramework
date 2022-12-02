@@ -1,0 +1,18 @@
+{
+    "name": "ABEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:cc9dea60e3b1abc4c82da31ab3215bd6"
+    ],
+    "includePlatforms": [
+	    "Editor"
+	],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,503 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03142c330ced64e0ab46cddcd0484ab7, type: 3}
+  m_Name: Rules
+  m_EditorClassIdentifier: 
+  build: 72
+  major: 5
+  minor: 1
+  scenesFolders:
+  - Assets
+  autoRecord: 1
+  autoGroupByDirectories:
+  - Assets/Demo/UI/Sprites
+  validateAssetPath: 0
+  allAssetsToBuild: 0
+  patchesInBuild:
+  - Init
+  - Splash
+  - Loading
+  scenesInBuild:
+  - {fileID: 102900000, guid: b3b41d8cebde9274f8b684adec633a95, type: 3}
+  extension: .ab
+  nameByHash: 0
+  options: 256
+  assets:
+  - name: Assets/Demo/UI/Prefabs/LevelScreen.prefab
+    group: 
+    bundle: assets_demo_ui_prefabs_levelscreen.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/Game/Dropdown_Btn_n.png
+    group: 
+    bundle: assets_demo_ui_sprites_game_dropdown_btn_n.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/MessageBox/Tips.png
+    group: 
+    bundle: assets_demo_ui_sprites_messagebox_tips.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Fonts/FZXZZB.TTF
+    group: 
+    bundle: assets_demo_ui_fonts_fzxzzb.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/MessageBox/Btn_button04_Yellow.png
+    group: 
+    bundle: assets_demo_ui_sprites_messagebox_btn_button04_yellow.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/Game/Slider2_bg.png
+    group: 
+    bundle: assets_demo_ui_sprites_game_slider2_bg.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/Title/Title2_bg.png
+    group: 
+    bundle: assets_demo_ui_sprites_title_title2_bg.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/Title/Btn_User_n.png
+    group: 
+    bundle: assets_demo_ui_sprites_title_btn_user_n.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/Game/Dropdown_menu_bg.png
+    group: 
+    bundle: assets_demo_ui_sprites_game_dropdown_menu_bg.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/MessageBox/TitleLine_Left.png
+    group: 
+    bundle: assets_demo_ui_sprites_messagebox_titleline_left.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/Title/Btn_User_h.png
+    group: 
+    bundle: assets_demo_ui_sprites_title_btn_user_h.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Prefabs/Children2.prefab
+    group: 
+    bundle: assets_demo_ui_prefabs_children2.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Prefabs/Children.prefab
+    group: 
+    bundle: assets_demo_ui_prefabs_children.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/Game/Slider2.png
+    group: 
+    bundle: assets_demo_ui_sprites_game_slider2.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/Game/Dropdown_bg_n.png
+    group: 
+    bundle: assets_demo_ui_sprites_game_dropdown_bg_n.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/Title/Progress1.png
+    group: 
+    bundle: assets_demo_ui_sprites_title_progress1.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/Game/checkbox_select.png
+    group: 
+    bundle: assets_demo_ui_sprites_game_checkbox_select.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Prefabs/MessageBox.prefab
+    group: 
+    bundle: assets_demo_ui_prefabs_messagebox.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/Game/Btn_Tab1_n.png
+    group: 
+    bundle: assets_demo_ui_sprites_game_btn_tab1_n.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/Backgrounds/bg_LoadingPage.png
+    group: 
+    bundle: assets_demo_ui_sprites_backgrounds_bg_loadingpage.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/Game/bg_ItemIntrudction.png
+    group: 
+    bundle: assets_demo_ui_sprites_game_bg_itemintrudction.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/Title/bg_Progress.png
+    group: 
+    bundle: assets_demo_ui_sprites_title_bg_progress.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/MessageBox/TitleLine_Right.png
+    group: 
+    bundle: assets_demo_ui_sprites_messagebox_titleline_right.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Prefabs/UpdateScreen.prefab
+    group: 
+    bundle: assets_demo_ui_prefabs_updatescreen.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/MessageBox/Btn_button04_n.png
+    group: 
+    bundle: assets_demo_ui_sprites_messagebox_btn_button04_n.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/Game/Dropdown_menu.png
+    group: 
+    bundle: assets_demo_ui_sprites_game_dropdown_menu.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/Backgrounds/bg_black.png
+    group: 
+    bundle: assets_demo_ui_sprites_backgrounds_bg_black.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/Title/Progress2.png
+    group: 
+    bundle: assets_demo_ui_sprites_title_progress2.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Atlas/Title.spriteatlas
+    group: 
+    bundle: assets_demo_ui_atlas_title.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Animations/SplashScreen.controller
+    group: 
+    bundle: assets_demo_ui_animations_splashscreen.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Animations/SplashScreen.anim
+    group: 
+    bundle: assets_demo_ui_animations_splashscreen.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Atlas/Game.spriteatlas
+    group: 
+    bundle: assets_demo_ui_atlas_game.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Animations/MessageBox.controller
+    group: 
+    bundle: assets_demo_ui_animations_messagebox.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Animations/MessageBox.anim
+    group: 
+    bundle: assets_demo_ui_animations_messagebox.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Animations/TOUCHTOSTART.anim
+    group: 
+    bundle: assets_demo_ui_animations_touchtostart.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Atlas/Messagebox.spriteatlas
+    group: 
+    bundle: assets_demo_ui_atlas_messagebox.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Animations/START.controller
+    group: 
+    bundle: assets_demo_ui_animations_start.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/Shaders/UIBlur.mat
+    group: shaders
+    bundle: shaders.ab
+    id: 0
+    groupBy: 1
+  - name: Assets/Demo/Shaders/SimpleGrabPassBlur.shader
+    group: shaders
+    bundle: shaders.ab
+    id: 0
+    groupBy: 1
+  - name: Assets/Demo/TestPrefabs/Cube1.prefab
+    group: 
+    bundle: assets_demo_testprefabs_cube1.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/TestPrefabs/Cube2.prefab
+    group: 
+    bundle: assets_demo_testprefabs_cube2.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/Configs/worldInfoConfig.json
+    group: 
+    bundle: assets_demo_configs_worldinfoconfig.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/Scenes/Level.unity
+    group: 
+    bundle: assets_demo_scenes_level.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/Scenes/Splash.unity
+    group: 
+    bundle: assets_demo_scenes_splash.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/Scenes/Async2Sync.unity
+    group: 
+    bundle: assets_demo_scenes_async2sync.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/Scenes/Additive2.unity
+    group: 
+    bundle: assets_demo_scenes_additive2.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/Scenes/TestPrefabs.unity
+    group: 
+    bundle: assets_demo_scenes_testprefabs.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/Scenes/Loading.unity
+    group: 
+    bundle: assets_demo_scenes_loading.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/Scenes/Childrens.unity
+    group: 
+    bundle: assets_demo_scenes_childrens.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/Scenes/Additive.unity
+    group: 
+    bundle: assets_demo_scenes_additive.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/TestPrefabs/Sphere.prefab
+    group: 
+    bundle: assets_demo_testprefabs_sphere.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Sprites/Async2Sync.png
+    group: 
+    bundle: assets_demo_ui_sprites.ab
+    id: 0
+    groupBy: 3
+  - name: Loading.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: Level.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: TestPrefabs.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  patches:
+  - name: Splash
+    assets:
+    - Assets/Demo/Scenes/Splash.unity
+  - name: Loading
+    assets:
+    - Assets/Demo/Scenes/Loading.unity
+    - Assets/Demo/UI/Prefabs/MessageBox.prefab
+  - name: Level
+    assets:
+    - Assets/Demo/Scenes/Level.unity
+    - Assets/Demo/UI/Prefabs/Children.prefab
+    - Assets/Demo/UI/Prefabs/Children2.prefab
+    - Assets/Demo/TestPrefabs/Cube1.prefab
+    - Assets/Demo/UI/Sprites/Async2Sync.png
+  - name: Additive2
+    assets:
+    - Assets/Demo/Scenes/Additive2.unity
+    - Assets/Demo/Configs/worldInfoConfig.json
+  - name: Additive
+    assets:
+    - Assets/Demo/Scenes/Additive.unity
+  - name: Async2Sync
+    assets:
+    - Assets/Demo/Scenes/Async2Sync.unity
+    - Assets/Demo/UI/Sprites/Async2Sync.png
+  - name: Childrens
+    assets:
+    - Assets/Demo/Scenes/Childrens.unity
+  - name: TestPrefabs
+    assets:
+    - Assets/Demo/Scenes/TestPrefabs.unity
+    - Assets/Demo/TestPrefabs/Cube1.prefab
+  bundles:
+  - assetBundleName: assets_demo_ui_prefabs_levelscreen.ab
+    assetNames:
+    - Assets/Demo/UI/Prefabs/LevelScreen.prefab
+  - assetBundleName: assets_demo_ui_sprites_game_dropdown_btn_n.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/Game/Dropdown_Btn_n.png
+  - assetBundleName: assets_demo_ui_sprites_messagebox_tips.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/MessageBox/Tips.png
+  - assetBundleName: assets_demo_ui_fonts_fzxzzb.ab
+    assetNames:
+    - Assets/Demo/UI/Fonts/FZXZZB.TTF
+  - assetBundleName: assets_demo_ui_sprites_messagebox_btn_button04_yellow.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/MessageBox/Btn_button04_Yellow.png
+  - assetBundleName: assets_demo_ui_sprites_game_slider2_bg.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/Game/Slider2_bg.png
+  - assetBundleName: assets_demo_ui_sprites_title_title2_bg.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/Title/Title2_bg.png
+  - assetBundleName: assets_demo_ui_sprites_title_btn_user_n.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/Title/Btn_User_n.png
+  - assetBundleName: assets_demo_ui_sprites_game_dropdown_menu_bg.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/Game/Dropdown_menu_bg.png
+  - assetBundleName: assets_demo_ui_sprites_messagebox_titleline_left.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/MessageBox/TitleLine_Left.png
+  - assetBundleName: assets_demo_ui_sprites_title_btn_user_h.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/Title/Btn_User_h.png
+  - assetBundleName: assets_demo_ui_prefabs_children2.ab
+    assetNames:
+    - Assets/Demo/UI/Prefabs/Children2.prefab
+  - assetBundleName: assets_demo_ui_prefabs_children.ab
+    assetNames:
+    - Assets/Demo/UI/Prefabs/Children.prefab
+  - assetBundleName: assets_demo_ui_sprites_game_slider2.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/Game/Slider2.png
+  - assetBundleName: assets_demo_ui_sprites_game_dropdown_bg_n.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/Game/Dropdown_bg_n.png
+  - assetBundleName: assets_demo_ui_sprites_title_progress1.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/Title/Progress1.png
+  - assetBundleName: assets_demo_ui_sprites_game_checkbox_select.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/Game/checkbox_select.png
+  - assetBundleName: assets_demo_ui_prefabs_messagebox.ab
+    assetNames:
+    - Assets/Demo/UI/Prefabs/MessageBox.prefab
+  - assetBundleName: assets_demo_ui_sprites_game_btn_tab1_n.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/Game/Btn_Tab1_n.png
+  - assetBundleName: assets_demo_ui_sprites_backgrounds_bg_loadingpage.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/Backgrounds/bg_LoadingPage.png
+  - assetBundleName: assets_demo_ui_sprites_game_bg_itemintrudction.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/Game/bg_ItemIntrudction.png
+  - assetBundleName: assets_demo_ui_sprites_title_bg_progress.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/Title/bg_Progress.png
+  - assetBundleName: assets_demo_ui_sprites_messagebox_titleline_right.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/MessageBox/TitleLine_Right.png
+  - assetBundleName: assets_demo_ui_prefabs_updatescreen.ab
+    assetNames:
+    - Assets/Demo/UI/Prefabs/UpdateScreen.prefab
+  - assetBundleName: assets_demo_ui_sprites_messagebox_btn_button04_n.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/MessageBox/Btn_button04_n.png
+  - assetBundleName: assets_demo_ui_sprites_game_dropdown_menu.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/Game/Dropdown_menu.png
+  - assetBundleName: assets_demo_ui_sprites_backgrounds_bg_black.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/Backgrounds/bg_black.png
+  - assetBundleName: assets_demo_ui_sprites_title_progress2.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/Title/Progress2.png
+  - assetBundleName: assets_demo_ui_atlas_title.ab
+    assetNames:
+    - Assets/Demo/UI/Atlas/Title.spriteatlas
+  - assetBundleName: assets_demo_ui_animations_splashscreen.ab
+    assetNames:
+    - Assets/Demo/UI/Animations/SplashScreen.controller
+    - Assets/Demo/UI/Animations/SplashScreen.anim
+  - assetBundleName: assets_demo_ui_atlas_game.ab
+    assetNames:
+    - Assets/Demo/UI/Atlas/Game.spriteatlas
+  - assetBundleName: assets_demo_ui_animations_messagebox.ab
+    assetNames:
+    - Assets/Demo/UI/Animations/MessageBox.controller
+    - Assets/Demo/UI/Animations/MessageBox.anim
+  - assetBundleName: assets_demo_ui_animations_touchtostart.ab
+    assetNames:
+    - Assets/Demo/UI/Animations/TOUCHTOSTART.anim
+  - assetBundleName: assets_demo_ui_atlas_messagebox.ab
+    assetNames:
+    - Assets/Demo/UI/Atlas/Messagebox.spriteatlas
+  - assetBundleName: assets_demo_ui_animations_start.ab
+    assetNames:
+    - Assets/Demo/UI/Animations/START.controller
+  - assetBundleName: shaders.ab
+    assetNames:
+    - Assets/Demo/Shaders/UIBlur.mat
+    - Assets/Demo/Shaders/SimpleGrabPassBlur.shader
+  - assetBundleName: assets_demo_testprefabs_cube1.ab
+    assetNames:
+    - Assets/Demo/TestPrefabs/Cube1.prefab
+  - assetBundleName: assets_demo_testprefabs_cube2.ab
+    assetNames:
+    - Assets/Demo/TestPrefabs/Cube2.prefab
+  - assetBundleName: assets_demo_configs_worldinfoconfig.ab
+    assetNames:
+    - Assets/Demo/Configs/worldInfoConfig.json
+  - assetBundleName: assets_demo_scenes_level.ab
+    assetNames:
+    - Assets/Demo/Scenes/Level.unity
+  - assetBundleName: assets_demo_scenes_splash.ab
+    assetNames:
+    - Assets/Demo/Scenes/Splash.unity
+  - assetBundleName: assets_demo_scenes_async2sync.ab
+    assetNames:
+    - Assets/Demo/Scenes/Async2Sync.unity
+  - assetBundleName: assets_demo_scenes_additive2.ab
+    assetNames:
+    - Assets/Demo/Scenes/Additive2.unity
+  - assetBundleName: assets_demo_scenes_testprefabs.ab
+    assetNames:
+    - Assets/Demo/Scenes/TestPrefabs.unity
+  - assetBundleName: assets_demo_scenes_loading.ab
+    assetNames:
+    - Assets/Demo/Scenes/Loading.unity
+  - assetBundleName: assets_demo_scenes_childrens.ab
+    assetNames:
+    - Assets/Demo/Scenes/Childrens.unity
+  - assetBundleName: assets_demo_scenes_additive.ab
+    assetNames:
+    - Assets/Demo/Scenes/Additive.unity
+  - assetBundleName: assets_demo_testprefabs_sphere.ab
+    assetNames:
+    - Assets/Demo/TestPrefabs/Sphere.prefab
+  - assetBundleName: assets_demo_ui_sprites.ab
+    assetNames:
+    - Assets/Demo/UI/Sprites/Async2Sync.png
+  - assetBundleName: children_assets_demo_scenes_splash.ab
+    assetNames:
+    - Assets/Demo/Scenes/SplashSettings.lighting
+  - assetBundleName: shared_assets_demo_material.ab
+    assetNames:
+    - Assets/Demo/Material/CubeMaterial.mat
+  - assetBundleName: shared_assets_demo.ab
+    assetNames:
+    - Assets/Demo/AppIcon.png
+  currentScene: TestPrefabs
