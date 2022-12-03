@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 4285882895
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6d6e0eee557b29be95a1a87b75326a84
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7c98e928edf4df366ea4e32b10485fc3
+HashAppended: 0
+ClassTypes:
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 687078895
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/UI/Sprites/Title/bg_Progress.png
+Dependencies: []

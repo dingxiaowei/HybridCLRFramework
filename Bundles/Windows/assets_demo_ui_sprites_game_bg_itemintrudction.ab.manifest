@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 1409445315
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 25062ec5b5950a2d71763530ce67d548
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7c98e928edf4df366ea4e32b10485fc3
+HashAppended: 0
+ClassTypes:
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 687078895
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/UI/Sprites/Game/bg_ItemIntrudction.png
+Dependencies: []

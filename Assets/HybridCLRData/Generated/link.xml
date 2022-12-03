@@ -30,13 +30,16 @@
     <type fullname="libx.AssetRequest" preserve="all" />
     <type fullname="libx.Assets" preserve="all" />
     <type fullname="libx.Downloader" preserve="all" />
-    <type fullname="libx.NetworkMonitor" preserve="all" />
     <type fullname="libx.Patch" preserve="all" />
     <type fullname="libx.Reference" preserve="all" />
     <type fullname="libx.ResFormat" preserve="all" />
     <type fullname="libx.SceneAssetRequest" preserve="all" />
     <type fullname="libx.Versions" preserve="all" />
     <type fullname="LitJson.JsonMapper" preserve="all" />
+  </assembly>
+  <assembly fullname="DemoScripts">
+    <type fullname="libx.MessageBox" preserve="all" />
+    <type fullname="libx.UpdateScreen" preserve="all" />
   </assembly>
   <assembly fullname="mscorlib">
     <type fullname="System.Action" preserve="all" />
@@ -201,9 +204,7 @@
     <type fullname="UnityEngine.MeshFilter" preserve="all" />
     <type fullname="UnityEngine.MeshRenderer" preserve="all" />
     <type fullname="UnityEngine.MonoBehaviour" preserve="all" />
-    <type fullname="UnityEngine.NetworkReachability" preserve="all" />
     <type fullname="UnityEngine.Object" preserve="all" />
-    <type fullname="UnityEngine.PlayerPrefs" preserve="all" />
     <type fullname="UnityEngine.Quaternion" preserve="all" />
     <type fullname="UnityEngine.Random" preserve="all" />
     <type fullname="UnityEngine.Rect" preserve="all" />

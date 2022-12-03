@@ -1,0 +1,30 @@
+ManifestFileVersion: 0
+CRC: 2916885931
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2601457a9bf42cb5db230f821b4aea65
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7c2540343e88b2e84dfdbf2d12e7f16d
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 687078895
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/UI/Atlas/Game.spriteatlas
+Dependencies:
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_bg_itemintrudction.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_btn_tab1_n.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_checkbox_select.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_dropdown_bg_n.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_dropdown_btn_n.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_dropdown_menu.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_dropdown_menu_bg.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_slider2.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_slider2_bg.ab

@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 3362426570
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ab13af5e171899d08cfd125b8d2c9563
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7c98e928edf4df366ea4e32b10485fc3
+HashAppended: 0
+ClassTypes:
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 687078895
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/UI/Sprites/Title/Progress2.png
+Dependencies: []

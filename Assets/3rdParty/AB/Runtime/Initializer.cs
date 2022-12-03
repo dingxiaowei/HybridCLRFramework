@@ -10,6 +10,7 @@ namespace libx
         public bool loggable;
         public VerifyBy verifyBy = VerifyBy.CRC;
         public string downloadURL;
+        //注意:develop模式一定要先确保DllCache有dll，如果没有则先进行编译ABTool/Generate/Dll
         public bool development;  
         public bool dontDestroyOnLoad = true;
         public string launchScene;

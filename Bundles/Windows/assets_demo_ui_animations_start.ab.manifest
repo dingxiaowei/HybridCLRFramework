@@ -1,0 +1,20 @@
+ManifestFileVersion: 0
+CRC: 477932909
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6b88fa316fa959129ec6147ca771fcdd
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: bbfaa0f72a86ec3f92b1fc3129632085
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/UI/Animations/START.controller
+Dependencies:
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_animations_touchtostart.ab

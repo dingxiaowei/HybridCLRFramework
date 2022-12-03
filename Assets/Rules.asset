@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03142c330ced64e0ab46cddcd0484ab7, type: 3}
   m_Name: Rules
   m_EditorClassIdentifier: 
-  build: 87
+  build: 88
   major: 5
   minor: 1
   scenesFolders:
@@ -302,9 +302,9 @@ MonoBehaviour:
     groupBy: 2
   - name: Assets/Demo/Configs/wolfKill.bytes
     group: 
-    bundle: assets_demo_configs.ab
+    bundle: assets_demo_configs_wolfkill.ab
     id: 0
-    groupBy: 3
+    groupBy: 2
   - name: Assets/Demo/Configs/worldInfoConfig.json
     group: 
     bundle: assets_demo_configs.ab
@@ -330,6 +330,21 @@ MonoBehaviour:
     bundle: 
     id: 0
     groupBy: 0
+  - name: Splash.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: Level.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: TestHybridCLR.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
   patches:
   - name: Splash
     assets:
@@ -527,9 +542,11 @@ MonoBehaviour:
   - assetBundleName: assets_demo_testprefabs_hotupdateprefab.ab
     assetNames:
     - Assets/Demo/TestPrefabs/HotUpdatePrefab.prefab
-  - assetBundleName: assets_demo_configs.ab
+  - assetBundleName: assets_demo_configs_wolfkill.ab
     assetNames:
     - Assets/Demo/Configs/wolfKill.bytes
+  - assetBundleName: assets_demo_configs.ab
+    assetNames:
     - Assets/Demo/Configs/worldInfoConfig.json
   - assetBundleName: children_assets_demo_scenes_splash.ab
     assetNames:

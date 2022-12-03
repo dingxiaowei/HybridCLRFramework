@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 882689100
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9040891afcf057978933c7d3306e8908
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7c98e928edf4df366ea4e32b10485fc3
+HashAppended: 0
+ClassTypes:
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 687078895
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/UI/Sprites/Game/Btn_Tab1_n.png
+Dependencies: []

@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 214921035
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 51626322b08fb50f1f54c95f77a1a792
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7c98e928edf4df366ea4e32b10485fc3
+HashAppended: 0
+ClassTypes:
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 687078895
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/UI/Sprites/Game/Dropdown_Btn_n.png
+Dependencies: []

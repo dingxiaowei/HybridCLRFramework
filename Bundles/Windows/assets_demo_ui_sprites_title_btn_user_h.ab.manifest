@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 2323267041
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 16bf9d0045640b7defe75a74c62c9e71
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7c98e928edf4df366ea4e32b10485fc3
+HashAppended: 0
+ClassTypes:
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 687078895
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/UI/Sprites/Title/Btn_User_h.png
+Dependencies: []

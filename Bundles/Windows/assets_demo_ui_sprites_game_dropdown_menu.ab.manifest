@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 199635472
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 371189fb9001d1707dd7066fa18a107e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7c98e928edf4df366ea4e32b10485fc3
+HashAppended: 0
+ClassTypes:
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 687078895
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/UI/Sprites/Game/Dropdown_menu.png
+Dependencies: []
