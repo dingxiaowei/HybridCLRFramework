@@ -500,4 +500,4 @@ MonoBehaviour:
   - assetBundleName: shared_assets_demo.ab
     assetNames:
     - Assets/Demo/AppIcon.png
-  currentScene: TestPrefabs
+  currentScene: Level
