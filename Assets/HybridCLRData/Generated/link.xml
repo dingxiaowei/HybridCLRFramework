@@ -179,9 +179,6 @@
     <type fullname="UnityEngine.AnimationClip" preserve="all" />
     <type fullname="UnityEngine.Animator" preserve="all" />
   </assembly>
-  <assembly fullname="UnityEngine.AssetBundleModule">
-    <type fullname="UnityEngine.AssetBundle" preserve="all" />
-  </assembly>
   <assembly fullname="UnityEngine.AudioModule">
     <type fullname="UnityEngine.AudioClip" preserve="all" />
     <type fullname="UnityEngine.AudioSource" preserve="all" />

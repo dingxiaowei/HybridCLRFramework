@@ -2,11 +2,12 @@
     "name": "ABEditor",
     "rootNamespace": "",
     "references": [
-        "GUID:cc9dea60e3b1abc4c82da31ab3215bd6"
+        "GUID:cc9dea60e3b1abc4c82da31ab3215bd6",
+        "GUID:2373f786d14518f44b0f475db77ba4de"
     ],
     "includePlatforms": [
-	    "Editor"
-	],
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

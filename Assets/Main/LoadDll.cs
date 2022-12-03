@@ -18,7 +18,6 @@ public class LoadDll : MonoBehaviour
 
     void Start()
     {
-        // Debug.Log($"Time.frameCount:{Time.frameCount}");
         StartCoroutine(DownLoadAssets(this.StartGame));
     }
 
@@ -92,6 +91,7 @@ public class LoadDll : MonoBehaviour
         var gameAss = AppDomain.CurrentDomain.GetAssemblies().First(assembly => assembly.GetName().Name == "Assembly-CSharp");
 #endif
 
+        //加载临时prefab
         AssetBundle prefabAb = AssetBundle.LoadFromMemory(GetAssetData("prefabs"));
         GameObject testPrefab = Instantiate(prefabAb.LoadAsset<GameObject>("HotUpdatePrefab.prefab"));
     }

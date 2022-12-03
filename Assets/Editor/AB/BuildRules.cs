@@ -79,6 +79,7 @@ namespace libx
         [Tooltip("AB的扩展名")] public string extension = "";
         public bool nameByHash;
         [Tooltip("打包AB的选项")] public BuildAssetBundleOptions options = BuildAssetBundleOptions.ChunkBasedCompression;
+        [Tooltip("dll剔除的文件夹前缀")] public string dllCacheFile = "DllCache";
 
         [Header("缓存数据")]
         [Tooltip("所有要打包的资源")] public List<AssetBuild> assets = new List<AssetBuild>();
@@ -263,18 +264,18 @@ namespace libx
                 case GroupBy.Filename:
                     {
                         var assetName = Path.GetFileNameWithoutExtension(asset);
-                        var directoryName = Path.GetDirectoryName(asset).Replace("\\", "/").Replace("/", "_"); 
+                        var directoryName = Path.GetDirectoryName(asset).Replace("\\", "/").Replace("/", "_");
                         group = directoryName + "_" + assetName;
                     }
                     break;
                 case GroupBy.Directory:
                     {
-                        var directoryName = Path.GetDirectoryName(asset).Replace("\\", "/").Replace("/", "_"); 
+                        var directoryName = Path.GetDirectoryName(asset).Replace("\\", "/").Replace("/", "_");
                         group = directoryName;
                         break;
                     }
             }
-            
+
             if (isChildren)
             {
                 return "children_" + group;
@@ -435,7 +436,17 @@ namespace libx
                     if (!relativePath.Equals(asset.name))
                     {
                         Debug.LogWarningFormat("检查到路径大小写不匹配！输入：{0}实际：{1}，已经自动修复。", asset.name, relativePath);
-                        asset.name = relativePath;
+                        if (relativePath.Contains(".dll"))
+                        {
+                            var strArray = relativePath.Split('/');
+                            var fileNameContainsDir = strArray[strArray.Length - 2];
+                            var dllName = fileNameContainsDir.Remove(0, dllCacheFile.Length);
+                            asset.name = dllName;
+                        }
+                        else
+                        {
+                            asset.name = relativePath;
+                        }
                     }
                     list.Add(asset);
                 }

@@ -45,12 +45,13 @@ namespace HybridCLR.Editor
         {
             Directory.CreateDirectory(tempDir);
             Directory.CreateDirectory(outputDir);
-            
+
             List<AssetBundleBuild> abs = new List<AssetBundleBuild>();
             {
+                //添加prefab
                 var prefabAssets = new List<string>();
                 string testPrefab = $"{Application.dataPath}/Prefabs/HotUpdatePrefab.prefab";
-                
+
                 prefabAssets.Add(testPrefab);
                 AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
                 abs.Add(new AssetBundleBuild
@@ -80,11 +81,13 @@ namespace HybridCLR.Editor
         [MenuItem("HybridCLR/Build/BuildAssetsAndCopyToStreamingAssets")]
         public static void BuildAndCopyABAOTHotUpdateDlls()
         {
-            BuildAssetBundleByTarget(EditorUserBuildSettings.activeBuildTarget);
-            CopyAssetBundlesToStreamingAssets();
+            BuildAssetBundleByTarget(EditorUserBuildSettings.activeBuildTarget); //编译prefab的bundle
+            CopyAssetBundlesToStreamingAssets(); //拷贝到StreamingAssets目录
+
+            //必须要的程序集拷贝
             CompileDllCommand.CompileDllActiveBuildTarget();
-            CopyAOTAssembliesToStreamingAssets();
-            CopyHotUpdateAssembliesToStreamingAssets();
+            CopyAOTAssembliesToStreamingAssets();//拷贝AOT程序集到StreamingAssets
+            CopyHotUpdateAssembliesToStreamingAssets(); //拷贝热更程序集到StreamingAssets
         }
 
         //[MenuItem("HybridCLR/Build/Copy_AB_AOT_HotUpdateDlls")]
@@ -144,13 +147,13 @@ namespace HybridCLR.Editor
             string streamingAssetPathDst = Application.streamingAssetsPath;
             Directory.CreateDirectory(streamingAssetPathDst);
             string outputDir = GetAssetBundleOutputDirByTarget(target);
-            var abs = new string[] { "prefabs","prefabs1" };
+            var abs = new string[] { "prefabs", "prefabs1" };
             foreach (var ab in abs)
             {
                 string srcAb = ToRelativeAssetPath($"{outputDir}/{ab}");
                 string dstAb = ToRelativeAssetPath($"{streamingAssetPathDst}/{ab}");
                 Debug.Log($"[CopyAssetBundlesToStreamingAssets] copy assetbundle {srcAb} -> {dstAb}");
-                AssetDatabase.CopyAsset( srcAb, dstAb);
+                AssetDatabase.CopyAsset(srcAb, dstAb);
             }
         }
     }

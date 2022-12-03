@@ -36,4 +36,22 @@ public class TableManager
         }
         return default(T);
     }
+
+    public static T ReadTableFromBytes<T>(TextAsset bytes) where T : IBinarySerializable, new()
+    {
+        if (bytes != null)
+        {
+            IBinarySerializable data = new T();
+            var readOK = FileManager.ReadBinaryDataFromBytes(bytes.bytes, ref data);
+            if (readOK)
+            {
+                return (T)data;
+            }
+            else
+            {
+                Debug.LogError($"二进制表解析出错  类型{typeof(T)}");
+            }
+        }
+        return default(T);
+    }
 }

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using HybridCLR.Editor;
+using HybridCLR.Editor.Commands;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using UnityEditor;
@@ -10,6 +13,86 @@ namespace libx
 {
     public static class MenuItems
     {
+        [MenuItem("ABTool/Generate/Dll")]
+        private static void GenerateDll()
+        {
+            //必须要的程序集拷贝
+            CompileDllCommand.CompileDllActiveBuildTarget();
+            CopyAOTAssembliesToDllCache();
+            CopyHotUpdateAssembliesToDllCache();
+        }
+
+        [MenuItem("ABTool/Clear/Dll")]
+        private static void ClearDll()
+        {
+            var path = DllCachePath;
+            var dir = new DirectoryInfo(path);
+            var files = dir.GetFiles();
+            foreach (var file in files)
+            {
+                File.Delete(file.FullName);
+            }
+            AssetDatabase.Refresh();
+        }
+
+        static List<string> AOTMetaAssemblyNames { get; } = new List<string>()
+        {
+            "mscorlib.dll",
+            "System.dll",
+            "System.Core.dll",
+        };
+
+        static string DllCachePath
+        {
+            get
+            {
+                return $"{Application.dataPath}/DllCache";
+            }
+        }
+
+        static void CopyAOTAssembliesToDllCache()
+        {
+            var target = EditorUserBuildSettings.activeBuildTarget;
+            string aotAssembliesSrcDir = SettingsUtil.GetAssembliesPostIl2CppStripDir(target);
+            string aotAssembliesDstDir = DllCachePath; //拷贝到DllCache
+
+            foreach (var dll in AOTMetaAssemblyNames)
+            {
+                string srcDllPath = $"{aotAssembliesSrcDir}/{dll}";
+                if (!File.Exists(srcDllPath))
+                {
+                    Debug.LogError($"ab中添加AOT补充元数据dll:{srcDllPath} 时发生错误,文件不存在。裁剪后的AOT dll在BuildPlayer时才能生成，因此需要你先构建一次游戏App后再打包。");
+                    continue;
+                }
+                string dllBytesPath = $"{aotAssembliesDstDir}/{dll}.bytes";
+                File.Copy(srcDllPath, dllBytesPath, true);
+                Debug.Log($"[CopyAOTAssembliesToStreamingAssets] copy AOT dll {srcDllPath} -> {dllBytesPath}");
+            }
+            AssetDatabase.Refresh();
+        }
+
+        static void CopyHotUpdateAssembliesToDllCache()
+        {
+            var target = EditorUserBuildSettings.activeBuildTarget;
+
+            string hotfixDllSrcDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
+            string hotfixAssembliesDstDir = DllCachePath;
+            foreach (var dll in SettingsUtil.HotUpdateAssemblyFiles)
+            {
+                string dllPath = $"{hotfixDllSrcDir}/{dll}";
+                string dllBytesPath = $"{hotfixAssembliesDstDir}/{dll}.bytes";
+                File.Copy(dllPath, dllBytesPath, true);
+                Debug.Log($"[CopyHotUpdateAssembliesToStreamingAssets] copy hotfix dll {dllPath} -> {dllBytesPath}");
+            }
+            AssetDatabase.Refresh();
+        }
+
+        //[MenuItem("ABTool/Generate/LinkXML")]
+        //private static void GenerateLinkXML()
+        //{
+
+        //}
+
         [MenuItem("ABTool/Copy Bundles")]
         private static void CopyBundles()
         {
@@ -25,6 +108,8 @@ namespace libx
             BuildScript.BuildAssetBundles();
             watch.Stop();
             Debug.Log("BuildBundles " + watch.ElapsedMilliseconds + " ms.");
+
+            ClearDll();
         }
 
         [MenuItem("ABTool/Build/Player")]

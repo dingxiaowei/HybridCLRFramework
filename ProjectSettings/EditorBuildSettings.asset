@@ -42,15 +42,12 @@ EditorBuildSettings:
     path: Assets/HotUpdate/UnityWebSocket/Demo/WebSocketDemo.unity
     guid: 2bd214e0b50d1bb41a119a24fecefce9
   - enabled: 1
-    path: Assets/Scenes/HotUpdateScene.unity
-    guid: a80124834c907f34bbd7325efd550c55
-  - enabled: 1
     path: Assets/Scenes/Init.unity
     guid: b3b41d8cebde9274f8b684adec633a95
   - enabled: 1
     path: Assets/Scenes/main.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/TestVoice.unity
-    guid: c6a9118b7e44b114e964cb7095945949
+    path: Assets/Scenes/TestHybridCLR.unity
+    guid: 2a51c3cac5ef0ef429a9730f4bf5da64
   m_configObjects: {}

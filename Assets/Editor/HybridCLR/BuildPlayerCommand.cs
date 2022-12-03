@@ -38,7 +38,7 @@ namespace HybridCLR.Editor
 
             string location = $"{outputPath}/HybridCLRTrial.exe";
 
-            PrebuildCommand.GenerateAll();
+            PrebuildCommand.GenerateAll(); //编译之前先generate一下
             Debug.Log("====> Build App");
             BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions()
             {

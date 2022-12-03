@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03142c330ced64e0ab46cddcd0484ab7, type: 3}
   m_Name: Rules
   m_EditorClassIdentifier: 
-  build: 72
+  build: 87
   major: 5
   minor: 1
   scenesFolders:
@@ -28,9 +28,12 @@ MonoBehaviour:
   - Loading
   scenesInBuild:
   - {fileID: 102900000, guid: b3b41d8cebde9274f8b684adec633a95, type: 3}
+  - {fileID: 102900000, guid: d378f07356e960549add8141397b1462, type: 3}
+  - {fileID: 102900000, guid: 41515a2b3f98a445e88e746ac77f43d1, type: 3}
   extension: .ab
   nameByHash: 0
   options: 256
+  dllCacheFile: DllCache
   assets:
   - name: Assets/Demo/UI/Prefabs/LevelScreen.prefab
     group: 
@@ -237,11 +240,6 @@ MonoBehaviour:
     bundle: assets_demo_testprefabs_cube2.ab
     id: 0
     groupBy: 2
-  - name: Assets/Demo/Configs/worldInfoConfig.json
-    group: 
-    bundle: assets_demo_configs_worldinfoconfig.ab
-    id: 0
-    groupBy: 2
   - name: Assets/Demo/Scenes/Level.unity
     group: 
     bundle: assets_demo_scenes_level.ab
@@ -292,21 +290,46 @@ MonoBehaviour:
     bundle: assets_demo_ui_sprites.ab
     id: 0
     groupBy: 3
-  - name: Loading.unity
+  - name: Assets/Scenes/TestHybridCLR.unity
+    group: 
+    bundle: assets_scenes_testhybridclr.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/TestPrefabs/HotUpdatePrefab.prefab
+    group: 
+    bundle: assets_demo_testprefabs_hotupdateprefab.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/Configs/wolfKill.bytes
+    group: 
+    bundle: assets_demo_configs.ab
+    id: 0
+    groupBy: 3
+  - name: Assets/Demo/Configs/worldInfoConfig.json
+    group: 
+    bundle: assets_demo_configs.ab
+    id: 0
+    groupBy: 3
+  - name: Assets/DllCache/mscorlib.dll.bytes
     group: 
     bundle: 
     id: 0
-    groupBy: 3
-  - name: Level.unity
+    groupBy: 0
+  - name: Assets/DllCache/HotUpdateLogic.dll.bytes
     group: 
     bundle: 
     id: 0
-    groupBy: 3
-  - name: TestPrefabs.unity
+    groupBy: 0
+  - name: Assets/DllCache/System.Core.dll.bytes
     group: 
     bundle: 
     id: 0
-    groupBy: 3
+    groupBy: 0
+  - name: Assets/DllCache/System.dll.bytes
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 0
   patches:
   - name: Splash
     assets:
@@ -340,6 +363,16 @@ MonoBehaviour:
     assets:
     - Assets/Demo/Scenes/TestPrefabs.unity
     - Assets/Demo/TestPrefabs/Cube1.prefab
+  - name: TestHybridCLR
+    assets:
+    - Assets/Scenes/TestHybridCLR.unity
+    - Assets/Demo/TestPrefabs/HotUpdatePrefab.prefab
+    - Assets/Demo/Configs/wolfKill.bytes
+    - Assets/Demo/Configs/worldInfoConfig.json
+    - Assets/DllCache/System.dll.bytes
+    - Assets/DllCache/System.Core.dll.bytes
+    - Assets/DllCache/HotUpdateLogic.dll.bytes
+    - Assets/DllCache/mscorlib.dll.bytes
   bundles:
   - assetBundleName: assets_demo_ui_prefabs_levelscreen.ab
     assetNames:
@@ -458,9 +491,6 @@ MonoBehaviour:
   - assetBundleName: assets_demo_testprefabs_cube2.ab
     assetNames:
     - Assets/Demo/TestPrefabs/Cube2.prefab
-  - assetBundleName: assets_demo_configs_worldinfoconfig.ab
-    assetNames:
-    - Assets/Demo/Configs/worldInfoConfig.json
   - assetBundleName: assets_demo_scenes_level.ab
     assetNames:
     - Assets/Demo/Scenes/Level.unity
@@ -491,13 +521,26 @@ MonoBehaviour:
   - assetBundleName: assets_demo_ui_sprites.ab
     assetNames:
     - Assets/Demo/UI/Sprites/Async2Sync.png
+  - assetBundleName: assets_scenes_testhybridclr.ab
+    assetNames:
+    - Assets/Scenes/TestHybridCLR.unity
+  - assetBundleName: assets_demo_testprefabs_hotupdateprefab.ab
+    assetNames:
+    - Assets/Demo/TestPrefabs/HotUpdatePrefab.prefab
+  - assetBundleName: assets_demo_configs.ab
+    assetNames:
+    - Assets/Demo/Configs/wolfKill.bytes
+    - Assets/Demo/Configs/worldInfoConfig.json
   - assetBundleName: children_assets_demo_scenes_splash.ab
     assetNames:
     - Assets/Demo/Scenes/SplashSettings.lighting
+  - assetBundleName: children_assets_scenes_testhybridclr.ab
+    assetNames:
+    - Assets/Images/logo.jpg
   - assetBundleName: shared_assets_demo_material.ab
     assetNames:
     - Assets/Demo/Material/CubeMaterial.mat
   - assetBundleName: shared_assets_demo.ab
     assetNames:
     - Assets/Demo/AppIcon.png
-  currentScene: Level
+  currentScene: TestHybridCLR

@@ -4,7 +4,7 @@ cd config
 echo "开始拷贝config下的bytes文件"
 for %%i in (*.bytes) do (
     echo begin copy... %%i
-    copy /y %%~nxi ..\..\..\Assets\Resources\Config\%%~nxi
+    copy /y %%~nxi ..\..\..\Assets\Demo\Configs\%%~nxi
     echo copy complate ... %%i
 )
 echo "bytes文件拷贝完成"

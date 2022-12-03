@@ -112,11 +112,11 @@ public class HotUpdateMain : MonoBehaviour
 
     private void OnGUI()
     {
-        if (GUI.Button(new Rect(10, 10, 100, 40), "连接Socket"))
+        if (GUI.Button(new Rect(10, 10, 150, 50), "连接Socket"))
         {
             socketSession?.ConnectAsync();
         }
-        if (GUI.Button(new Rect(10, 60, 100, 40), "连发100消息"))
+        if (GUI.Button(new Rect(10, 100, 150, 50), "连发100消息"))
         {
             for (int i = 0; i < 100; i++)
             {
@@ -133,7 +133,7 @@ public class HotUpdateMain : MonoBehaviour
                 msg.Debug();
             }
         }
-        if (GUI.Button(new Rect(10, 110, 100, 40), "发送消息"))
+        if (GUI.Button(new Rect(10, 190, 150, 50), "发送消息"))
         {
             S2C_EnterMap msg = new S2C_EnterMap();
             msg.Message = "服务器向客户端发送的进入地图消息";
@@ -259,18 +259,6 @@ public class HotUpdateMain : MonoBehaviour
         {
             var data = datas.FirstOrDefault();
             Debug.Log($"查询表格数据是:{data.Id} {data.Hunter}");
-        }
-        //测试加载prefab
-        AssetBundle prefabAb = AssetBundle.LoadFromFile($"{Application.streamingAssetsPath}/prefabs1");
-        if (prefabAb)
-        {
-            GameObject testPrefab1 = Instantiate(prefabAb.LoadAsset<GameObject>("TestPrefab.prefab"));
-            prefabAb.Unload(false);
-            Debug.Log("测试加载的prefab");
-        }
-        else
-        {
-            Debug.LogError("prefabs1没能正确加载");
         }
 
         var headers = new Dictionary<string, string>();
