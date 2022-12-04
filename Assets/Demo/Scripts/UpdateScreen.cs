@@ -205,10 +205,10 @@ namespace libx
             else
             {
                 path = $"{Application.persistentDataPath}/Bundles/DllCache/{asset}";
-                //if (!path.Contains("://"))
-                //{
-                //    path = "file://" + path;
-                //}
+                if (!path.Contains("://"))
+                {
+                    path = "file://" + path;
+                }
             }
             if (path.EndsWith(".dll"))
             {
