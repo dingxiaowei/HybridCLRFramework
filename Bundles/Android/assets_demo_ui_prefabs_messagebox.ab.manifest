@@ -1,0 +1,81 @@
+ManifestFileVersion: 0
+CRC: 1028305797
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2f05a872a39f81f6bdec57e40a161ae7
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 936c6aef7cc7a6729aeeda41ccdc49b8
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4bb38db1beff8c84c8a4abc0aacfb2d1, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 223
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: UnityEngine.CoreModule
+  ClassName: UnityEngine.Events.PersistentCallGroup
+- AssemblyName: UnityEngine.CoreModule
+  ClassName: UnityEngine.RectOffset
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.AnimationTriggers
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.Button/ButtonClickedEvent
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.ColorBlock
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.FontData
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.Navigation
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.SpriteState
+Assets:
+- Assets/Demo/UI/Prefabs/MessageBox.prefab
+Dependencies:
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_animations_messagebox.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_backgrounds_bg_black.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_messagebox_btn_button04_n.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_messagebox_btn_button04_yellow.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_messagebox_tips.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_messagebox_titleline_left.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_messagebox_titleline_right.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/shaders.ab

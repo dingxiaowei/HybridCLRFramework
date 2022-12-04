@@ -1,0 +1,23 @@
+ManifestFileVersion: 0
+CRC: 3568316099
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: d3e44371143357d1dacb8a78d3b09f44
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 6107e07a7202d2c9c87a1221b849b3e5
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 24b7f01f31fa06142b66c1f186582439, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Prefabs/TestHybridCLR.prefab
+Dependencies: []

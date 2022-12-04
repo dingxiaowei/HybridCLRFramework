@@ -1,0 +1,43 @@
+ManifestFileVersion: 0
+CRC: 3179454730
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 17299c8e36eaabdd8f1039857ea7de69
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: a99ad0082be9d9f0fd828f426b52a608
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 136483278323b684baff43aeed8f8064, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 223
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: UnityEngine.CoreModule
+  ClassName: UnityEngine.Events.PersistentCallGroup
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.FontData
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
+Assets:
+- Assets/Demo/UI/Prefabs/Children.prefab
+Dependencies:
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_fonts_fzxzzb.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_prefabs_children2.ab

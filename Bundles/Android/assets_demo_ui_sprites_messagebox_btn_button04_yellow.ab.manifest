@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 3883610598
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: dea40e08e909381ede16be13fcc880cd
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7c98e928edf4df366ea4e32b10485fc3
+HashAppended: 0
+ClassTypes:
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 687078895
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/UI/Sprites/MessageBox/Btn_button04_Yellow.png
+Dependencies: []

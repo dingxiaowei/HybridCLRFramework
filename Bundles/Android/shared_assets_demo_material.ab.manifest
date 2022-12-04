@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 1947572057
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: af38578ad55759df719d700c8c5ac618
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5651999fa58938ac55fc849c3d2539bc
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/Material/CubeMaterial.mat
+Dependencies: []

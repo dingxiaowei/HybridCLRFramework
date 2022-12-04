@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 1647674740
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 724d737c4b001c90a24f98fc5c74136d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7c98e928edf4df366ea4e32b10485fc3
+HashAppended: 0
+ClassTypes:
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 687078895
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/UI/Sprites/Game/Dropdown_bg_n.png
+Dependencies: []

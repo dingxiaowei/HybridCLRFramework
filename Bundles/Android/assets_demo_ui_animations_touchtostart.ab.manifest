@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 1596422744
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9cffcb1fcc42e56379dc3c7554d522f2
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: f54e884acc71766ca30da1cc5448d533
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/UI/Animations/TOUCHTOSTART.anim
+Dependencies: []

@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 1488195758
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: f764a3a2799ac0d9f5226e30b8103b35
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7c98e928edf4df366ea4e32b10485fc3
+HashAppended: 0
+ClassTypes:
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 687078895
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/UI/Sprites/Game/Slider2_bg.png
+Dependencies: []

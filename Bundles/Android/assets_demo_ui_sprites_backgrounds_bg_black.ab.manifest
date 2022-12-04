@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 1175861462
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 7c94c8e9c76986634c369928f3d04dcf
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 12da798fbf3a6c0c342cc56cb1a6efdf
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/UI/Sprites/Backgrounds/bg_black.png
+Dependencies: []
