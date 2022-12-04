@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1292904561
+CRC: 3110733828
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: fe2091bbec53e5345d584c8031901c33
+    Hash: 071f5e2a5715c51758cd9ca7271a07d9
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 2173cfa8e30fa825e8358c8c55a4bfe6
+    Hash: c9125a94e17deca5afa1d15948bf8cc2
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -51,6 +51,8 @@ ClassTypes:
   Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 4bb38db1beff8c84c8a4abc0aacfb2d1, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: e3d9a959fb3319a4ba34c7fa6b0a5acd, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 128
@@ -77,10 +79,5 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/Scenes/Level.unity
 Dependencies:
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_prefabs_levelscreen.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_backgrounds_bg_loadingpage.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_btn_tab1_n.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_btn_button04_n.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_bg_progress.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress1.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress2.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_prefabs_levelscreen.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/children_assets_demo_scenes_level.ab

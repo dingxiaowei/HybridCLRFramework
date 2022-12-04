@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 3324236122
+CRC: 1169734762
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -173,13 +173,8 @@ AssetBundleManifest:
     Info_38:
       Name: assets_demo_scenes_level.ab
       Dependencies:
-        Dependency_0: assets_demo_ui_prefabs_levelscreen.ab
-        Dependency_1: assets_demo_ui_sprites_title_progress1.ab
-        Dependency_2: assets_demo_ui_sprites_game_btn_tab1_n.ab
-        Dependency_3: assets_demo_ui_sprites_backgrounds_bg_loadingpage.ab
-        Dependency_4: assets_demo_ui_sprites_title_bg_progress.ab
-        Dependency_5: assets_demo_ui_sprites_messagebox_btn_button04_n.ab
-        Dependency_6: assets_demo_ui_sprites_title_progress2.ab
+        Dependency_0: assets_prefabs_levelscreen.ab
+        Dependency_1: children_assets_demo_scenes_level.ab
     Info_39:
       Name: assets_demo_scenes_splash.ab
       Dependencies:
@@ -226,14 +221,29 @@ AssetBundleManifest:
       Name: assets_demo_configs.ab
       Dependencies: {}
     Info_52:
-      Name: children_assets_demo_scenes_splash.ab
-      Dependencies: {}
+      Name: assets_prefabs_levelscreen.ab
+      Dependencies:
+        Dependency_0: assets_demo_ui_sprites_title_progress1.ab
+        Dependency_1: assets_demo_ui_sprites_game_btn_tab1_n.ab
+        Dependency_2: assets_demo_ui_sprites_backgrounds_bg_loadingpage.ab
+        Dependency_3: assets_demo_ui_sprites_title_bg_progress.ab
+        Dependency_4: assets_demo_ui_sprites_messagebox_btn_button04_n.ab
+        Dependency_5: assets_demo_ui_sprites_title_progress2.ab
     Info_53:
-      Name: children_assets_scenes_testhybridclr.ab
+      Name: assets_prefabs_testhybridclr.ab
       Dependencies: {}
     Info_54:
-      Name: shared_assets_demo_material.ab
+      Name: children_assets_demo_scenes_level.ab
       Dependencies: {}
     Info_55:
+      Name: children_assets_demo_scenes_splash.ab
+      Dependencies: {}
+    Info_56:
+      Name: children_assets_scenes_testhybridclr.ab
+      Dependencies: {}
+    Info_57:
+      Name: shared_assets_demo_material.ab
+      Dependencies: {}
+    Info_58:
       Name: shared_assets_demo.ab
       Dependencies: {}

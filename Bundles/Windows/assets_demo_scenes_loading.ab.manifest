@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 152588432
+CRC: 2710351302
 Hashes:
   AssetFileHash:
     serializedVersion: 2
     Hash: 3ea8b972350a5e9192535304d3993956
   TypeTreeHash:
     serializedVersion: 2
-    Hash: b5cec02e963eda8518f02b4adfc67898
+    Hash: 42e980a9c939396451e23d539eb86ac3
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -77,4 +77,4 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/Scenes/Loading.unity
 Dependencies:
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_prefabs_updatescreen.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_prefabs_updatescreen.ab

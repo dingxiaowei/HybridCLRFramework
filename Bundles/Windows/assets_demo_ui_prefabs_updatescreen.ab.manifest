@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3532968923
+CRC: 1883147529
 Hashes:
   AssetFileHash:
     serializedVersion: 2
     Hash: d4b9bc899881e4bf2be7c78bf6467609
   TypeTreeHash:
     serializedVersion: 2
-    Hash: bd334b8fd7c57539c3f89c98d696554d
+    Hash: 946786025d95a2c9c6964f199dcbbf80
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -75,10 +75,10 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Demo/UI/Prefabs/UpdateScreen.prefab
 Dependencies:
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_animations_start.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_backgrounds_bg_loadingpage.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_bg_progress.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_btn_user_n.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress1.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress2.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/shared_assets_demo.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_animations_start.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_backgrounds_bg_loadingpage.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_bg_progress.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_btn_user_n.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress1.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress2.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/shared_assets_demo.ab

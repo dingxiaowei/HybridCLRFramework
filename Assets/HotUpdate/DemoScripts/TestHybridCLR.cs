@@ -11,7 +11,7 @@ public class TestHybridCLR : MonoBehaviour
     List<GameObject> _objs = new List<GameObject>();
     void Start()
     {
-        Debug.Log("TestHybridCLR");
+        Debug.Log("TestHybridCLR---------≤‚ ‘»»∏¸–¬");
     }
 
     void OnGUI()

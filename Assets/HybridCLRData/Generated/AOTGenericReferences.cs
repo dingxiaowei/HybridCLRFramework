@@ -725,7 +725,6 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 		// System.String System.String::Join<System.Int32>(System.String,System.Collections.Generic.IEnumerable`1<System.Int32>)
 		// System.Object System.Threading.Interlocked::CompareExchange<System.Object>(System.Object&,System.Object,System.Object)
 		// System.Threading.Tasks.Task`1<System.Int32> System.Threading.Tasks.Task::Run<System.Int32>(System.Func`1<System.Threading.Tasks.Task`1<System.Int32>>)
-		// System.Object UnityEngine.Component::GetComponentInParent<System.Object>()
 		// System.Object UnityEngine.GameObject::AddComponent<System.Object>()
 		// System.Object UnityEngine.GameObject::GetComponent<System.Object>()
 		// System.Object UnityEngine.GameObject::GetComponentInChildren<System.Object>()

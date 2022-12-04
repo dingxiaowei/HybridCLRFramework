@@ -30,6 +30,9 @@ MonoBehaviour:
   - {fileID: 102900000, guid: b3b41d8cebde9274f8b684adec633a95, type: 3}
   - {fileID: 102900000, guid: d378f07356e960549add8141397b1462, type: 3}
   - {fileID: 102900000, guid: 41515a2b3f98a445e88e746ac77f43d1, type: 3}
+  - {fileID: 102900000, guid: d9f2c870487b3492a97fe55f70b65202, type: 3}
+  - {fileID: 102900000, guid: 2a51c3cac5ef0ef429a9730f4bf5da64, type: 3}
+  - {fileID: 102900000, guid: cee379fab8f84074d844a3ff28fd1305, type: 3}
   extension: .ab
   nameByHash: 0
   options: 256
@@ -330,21 +333,16 @@ MonoBehaviour:
     bundle: 
     id: 0
     groupBy: 0
-  - name: Splash.unity
+  - name: Assets/Prefabs/LevelScreen.prefab
     group: 
-    bundle: 
+    bundle: assets_prefabs_levelscreen.ab
     id: 0
-    groupBy: 3
-  - name: Level.unity
+    groupBy: 2
+  - name: Assets/Prefabs/TestHybridCLR.prefab
     group: 
-    bundle: 
+    bundle: assets_prefabs_testhybridclr.ab
     id: 0
-    groupBy: 3
-  - name: TestHybridCLR.unity
-    group: 
-    bundle: 
-    id: 0
-    groupBy: 3
+    groupBy: 2
   patches:
   - name: Splash
     assets:
@@ -353,6 +351,8 @@ MonoBehaviour:
     assets:
     - Assets/Demo/Scenes/Loading.unity
     - Assets/Demo/UI/Prefabs/MessageBox.prefab
+    - Assets/Demo/UI/Prefabs/LevelScreen.prefab
+    - Assets/Prefabs/LevelScreen.prefab
   - name: Level
     assets:
     - Assets/Demo/Scenes/Level.unity
@@ -360,6 +360,7 @@ MonoBehaviour:
     - Assets/Demo/UI/Prefabs/Children2.prefab
     - Assets/Demo/TestPrefabs/Cube1.prefab
     - Assets/Demo/UI/Sprites/Async2Sync.png
+    - Assets/Prefabs/TestHybridCLR.prefab
   - name: Additive2
     assets:
     - Assets/Demo/Scenes/Additive2.unity
@@ -388,6 +389,8 @@ MonoBehaviour:
     - Assets/DllCache/System.Core.dll.bytes
     - Assets/DllCache/HotUpdateLogic.dll.bytes
     - Assets/DllCache/mscorlib.dll.bytes
+    - Assets/Prefabs/LevelScreen.prefab
+    - Assets/Prefabs/TestHybridCLR.prefab
   bundles:
   - assetBundleName: assets_demo_ui_prefabs_levelscreen.ab
     assetNames:
@@ -548,6 +551,15 @@ MonoBehaviour:
   - assetBundleName: assets_demo_configs.ab
     assetNames:
     - Assets/Demo/Configs/worldInfoConfig.json
+  - assetBundleName: assets_prefabs_levelscreen.ab
+    assetNames:
+    - Assets/Prefabs/LevelScreen.prefab
+  - assetBundleName: assets_prefabs_testhybridclr.ab
+    assetNames:
+    - Assets/Prefabs/TestHybridCLR.prefab
+  - assetBundleName: children_assets_demo_scenes_level.ab
+    assetNames:
+    - Assets/Demo/Scenes/LevelSettings.lighting
   - assetBundleName: children_assets_demo_scenes_splash.ab
     assetNames:
     - Assets/Demo/Scenes/SplashSettings.lighting
