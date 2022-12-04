@@ -18,6 +18,7 @@ public class LoadDll : MonoBehaviour
 
     void Start()
     {
+        print($"Microphone.devices.Length:{Microphone.devices.Length}");
         StartCoroutine(DownLoadAssets(this.StartGame));
     }
 
