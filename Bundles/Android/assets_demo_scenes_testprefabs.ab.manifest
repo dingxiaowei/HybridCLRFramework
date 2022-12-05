@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2008836202
+CRC: 2116812542
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 66beb40c23377d2425a5259571c68166
+    Hash: 389bda0e142f6f3c2d56cf16984911f8
   TypeTreeHash:
     serializedVersion: 2
     Hash: 733bde76f6fce0ae097202179f5a32ab
@@ -71,4 +71,4 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/Scenes/TestPrefabs.unity
 Dependencies:
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/children_assets_demo_scenes_testprefabs.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_messagebox_btn_button04_n.ab
