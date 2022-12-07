@@ -63,4 +63,4 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Scenes/TestHybridCLR.unity
 Dependencies:
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/children_assets_scenes_testhybridclr.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/children_assets_scenes_testhybridclr.ab

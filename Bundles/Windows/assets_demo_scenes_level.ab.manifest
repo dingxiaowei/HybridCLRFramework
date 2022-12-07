@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 3110733828
+CRC: 2008603141
 Hashes:
   AssetFileHash:
     serializedVersion: 2
@@ -79,5 +79,5 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/Scenes/Level.unity
 Dependencies:
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_prefabs_levelscreen.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/children_assets_demo_scenes_level.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_prefabs_levelscreen.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/children_assets_demo_scenes_level.ab

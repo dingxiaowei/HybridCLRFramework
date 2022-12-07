@@ -73,9 +73,9 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Prefabs/LevelScreen.prefab
 Dependencies:
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_backgrounds_bg_loadingpage.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_btn_tab1_n.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_btn_button04_n.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_bg_progress.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress1.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress2.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_backgrounds_bg_loadingpage.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_btn_tab1_n.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_btn_button04_n.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_bg_progress.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress1.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress2.ab
