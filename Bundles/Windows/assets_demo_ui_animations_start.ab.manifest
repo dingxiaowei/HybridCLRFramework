@@ -17,4 +17,4 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/UI/Animations/START.controller
 Dependencies:
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_animations_touchtostart.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_animations_touchtostart.ab

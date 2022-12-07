@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 3058795936
+CRC: 1292278043
 Hashes:
   AssetFileHash:
     serializedVersion: 2
@@ -71,4 +71,4 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/Scenes/TestPrefabs.unity
 Dependencies:
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_btn_button04_n.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_btn_button04_n.ab

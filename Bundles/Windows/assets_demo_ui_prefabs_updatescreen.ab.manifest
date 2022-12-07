@@ -75,10 +75,10 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Demo/UI/Prefabs/UpdateScreen.prefab
 Dependencies:
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_animations_start.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_backgrounds_bg_loadingpage.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_bg_progress.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_btn_user_n.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress1.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress2.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/shared_assets_demo.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_animations_start.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_backgrounds_bg_loadingpage.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_bg_progress.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_btn_user_n.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress1.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress2.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/shared_assets_demo.ab

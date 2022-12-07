@@ -77,4 +77,4 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/Scenes/Loading.unity
 Dependencies:
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_prefabs_updatescreen.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_prefabs_updatescreen.ab

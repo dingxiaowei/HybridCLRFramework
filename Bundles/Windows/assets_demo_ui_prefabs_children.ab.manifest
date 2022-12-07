@@ -39,5 +39,5 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Demo/UI/Prefabs/Children.prefab
 Dependencies:
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_fonts_fzxzzb.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_prefabs_children2.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_fonts_fzxzzb.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_prefabs_children2.ab

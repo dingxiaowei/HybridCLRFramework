@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1405425443
+CRC: 304354563
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -173,8 +173,7 @@ AssetBundleManifest:
     Info_38:
       Name: assets_demo_scenes_level.ab
       Dependencies:
-        Dependency_0: assets_prefabs_levelscreen.ab
-        Dependency_1: children_assets_demo_scenes_level.ab
+        Dependency_0: children_assets_demo_scenes_level.ab
     Info_39:
       Name: assets_demo_scenes_splash.ab
       Dependencies:

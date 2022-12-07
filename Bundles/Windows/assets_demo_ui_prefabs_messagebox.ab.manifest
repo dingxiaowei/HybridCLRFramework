@@ -71,11 +71,11 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Demo/UI/Prefabs/MessageBox.prefab
 Dependencies:
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_animations_messagebox.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_backgrounds_bg_black.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_btn_button04_n.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_btn_button04_yellow.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_tips.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_titleline_left.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_titleline_right.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/shaders.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_animations_messagebox.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_backgrounds_bg_black.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_btn_button04_n.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_btn_button04_yellow.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_tips.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_titleline_left.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_titleline_right.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/shaders.ab

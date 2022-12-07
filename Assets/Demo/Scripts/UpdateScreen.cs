@@ -25,7 +25,6 @@ namespace libx
         public Slider progressBar;
         public Text progressText;
         public Text version;
-
         private void Start()
         {
             NetworkMonitor.Instance.onReachabilityChanged += OnReachablityChanged;
@@ -52,20 +51,6 @@ namespace libx
         {
             progressText.text = msg;
         }
-
-        //public void About()
-        //{  
-        //    var request = Assets.LoadAsset(ResFormat.GetPrefab("AboutScreen"), typeof(GameObject));
-        //    var asset = request.asset;
-        //    var go = Instantiate(asset) as GameObject;
-        //    go.name = asset.name;
-        //    request.Require(go);
-        //    var button = go.GetComponentInChildren<Button>();
-        //    button.onClick.AddListener(delegate
-        //    {
-        //        DestroyImmediate(go);
-        //    });
-        //}
 
         public void Clear()
         {
@@ -174,12 +159,20 @@ namespace libx
 
         void LoadDll()
         {
-            StartCoroutine(DownLoadDllAssets(this.StartEnterLevel));
+            if (!AppConfig.LoadedDll)
+            {
+                AppConfig.LoadedDll = true;
+                StartCoroutine(DownLoadDllAssets(this.StartEnterLevel));
+            }
+            else
+            {
+                Debug.LogWarning("dll已经加载过了");
+                StartEnterLevel();
+            }
         }
 
         void StartEnterLevel()
         {
-            LoadAssemblies();
             StartCoroutine(EnterLevel());
         }
 
@@ -188,18 +181,7 @@ namespace libx
             LoadMetadataForAOTAssemblies();
 
 #if !UNITY_EDITOR
-            //if (s_assetDatas.ContainsKey("HotUpdateLogic.dll"))
-            //{
-            //    Debug.Log("包含HotUpdateLogic.dll");
-            //    Debug.Log("HotUpdateLogic.dll字节长度" + GetAssetData("HotUpdateLogic.dll").Length);
-            //}
-            //else
-            //{
-            //    Debug.LogError("不包含");
-            //}
-            //var gameAss = System.Reflection.Assembly.Load(GetAssetData("HotUpdateLogic.dll"));
-
-            var gameAss = System.Reflection.Assembly.Load(GetWebRequestPath("HotUpdateLogic.dll"));
+        var gameAss = System.Reflection.Assembly.Load(GetAssetData("HotUpdateLogic.dll"));
 #else
             var gameAss = AppDomain.CurrentDomain.GetAssemblies().First(assembly => assembly.GetName().Name == "Assembly-CSharp");
 #endif
@@ -216,10 +198,10 @@ namespace libx
             else
             {
                 path = $"{Application.persistentDataPath}/Bundles/DllCache/{asset}";
-                //if (!path.Contains("://"))
-                //{
-                //    path = "file://" + path;
-                //}
+                if (!path.Contains("://"))
+                {
+                    path = "file://" + path;
+                }
             }
             if (path.EndsWith(".dll"))
             {
@@ -230,46 +212,39 @@ namespace libx
 
         IEnumerator DownLoadDllAssets(Action onDownloadComplete)
         {
+            Debug.Log("开始加载程序集,程序集不能加载两次哦");
             var assets = new List<string>
             {
-                //"HotUpdateLogic.dll",
+                "HotUpdateLogic.dll",
             }.Concat(AOTMetaAssemblyNames);
 
             foreach (var asset in assets)
             {
                 string dllPath = GetWebRequestPath(asset);
                 Debug.Log($"start download asset:{dllPath}");
-                //                UnityWebRequest www = UnityWebRequest.Get(dllPath);
-                //                yield return www.SendWebRequest();
+                UnityWebRequest www = UnityWebRequest.Get(dllPath);
+                yield return www.SendWebRequest();
 
-                //#if UNITY_2020_1_OR_NEWER
-                //                if (www.result != UnityWebRequest.Result.Success)
-                //                {
-                //                    Debug.Log(www.error);
-                //                }
-                //#else
-                //            if (www.isHttpError || www.isNetworkError)
-                //            {
-                //                Debug.Log(www.error);
-                //            }
-                //#endif
-                //                else
-                //                {
-                //                    // Or retrieve results as binary data
-                //                    byte[] assetData = www.downloadHandler.data;
-                //                    Debug.Log($"dll:{asset}  size:{assetData.Length}");
-                //                    s_assetDatas[asset] = assetData;
-                //                }
-                if (File.Exists(dllPath))
+#if UNITY_2020_1_OR_NEWER
+                if (www.result != UnityWebRequest.Result.Success)
                 {
-                    s_assetDatas[asset] = File.ReadAllBytes(dllPath);
+                    Debug.Log(www.error);
                 }
+#else
+            if (www.isHttpError || www.isNetworkError)
+            {
+                Debug.Log(www.error);
+            }
+#endif
                 else
                 {
-                    Debug.LogError($"dllPath不存在:{dllPath}");
+                    // Or retrieve results as binary data
+                    byte[] assetData = www.downloadHandler.data;
+                    Debug.Log($"dll:{asset}  size:{assetData.Length}");
+                    s_assetDatas[asset] = assetData;
                 }
             }
-            yield return 0;
+            LoadAssemblies();
             onDownloadComplete();
         }
 
