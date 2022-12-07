@@ -1,14 +1,14 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!687078895 &4343727234628468602
-SpriteAtlas:
+--- !u!612988286 &1
+SpriteAtlasAsset:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Game
-  serializedVersion: 2
-  m_EditorData:
+  m_Name: 
+  m_MasterAtlas: {fileID: 0}
+  m_ImporterData:
     serializedVersion: 2
     textureSettings:
       serializedVersion: 2
@@ -45,7 +45,7 @@ SpriteAtlas:
       m_AllowsAlphaSplitting: 0
       m_Overridden: 1
       m_AndroidETC2FallbackOverride: 0
-      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 1
     packingSettings:
       serializedVersion: 2
       padding: 4
@@ -56,32 +56,13 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: fe37dbf8726abe544af96b29de396fca, type: 3}
+    - {fileID: 2800000, guid: 7aa09cf261591b54e851ae74948f6d56, type: 3}
+    - {fileID: 2800000, guid: 2dc1c47c687192743adfc42487454398, type: 3}
+    - {fileID: 2800000, guid: d8588308ffe56c34a8d019d1e29d6e51, type: 3}
+    - {fileID: 2800000, guid: 23e448bf2a56ba84bb138ed990790edf, type: 3}
+    - {fileID: 2800000, guid: b35016a256f222a469e7106a05498a69, type: 3}
+    - {fileID: 2800000, guid: b85408c5f0cb9544ba2564917c8538ed, type: 3}
     bindAsDefault: 1
-    isAtlasV2: 0
+    isAtlasV2: 1
     cachedData: {fileID: 0}
-  m_MasterAtlas: {fileID: 0}
-  m_PackedSprites:
-  - {fileID: 21300000, guid: 6990ac2256017414ea2e4553c6f15ad0, type: 3}
-  - {fileID: 21300000, guid: 8840fc826f5165d4a8f0f9bbf249926b, type: 3}
-  - {fileID: 21300000, guid: 394c972438d785944b388323f3f27738, type: 3}
-  - {fileID: 21300000, guid: 91f2ccd63688de44f90e432e5d02cfad, type: 3}
-  - {fileID: 21300000, guid: f1fa4cc7f3662324b8de62da1f57d105, type: 3}
-  - {fileID: 21300000, guid: ce99cf28c7787d342b52196e0aae40c3, type: 3}
-  - {fileID: 21300000, guid: 7c77b819d85d15f4dbfc369993c0d027, type: 3}
-  - {fileID: 21300000, guid: 602e0fab8e232594fb0ce75ee8ed1814, type: 3}
-  - {fileID: 21300000, guid: 8bc36c2f029b6b64a8bc6b9f85d1b2b0, type: 3}
-  m_PackedSpriteNamesToIndex:
-  - Dropdown_Btn_n
-  - Slider2_bg
-  - Dropdown_menu_bg
-  - Slider2
-  - Dropdown_bg_n
-  - checkbox_select
-  - Btn_Tab1_n
-  - bg_ItemIntrudction
-  - Dropdown_menu
-  m_RenderDataMap: {}
-  m_Tag: Game
   m_IsVariant: 0
-  m_IsPlaceholder: 0

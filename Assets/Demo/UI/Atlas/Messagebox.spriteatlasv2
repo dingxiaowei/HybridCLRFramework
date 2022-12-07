@@ -1,14 +1,14 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!687078895 &4343727234628468602
-SpriteAtlas:
+--- !u!612988286 &1
+SpriteAtlasAsset:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Messagebox
-  serializedVersion: 2
-  m_EditorData:
+  m_Name: 
+  m_MasterAtlas: {fileID: 0}
+  m_ImporterData:
     serializedVersion: 2
     textureSettings:
       serializedVersion: 2
@@ -56,24 +56,12 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: ca9ba09b371d2804e8cd986cce20829a, type: 3}
+    - {fileID: 2800000, guid: 157189de303ddfb489651255d970e82a, type: 3}
+    - {fileID: 2800000, guid: 092d73c59f2b1fb4585d66300056e2d5, type: 3}
+    - {fileID: 2800000, guid: 2f8914fcee9296643abff6747adf89d2, type: 3}
+    - {fileID: 2800000, guid: 7387f442b7dbbd54997f42903542bc4e, type: 3}
+    - {fileID: 2800000, guid: adfe49820ce3fd7409fdad608b475f5f, type: 3}
     bindAsDefault: 1
-    isAtlasV2: 0
+    isAtlasV2: 1
     cachedData: {fileID: 0}
-  m_MasterAtlas: {fileID: 0}
-  m_PackedSprites:
-  - {fileID: 21300000, guid: 7387f442b7dbbd54997f42903542bc4e, type: 3}
-  - {fileID: 21300000, guid: adfe49820ce3fd7409fdad608b475f5f, type: 3}
-  - {fileID: 21300000, guid: 092d73c59f2b1fb4585d66300056e2d5, type: 3}
-  - {fileID: 21300000, guid: 2f8914fcee9296643abff6747adf89d2, type: 3}
-  - {fileID: 21300000, guid: 157189de303ddfb489651255d970e82a, type: 3}
-  m_PackedSpriteNamesToIndex:
-  - Tips
-  - Btn_button04_Yellow
-  - TitleLine_Left
-  - TitleLine_Right
-  - Btn_button04_n
-  m_RenderDataMap: {}
-  m_Tag: Messagebox
   m_IsVariant: 0
-  m_IsPlaceholder: 0

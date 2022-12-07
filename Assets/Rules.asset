@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03142c330ced64e0ab46cddcd0484ab7, type: 3}
   m_Name: Rules
   m_EditorClassIdentifier: 
-  build: 88
+  build: 89
   major: 5
   minor: 1
   scenesFolders:
@@ -178,11 +178,6 @@ MonoBehaviour:
     bundle: assets_demo_ui_sprites_title_progress2.ab
     id: 0
     groupBy: 2
-  - name: Assets/Demo/UI/Atlas/Title.spriteatlas
-    group: 
-    bundle: assets_demo_ui_atlas_title.ab
-    id: 0
-    groupBy: 2
   - name: Assets/Demo/UI/Animations/SplashScreen.controller
     group: 
     bundle: assets_demo_ui_animations_splashscreen.ab
@@ -191,11 +186,6 @@ MonoBehaviour:
   - name: Assets/Demo/UI/Animations/SplashScreen.anim
     group: 
     bundle: assets_demo_ui_animations_splashscreen.ab
-    id: 0
-    groupBy: 2
-  - name: Assets/Demo/UI/Atlas/Game.spriteatlas
-    group: 
-    bundle: assets_demo_ui_atlas_game.ab
     id: 0
     groupBy: 2
   - name: Assets/Demo/UI/Animations/MessageBox.controller
@@ -211,11 +201,6 @@ MonoBehaviour:
   - name: Assets/Demo/UI/Animations/TOUCHTOSTART.anim
     group: 
     bundle: assets_demo_ui_animations_touchtostart.ab
-    id: 0
-    groupBy: 2
-  - name: Assets/Demo/UI/Atlas/Messagebox.spriteatlas
-    group: 
-    bundle: assets_demo_ui_atlas_messagebox.ab
     id: 0
     groupBy: 2
   - name: Assets/Demo/UI/Animations/START.controller
@@ -476,16 +461,10 @@ MonoBehaviour:
   - assetBundleName: assets_demo_ui_sprites_title_progress2.ab
     assetNames:
     - Assets/Demo/UI/Sprites/Title/Progress2.png
-  - assetBundleName: assets_demo_ui_atlas_title.ab
-    assetNames:
-    - Assets/Demo/UI/Atlas/Title.spriteatlas
   - assetBundleName: assets_demo_ui_animations_splashscreen.ab
     assetNames:
     - Assets/Demo/UI/Animations/SplashScreen.controller
     - Assets/Demo/UI/Animations/SplashScreen.anim
-  - assetBundleName: assets_demo_ui_atlas_game.ab
-    assetNames:
-    - Assets/Demo/UI/Atlas/Game.spriteatlas
   - assetBundleName: assets_demo_ui_animations_messagebox.ab
     assetNames:
     - Assets/Demo/UI/Animations/MessageBox.controller
@@ -493,9 +472,6 @@ MonoBehaviour:
   - assetBundleName: assets_demo_ui_animations_touchtostart.ab
     assetNames:
     - Assets/Demo/UI/Animations/TOUCHTOSTART.anim
-  - assetBundleName: assets_demo_ui_atlas_messagebox.ab
-    assetNames:
-    - Assets/Demo/UI/Atlas/Messagebox.spriteatlas
   - assetBundleName: assets_demo_ui_animations_start.ab
     assetNames:
     - Assets/Demo/UI/Animations/START.controller
