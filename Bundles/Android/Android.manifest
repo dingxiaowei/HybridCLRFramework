@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 512698081
+CRC: 821150808
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -118,109 +118,79 @@ AssetBundleManifest:
       Name: assets_demo_ui_sprites_title_progress2.ab
       Dependencies: {}
     Info_28:
-      Name: assets_demo_ui_atlas_title.ab
-      Dependencies:
-        Dependency_0: assets_demo_ui_sprites_title_title2_bg.ab
-        Dependency_1: assets_demo_ui_sprites_title_btn_user_n.ab
-        Dependency_2: assets_demo_ui_sprites_title_btn_user_h.ab
-        Dependency_3: assets_demo_ui_sprites_title_progress1.ab
-        Dependency_4: assets_demo_ui_sprites_title_bg_progress.ab
-        Dependency_5: assets_demo_ui_sprites_title_progress2.ab
-    Info_29:
       Name: assets_demo_ui_animations_splashscreen.ab
       Dependencies: {}
-    Info_30:
-      Name: assets_demo_ui_atlas_game.ab
-      Dependencies:
-        Dependency_0: assets_demo_ui_sprites_game_dropdown_btn_n.ab
-        Dependency_1: assets_demo_ui_sprites_game_slider2_bg.ab
-        Dependency_2: assets_demo_ui_sprites_game_dropdown_menu_bg.ab
-        Dependency_3: assets_demo_ui_sprites_game_slider2.ab
-        Dependency_4: assets_demo_ui_sprites_game_dropdown_bg_n.ab
-        Dependency_5: assets_demo_ui_sprites_game_checkbox_select.ab
-        Dependency_6: assets_demo_ui_sprites_game_btn_tab1_n.ab
-        Dependency_7: assets_demo_ui_sprites_game_bg_itemintrudction.ab
-        Dependency_8: assets_demo_ui_sprites_game_dropdown_menu.ab
-    Info_31:
+    Info_29:
       Name: assets_demo_ui_animations_messagebox.ab
       Dependencies: {}
-    Info_32:
+    Info_30:
       Name: assets_demo_ui_animations_touchtostart.ab
       Dependencies: {}
-    Info_33:
-      Name: assets_demo_ui_atlas_messagebox.ab
-      Dependencies:
-        Dependency_0: assets_demo_ui_sprites_messagebox_tips.ab
-        Dependency_1: assets_demo_ui_sprites_messagebox_btn_button04_yellow.ab
-        Dependency_2: assets_demo_ui_sprites_messagebox_titleline_left.ab
-        Dependency_3: assets_demo_ui_sprites_messagebox_titleline_right.ab
-        Dependency_4: assets_demo_ui_sprites_messagebox_btn_button04_n.ab
-    Info_34:
+    Info_31:
       Name: assets_demo_ui_animations_start.ab
       Dependencies:
         Dependency_0: assets_demo_ui_animations_touchtostart.ab
-    Info_35:
+    Info_32:
       Name: shaders.ab
       Dependencies: {}
-    Info_36:
+    Info_33:
       Name: assets_demo_testprefabs_cube1.ab
       Dependencies:
         Dependency_0: shared_assets_demo_material.ab
-    Info_37:
+    Info_34:
       Name: assets_demo_testprefabs_cube2.ab
       Dependencies:
         Dependency_0: shared_assets_demo_material.ab
-    Info_38:
+    Info_35:
       Name: assets_demo_scenes_level.ab
       Dependencies:
-        Dependency_0: assets_prefabs_levelscreen.ab
-        Dependency_1: children_assets_demo_scenes_level.ab
-    Info_39:
+        Dependency_0: children_assets_demo_scenes_level.ab
+    Info_36:
       Name: assets_demo_scenes_splash.ab
       Dependencies:
         Dependency_0: assets_demo_ui_animations_splashscreen.ab
         Dependency_1: children_assets_demo_scenes_splash.ab
         Dependency_2: shared_assets_demo.ab
-    Info_40:
+    Info_37:
       Name: assets_demo_scenes_async2sync.ab
       Dependencies: {}
-    Info_41:
+    Info_38:
       Name: assets_demo_scenes_additive2.ab
       Dependencies: {}
-    Info_42:
+    Info_39:
       Name: assets_demo_scenes_testprefabs.ab
       Dependencies:
         Dependency_0: assets_demo_ui_sprites_messagebox_btn_button04_n.ab
-    Info_43:
+    Info_40:
       Name: assets_demo_scenes_loading.ab
       Dependencies:
         Dependency_0: assets_demo_ui_prefabs_updatescreen.ab
-    Info_44:
+    Info_41:
       Name: assets_demo_scenes_childrens.ab
       Dependencies: {}
-    Info_45:
+    Info_42:
       Name: assets_demo_scenes_additive.ab
       Dependencies: {}
-    Info_46:
+    Info_43:
       Name: assets_demo_testprefabs_sphere.ab
       Dependencies: {}
-    Info_47:
+    Info_44:
       Name: assets_demo_ui_sprites.ab
       Dependencies: {}
-    Info_48:
+    Info_45:
       Name: assets_scenes_testhybridclr.ab
       Dependencies:
         Dependency_0: children_assets_scenes_testhybridclr.ab
-    Info_49:
+    Info_46:
       Name: assets_demo_testprefabs_hotupdateprefab.ab
       Dependencies: {}
-    Info_50:
+    Info_47:
       Name: assets_demo_configs_wolfkill.ab
       Dependencies: {}
-    Info_51:
+    Info_48:
       Name: assets_demo_configs.ab
       Dependencies: {}
-    Info_52:
+    Info_49:
       Name: assets_prefabs_levelscreen.ab
       Dependencies:
         Dependency_0: assets_demo_ui_sprites_title_progress1.ab
@@ -229,21 +199,21 @@ AssetBundleManifest:
         Dependency_3: assets_demo_ui_sprites_title_bg_progress.ab
         Dependency_4: assets_demo_ui_sprites_messagebox_btn_button04_n.ab
         Dependency_5: assets_demo_ui_sprites_title_progress2.ab
-    Info_53:
+    Info_50:
       Name: assets_prefabs_testhybridclr.ab
       Dependencies: {}
-    Info_54:
+    Info_51:
       Name: children_assets_demo_scenes_level.ab
       Dependencies: {}
-    Info_55:
+    Info_52:
       Name: children_assets_demo_scenes_splash.ab
       Dependencies: {}
-    Info_56:
+    Info_53:
       Name: children_assets_scenes_testhybridclr.ab
       Dependencies: {}
-    Info_57:
+    Info_54:
       Name: shared_assets_demo_material.ab
       Dependencies: {}
-    Info_58:
+    Info_55:
       Name: shared_assets_demo.ab
       Dependencies: {}
