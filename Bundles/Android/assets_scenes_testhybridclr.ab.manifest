@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 4118822245
+CRC: 1423912153
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 63e99b17aa3cdd82f1b0334b7178146b
+    Hash: 82811747eed4b2a445e6d6e43650c84c
   TypeTreeHash:
     serializedVersion: 2
-    Hash: b979d30036a4d65df1a862dba3b04b15
+    Hash: 22047e1342ac3515651cc2a07105d15c
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -28,13 +28,13 @@ ClassTypes:
 - Class: 108
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: a3bd71b1fb4c91d499f059c4b31cf9ca, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
 - Class: 114
@@ -63,4 +63,4 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Scenes/TestHybridCLR.unity
 Dependencies:
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/children_assets_scenes_testhybridclr.ab
+- E:/test/HybridCLRFramework/Bundles/Android/children_assets_scenes_testhybridclr.ab

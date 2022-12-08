@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1040559135
+CRC: 1154481895
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 5859eb83fd922cd82aca9a053e57f637
+    Hash: 2be86f123d2931b2d08869dcd8addc6a
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 1877db65c15cb6a83022f1824830f578
+    Hash: 88c5769fa79af567dd8c42994d0ded71
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -41,10 +41,7 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 258
   Script: {instanceID: 0}
-- Class: 850595691
-  Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/Scenes/Level.unity
-Dependencies:
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/children_assets_demo_scenes_level.ab
+Dependencies: []

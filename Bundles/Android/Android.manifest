@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 821150808
+CRC: 3103049802
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -143,14 +143,12 @@ AssetBundleManifest:
         Dependency_0: shared_assets_demo_material.ab
     Info_35:
       Name: assets_demo_scenes_level.ab
-      Dependencies:
-        Dependency_0: children_assets_demo_scenes_level.ab
+      Dependencies: {}
     Info_36:
       Name: assets_demo_scenes_splash.ab
       Dependencies:
         Dependency_0: assets_demo_ui_animations_splashscreen.ab
-        Dependency_1: children_assets_demo_scenes_splash.ab
-        Dependency_2: shared_assets_demo.ab
+        Dependency_1: shared_assets_demo.ab
     Info_37:
       Name: assets_demo_scenes_async2sync.ab
       Dependencies: {}
@@ -203,17 +201,11 @@ AssetBundleManifest:
       Name: assets_prefabs_testhybridclr.ab
       Dependencies: {}
     Info_51:
-      Name: children_assets_demo_scenes_level.ab
-      Dependencies: {}
-    Info_52:
-      Name: children_assets_demo_scenes_splash.ab
-      Dependencies: {}
-    Info_53:
       Name: children_assets_scenes_testhybridclr.ab
       Dependencies: {}
-    Info_54:
+    Info_52:
       Name: shared_assets_demo_material.ab
       Dependencies: {}
-    Info_55:
+    Info_53:
       Name: shared_assets_demo.ab
       Dependencies: {}

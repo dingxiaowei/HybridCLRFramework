@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3556851650
+CRC: 3959262152
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 86fcd10d5fedfdf9f4a84e0b1e6a0487
+    Hash: 44aaaf445d44ac6c30dd0120675a2afd
   TypeTreeHash:
     serializedVersion: 2
-    Hash: bbfaa0f72a86ec3f92b1fc3129632085
+    Hash: fdf6c57a251b9f6ec27bdd2fe01b033c
 HashAppended: 0
 ClassTypes:
 - Class: 74
@@ -17,4 +17,4 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/UI/Animations/START.controller
 Dependencies:
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_animations_touchtostart.ab
+- E:/test/HybridCLRFramework/Bundles/Android/assets_demo_ui_animations_touchtostart.ab

@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 960546118
+CRC: 3265514009
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 8963870d921df02826a9ac1a9628a8b6
+    Hash: 81696111bf2703c292fdba017e0d720b
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 40b3e611668d963fe552f8eb521c1a5e
+    Hash: 45d05cfc097dd862858436bacacd17ca
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -36,9 +36,9 @@ ClassTypes:
 - Class: 108
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 5ba870c46cac30e48b9741223a493383, type: 3}
 - Class: 114
@@ -61,12 +61,9 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 258
   Script: {instanceID: 0}
-- Class: 850595691
-  Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/Scenes/Splash.unity
 Dependencies:
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_animations_splashscreen.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/children_assets_demo_scenes_splash.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/shared_assets_demo.ab
+- E:/test/HybridCLRFramework/Bundles/Android/assets_demo_ui_animations_splashscreen.ab
+- E:/test/HybridCLRFramework/Bundles/Android/shared_assets_demo.ab

@@ -6,51 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Demo/Scenes/Additive.unity
-    guid: c36900bb8d51d7045a8c0d0efaf6d733
-  - enabled: 1
-    path: Assets/Demo/Scenes/Additive2.unity
-    guid: cba220c99506b054ba0ba5ad921b0ef0
-  - enabled: 1
-    path: Assets/Demo/Scenes/Async2Sync.unity
-    guid: 9457f59dd87807145b31b782bf215e9c
-  - enabled: 1
-    path: Assets/Demo/Scenes/Childrens.unity
-    guid: f9122a0ee2ae96342924809c04578d38
-  - enabled: 1
-    path: Assets/Demo/Scenes/Level.unity
-    guid: d9f2c870487b3492a97fe55f70b65202
-  - enabled: 1
-    path: Assets/Demo/Scenes/Loading.unity
-    guid: 41515a2b3f98a445e88e746ac77f43d1
+    path: Assets/Scenes/Init.unity
+    guid: b3b41d8cebde9274f8b684adec633a95
   - enabled: 1
     path: Assets/Demo/Scenes/Splash.unity
     guid: d378f07356e960549add8141397b1462
   - enabled: 1
-    path: Assets/Demo/Scenes/TestPrefabs.unity
-    guid: cee379fab8f84074d844a3ff28fd1305
+    path: Assets/Demo/Scenes/Loading.unity
+    guid: 41515a2b3f98a445e88e746ac77f43d1
   - enabled: 1
-    path: Assets/HotUpdate/UnityWebSocket/Demo/AutoRegister.unity
-    guid: 892df7f8f7720aa41bc6a7e049beb300
-  - enabled: 1
-    path: Assets/HotUpdate/UnityWebSocket/Demo/DemoScene.unity
-    guid: 65671216fb4e42d4f89ed6eeca36060d
-  - enabled: 1
-    path: Assets/HotUpdate/UnityWebSocket/Demo/Proto3Test.unity
-    guid: 1d4e861f27cea4a439c3303cc07961a4
-  - enabled: 1
-    path: Assets/HotUpdate/UnityWebSocket/Demo/WebSocketDemo.unity
-    guid: 2bd214e0b50d1bb41a119a24fecefce9
-  - enabled: 1
-    path: Assets/Scenes/Init.unity
-    guid: b3b41d8cebde9274f8b684adec633a95
-  - enabled: 1
-    path: Assets/Scenes/main.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Demo/Scenes/Level.unity
+    guid: d9f2c870487b3492a97fe55f70b65202
   - enabled: 1
     path: Assets/Scenes/TestHybridCLR.unity
     guid: 2a51c3cac5ef0ef429a9730f4bf5da64
   - enabled: 1
-    path: Assets/TestCase/TestObjectPool.unity
-    guid: 3603f4c12956bfc4d8f60d20f8496ec9
+    path: Assets/Demo/Scenes/TestPrefabs.unity
+    guid: cee379fab8f84074d844a3ff28fd1305
   m_configObjects: {}
