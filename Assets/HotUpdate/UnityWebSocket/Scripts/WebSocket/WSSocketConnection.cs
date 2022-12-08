@@ -17,7 +17,7 @@ public class WSSocketConnection
     private int reconnectTryTimes = 0;
     //private IMessagePacker mMessagePacker;
     public bool IsConnect { get { return mSocket != null ? mSocket.ReadyState == WebSocketState.Open : false; } }
-    ObjectPoolWithReset<NetMessage> mNetMessagePool;
+    ObjectPoolWithTReset<NetMessage> mNetMessagePool;
     public WSSocketConnection(string serverUrl, string serverIdStr, Dictionary<string, string> headers, Action<bool> onConnectedCallBack)
     {
         mServerUrl = serverUrl;
@@ -26,8 +26,7 @@ public class WSSocketConnection
         mOnConnected = onConnectedCallBack;
         connectResReturn = false;
         reconnectTryTimes = 0;
-        mNetMessagePool = new ObjectPoolWithReset<NetMessage>(10);
-        //mMessagePacker = new ProtobufPacker();
+        mNetMessagePool = new ObjectPoolWithTReset<NetMessage>(10);
     }
 
     public void SendAsync(int msgId, IMessage message)
@@ -41,7 +40,7 @@ public class WSSocketConnection
             msg.Content = message.ToByteString();
             //ProtobufHelper.ToBytes(msg);
             mSocket.SendAsync(msg.ToByteArray());
-            mNetMessagePool.Return(msg);
+            mNetMessagePool.Store(msg);
         }
         else
         {

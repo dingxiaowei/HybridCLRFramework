@@ -6,7 +6,11 @@ public interface IResetable
     void Reset();
 }
 
-public class ObjectPoolWithReset<T> where T : class, IResetable, new()
+/// <summary>
+/// 泛型对象本身继承自IResetable方法,双重Reset
+/// </summary>
+/// <typeparam name="T"></typeparam>
+public class ObjectPoolWithTReset<T> where T : class, IResetable, new()
 {
     private Stack<T> m_objectStack;
 
@@ -15,7 +19,7 @@ public class ObjectPoolWithReset<T> where T : class, IResetable, new()
 
     public int Count { get { return m_objectStack == null ? 0 : m_objectStack.Count; } }
 
-    public ObjectPoolWithReset(int initialBufferSize, Action<T> ResetAction = null, Action<T> OnetimeInitAction = null)
+    public ObjectPoolWithTReset(int initialBufferSize, Action<T> ResetAction = null, Action<T> OnetimeInitAction = null)
     {
         m_objectStack = new Stack<T>(initialBufferSize);
         m_resetAction = ResetAction;
@@ -46,7 +50,7 @@ public class ObjectPoolWithReset<T> where T : class, IResetable, new()
         }
     }
 
-    public void Return(T obj)
+    public void Store(T obj)
     {
         m_objectStack.Push(obj);
     }

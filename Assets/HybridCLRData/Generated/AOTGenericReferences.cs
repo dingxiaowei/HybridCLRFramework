@@ -17,22 +17,23 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	//Google.Protobuf.IDeepCloneable`1<System.Object>
 	//Google.Protobuf.IMessage`1<System.Object>
 	//Google.Protobuf.MessageParser`1<System.Object>
+	//ObjectPoolWithTReset`1<System.Object>
 	//System.Action`1<System.Byte>
 	//System.Action`1<System.Object>
 	//System.Action`2<System.Int32,System.Object>
 	//System.Action`3<System.Int64,System.Int64,System.Single>
 	//System.ArraySegment`1<System.Byte>
-	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Int64,IntEnum,System.Double>,System.Object>
+	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Int64,IntEnum,System.Single>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Int64,IntEnum,System.Object>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Int64,IntEnum,System.Int32>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Int64,System.Object,IntEnum>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Int64,System.Object,System.Double>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Single,System.Int32,System.Int64>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Int64,System.Object,System.Single>,System.Object>
-	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Int64,IntEnum,System.Single>,System.Object>
+	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Int64,IntEnum,System.Double>,System.Object>
+	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Single,System.Int32,IntEnum>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Single,System.Int32,System.Object>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Int64,System.Object,System.Int32>,System.Object>
-	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Single,System.Int32,IntEnum>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Single,System.Int64,System.Int32>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Single,System.Int64,System.Double>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Single,System.Int64,System.Object>,System.Object>
@@ -73,7 +74,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Int64,System.Double,System.Int32>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Int64,System.Double,System.Object>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Single,IntEnum,System.Int32>,System.Object>
-	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Double,System.Int64,System.Int32>,System.Object>
+	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Double,System.Int64,System.Single>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Single,IntEnum,System.Double>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Object,System.Int64,System.Double>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Object,System.Int64,IntEnum>,System.Object>
@@ -106,8 +107,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Double,System.Int32,System.Single>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Double,System.Int32,System.Object>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Double,System.Int32,IntEnum>,System.Object>
+	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Double,System.Int64,System.Int32>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Int32,System.Single,System.Double>,System.Object>
-	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Double,System.Int64,System.Single>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Double,System.Int64,System.Object>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Double,System.Int64,IntEnum>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Double,System.Single,System.Int32>,System.Object>
@@ -126,7 +127,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Object,System.Int32,System.Single>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Single,IntEnum,System.Int64>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Int32,System.Single,System.Int64>,System.Object>
-	//System.Collections.Generic.Dictionary`2<System.ValueTuple`2<IntEnum,System.Int64>,System.Object>
+	//System.Collections.Generic.Dictionary`2<System.ValueTuple`2<IntEnum,System.Int32>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<System.Int32,System.Int64,System.Object>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.Int32,IntEnum>
 	//System.Collections.Generic.Dictionary`2<System.Int32,UnityEngine.Vector2Int>
@@ -186,8 +187,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`2<System.Object,System.Single>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`2<System.Object,System.Double>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`2<System.Object,IntEnum>,System.Object>
-	//System.Collections.Generic.Dictionary`2<System.ValueTuple`2<IntEnum,System.Int32>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`3<IntEnum,System.Single,System.Int32>,System.Object>
+	//System.Collections.Generic.Dictionary`2<System.ValueTuple`2<IntEnum,System.Int64>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`2<IntEnum,System.Single>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`2<IntEnum,System.Double>,System.Object>
 	//System.Collections.Generic.Dictionary`2<System.ValueTuple`2<IntEnum,System.Object>,System.Object>
