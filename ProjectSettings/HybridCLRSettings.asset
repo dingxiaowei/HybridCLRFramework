@@ -25,6 +25,7 @@ MonoBehaviour:
   - mscorlib.dll
   - System.Core.dll
   - System.dll
+  - Newtonsoft.Json.dll
   collectAssetReferenceTypes: 1
   outputLinkFile: HybridCLRData/Generated/link.xml
   outputAOTGenericReferenceFile: HybridCLRData/Generated/AOTGenericReferences.cs

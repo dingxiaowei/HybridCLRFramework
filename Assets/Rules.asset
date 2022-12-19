@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03142c330ced64e0ab46cddcd0484ab7, type: 3}
   m_Name: Rules
   m_EditorClassIdentifier: 
-  build: 88
+  build: 89
   major: 5
   minor: 1
   scenesFolders:
@@ -328,6 +328,41 @@ MonoBehaviour:
     bundle: assets_prefabs_testhybridclr.ab
     id: 0
     groupBy: 2
+  - name: Assets/Demo/UI/Atlas/Messagebox.spriteatlasv2
+    group: 
+    bundle: assets_demo_ui_atlas_messagebox.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Atlas/Title.spriteatlasv2
+    group: 
+    bundle: assets_demo_ui_atlas_title.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/UI/Atlas/Game.spriteatlasv2
+    group: 
+    bundle: assets_demo_ui_atlas_game.ab
+    id: 0
+    groupBy: 2
+  - name: Splash.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: Level.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: TestHybridCLR.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: TestPrefabs.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
   patches:
   - name: Splash
     assets:
@@ -533,6 +568,15 @@ MonoBehaviour:
   - assetBundleName: assets_prefabs_testhybridclr.ab
     assetNames:
     - Assets/Prefabs/TestHybridCLR.prefab
+  - assetBundleName: assets_demo_ui_atlas_messagebox.ab
+    assetNames:
+    - Assets/Demo/UI/Atlas/Messagebox.spriteatlasv2
+  - assetBundleName: assets_demo_ui_atlas_title.ab
+    assetNames:
+    - Assets/Demo/UI/Atlas/Title.spriteatlasv2
+  - assetBundleName: assets_demo_ui_atlas_game.ab
+    assetNames:
+    - Assets/Demo/UI/Atlas/Game.spriteatlasv2
   - assetBundleName: children_assets_demo_scenes_level.ab
     assetNames:
     - Assets/Demo/Scenes/LevelSettings.lighting

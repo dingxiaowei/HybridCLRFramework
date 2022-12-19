@@ -181,7 +181,7 @@ namespace libx
             LoadMetadataForAOTAssemblies();
 
 #if !UNITY_EDITOR
-        var gameAss = System.Reflection.Assembly.Load(GetAssetData("HotUpdateLogic.dll"));
+            var gameAss = System.Reflection.Assembly.Load(GetAssetData("HotUpdateLogic.dll"));
 #else
             var gameAss = AppDomain.CurrentDomain.GetAssemblies().First(assembly => assembly.GetName().Name == "Assembly-CSharp");
 #endif

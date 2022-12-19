@@ -227,7 +227,7 @@ public class HotUpdateMain : MonoBehaviour
     {
         MessageDispatcher.sInstance.AutoRegistHandlers();
         RegisterAllMgr();
-        
+
         //注册语音事件
         SystemEventManager.Instance.RegisterEvent(EventType.PlayAudio, OnPlayAudio);
 
@@ -245,8 +245,10 @@ public class HotUpdateMain : MonoBehaviour
         var testLogic = gameObject.AddComponent<TestLogic>();
         testLogic.TestDebug();
 
+        Debug.Log("=============Json测试============");
         //LitJson测试
         gameObject.AddComponent<LitJsonTest>();
+        gameObject.AddComponent<NewtonJsonExample>();
 
         //添加Proto测试
         //gameObject.AddComponent<ProtobufTest>();
