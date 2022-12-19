@@ -24,3 +24,7 @@
 
 ## 待优化模块
 * 网络协议
+
+## 提示
+* 如果在Loading界面报错，MessageBox找不到，那是StreamingAsset目录下缺少非热更的资源包导致的
+* develop模式必须要确保工程本地有dll，如果没有话ABTool/Generate/Dll生成，打包的时候确保dll删除
