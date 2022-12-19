@@ -16,6 +16,20 @@ public class TestHybridCLR : MonoBehaviour
 
     void OnGUI()
     {
+        if (GUI.Button(new Rect(200, 0, 200, 50), "加载电视"))
+        {
+            var request1 = Assets.LoadAssetAsync("Assets/Prefabs/TV.prefab", typeof(GameObject), (rq) =>
+            {
+                var go = Instantiate(rq.asset) as GameObject;
+                if (go != null)
+                {
+                    go.name = rq.asset.name;
+                    //go.transform.localPosition = new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), 0);
+                    _objs.Add(go);
+                }
+            });
+            _requests.Add(request1);
+        }
         if (GUI.Button(new Rect(200, 50, 200, 50), "加载Prefab"))
         {
             var request = Assets.LoadAssetAsync(cubePath, typeof(GameObject), (rq) =>

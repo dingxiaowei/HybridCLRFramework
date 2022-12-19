@@ -1,0 +1,58 @@
+ManifestFileVersion: 0
+CRC: 457650953
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 046fa8d2e883651a447c5bc34e211e43
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: bd5d543d96d6d1b82f8bb760f941fb4f
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: d2feedce2e2e63647b8f875ec0894a15, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 638c870cac4da414fba921606d504407, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: 3rdParty
+  ClassName: RenderHeads.Media.AVProVideo.MediaPlayer/OptionsAndroid
+- AssemblyName: 3rdParty
+  ClassName: RenderHeads.Media.AVProVideo.MediaPlayer/OptionsIOS
+- AssemblyName: 3rdParty
+  ClassName: RenderHeads.Media.AVProVideo.MediaPlayer/OptionsMacOSX
+- AssemblyName: 3rdParty
+  ClassName: RenderHeads.Media.AVProVideo.MediaPlayer/OptionsPS4
+- AssemblyName: 3rdParty
+  ClassName: RenderHeads.Media.AVProVideo.MediaPlayer/OptionsTVOS
+- AssemblyName: 3rdParty
+  ClassName: RenderHeads.Media.AVProVideo.MediaPlayer/OptionsWebGL
+- AssemblyName: 3rdParty
+  ClassName: RenderHeads.Media.AVProVideo.MediaPlayer/OptionsWindows
+- AssemblyName: 3rdParty
+  ClassName: RenderHeads.Media.AVProVideo.MediaPlayer/OptionsWindowsPhone
+- AssemblyName: 3rdParty
+  ClassName: RenderHeads.Media.AVProVideo.MediaPlayer/OptionsWindowsUWP
+- AssemblyName: 3rdParty
+  ClassName: RenderHeads.Media.AVProVideo.MediaPlayerEvent
+- AssemblyName: UnityEngine.CoreModule
+  ClassName: UnityEngine.Events.PersistentCallGroup
+Assets:
+- Assets/Prefabs/TV.prefab
+Dependencies:
+- D:/study/github/HybridCLRFramework/Bundles/Windows/children_assets_prefabs_tv.ab

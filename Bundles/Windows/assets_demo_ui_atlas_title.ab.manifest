@@ -1,0 +1,27 @@
+ManifestFileVersion: 0
+CRC: 3756306395
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 160a5246eeb3d7a7bc499db0440b793f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7c2540343e88b2e84dfdbf2d12e7f16d
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 687078895
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/UI/Atlas/Title.spriteatlasv2
+Dependencies:
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_bg_progress.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_btn_user_h.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_btn_user_n.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress1.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress2.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_title2_bg.ab

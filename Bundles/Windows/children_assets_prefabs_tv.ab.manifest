@@ -1,0 +1,23 @@
+ManifestFileVersion: 0
+CRC: 3221597978
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ae8b6a19f29fe8da813b6af978d1c81f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2ac4353984f9d013b83e89048e1ecdd0
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/3rdParty/AVProVideo/Demos/Materials/VideoMappingMaterial.mat
+- Assets/3rdParty/AVProVideo/Resources/AVProVideoIcon.png
+Dependencies:
+- D:/study/github/HybridCLRFramework/Bundles/Windows/shaders.ab

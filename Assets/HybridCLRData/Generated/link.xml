@@ -38,6 +38,7 @@
     <type fullname="libx.Versions" preserve="all" />
     <type fullname="LitJson.JsonMapper" preserve="all" />
     <type fullname="ObjectPoolWithTReset`1" preserve="all" />
+    <type fullname="RenderHeads.Media.AVProVideo.ApplyToMaterial" preserve="all" />
     <type fullname="RenderHeads.Media.AVProVideo.ApplyToMesh" preserve="all" />
     <type fullname="RenderHeads.Media.AVProVideo.AudioOutput" preserve="all" />
     <type fullname="RenderHeads.Media.AVProVideo.CubemapCube" preserve="all" />
@@ -255,6 +256,7 @@
   </assembly>
   <assembly fullname="UnityEngine.PhysicsModule">
     <type fullname="UnityEngine.BoxCollider" preserve="all" />
+    <type fullname="UnityEngine.MeshCollider" preserve="all" />
     <type fullname="UnityEngine.Rigidbody" preserve="all" />
     <type fullname="UnityEngine.SphereCollider" preserve="all" />
   </assembly>

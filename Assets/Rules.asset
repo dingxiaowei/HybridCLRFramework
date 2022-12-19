@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03142c330ced64e0ab46cddcd0484ab7, type: 3}
   m_Name: Rules
   m_EditorClassIdentifier: 
-  build: 89
+  build: 90
   major: 5
   minor: 1
   scenesFolders:
@@ -343,26 +343,11 @@ MonoBehaviour:
     bundle: assets_demo_ui_atlas_game.ab
     id: 0
     groupBy: 2
-  - name: Splash.unity
+  - name: Assets/Prefabs/TV.prefab
     group: 
-    bundle: 
+    bundle: assets_prefabs_tv.ab
     id: 0
-    groupBy: 3
-  - name: Level.unity
-    group: 
-    bundle: 
-    id: 0
-    groupBy: 3
-  - name: TestHybridCLR.unity
-    group: 
-    bundle: 
-    id: 0
-    groupBy: 3
-  - name: TestPrefabs.unity
-    group: 
-    bundle: 
-    id: 0
-    groupBy: 3
+    groupBy: 2
   patches:
   - name: Splash
     assets:
@@ -399,6 +384,7 @@ MonoBehaviour:
     assets:
     - Assets/Demo/Scenes/TestPrefabs.unity
     - Assets/Demo/TestPrefabs/Cube1.prefab
+    - Assets/Prefabs/LevelScreen.prefab
   - name: TestHybridCLR
     assets:
     - Assets/Scenes/TestHybridCLR.unity
@@ -411,6 +397,7 @@ MonoBehaviour:
     - Assets/DllCache/mscorlib.dll.bytes
     - Assets/Prefabs/LevelScreen.prefab
     - Assets/Prefabs/TestHybridCLR.prefab
+    - Assets/Prefabs/TV.prefab
   bundles:
   - assetBundleName: assets_demo_ui_prefabs_levelscreen.ab
     assetNames:
@@ -514,6 +501,7 @@ MonoBehaviour:
     assetNames:
     - Assets/Demo/Shaders/UIBlur.mat
     - Assets/Demo/Shaders/SimpleGrabPassBlur.shader
+    - Assets/3rdParty/AVProVideo/Resources/Shaders/AVProVideo-Lit-Diffuse.shader
   - assetBundleName: assets_demo_testprefabs_cube1.ab
     assetNames:
     - Assets/Demo/TestPrefabs/Cube1.prefab
@@ -577,6 +565,9 @@ MonoBehaviour:
   - assetBundleName: assets_demo_ui_atlas_game.ab
     assetNames:
     - Assets/Demo/UI/Atlas/Game.spriteatlasv2
+  - assetBundleName: assets_prefabs_tv.ab
+    assetNames:
+    - Assets/Prefabs/TV.prefab
   - assetBundleName: children_assets_demo_scenes_level.ab
     assetNames:
     - Assets/Demo/Scenes/LevelSettings.lighting
@@ -586,6 +577,10 @@ MonoBehaviour:
   - assetBundleName: children_assets_scenes_testhybridclr.ab
     assetNames:
     - Assets/Images/logo.jpg
+  - assetBundleName: children_assets_prefabs_tv.ab
+    assetNames:
+    - Assets/3rdParty/AVProVideo/Demos/Materials/VideoMappingMaterial.mat
+    - Assets/3rdParty/AVProVideo/Resources/AVProVideoIcon.png
   - assetBundleName: shared_assets_demo_material.ab
     assetNames:
     - Assets/Demo/Material/CubeMaterial.mat

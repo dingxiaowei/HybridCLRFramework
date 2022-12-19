@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1140952849
+CRC: 1014339848
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -203,17 +203,54 @@ AssetBundleManifest:
       Name: assets_prefabs_testhybridclr.ab
       Dependencies: {}
     Info_51:
+      Name: assets_demo_ui_atlas_messagebox.ab
+      Dependencies:
+        Dependency_0: assets_demo_ui_sprites_messagebox_tips.ab
+        Dependency_1: assets_demo_ui_sprites_messagebox_btn_button04_yellow.ab
+        Dependency_2: assets_demo_ui_sprites_messagebox_titleline_left.ab
+        Dependency_3: assets_demo_ui_sprites_messagebox_titleline_right.ab
+        Dependency_4: assets_demo_ui_sprites_messagebox_btn_button04_n.ab
+    Info_52:
+      Name: assets_demo_ui_atlas_title.ab
+      Dependencies:
+        Dependency_0: assets_demo_ui_sprites_title_title2_bg.ab
+        Dependency_1: assets_demo_ui_sprites_title_btn_user_n.ab
+        Dependency_2: assets_demo_ui_sprites_title_btn_user_h.ab
+        Dependency_3: assets_demo_ui_sprites_title_progress1.ab
+        Dependency_4: assets_demo_ui_sprites_title_bg_progress.ab
+        Dependency_5: assets_demo_ui_sprites_title_progress2.ab
+    Info_53:
+      Name: assets_demo_ui_atlas_game.ab
+      Dependencies:
+        Dependency_0: assets_demo_ui_sprites_game_dropdown_btn_n.ab
+        Dependency_1: assets_demo_ui_sprites_game_slider2_bg.ab
+        Dependency_2: assets_demo_ui_sprites_game_dropdown_menu_bg.ab
+        Dependency_3: assets_demo_ui_sprites_game_slider2.ab
+        Dependency_4: assets_demo_ui_sprites_game_dropdown_bg_n.ab
+        Dependency_5: assets_demo_ui_sprites_game_checkbox_select.ab
+        Dependency_6: assets_demo_ui_sprites_game_btn_tab1_n.ab
+        Dependency_7: assets_demo_ui_sprites_game_bg_itemintrudction.ab
+        Dependency_8: assets_demo_ui_sprites_game_dropdown_menu.ab
+    Info_54:
+      Name: assets_prefabs_tv.ab
+      Dependencies:
+        Dependency_0: children_assets_prefabs_tv.ab
+    Info_55:
       Name: children_assets_demo_scenes_level.ab
       Dependencies: {}
-    Info_52:
+    Info_56:
       Name: children_assets_demo_scenes_splash.ab
       Dependencies: {}
-    Info_53:
+    Info_57:
       Name: children_assets_scenes_testhybridclr.ab
       Dependencies: {}
-    Info_54:
+    Info_58:
+      Name: children_assets_prefabs_tv.ab
+      Dependencies:
+        Dependency_0: shaders.ab
+    Info_59:
       Name: shared_assets_demo_material.ab
       Dependencies: {}
-    Info_55:
+    Info_60:
       Name: shared_assets_demo.ab
       Dependencies: {}
