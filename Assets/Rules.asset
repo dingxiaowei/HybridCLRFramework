@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03142c330ced64e0ab46cddcd0484ab7, type: 3}
   m_Name: Rules
   m_EditorClassIdentifier: 
-  build: 90
+  build: 91
   major: 5
   minor: 1
   scenesFolders:
@@ -33,6 +33,7 @@ MonoBehaviour:
   - {fileID: 102900000, guid: d9f2c870487b3492a97fe55f70b65202, type: 3}
   - {fileID: 102900000, guid: 2a51c3cac5ef0ef429a9730f4bf5da64, type: 3}
   - {fileID: 102900000, guid: cee379fab8f84074d844a3ff28fd1305, type: 3}
+  - {fileID: 102900000, guid: d2809ab9b90eea7419d8d90d4c505d35, type: 3}
   extension: .ab
   nameByHash: 0
   options: 256
@@ -348,6 +349,21 @@ MonoBehaviour:
     bundle: assets_prefabs_tv.ab
     id: 0
     groupBy: 2
+  - name: Splash.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: Level.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: rpgLit.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
   patches:
   - name: Splash
     assets:
@@ -398,6 +414,8 @@ MonoBehaviour:
     - Assets/Prefabs/LevelScreen.prefab
     - Assets/Prefabs/TestHybridCLR.prefab
     - Assets/Prefabs/TV.prefab
+  - name: rpgLit
+    assets: []
   bundles:
   - assetBundleName: assets_demo_ui_prefabs_levelscreen.ab
     assetNames:
@@ -587,4 +605,4 @@ MonoBehaviour:
   - assetBundleName: shared_assets_demo.ab
     assetNames:
     - Assets/Demo/AppIcon.png
-  currentScene: TestHybridCLR
+  currentScene: rpgLit
