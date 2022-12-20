@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3807388704
+CRC: 3320003045
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 2dcfcc48b2d29e92de76932ffb1dba6b
+    Hash: 55f85974017805ff89e767359cd71001
   TypeTreeHash:
     serializedVersion: 2
     Hash: 40b3e611668d963fe552f8eb521c1a5e
@@ -67,6 +67,6 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/Scenes/Splash.unity
 Dependencies:
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_scenes.ab
 - D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_animations_splashscreen.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/children_assets_demo_scenes_splash.ab
 - D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/shared_assets_demo.ab

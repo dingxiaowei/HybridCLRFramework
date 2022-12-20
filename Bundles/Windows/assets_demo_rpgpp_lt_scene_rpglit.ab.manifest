@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3037880528
+CRC: 473491823
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: b63eb63c7b835c156e5024c672ba3d13
+    Hash: 4e64ff45e39b499a8cd31edf57160355
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 1877db65c15cb6a83022f1824830f578
+    Hash: 816032803c5c98956c73da6d1746745e
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -17,9 +17,17 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 21
   Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
 - Class: 28
   Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
 - Class: 48
+  Script: {instanceID: 0}
+- Class: 81
   Script: {instanceID: 0}
 - Class: 89
   Script: {instanceID: 0}
@@ -27,13 +35,7 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 108
   Script: {instanceID: 0}
-- Class: 114
-  Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: e3d9a959fb3319a4ba34c7fa6b0a5acd, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-- Class: 115
+- Class: 124
   Script: {instanceID: 0}
 - Class: 157
   Script: {instanceID: 0}
@@ -45,6 +47,7 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Demo/Scenes/Level.unity
+- Assets/Demo/RPGPP_LT/Scene/rpgLit.unity
 Dependencies:
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_scenes.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_rpgpp_lt_scene.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/children_assets_demo_rpgpp_lt_scene_rpglit.ab

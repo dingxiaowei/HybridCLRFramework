@@ -1,0 +1,149 @@
+ManifestFileVersion: 0
+CRC: 1894865148
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: dee43e71902533765501961e2b1a61ba
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7a107dc2e5b91368bb715249dde775ee
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_vase_01.fbx
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_box_wood_01.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Containers/rpgpp_lt_bowl_metal_01.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Vegetation/Plants/rpgpp_lt_plant_02.prefab
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_vase_02.fbx
+- Assets/Demo/RPGPP_LT/Models/Structures/rpgpp_lt_building_03.fbx
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_flower_01.fbx
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_terrain_grass_01.fbx
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_terrain_path_01b.fbx
+- Assets/Demo/RPGPP_LT/Models/Structures/rpgpp_lt_building_01.fbx
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_bowl_metal_01.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Terrain/rpgpp_lt_terrain_grass_01.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Terrain/rpgpp_lt_mountain_01.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Structures/Parts/Wood_path/rpgpp_lt_wood_path_01b.prefab
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_sack_01.fbx
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_rock_02.fbx
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_sack_open_01.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Sky/rpgpp_lt_cloud_02.prefab
+- Assets/Demo/RPGPP_LT/Materials/rpgpp_lt_cloud_a.mat
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_plant_01.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Rocks/rpgpp_lt_rock_01.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Rocks/rpgpp_lt_rock_02.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Containers/rpgpp_lt_trough_01.prefab
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_plant_02.fbx
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_rock_small_02.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Structures/Buildings/Bld_closed/rpgpp_lt_building_02.prefab
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_flower_02.fbx
+- Assets/Demo/RPGPP_LT/Textures/rpgpp_lt_sky_a.tga
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Sky/rpgpp_lt_sky_01.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Containers/rpgpp_lt_bathtub_wood_01.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Terrain/rpgpp_lt_terrain_path_01b.prefab
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_table_01.fbx
+- Assets/Demo/RPGPP_LT/Materials/rpgpp_lt_sky_a.mat
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Containers/rpgpp_lt_sack_01.prefab
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_terrain_sand_01.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Furniture/Hangers/rpgpp_lt_hanger_clothes_01.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Terrain/rpgpp_lt_terrain_grass_02.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Vegetation/Trees/rpgpp_lt_tree_02.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Containers/rpgpp_lt_jug_01.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Vegetation/Plants/rpgpp_lt_plant_01.prefab
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_wagon_01.fbx
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_cloud_02.fbx
+- Assets/Demo/RPGPP_LT/Textures/rpgpp_lt_tex_a.tga
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_terrain_grass_02.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Containers/rpgpp_lt_package_01.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Furniture/Tables/rpgpp_lt_table_01.prefab
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_barrel_01.fbx
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_hill_small_02.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Vegetation/Grass/rpgpp_lt_grass_small_01a.prefab
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_log_wood_01.fbx
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_rocks_tiny_01.fbx
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_grass_small_01b.fbx
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_wood_path_01b.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Containers/rpgpp_lt_sack_open_01.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Vegetation/Trees/rpgpp_lt_tree_01.prefab
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_package_01.fbx
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_chair_01a.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Misc/rpgpp_lt_bird_house_01.prefab
+- Assets/Demo/RPGPP_LT/Materials/rpgpp_lt_mat_a.mat
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Terrain/rpgpp_lt_terrain_path_01a.prefab
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_bird_house_01.fbx
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_jug_01.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Vegetation/Bushes/rpgpp_lt_bush_01.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Structures/Parts/Wood_path/rpgpp_lt_wood_path_01a.prefab
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_rock_03.fbx
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_trough_01.fbx
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_flower_03.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Containers/rpgpp_lt_vase_02.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Rocks/rpgpp_lt_rock_03.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Vegetation/Flowers/rpgpp_lt_flower_01.prefab
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_rock_01.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Rocks/rpgpp_lt_rocks_tiny_01.prefab
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_tree_01.fbx
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_rake_01.fbx
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_wood_path_01a.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Wood/rpgpp_lt_log_wood_01.prefab
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_bench_wood_01.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Terrain/rpgpp_lt_hill_small_01.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Vegetation/Flowers/rpgpp_lt_flower_02.prefab
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_hill_small_01.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Misc/rpgpp_lt_wagon_01.prefab
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_sky_01.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Vegetation/Bushes/rpgpp_lt_bush_02.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Furniture/Benches/rpgpp_lt_bench_wood_01.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Furniture/Chairs/rpgpp_lt_chair_01a.prefab
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_grass_small_01a.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Items/rpgpp_lt_ladder_01.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Structures/Buildings/Bld_closed/rpgpp_lt_building_01.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Vegetation/Flowers/rpgpp_lt_flower_03.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Terrain/rpgpp_lt_hill_small_02.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Structures/Buildings/Bld_closed/rpgpp_lt_building_03.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Sky/rpgpp_lt_cloud_01.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Containers/rpgpp_lt_box_wood_01.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Vegetation/Grass/rpgpp_lt_grass_small_01b.prefab
+- Assets/Demo/RPGPP_LT/Models/Structures/rpgpp_lt_building_04.fbx
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_terrain_path_01a.fbx
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_chair_01b.fbx
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_cloud_01.fbx
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_bathtub_wood_01.fbx
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_mountain_01.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Rocks/rpgpp_lt_rock_small_02.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Items/rpgpp_lt_rake_01.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Furniture/Chairs/rpgpp_lt_chair_01b.prefab
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_tree_pine_01.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Vegetation/Trees/rpgpp_lt_tree_pine_01.prefab
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_bush_02.fbx
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_well_01.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Structures/Buildings/Bld_closed/rpgpp_lt_building_04.prefab
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_hanger_clothes_01.fbx
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_bush_01.fbx
+- Assets/Demo/RPGPP_LT/Models/Nature/rpgpp_lt_tree_02.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Nature/Terrain/rpgpp_lt_terrain_sand_01.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Containers/rpgpp_lt_vase_01.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Structures/Buildings/Bld_closed/rpgpp_lt_building_05.prefab
+- Assets/Demo/RPGPP_LT/Models/Props/rpgpp_lt_ladder_01.fbx
+- Assets/Demo/RPGPP_LT/Models/Structures/rpgpp_lt_building_05.fbx
+- Assets/Demo/RPGPP_LT/Models/Structures/rpgpp_lt_building_02.fbx
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Containers/rpgpp_lt_barrel_01.prefab
+- Assets/Demo/RPGPP_LT/Prefabs/Props/Misc/rpgpp_lt_well_01.prefab
+Dependencies: []

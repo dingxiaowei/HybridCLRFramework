@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1683578477
+CRC: 1784569834
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -144,12 +144,12 @@ AssetBundleManifest:
     Info_35:
       Name: assets_demo_scenes_level.ab
       Dependencies:
-        Dependency_0: children_assets_demo_scenes_level.ab
+        Dependency_0: assets_demo_scenes.ab
     Info_36:
       Name: assets_demo_scenes_splash.ab
       Dependencies:
         Dependency_0: assets_demo_ui_animations_splashscreen.ab
-        Dependency_1: children_assets_demo_scenes_splash.ab
+        Dependency_1: assets_demo_scenes.ab
         Dependency_2: shared_assets_demo.ab
     Info_37:
       Name: assets_demo_scenes_async2sync.ab
@@ -236,21 +236,29 @@ AssetBundleManifest:
       Dependencies:
         Dependency_0: children_assets_prefabs_tv.ab
     Info_55:
-      Name: children_assets_demo_scenes_level.ab
-      Dependencies: {}
+      Name: assets_demo_rpgpp_lt_scene_rpglit.ab
+      Dependencies:
+        Dependency_0: assets_demo_rpgpp_lt_scene.ab
+        Dependency_1: children_assets_demo_rpgpp_lt_scene_rpglit.ab
     Info_56:
-      Name: children_assets_demo_scenes_splash.ab
+      Name: assets_demo_rpgpp_lt_scene.ab
       Dependencies: {}
     Info_57:
-      Name: children_assets_scenes_testhybridclr.ab
+      Name: assets_demo_scenes.ab
       Dependencies: {}
     Info_58:
+      Name: children_assets_scenes_testhybridclr.ab
+      Dependencies: {}
+    Info_59:
       Name: children_assets_prefabs_tv.ab
       Dependencies:
         Dependency_0: shaders.ab
-    Info_59:
+    Info_60:
+      Name: children_assets_demo_rpgpp_lt_scene_rpglit.ab
+      Dependencies: {}
+    Info_61:
       Name: shared_assets_demo_material.ab
       Dependencies: {}
-    Info_60:
+    Info_62:
       Name: shared_assets_demo.ab
       Dependencies: {}

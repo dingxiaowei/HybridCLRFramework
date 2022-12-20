@@ -1,0 +1,17 @@
+ManifestFileVersion: 0
+CRC: 1291558042
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 7b9c0ed303ba2baebcbdc59309a3a17b
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: bb1c98fd3fd2df8fe937870a85fedf92
+HashAppended: 0
+ClassTypes:
+- Class: 850595691
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/RPGPP_LT/Scene/rpgpp_lt_scene_1.0Settings.lighting
+Dependencies: []
