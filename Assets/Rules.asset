@@ -369,6 +369,21 @@ MonoBehaviour:
     bundle: 
     id: 0
     groupBy: 0
+  - name: Splash.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: Level.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: TestHybridCLR.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
   patches:
   - name: Splash
     assets:
@@ -737,4 +752,4 @@ MonoBehaviour:
   - assetBundleName: shared_assets_demo.ab
     assetNames:
     - Assets/Demo/AppIcon.png
-  currentScene: rpgLit
+  currentScene: TestHybridCLR

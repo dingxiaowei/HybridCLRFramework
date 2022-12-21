@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using DG.Tweening;
 
 public class TestHybridCLR : MonoBehaviour
 {
@@ -59,7 +60,6 @@ public class TestHybridCLR : MonoBehaviour
             Release();
             Assets.LoadSceneAsync(ResFormat.GetScene("Level"));
         }
-
         if (GUI.Button(new Rect(200, 350, 200, 50), "测试加载二进制数据表"))
         {
             Debug.Log("=====================测试查询表格数据");
@@ -74,6 +74,16 @@ public class TestHybridCLR : MonoBehaviour
                 }
             });
             _requests.Add(request);
+        }
+        if (GUI.Button(new Rect(200, 450, 200, 50), "测试DOTween"))
+        {
+            GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            obj.transform.position = Vector3.zero;
+            obj.transform.localScale = Vector3.one;
+            //测试Dotween
+            obj.transform.DOMoveX(30, 3);
+            obj.transform.DORestart();
+            DOTween.Play(obj);
         }
     }
 
