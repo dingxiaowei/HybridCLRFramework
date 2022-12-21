@@ -108,6 +108,9 @@ EditorBuildSettings:
     path: Assets/Scenes/TestHybridCLR.unity
     guid: 2a51c3cac5ef0ef429a9730f4bf5da64
   - enabled: 1
+    path: Assets/TestCase/TestActionSequenceHandle.unity
+    guid: 698170e22d9ec514fbe58c6dd23bac26
+  - enabled: 1
     path: Assets/TestCase/TestObjectPool.unity
     guid: 3603f4c12956bfc4d8f60d20f8496ec9
   m_configObjects: {}
