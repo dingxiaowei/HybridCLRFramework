@@ -19,6 +19,8 @@ public class JoyStickMove : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     public delegate void OnRotat(float rotatY);
     public event OnRotat onRotat;
 
+    private bool onMoveEndCanTrigger = false;
+
     void Start()
     {
         this.upperSprite = transform.GetChild(0).GetComponentInChildren<RectTransform>();
@@ -72,6 +74,7 @@ public class JoyStickMove : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
                     if (onMoveStart != null)
                     {
                         onMoveStart();
+                        onMoveEndCanTrigger = true;
                     }
                     if (onMoving != null)
                     {
@@ -84,9 +87,10 @@ public class JoyStickMove : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
                 }
                 else
                 {
-                    if (onMoveEnd != null)
+                    if (onMoveEnd != null && onMoveEndCanTrigger)
                     {
                         onMoveEnd();
+                        onMoveEndCanTrigger = false;
                     }
                 }
             }
