@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 4a1ddf9006a40a24bb6244afd5c6c1af
+timeCreated: 1513092722
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - pageText: {instanceID: 0}
+  - menuPanel: {instanceID: 0}
+  - ingredientPanel: {instanceID: 0}
+  - itemDatabase: {fileID: 11400000, guid: 7806a301268f6af44a212bb77a5f4768, type: 2}
+  - craftingDatabase: {fileID: 11400000, guid: b589e04b5f009354688011a281058078, type: 2}
+  - tooltip: {instanceID: 0}
+  - tooltipIcon: {instanceID: 0}
+  - tooltipName: {instanceID: 0}
+  - tooltipText1: {instanceID: 0}
+  - tooltipText2: {instanceID: 0}
+  - tooltipText3: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

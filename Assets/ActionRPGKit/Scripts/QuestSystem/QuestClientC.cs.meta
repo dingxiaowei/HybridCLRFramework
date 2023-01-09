@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 47dcfd7a076ea394b948a2432649951f
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - questData: {fileID: 100000, guid: 9309b3348db644445a70b0781ec2d573, type: 2}
+  - button: {fileID: 2800000, guid: 89fe4f5db4b0bec4190792cd13548ed5, type: 3}
+  - textWindow: {fileID: 2800000, guid: d742dc22e7e604243a6d161f087dd9ef, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

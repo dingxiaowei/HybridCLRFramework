@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: 0db3658c5450fad4cb25b12b6496f424
+timeCreated: 1508153521
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - player: {instanceID: 0}
+  - moneyText: {instanceID: 0}
+  - weaponIcons: {instanceID: 0}
+  - subWeaponIcons: {instanceID: 0}
+  - armorIcons: {instanceID: 0}
+  - accIcons: {instanceID: 0}
+  - tooltip: {instanceID: 0}
+  - tooltipIcon: {instanceID: 0}
+  - tooltipName: {instanceID: 0}
+  - tooltipText1: {instanceID: 0}
+  - tooltipText2: {instanceID: 0}
+  - tooltipText3: {instanceID: 0}
+  - usableTab: {instanceID: 0}
+  - equipmentTab: {instanceID: 0}
+  - database: {fileID: 100000, guid: 7806a301268f6af44a212bb77a5f4768, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

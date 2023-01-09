@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 0b9f4972464327749b0cabfeb2ee41df
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - border: {fileID: 2800000, guid: e57627becb6fd91418b5cb03469d5402, type: 3}
+  - hpBar: {fileID: 2800000, guid: eb4cfebd4bde2ed45b077ffed1da035b, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

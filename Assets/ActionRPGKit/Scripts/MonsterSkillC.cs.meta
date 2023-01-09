@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: dabd30b75f3ae204fad0480aeaf6f43c
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - skillPrefab: {instanceID: 0}
+  - skillAnimation: {fileID: 7400010, guid: 04f43ec053a95de4ea83f08926bf0748, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

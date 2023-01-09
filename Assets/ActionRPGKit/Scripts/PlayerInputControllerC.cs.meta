@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: cdb5fd39a1e44614bad354beb0ab2a3c
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - staminaGauge: {fileID: 2800000, guid: 02cc7950564aa6343a5b9b944977eb97, type: 3}
+  - staminaBorder: {fileID: 2800000, guid: 94334f80d30ce1245a00e4cc1b3d75b5, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

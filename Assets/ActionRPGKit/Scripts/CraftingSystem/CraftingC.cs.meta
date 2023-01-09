@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 0962929fa4265b04fb15aa7d8af85727
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - itemDatabase: {fileID: 100000, guid: 7806a301268f6af44a212bb77a5f4768, type: 2}
+  - craftingDatabase: {fileID: 100000, guid: b589e04b5f009354688011a281058078, type: 2}
+  - uiSkin: {instanceID: 0}
+  - button: {fileID: 2800000, guid: 89fe4f5db4b0bec4190792cd13548ed5, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 01050f68036966541b66a340d7fc8694
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - maxHpBar: {fileID: 2800000, guid: 13eb23ceee8c2cf49bf6bffbfe347133, type: 3}
+  - hpBar: {fileID: 2800000, guid: e1c6a5dac94bce74d9f1d42d9b3ed0f9, type: 3}
+  - mpBar: {fileID: 2800000, guid: fba673607f28870438f6a2af01a71b52, type: 3}
+  - expBar: {fileID: 2800000, guid: ac3d02758d11b0c41b37378f073c39a0, type: 3}
+  - player: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

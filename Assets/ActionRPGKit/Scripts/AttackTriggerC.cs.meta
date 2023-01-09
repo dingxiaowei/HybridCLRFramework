@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: 3f6b51de0de9a6940bafae598b3d3738
+timeCreated: 1507296276
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - mainModel: {instanceID: 0}
+  - attackPoint: {instanceID: 0}
+  - attackPrefab: {fileID: 400000, guid: f8658e0be2665274fba308c716834c98, type: 2}
+  - blockingAnimation: {instanceID: 0}
+  - Maincam: {instanceID: 0}
+  - MaincamPrefab: {fileID: 100000, guid: 685be0844d44a5d4a93b29675b0d0eb4, type: 2}
+  - attackPointPrefab: {fileID: 100000, guid: f66c137d04dcb894eb0610180d8c102d, type: 2}
+  - aimIcon: {fileID: 2800000, guid: 67e757b204795b64d9842aefd1da0d39, type: 3}
+  - pet: {instanceID: 0}
+  - braveIcon: {fileID: 2800000, guid: 77c02a1608cb8e34fbe7009235997718, type: 3}
+  - barrierIcon: {fileID: 2800000, guid: e03d691651f88ed4a978b72e4ed412e9, type: 3}
+  - faithIcon: {fileID: 2800000, guid: 70737b71e0154fb4a8cd1956184e56a3, type: 3}
+  - magicBarrierIcon: {fileID: 2800000, guid: d8d02971c3656f040afc662268ba471a, type: 3}
+  - skillAimProjector: {fileID: 402070, guid: cc76acb037486a64199deca733ab5839, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

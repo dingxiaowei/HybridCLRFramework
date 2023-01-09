@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 565b49d0c4c4eee40a06a0290344b17b
+timeCreated: 1558057209
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - questData: {fileID: 100000, guid: 9309b3348db644445a70b0781ec2d573, type: 2}
+  - talkingEvent: {instanceID: 0}
+  - ongoingQuestEvent: {instanceID: 0}
+  - finishQuestEvent: {instanceID: 0}
+  - alreadyFinishQuestEvent: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

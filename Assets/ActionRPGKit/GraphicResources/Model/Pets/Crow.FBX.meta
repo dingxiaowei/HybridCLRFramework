@@ -1,0 +1,345 @@
+fileFormatVersion: 2
+guid: 2a956304a712fca46bf1ffd974c6441c
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: base01
+    100002: Box01
+    100004: Box02
+    100006: Box03
+    100008: Box04
+    100010: Box05
+    100012: //RootNode
+    100014: detail2
+    100016: pCube2
+    100018: Sky01
+    100020: start01
+    400000: base01
+    400002: Box01
+    400004: Box02
+    400006: Box03
+    400008: Box04
+    400010: Box05
+    400012: //RootNode
+    400014: detail2
+    400016: pCube2
+    400018: Sky01
+    400020: start01
+    2300000: Box01
+    2300002: Box02
+    2300004: Box03
+    2300006: Box04
+    2300008: Box05
+    3300000: Box01
+    3300002: Box02
+    3300004: Box03
+    3300006: Box04
+    3300008: Box05
+    4300000: pCube2
+    4300002: Box01
+    4300004: Box02
+    4300006: Box03
+    4300008: Box04
+    4300010: Box05
+    7400000: idle
+    7400002: run
+    7400004: hurt
+    7400006: attack
+    7400008: death
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: pCube2
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: idle
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: base01
+        weight: 1
+      - path: base01/detail2
+        weight: 1
+      - path: base01/start01
+        weight: 1
+      - path: base01/start01/Box01
+        weight: 1
+      - path: base01/start01/Box02
+        weight: 1
+      - path: base01/start01/Box03
+        weight: 1
+      - path: base01/start01/Box04
+        weight: 1
+      - path: base01/start01/Box05
+        weight: 1
+      - path: pCube2
+        weight: 1
+      - path: Sky01
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: run
+      takeName: Take 001
+      firstFrame: 30
+      lastFrame: 40
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: base01
+        weight: 1
+      - path: base01/detail2
+        weight: 1
+      - path: base01/start01
+        weight: 1
+      - path: base01/start01/Box01
+        weight: 1
+      - path: base01/start01/Box02
+        weight: 1
+      - path: base01/start01/Box03
+        weight: 1
+      - path: base01/start01/Box04
+        weight: 1
+      - path: base01/start01/Box05
+        weight: 1
+      - path: pCube2
+        weight: 1
+      - path: Sky01
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: hurt
+      takeName: Take 001
+      firstFrame: 60
+      lastFrame: 74
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: base01
+        weight: 1
+      - path: base01/detail2
+        weight: 1
+      - path: base01/start01
+        weight: 1
+      - path: base01/start01/Box01
+        weight: 1
+      - path: base01/start01/Box02
+        weight: 1
+      - path: base01/start01/Box03
+        weight: 1
+      - path: base01/start01/Box04
+        weight: 1
+      - path: base01/start01/Box05
+        weight: 1
+      - path: pCube2
+        weight: 1
+      - path: Sky01
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: attack
+      takeName: Take 001
+      firstFrame: 83
+      lastFrame: 105
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: base01
+        weight: 1
+      - path: base01/detail2
+        weight: 1
+      - path: base01/start01
+        weight: 1
+      - path: base01/start01/Box01
+        weight: 1
+      - path: base01/start01/Box02
+        weight: 1
+      - path: base01/start01/Box03
+        weight: 1
+      - path: base01/start01/Box04
+        weight: 1
+      - path: base01/start01/Box05
+        weight: 1
+      - path: pCube2
+        weight: 1
+      - path: Sky01
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: death
+      takeName: Take 001
+      firstFrame: 110
+      lastFrame: 140
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: base01
+        weight: 1
+      - path: base01/detail2
+        weight: 1
+      - path: base01/start01
+        weight: 1
+      - path: base01/start01/Box01
+        weight: 1
+      - path: base01/start01/Box02
+        weight: 1
+      - path: base01/start01/Box03
+        weight: 1
+      - path: base01/start01/Box04
+        weight: 1
+      - path: base01/start01/Box05
+        weight: 1
+      - path: pCube2
+        weight: 1
+      - path: Sky01
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  additionalBone: 0
+  userData: 

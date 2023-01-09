@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b02b3de3e494fd24fb80dd0e10d6d513
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - idle: {fileID: 7400002, guid: 2434b64943f63cf40958d9a43bfea4dc, type: 3}
+  - run: {fileID: 7400004, guid: 2434b64943f63cf40958d9a43bfea4dc, type: 3}
+  - right: {fileID: 7400012, guid: 2434b64943f63cf40958d9a43bfea4dc, type: 3}
+  - left: {fileID: 7400010, guid: 2434b64943f63cf40958d9a43bfea4dc, type: 3}
+  - back: {fileID: 7400028, guid: 2434b64943f63cf40958d9a43bfea4dc, type: 3}
+  - jump: {fileID: 7400008, guid: 2434b64943f63cf40958d9a43bfea4dc, type: 3}
+  - hurt: {fileID: 7400026, guid: 2434b64943f63cf40958d9a43bfea4dc, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
