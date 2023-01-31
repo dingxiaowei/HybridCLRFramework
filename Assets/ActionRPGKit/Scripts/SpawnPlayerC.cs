@@ -40,6 +40,7 @@ public class SpawnPlayerC : MonoBehaviour {
 			return;
 		}
 		//Spawn Player
+        //生成Player
 		GameObject spawnPlayer = Instantiate(player, transform.position , transform.rotation) as GameObject;
 		mainCam = GameObject.FindWithTag ("MainCamera").transform;
 		ARPGcameraC checkCam = mainCam.GetComponent<ARPGcameraC>();

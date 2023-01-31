@@ -339,6 +339,26 @@ MonoBehaviour:
     bundle: assets_demo_scenes.ab
     id: 0
     groupBy: 3
+  - name: Splash.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: Level.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: scenario.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: Assets/Demo/TestPrefabs/Player.prefab
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 2
   patches:
   - name: Splash
     assets:
@@ -394,6 +414,7 @@ MonoBehaviour:
     - Assets/Prefabs/LevelScreen.prefab
     - Assets/Prefabs/TestHybridCLR.prefab
     - Assets/Prefabs/TV.prefab
+    - Assets/Demo/TestPrefabs/Player.prefab
   bundles:
   - assetBundleName: assets_demo_ui_prefabs_levelscreen.ab
     assetNames:
@@ -581,4 +602,4 @@ MonoBehaviour:
   - assetBundleName: shared_assets_demo.ab
     assetNames:
     - Assets/Demo/AppIcon.png
-  currentScene: TestHybridCLR
+  currentScene: scenario
