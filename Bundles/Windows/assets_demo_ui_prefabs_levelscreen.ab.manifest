@@ -6,7 +6,7 @@ Hashes:
     Hash: 379c1ca1b4e91ce7e584781b2dd56a31
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 23f876110c3308166442ad649dd1448d
+    Hash: 76f6442fa7ad1383f29884473935ea69
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -17,6 +17,8 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 48
   Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
 - Class: 114
@@ -39,8 +41,6 @@ ClassTypes:
   Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 2a4db7a114972834c8e4117be1d82ba3, type: 3}
 - Class: 114
@@ -99,15 +99,15 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Demo/UI/Prefabs/LevelScreen.prefab
 Dependencies:
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_bg_itemintrudction.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_btn_tab1_n.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_checkbox_select.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_dropdown_bg_n.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_dropdown_btn_n.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_dropdown_menu.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_dropdown_menu_bg.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_slider2.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_slider2_bg.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_bg_progress.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress1.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress2.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_bg_itemintrudction.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_btn_tab1_n.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_checkbox_select.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_dropdown_bg_n.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_dropdown_btn_n.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_dropdown_menu.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_dropdown_menu_bg.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_slider2.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_slider2_bg.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_bg_progress.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress1.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress2.ab

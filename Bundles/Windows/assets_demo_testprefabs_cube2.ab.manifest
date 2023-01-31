@@ -27,4 +27,4 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/TestPrefabs/Cube2.prefab
 Dependencies:
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/shared_assets_demo_material.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/shared_assets_demo_material.ab

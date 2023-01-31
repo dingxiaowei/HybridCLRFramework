@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1784569834
+CRC: 1540041713
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -236,29 +236,18 @@ AssetBundleManifest:
       Dependencies:
         Dependency_0: children_assets_prefabs_tv.ab
     Info_55:
-      Name: assets_demo_rpgpp_lt_scene_rpglit.ab
-      Dependencies:
-        Dependency_0: assets_demo_rpgpp_lt_scene.ab
-        Dependency_1: children_assets_demo_rpgpp_lt_scene_rpglit.ab
-    Info_56:
-      Name: assets_demo_rpgpp_lt_scene.ab
-      Dependencies: {}
-    Info_57:
       Name: assets_demo_scenes.ab
       Dependencies: {}
-    Info_58:
+    Info_56:
       Name: children_assets_scenes_testhybridclr.ab
       Dependencies: {}
-    Info_59:
+    Info_57:
       Name: children_assets_prefabs_tv.ab
       Dependencies:
         Dependency_0: shaders.ab
-    Info_60:
-      Name: children_assets_demo_rpgpp_lt_scene_rpglit.ab
-      Dependencies: {}
-    Info_61:
+    Info_58:
       Name: shared_assets_demo_material.ab
       Dependencies: {}
-    Info_62:
+    Info_59:
       Name: shared_assets_demo.ab
       Dependencies: {}

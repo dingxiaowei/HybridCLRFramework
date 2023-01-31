@@ -6,7 +6,7 @@ Hashes:
     Hash: 6ca7d6c71682df55f9ce2e3be127e821
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 936c6aef7cc7a6729aeeda41ccdc49b8
+    Hash: 8144181de1950f8e10e53e91f5b2d44e
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -22,6 +22,8 @@ ClassTypes:
 - Class: 95
   Script: {instanceID: 0}
 - Class: 114
+  Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -31,8 +33,6 @@ ClassTypes:
   Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
@@ -71,11 +71,11 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Demo/UI/Prefabs/MessageBox.prefab
 Dependencies:
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_animations_messagebox.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_backgrounds_bg_black.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_btn_button04_n.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_btn_button04_yellow.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_tips.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_titleline_left.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_titleline_right.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/shaders.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_animations_messagebox.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_backgrounds_bg_black.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_btn_button04_n.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_btn_button04_yellow.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_tips.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_titleline_left.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_titleline_right.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/shaders.ab

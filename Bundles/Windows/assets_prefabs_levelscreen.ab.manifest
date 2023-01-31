@@ -6,7 +6,7 @@ Hashes:
     Hash: 1d76a2d1c3e5fa0ff82e4befacb92423
   TypeTreeHash:
     serializedVersion: 2
-    Hash: b4f6b2e366eaae4ab4adde250ae6f4d1
+    Hash: 753269204084ba2f81e8ebe643a552ca
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -17,6 +17,8 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 48
   Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
 - Class: 114
@@ -29,8 +31,6 @@ ClassTypes:
   Script: {fileID: 11500000, guid: f4fb2f9813fdd4d4fae3c5f88ce588af, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
@@ -73,9 +73,9 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Prefabs/LevelScreen.prefab
 Dependencies:
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_backgrounds_bg_loadingpage.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_btn_tab1_n.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_btn_button04_n.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_bg_progress.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress1.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress2.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_backgrounds_bg_loadingpage.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_game_btn_tab1_n.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_btn_button04_n.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_bg_progress.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress1.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_title_progress2.ab

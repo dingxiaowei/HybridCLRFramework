@@ -6,7 +6,7 @@ Hashes:
     Hash: 47e6fa752794284b0b8c61762c0cca91
   TypeTreeHash:
     serializedVersion: 2
-    Hash: b979d30036a4d65df1a862dba3b04b15
+    Hash: fbf17f321e7c7be660007980e7282b1d
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -28,7 +28,11 @@ ClassTypes:
 - Class: 108
   Script: {instanceID: 0}
 - Class: 114
+  Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
@@ -39,10 +43,6 @@ ClassTypes:
   Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: e3d9a959fb3319a4ba34c7fa6b0a5acd, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 128
@@ -63,4 +63,4 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Scenes/TestHybridCLR.unity
 Dependencies:
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/children_assets_scenes_testhybridclr.ab
+- D:/study/github/HybridCLRFramework/Bundles/Windows/children_assets_scenes_testhybridclr.ab
