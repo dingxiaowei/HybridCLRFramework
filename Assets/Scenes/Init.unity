@@ -395,7 +395,7 @@ MonoBehaviour:
   loggable: 1
   verifyBy: 1
   downloadURL: http://116.205.247.142:8080/dxw/HybridCLRDemo/Bundles/
-  development: 0
+  development: 1
   dontDestroyOnLoad: 1
   launchScene: Loading
   searchPaths:

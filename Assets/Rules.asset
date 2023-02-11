@@ -339,6 +339,21 @@ MonoBehaviour:
     bundle: assets_demo_scenes.ab
     id: 0
     groupBy: 3
+  - name: Splash.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: Level.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: scenario.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
   patches:
   - name: Splash
     assets:
@@ -581,4 +596,4 @@ MonoBehaviour:
   - assetBundleName: shared_assets_demo.ab
     assetNames:
     - Assets/Demo/AppIcon.png
-  currentScene: TestHybridCLR
+  currentScene: scenario

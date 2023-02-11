@@ -6,24 +6,149 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Init.unity
-    guid: b3b41d8cebde9274f8b684adec633a95
+    path: Assets/3rdParty/AVProVideo/Demos/Scenes/01_Demo_BackgroundShader.unity
+    guid: b66b1e05c4242c84b9cfd13f593262ad
   - enabled: 1
-    path: Assets/Demo/Scenes/Splash.unity
-    guid: d378f07356e960549add8141397b1462
+    path: Assets/3rdParty/AVProVideo/Demos/Scenes/02_Demo_imGui.unity
+    guid: 0a6e6b9ea31c98e4db14ba70479f8d9c
   - enabled: 1
-    path: Assets/Demo/Scenes/Loading.unity
-    guid: 41515a2b3f98a445e88e746ac77f43d1
+    path: Assets/3rdParty/AVProVideo/Demos/Scenes/03_Demo_VideoControls.unity
+    guid: 13d63374585d9f948bba668db2d4fe5a
+  - enabled: 1
+    path: Assets/3rdParty/AVProVideo/Demos/Scenes/04_Demo_uGui.unity
+    guid: 9e989ea0729df4845ba2bfbc06f4e42b
+  - enabled: 1
+    path: Assets/3rdParty/AVProVideo/Demos/Scenes/05_Demo_Multiple.unity
+    guid: 98fe9081a719d104faa8c286d1c6d38c
+  - enabled: 1
+    path: Assets/3rdParty/AVProVideo/Demos/Scenes/06_Demo_FrameExtract.unity
+    guid: d7d059b9dc264504d9ebedd4fbc376c6
+  - enabled: 1
+    path: Assets/3rdParty/AVProVideo/Demos/Scenes/07_Demo_Mapping3D.unity
+    guid: 18bdfcdc1227e60429aea892dfeb4354
+  - enabled: 1
+    path: Assets/3rdParty/AVProVideo/Demos/Scenes/08_Demo_360SphereVideo.unity
+    guid: 46c885062d1f974438005e5b3d285ab6
+  - enabled: 1
+    path: Assets/3rdParty/AVProVideo/Demos/Scenes/09_Demo_360CubeVideo.unity
+    guid: a1dac1a17e01c1f45a4028186b8f8790
+  - enabled: 1
+    path: Assets/3rdParty/AVProVideo/Demos/Scenes/10_Demo_Transparency.unity
+    guid: 3fe422f8af6614643b78454f6721235c
+  - enabled: 1
+    path: Assets/3rdParty/AVProVideo/Demos/Scenes/11_Demo_Subtitles.unity
+    guid: 4952ee753c249b344918dda11e7f0c61
+  - enabled: 1
+    path: Assets/3rdParty/AVProVideo/Demos/Scenes/12_Demo_180SphereVideo.unity
+    guid: 0ab5b786b15ee954eb49c576ae0f5ee3
+  - enabled: 1
+    path: Assets/3rdParty/AVProVideo/Demos/Scenes/13_Demo_360StereoSpatialAudio.unity
+    guid: 8f1720b718ee073438d125521c6f96e8
+  - enabled: 1
+    path: Assets/3rdParty/AVProVideo/Demos/Scenes/14_Demo_PlaylistTransitions.unity
+    guid: 2f5e432f133a85543a50ebf6bd1e3013
+  - enabled: 1
+    path: Assets/3rdParty/AVProVideo/Demos/Scenes/15_Demo_Skybox.unity
+    guid: 3ea1c09f37cfb714ea4496419f7a3050
+  - enabled: 1
+    path: Assets/3rdParty/Dotween/DOTweenPro Examples/DOTweenAnimation_Advanced.unity
+    guid: a5f7a56d339da84449899ecf95fbe33d
+  - enabled: 1
+    path: Assets/3rdParty/Dotween/DOTweenPro Examples/DOTweenAnimation_Basics.unity
+    guid: 6a2ad353325ffe64983c28d69a8738f5
+  - enabled: 1
+    path: Assets/3rdParty/Dotween/DOTweenPro Examples/DOTweenPath.unity
+    guid: a351b59ca54a0bc4083c35844da13a61
+  - enabled: 1
+    path: Assets/3rdParty/JoyStick/JoyStick.unity
+    guid: 001501a279f8efd44af652668fdf846f
+  - enabled: 1
+    path: Assets/ActionRPGKit/ExampleScene/BeakVillage.unity
+    guid: 44179f95b77711743b11dd2ea60ab3fc
+  - enabled: 1
+    path: Assets/ActionRPGKit/ExampleScene/Dungeon.unity
+    guid: dad89272b5992794086b7a4d084bee1f
+  - enabled: 1
+    path: Assets/ActionRPGKit/ExampleScene/GoblinForest.unity
+    guid: d0923abfe2b5b1f47b7ab926fa21d8f8
+  - enabled: 1
+    path: Assets/ActionRPGKit/ExampleScene/NavMeshEnemy.unity
+    guid: 3c5b0e069b857b24188bf2837dfe4171
+  - enabled: 1
+    path: Assets/ActionRPGKit/ExampleScene/Plain.unity
+    guid: 5f6c4fd2e35422a4c88e18a71c48ea0b
+  - enabled: 1
+    path: Assets/ActionRPGKit/ExampleScene/SpiderCavern.unity
+    guid: 4b31ad61ec4c84c44b8bceab8fd97ae8
+  - enabled: 1
+    path: Assets/ActionRPGKit/ExampleScene/Title.unity
+    guid: 26f1d81c8d9580048bf0def1a3cfb1cb
+  - enabled: 1
+    path: Assets/ActionRPGKit/MecanimExampleCSharp/TestMecanimC.unity
+    guid: f4fbe02fc26cf744b81427b8e90223bd
+  - enabled: 1
+    path: Assets/ActionRPGKit/MobileExample/MobileExampleCsharp.unity
+    guid: e5f8952e8a2ad7b4eba19f69d24bd086
+  - enabled: 1
+    path: Assets/ActionRPGKit/Standard Assets/Effects/TessellationShaders/Scenes/TessellationSample.unity
+    guid: 31f6763de0920574092c8a69a66c717e
+  - enabled: 1
+    path: Assets/ActionRPGKit/SwimmingAddOn/SwimmingCSharp.unity
+    guid: f8921ab2fd41cac48b4c0229a622dd46
+  - enabled: 1
+    path: Assets/Demo/Scenes/Additive.unity
+    guid: c36900bb8d51d7045a8c0d0efaf6d733
+  - enabled: 1
+    path: Assets/Demo/Scenes/Additive2.unity
+    guid: cba220c99506b054ba0ba5ad921b0ef0
+  - enabled: 1
+    path: Assets/Demo/Scenes/Async2Sync.unity
+    guid: 9457f59dd87807145b31b782bf215e9c
+  - enabled: 1
+    path: Assets/Demo/Scenes/Childrens.unity
+    guid: f9122a0ee2ae96342924809c04578d38
   - enabled: 1
     path: Assets/Demo/Scenes/Level.unity
     guid: d9f2c870487b3492a97fe55f70b65202
   - enabled: 1
-    path: Assets/Scenes/TestHybridCLR.unity
-    guid: 2a51c3cac5ef0ef429a9730f4bf5da64
+    path: Assets/Demo/Scenes/Loading.unity
+    guid: 41515a2b3f98a445e88e746ac77f43d1
+  - enabled: 1
+    path: Assets/Demo/Scenes/Splash.unity
+    guid: d378f07356e960549add8141397b1462
   - enabled: 1
     path: Assets/Demo/Scenes/TestPrefabs.unity
     guid: cee379fab8f84074d844a3ff28fd1305
   - enabled: 1
+    path: Assets/HotUpdate/UnityWebSocket/Demo/AutoRegister.unity
+    guid: 892df7f8f7720aa41bc6a7e049beb300
+  - enabled: 1
+    path: Assets/HotUpdate/UnityWebSocket/Demo/DemoScene.unity
+    guid: 65671216fb4e42d4f89ed6eeca36060d
+  - enabled: 1
+    path: Assets/HotUpdate/UnityWebSocket/Demo/Proto3Test.unity
+    guid: 1d4e861f27cea4a439c3303cc07961a4
+  - enabled: 1
+    path: Assets/HotUpdate/UnityWebSocket/Demo/WebSocketDemo.unity
+    guid: 2bd214e0b50d1bb41a119a24fecefce9
+  - enabled: 1
+    path: Assets/Scenes/Init.unity
+    guid: b3b41d8cebde9274f8b684adec633a95
+  - enabled: 1
+    path: Assets/Scenes/main.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/TestHybridCLR.unity
+    guid: 2a51c3cac5ef0ef429a9730f4bf5da64
+  - enabled: 1
     path: Assets/Stylized Nature Environment/Scene/scenario.unity
     guid: 47cb3adff207dbf4fbee311a2aa8daf7
-  m_configObjects: {}
+  - enabled: 1
+    path: Assets/TestCase/TestActionSequenceHandle.unity
+    guid: 698170e22d9ec514fbe58c6dd23bac26
+  - enabled: 1
+    path: Assets/TestCase/TestObjectPool.unity
+    guid: 3603f4c12956bfc4d8f60d20f8496ec9
+  m_configObjects:
+    Unity.XR.PXR.Settings: {fileID: 11400000, guid: 24ea628e29437a549ab81866034be097, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 6c1d1b9db0a19e842b762274c6cfca1a, type: 2}
