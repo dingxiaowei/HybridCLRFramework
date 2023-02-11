@@ -115,9 +115,9 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.xr.picoxr": {
-      "version": "file:C:/Users/Administrator/Downloads/PICO Unity Integration SDK-213 (1)",
+      "version": "file:PICO Unity Integration SDK-213",
       "depth": 0,
-      "source": "local",
+      "source": "embedded",
       "dependencies": {
         "com.unity.xr.management": "3.2.16",
         "com.unity.ugui": "1.0.0",
