@@ -363,7 +363,6 @@ MonoBehaviour:
   m_TurnUsage: 0
   m_Controllers:
   - {fileID: 838713409}
-  - {fileID: 1695821914}
   m_TurnAmount: 45
   m_DebounceTime: 0.5
   m_DeadZone: 0.75
