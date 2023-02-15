@@ -32,17 +32,23 @@ public class BallController : MonoBehaviour
             Debug.LogError($"第二种方法按下去大于0.8f");
         }
 
-        //按钮按键
-        bool isDown; //记录是否按下主按钮
-        if (rightController.inputDevice.TryGetFeatureValue(CommonUsages.primaryButton, out isDown) && isDown)
+        InputHelpers.IsPressed(rightController.inputDevice, InputHelpers.Button.PrimaryButton, out bool isButtonDown);
+        if (isButtonDown)
         {
-            Debug.Log("按键按下了主键A");
+            Debug.LogError("按钮A按下");
         }
 
-        bool isBDown; //记录是否按下了副按钮
-        if (rightController.inputDevice.TryGetFeatureValue(CommonUsages.secondaryButton, out isBDown) && isBDown)
-        {
-            Debug.Log("按键按下了副键B");
-        }
+        //按钮按键
+        //bool isDown; //记录是否按下主按钮
+        //if (rightController.inputDevice.TryGetFeatureValue(CommonUsages.primaryButton, out isDown) && isDown)
+        //{
+        //    Debug.Log("按键按下了主键A");
+        //}
+
+        //bool isBDown; //记录是否按下了副按钮
+        //if (rightController.inputDevice.TryGetFeatureValue(CommonUsages.secondaryButton, out isBDown) && isBDown)
+        //{
+        //    Debug.Log("按键按下了副键B");
+        //}
     }
 }
