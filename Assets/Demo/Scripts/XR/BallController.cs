@@ -20,6 +20,7 @@ public class BallController : MonoBehaviour
         }
 
         //侧边的扳机键的值
+        /*
         rightController.inputDevice.TryGetFeatureValue(CommonUsages.grip, out float floatValue);
         if (floatValue > 0.8f)
         {
@@ -37,7 +38,7 @@ public class BallController : MonoBehaviour
         {
             Debug.LogError("按钮A按下");
         }
-
+        */
         //按钮按键
         //bool isDown; //记录是否按下主按钮
         //if (rightController.inputDevice.TryGetFeatureValue(CommonUsages.primaryButton, out isDown) && isDown)
