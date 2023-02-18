@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 114f4adff47823d4aadb77159ef6731f, type: 3}
+  m_Name: SniperRifleAimPreset
+  m_EditorClassIdentifier: 
+  m_Data:
+    m_ObjectType: Opsive.UltimateCharacterController.Character.Abilities.Items.Aim
+    m_ValueHashes: e6e0b4dec20e21afe49b76a68e6bf8ef145a9f85f0870b561215614d25a86d43
+    m_ValuePositions: 000000000000000004000000080000000c0000000c0000001000000014000000
+    m_Values: 000000000100000000000000000000000100000001000000
+    m_UnityObjects:
+    - {fileID: 8300000, guid: de9e0e92a230298499cd116d4c86bf11, type: 3}
+    - {fileID: 8300000, guid: d1a968a8c6fd8f5438ea87a6331ed90b, type: 3}
+    m_Version: 2.0

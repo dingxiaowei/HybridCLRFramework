@@ -1,0 +1,152 @@
+fileFormatVersion: 2
+guid: 2073b67b18a7cf447a5d0f80c1531cba
+timeCreated: 1515535927
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Bottom_Bone
+    100004: Bottom_Bone1
+    100006: Bottom_Bone2
+    100008: Bottom_Bone3
+    100010: Bottom_Bone4
+    100012: Bottom_Bone5
+    100014: Bottom_Bone6
+    100016: Bottom_Bone7
+    100018: Bottom_Bone8
+    100020: Bottom_Bone9
+    100022: Bottom_IK
+    100024: Bottom_Limit
+    100026: Bottom_Rotation
+    100028: Bow
+    100030: BowArmature
+    100032: Main
+    100034: String
+    100036: Top_Bone
+    100038: Top_Bone1
+    100040: Top_Bone2
+    100042: Top_Bone3
+    100044: Top_Bone4
+    100046: Top_Bone5
+    100048: Top_Bone6
+    100050: Top_Bone7
+    100052: Top_Bone8
+    100054: Top_Bone9
+    100056: Top_IK
+    100058: Top_Limit
+    100060: Top_Rotation
+    100062: Bow_003
+    400000: //RootNode
+    400002: Bottom_Bone
+    400004: Bottom_Bone1
+    400006: Bottom_Bone2
+    400008: Bottom_Bone3
+    400010: Bottom_Bone4
+    400012: Bottom_Bone5
+    400014: Bottom_Bone6
+    400016: Bottom_Bone7
+    400018: Bottom_Bone8
+    400020: Bottom_Bone9
+    400022: Bottom_IK
+    400024: Bottom_Limit
+    400026: Bottom_Rotation
+    400028: Bow
+    400030: BowArmature
+    400032: Main
+    400034: String
+    400036: Top_Bone
+    400038: Top_Bone1
+    400040: Top_Bone2
+    400042: Top_Bone3
+    400044: Top_Bone4
+    400046: Top_Bone5
+    400048: Top_Bone6
+    400050: Top_Bone7
+    400052: Top_Bone8
+    400054: Top_Bone9
+    400056: Top_IK
+    400058: Top_Limit
+    400060: Top_Rotation
+    400062: Bow_003
+    2300000: //RootNode
+    2300002: Bow
+    2300004: Bow_003
+    3300000: //RootNode
+    3300002: Bow
+    3300004: Bow_003
+    4300000: Bow1_High_001
+    4300002: Bow
+    4300004: Bow_003
+    9500000: //RootNode
+    13700000: Bow
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 100
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

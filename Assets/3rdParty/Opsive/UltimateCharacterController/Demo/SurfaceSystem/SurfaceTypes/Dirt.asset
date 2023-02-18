@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 696b92c305704c84fb3f7a11d0c474fd, type: 3}
+  m_Name: Dirt
+  m_EditorClassIdentifier: 
+  m_ImpactEffects:
+  - m_SurfaceImpact: {fileID: 11400000, guid: 8d265f95d76979647ae3d90f06c88211, type: 2}
+    m_SurfaceEffect: {fileID: 11400000, guid: f48cb6a3c9a7f2f4787853bc12e438ac, type: 2}
+  - m_SurfaceImpact: {fileID: 11400000, guid: f49abdd3bca87e54cb474256211b133e, type: 2}
+    m_SurfaceEffect: {fileID: 11400000, guid: 434e6b098c852b64fbb824462b83e29c, type: 2}
+  - m_SurfaceImpact: {fileID: 11400000, guid: c9f8a872618bbb64f97f4ea7d1afe805, type: 2}
+    m_SurfaceEffect: {fileID: 11400000, guid: 434e6b098c852b64fbb824462b83e29c, type: 2}
+  - m_SurfaceImpact: {fileID: 11400000, guid: c5ab4290ae28ad645a9e5b3483fc05cb, type: 2}
+    m_SurfaceEffect: {fileID: 11400000, guid: 2507e86a2cb829c40a026f58c584640c, type: 2}
+  - m_SurfaceImpact: {fileID: 11400000, guid: fc2751a1c60c07f4e81e86df934c075e, type: 2}
+    m_SurfaceEffect: {fileID: 11400000, guid: 2507e86a2cb829c40a026f58c584640c, type: 2}
+  - m_SurfaceImpact: {fileID: 11400000, guid: ae3293091deec7540ad441d1d2ec21dd, type: 2}
+    m_SurfaceEffect: {fileID: 11400000, guid: 2b9449c8638666b40b1f787ed7277d93, type: 2}
+  - m_SurfaceImpact: {fileID: 11400000, guid: caee910e74385d741bbea4e183f07e87, type: 2}
+    m_SurfaceEffect: {fileID: 11400000, guid: 25e8e06c68c241943b21d6e63719bf0c, type: 2}
+  - m_SurfaceImpact: {fileID: 11400000, guid: c460a4ac67b42694aa51e5e081162658, type: 2}
+    m_SurfaceEffect: {fileID: 11400000, guid: 0dc5aec5222413343bd7d4c747b3729c, type: 2}
+  m_AllowFootprints: 1

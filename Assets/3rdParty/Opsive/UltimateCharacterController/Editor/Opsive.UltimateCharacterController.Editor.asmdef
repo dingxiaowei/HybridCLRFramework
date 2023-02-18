@@ -1,0 +1,18 @@
+{
+    "name": "Opsive.UltimateCharacterController.Editor",
+    "references": [
+        "Opsive.UltimateCharacterController",
+        "Opsive.Shared",
+        "Opsive.Shared.Editor"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

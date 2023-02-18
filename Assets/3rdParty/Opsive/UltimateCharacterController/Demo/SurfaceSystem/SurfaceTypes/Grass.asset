@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 696b92c305704c84fb3f7a11d0c474fd, type: 3}
+  m_Name: Grass
+  m_EditorClassIdentifier: 
+  m_ImpactEffects:
+  - m_SurfaceImpact: {fileID: 11400000, guid: 8d265f95d76979647ae3d90f06c88211, type: 2}
+    m_SurfaceEffect: {fileID: 11400000, guid: f48cb6a3c9a7f2f4787853bc12e438ac, type: 2}
+  - m_SurfaceImpact: {fileID: 11400000, guid: f49abdd3bca87e54cb474256211b133e, type: 2}
+    m_SurfaceEffect: {fileID: 11400000, guid: 6e1d3f6bc519760499a9c01f6b944d24, type: 2}
+  - m_SurfaceImpact: {fileID: 11400000, guid: c9f8a872618bbb64f97f4ea7d1afe805, type: 2}
+    m_SurfaceEffect: {fileID: 11400000, guid: 6e1d3f6bc519760499a9c01f6b944d24, type: 2}
+  - m_SurfaceImpact: {fileID: 11400000, guid: c5ab4290ae28ad645a9e5b3483fc05cb, type: 2}
+    m_SurfaceEffect: {fileID: 11400000, guid: ffa0bbfe7f67911408dc00c146ebbced, type: 2}
+  - m_SurfaceImpact: {fileID: 11400000, guid: fc2751a1c60c07f4e81e86df934c075e, type: 2}
+    m_SurfaceEffect: {fileID: 11400000, guid: ffa0bbfe7f67911408dc00c146ebbced, type: 2}
+  - m_SurfaceImpact: {fileID: 11400000, guid: ae3293091deec7540ad441d1d2ec21dd, type: 2}
+    m_SurfaceEffect: {fileID: 11400000, guid: 2b9449c8638666b40b1f787ed7277d93, type: 2}
+  - m_SurfaceImpact: {fileID: 11400000, guid: caee910e74385d741bbea4e183f07e87, type: 2}
+    m_SurfaceEffect: {fileID: 11400000, guid: 2baf6529334c21348ab65bf69fa3d1bf, type: 2}
+  - m_SurfaceImpact: {fileID: 11400000, guid: 278249160c1c8a845ae483589763a8be, type: 2}
+    m_SurfaceEffect: {fileID: 11400000, guid: b6233c538a2b0dc4986352ba06f42ba5, type: 2}
+  - m_SurfaceImpact: {fileID: 11400000, guid: c460a4ac67b42694aa51e5e081162658, type: 2}
+    m_SurfaceEffect: {fileID: 11400000, guid: f48cb6a3c9a7f2f4787853bc12e438ac, type: 2}
+  m_AllowFootprints: 1

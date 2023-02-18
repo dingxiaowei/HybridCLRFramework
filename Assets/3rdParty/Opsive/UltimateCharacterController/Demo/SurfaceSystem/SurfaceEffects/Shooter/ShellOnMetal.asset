@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c9437dfa59d0164c89d59c14938f889, type: 3}
+  m_Name: ShellOnMetal
+  m_EditorClassIdentifier: 
+  m_SpawnedObjects: []
+  m_Decals: []
+  m_MinDecalScale: 1
+  m_MaxDecalScale: 1
+  m_AllowedDecalEdgeOverlap: 0.25
+  m_AudioClips:
+  - {fileID: 8300000, guid: 16cca56b90205a647bd81f100e238fd9, type: 3}
+  - {fileID: 8300000, guid: 24ba056753c67b947bf47b0b425f959c, type: 3}
+  - {fileID: 8300000, guid: 9d4977a6b05bd21488539c4cfbe9b4c3, type: 3}
+  - {fileID: 8300000, guid: 7c4d6db24b7e51f43bd9bd7762cac25c, type: 3}
+  - {fileID: 8300000, guid: 71125aaa226e12a4eb560589ae914d04, type: 3}
+  - {fileID: 8300000, guid: ba3d9bcf4b92dbc42a12803a8406e7dd, type: 3}
+  m_MinAudioPitch: 1
+  m_MaxAudioPitch: 1
+  m_OneClipPerFrame: 0
+  m_RandomClipSelection: 1
+  m_StateName: 
+  m_StateDisableTimer: 10

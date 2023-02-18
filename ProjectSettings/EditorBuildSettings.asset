@@ -195,8 +195,14 @@ EditorBuildSettings:
     path: Assets/3rdParty/Feel/NiceVibrations/Demo/NiceVibrationsDemo.unity
     guid: a40d966b5d8df3140955c23cdc4994c8
   - enabled: 1
+    path: Assets/3rdParty/Frank_Slash_Pack/Demo/Frank_Slash_Pack.unity
+    guid: 4c51982afce613a4f9b0339e5d764f5e
+  - enabled: 1
     path: Assets/3rdParty/JoyStick/JoyStick.unity
     guid: 001501a279f8efd44af652668fdf846f
+  - enabled: 1
+    path: Assets/3rdParty/Opsive/UltimateCharacterController/Demo/UFPSDemo.unity
+    guid: 149c5e3c4c8027a42ab7284fc6b73151
   - enabled: 1
     path: Assets/ActionRPGKit/ExampleScene/BeakVillage.unity
     guid: 44179f95b77711743b11dd2ea60ab3fc
@@ -266,6 +272,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/HotUpdate/UnityWebSocket/Demo/WebSocketDemo.unity
     guid: 2bd214e0b50d1bb41a119a24fecefce9
+  - enabled: 1
+    path: Assets/Scenes/ActDemo.unity
+    guid: ab58cd6113e3d29489d85125c65ca63a
   - enabled: 1
     path: Assets/Scenes/Init.unity
     guid: b3b41d8cebde9274f8b684adec633a95

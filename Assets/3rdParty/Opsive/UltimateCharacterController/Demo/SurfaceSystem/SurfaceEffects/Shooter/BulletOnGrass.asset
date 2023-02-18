@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c9437dfa59d0164c89d59c14938f889, type: 3}
+  m_Name: BulletOnGrass
+  m_EditorClassIdentifier: 
+  m_SpawnedObjects:
+  - m_Object: {fileID: 1001947409280332, guid: 383b8890a5a7ebc45a736a1902080a3e, type: 2}
+    m_Probability: 1
+    m_RandomSpin: 0
+  m_Decals:
+  - {fileID: 1805676039915944, guid: 274b66b4eede161498551cc98fc879e2, type: 2}
+  m_MinDecalScale: 1
+  m_MaxDecalScale: 1
+  m_AllowedDecalEdgeOverlap: 0.25
+  m_AudioClips:
+  - {fileID: 8300000, guid: 8fddf5bc1af0d6e489d449323f92856c, type: 3}
+  - {fileID: 8300000, guid: 91782de2eb16d5a4c8fad5988aa54b28, type: 3}
+  - {fileID: 8300000, guid: 05212d5fa894adb49a9cc2ade5abb7e6, type: 3}
+  m_MinAudioPitch: 1
+  m_MaxAudioPitch: 1
+  m_OneClipPerFrame: 0
+  m_RandomClipSelection: 1
+  m_StateName: 
+  m_StateDisableTimer: 10

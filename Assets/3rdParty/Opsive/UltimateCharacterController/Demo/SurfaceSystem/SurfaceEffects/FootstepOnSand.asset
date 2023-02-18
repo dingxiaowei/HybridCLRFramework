@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c9437dfa59d0164c89d59c14938f889, type: 3}
+  m_Name: FootstepOnSand
+  m_EditorClassIdentifier: 
+  m_SpawnedObjects: []
+  m_Decals:
+  - {fileID: 186514, guid: 7dca96f0d8a152742be0a232510e1486, type: 2}
+  m_MinDecalScale: 1
+  m_MaxDecalScale: 1
+  m_AllowedDecalEdgeOverlap: 0.25
+  m_AudioClips:
+  - {fileID: 8300000, guid: f736ccf60f575d04abdf7ac1d6380070, type: 3}
+  - {fileID: 8300000, guid: f8510b3f0bbb9f4499e74cc3866dc888, type: 3}
+  - {fileID: 8300000, guid: bd38b9cd2884de04e9256680e793c6c8, type: 3}
+  - {fileID: 8300000, guid: a2b207a44bb8d904ebd10f12de827e00, type: 3}
+  - {fileID: 8300000, guid: d90ec4b80056e634980de8891c16fa91, type: 3}
+  m_MinAudioPitch: 1
+  m_MaxAudioPitch: 1
+  m_OneClipPerFrame: 0
+  m_RandomClipSelection: 1
+  m_StateName: 
+  m_StateDisableTimer: 10

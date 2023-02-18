@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &101100000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: First Person Left Arm Mask
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: LeftArm
+    m_Weight: 0
+  - m_Path: LeftArmor
+    m_Weight: 0
+  - m_Path: rig
+    m_Weight: 0
+  - m_Path: rig/ORG-shoulder.L
+    m_Weight: 1
+  - m_Path: rig/ORG-shoulder.L/ORG-upper_arm.L
+    m_Weight: 1
+  - m_Path: rig/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L
+    m_Weight: 1
+  - m_Path: rig/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L/ORG-hand.L
+    m_Weight: 1
+  - m_Path: rig/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L/ORG-hand.L/ORG-f_index.01.L
+    m_Weight: 1
+  - m_Path: rig/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L/ORG-hand.L/ORG-f_index.01.L/ORG-f_index.02.L
+    m_Weight: 1
+  - m_Path: rig/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L/ORG-hand.L/ORG-f_index.01.L/ORG-f_index.02.L/ORG-f_index.03.L
+    m_Weight: 1
+  - m_Path: rig/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L/ORG-hand.L/ORG-f_middle.01.L
+    m_Weight: 1
+  - m_Path: rig/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L/ORG-hand.L/ORG-f_middle.01.L/ORG-f_middle.02.L
+    m_Weight: 1
+  - m_Path: rig/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L/ORG-hand.L/ORG-f_middle.01.L/ORG-f_middle.02.L/ORG-f_middle.03.L
+    m_Weight: 1
+  - m_Path: rig/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L/ORG-hand.L/ORG-f_pinky.01.L
+    m_Weight: 1
+  - m_Path: rig/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L/ORG-hand.L/ORG-f_pinky.01.L/ORG-f_pinky.02.L
+    m_Weight: 1
+  - m_Path: rig/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L/ORG-hand.L/ORG-f_pinky.01.L/ORG-f_pinky.02.L/ORG-f_pinky.03.L
+    m_Weight: 1
+  - m_Path: rig/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L/ORG-hand.L/ORG-f_ring.01.L
+    m_Weight: 1
+  - m_Path: rig/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L/ORG-hand.L/ORG-f_ring.01.L/ORG-f_ring.02.L
+    m_Weight: 1
+  - m_Path: rig/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L/ORG-hand.L/ORG-f_ring.01.L/ORG-f_ring.02.L/ORG-f_ring.03.L
+    m_Weight: 1
+  - m_Path: rig/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L/ORG-hand.L/ORG-thumb.01.L
+    m_Weight: 1
+  - m_Path: rig/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L/ORG-hand.L/ORG-thumb.01.L/ORG-thumb.02.L
+    m_Weight: 1
+  - m_Path: rig/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L/ORG-hand.L/ORG-thumb.01.L/ORG-thumb.02.L/ORG-thumb.03.L
+    m_Weight: 1
+  - m_Path: rig/ORG-shoulder.R
+    m_Weight: 0
+  - m_Path: rig/ORG-shoulder.R/ORG-upper_arm.R
+    m_Weight: 0
+  - m_Path: rig/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R
+    m_Weight: 0
+  - m_Path: rig/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R/ORG-hand.R
+    m_Weight: 0
+  - m_Path: rig/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R/ORG-hand.R/ORG-f_index.01.R
+    m_Weight: 0
+  - m_Path: rig/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R/ORG-hand.R/ORG-f_index.01.R/ORG-f_index.02.R
+    m_Weight: 0
+  - m_Path: rig/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R/ORG-hand.R/ORG-f_index.01.R/ORG-f_index.02.R/ORG-f_index.03.R
+    m_Weight: 0
+  - m_Path: rig/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R/ORG-hand.R/ORG-f_middle.01.R
+    m_Weight: 0
+  - m_Path: rig/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R/ORG-hand.R/ORG-f_middle.01.R/ORG-f_middle.02.R
+    m_Weight: 0
+  - m_Path: rig/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R/ORG-hand.R/ORG-f_middle.01.R/ORG-f_middle.02.R/ORG-f_middle.03.R
+    m_Weight: 0
+  - m_Path: rig/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R/ORG-hand.R/ORG-f_pinky.01.R
+    m_Weight: 0
+  - m_Path: rig/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R/ORG-hand.R/ORG-f_pinky.01.R/ORG-f_pinky.02.R
+    m_Weight: 0
+  - m_Path: rig/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R/ORG-hand.R/ORG-f_pinky.01.R/ORG-f_pinky.02.R/ORG-f_pinky.03.R
+    m_Weight: 0
+  - m_Path: rig/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R/ORG-hand.R/ORG-f_ring.01.R
+    m_Weight: 0
+  - m_Path: rig/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R/ORG-hand.R/ORG-f_ring.01.R/ORG-f_ring.02.R
+    m_Weight: 0
+  - m_Path: rig/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R/ORG-hand.R/ORG-f_ring.01.R/ORG-f_ring.02.R/ORG-f_ring.03.R
+    m_Weight: 0
+  - m_Path: rig/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R/ORG-hand.R/ORG-thumb.01.R
+    m_Weight: 0
+  - m_Path: rig/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R/ORG-hand.R/ORG-thumb.01.R/ORG-thumb.02.R
+    m_Weight: 0
+  - m_Path: rig/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R/ORG-hand.R/ORG-thumb.01.R/ORG-thumb.02.R/ORG-thumb.03.R
+    m_Weight: 0
+  - m_Path: RightArm
+    m_Weight: 0
+  - m_Path: RightArmor
+    m_Weight: 0

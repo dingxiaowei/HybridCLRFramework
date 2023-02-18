@@ -1,0 +1,167 @@
+fileFormatVersion: 2
+guid: d6a0b8fbba68fcc4e95246282fc02790
+timeCreated: 1515465556
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Door
+    100002: Doorway
+    100004: Floor
+    100006: Gate
+    100008: Gate.001
+    100010: GateDoor
+    100012: HallCorner
+    100014: HallDivider
+    100016: HallDivider.001
+    100018: HallDouble
+    100020: HallDoubleRoom
+    100022: HallSingle
+    100024: //RootNode
+    100026: HallWindowSingle
+    100028: Helmet_exploded
+    100030: HallWindow
+    100032: HallWindow_Label1
+    100034: HallWindow_Label2
+    400000: Door
+    400002: Doorway
+    400004: Floor
+    400006: Gate
+    400008: Gate.001
+    400010: GateDoor
+    400012: HallCorner
+    400014: HallDivider
+    400016: HallDivider.001
+    400018: HallDouble
+    400020: HallDoubleRoom
+    400022: HallSingle
+    400024: //RootNode
+    400026: HallWindowSingle
+    400028: Helmet_exploded
+    400030: HallWindow
+    400032: HallWindow_Label1
+    400034: HallWindow_Label2
+    2300000: Door
+    2300002: Doorway
+    2300004: Floor
+    2300006: Gate
+    2300008: Gate.001
+    2300010: GateDoor
+    2300012: HallCorner
+    2300014: HallDivider
+    2300016: HallDivider.001
+    2300018: HallDouble
+    2300020: HallDoubleRoom
+    2300022: HallSingle
+    2300024: HallWindowSingle
+    2300026: Helmet_exploded
+    2300028: //RootNode
+    2300030: HallWindow
+    2300032: HallWindow_Label1
+    2300034: HallWindow_Label2
+    3300000: Door
+    3300002: Doorway
+    3300004: Floor
+    3300006: Gate
+    3300008: Gate.001
+    3300010: GateDoor
+    3300012: HallCorner
+    3300014: HallDivider
+    3300016: HallDivider.001
+    3300018: HallDouble
+    3300020: HallDoubleRoom
+    3300022: HallSingle
+    3300024: HallWindowSingle
+    3300026: Helmet_exploded
+    3300028: //RootNode
+    3300030: HallWindow
+    3300032: HallWindow_Label1
+    3300034: HallWindow_Label2
+    4300000: HallSingle
+    4300002: Door
+    4300004: HallCorner
+    4300006: HallDivider.001
+    4300008: Doorway
+    4300010: Gate.001
+    4300012: GateDoor
+    4300014: HallDivider
+    4300016: HallWindowSingle
+    4300018: Gate
+    4300020: HallDoubleRoom
+    4300022: HallDouble
+    4300024: Floor
+    4300026: Helmet_exploded
+    4300028: HallWindowSingle_001
+    4300030: HallWindow
+    4300032: HallWindow_Label1
+    4300034: HallWindow_Label2
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 100
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,143 @@
+fileFormatVersion: 2
+guid: d5b0b1ac93a13d6459f2949b4b55920d
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: RoomLabel_Aiming
+    100002: RoomLabel_Death
+    100004: RoomLabel_Effects
+    100006: RoomLabel_FirstPersonSprings
+    100008: RoomLabel_Gravity
+    100010: RoomLabel_Interact
+    100012: RoomLabel_Melee
+    100014: RoomLabel_Shootable
+    100016: RoomLabel_SurfaceEffects
+    100018: //RootNode
+    100020: RoomLabel_Magic
+    400000: RoomLabel_Aiming
+    400002: RoomLabel_Death
+    400004: RoomLabel_Effects
+    400006: RoomLabel_FirstPersonSprings
+    400008: RoomLabel_Gravity
+    400010: RoomLabel_Interact
+    400012: RoomLabel_Melee
+    400014: RoomLabel_Shootable
+    400016: RoomLabel_SurfaceEffects
+    400018: //RootNode
+    400020: RoomLabel_Magic
+    2300000: RoomLabel_Aiming
+    2300002: RoomLabel_Death
+    2300004: RoomLabel_Effects
+    2300006: RoomLabel_FirstPersonSprings
+    2300008: RoomLabel_Gravity
+    2300010: RoomLabel_Interact
+    2300012: RoomLabel_Melee
+    2300014: RoomLabel_Shootable
+    2300016: RoomLabel_SurfaceEffects
+    2300018: RoomLabel_Magic
+    3300000: RoomLabel_Aiming
+    3300002: RoomLabel_Death
+    3300004: RoomLabel_Effects
+    3300006: RoomLabel_FirstPersonSprings
+    3300008: RoomLabel_Gravity
+    3300010: RoomLabel_Interact
+    3300012: RoomLabel_Melee
+    3300014: RoomLabel_Shootable
+    3300016: RoomLabel_SurfaceEffects
+    3300018: RoomLabel_Magic
+    4300000: RoomLabel_Aiming
+    4300002: RoomLabel_Death
+    4300004: RoomLabel_Effects
+    4300006: RoomLabel_SurfaceEffects
+    4300008: RoomLabel_Interact
+    4300010: RoomLabel_Gravity
+    4300012: RoomLabel_FirstPersonSprings
+    4300014: RoomLabel_Melee
+    4300016: RoomLabel_Shootable
+    4300018: RoomLabel_Magic
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

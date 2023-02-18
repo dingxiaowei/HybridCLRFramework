@@ -1,0 +1,174 @@
+fileFormatVersion: 2
+guid: f5bb32532ba60484a9ad2961d19b6add
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: AssaultRifle
+    100002: //RootNode
+    100004: ClipBone
+    100006: Mantel
+    100008: MantelBone
+    100010: ShellEjectionBone
+    100012: ShellEjectionPoint
+    100014: Trigger
+    100016: TriggerBone
+    100018: Weapon
+    100020: WeaponRig
+    400000: AssaultRifle
+    400002: //RootNode
+    400004: ClipBone
+    400006: Mantel
+    400008: MantelBone
+    400010: ShellEjectionBone
+    400012: ShellEjectionPoint
+    400014: Trigger
+    400016: TriggerBone
+    400018: Weapon
+    400020: WeaponRig
+    4300000: ShellEjectionPoint
+    4300002: AssaultRifle
+    4300004: Mantel
+    4300006: Trigger
+    7400000: AssaultRifleItemFire
+    9500000: //RootNode
+    13700000: AssaultRifle
+    13700002: Mantel
+    13700004: ShellEjectionPoint
+    13700006: Trigger
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: AssaultRifleItemFire
+      takeName: AssaultRifleItemFire
+      firstFrame: 0
+      lastFrame: 5
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: AssaultRifle
+        weight: 1
+      - path: Mantel
+        weight: 1
+      - path: ShellEjectionPoint
+        weight: 1
+      - path: Trigger
+        weight: 1
+      - path: WeaponRig
+        weight: 1
+      - path: WeaponRig/Weapon
+        weight: 1
+      - path: WeaponRig/Weapon/ClipBone
+        weight: 1
+      - path: WeaponRig/Weapon/MantelBone
+        weight: 1
+      - path: WeaponRig/Weapon/ShellEjectionBone
+        weight: 1
+      - path: WeaponRig/Weapon/TriggerBone
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 100
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 1
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: Weapon
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 8802e309e5a1a9149ac174d60c52b7a2,
+    type: 3}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

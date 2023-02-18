@@ -1,0 +1,152 @@
+fileFormatVersion: 2
+guid: abf1291bf90129f4fab00d5a6e36db87
+timeCreated: 1515120722
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: DoorLeft
+    100004: DoorLeftHalfCircle_Low
+    100006: DoorRight
+    100008: DoorRightHalfCircle_Low
+    100010: Doorway
+    100012: DoorLeftHalfCircle
+    100014: DoorRightHalfCircle
+    100016: DoorLeft_003
+    100018: DoorRight_002
+    100020: Gate
+    100022: GateDoorBottom
+    100024: GateDoorBottomHalfCircle
+    100026: GateDoorTop
+    100028: GateDoorTopHalfCircle
+    400000: //RootNode
+    400002: DoorLeft
+    400004: DoorLeftHalfCircle_Low
+    400006: DoorRight
+    400008: DoorRightHalfCircle_Low
+    400010: Doorway
+    400012: DoorLeftHalfCircle
+    400014: DoorRightHalfCircle
+    400016: DoorLeft_003
+    400018: DoorRight_002
+    400020: Gate
+    400022: GateDoorBottom
+    400024: GateDoorBottomHalfCircle
+    400026: GateDoorTop
+    400028: GateDoorTopHalfCircle
+    2300000: //RootNode
+    2300002: DoorLeft
+    2300004: DoorLeftHalfCircle_Low
+    2300006: DoorRight
+    2300008: DoorRightHalfCircle_Low
+    2300010: Doorway
+    2300012: DoorLeftHalfCircle
+    2300014: DoorRightHalfCircle
+    2300016: DoorLeft_003
+    2300018: DoorRight_002
+    2300020: Gate
+    2300022: GateDoorBottom
+    2300024: GateDoorBottomHalfCircle
+    2300026: GateDoorTop
+    2300028: GateDoorTopHalfCircle
+    3300000: //RootNode
+    3300002: DoorLeft
+    3300004: DoorLeftHalfCircle_Low
+    3300006: DoorRight
+    3300008: DoorRightHalfCircle_Low
+    3300010: Doorway
+    3300012: DoorLeftHalfCircle
+    3300014: DoorRightHalfCircle
+    3300016: DoorLeft_003
+    3300018: DoorRight_002
+    3300020: Gate
+    3300022: GateDoorBottom
+    3300024: GateDoorBottomHalfCircle
+    3300026: GateDoorTop
+    3300028: GateDoorTopHalfCircle
+    4300000: Doorway
+    4300002: Gate
+    4300004: GateDoor
+    4300006: DoorLeftHalfCircle_Low
+    4300008: DoorRightHalfCircle_Low
+    4300010: DoorLeft
+    4300012: DoorRight
+    4300014: DoorRightHalfCircle
+    4300016: DoorLeftHalfCircle
+    4300018: DoorLeft_003
+    4300020: DoorRight_002
+    4300022: GateDoorTopHalfCircle
+    4300024: GateDoorBottom
+    4300026: GateDoorBottomHalfCircle
+    4300028: GateDoorTop
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 100
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

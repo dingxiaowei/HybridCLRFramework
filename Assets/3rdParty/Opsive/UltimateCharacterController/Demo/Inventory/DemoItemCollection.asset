@@ -1,0 +1,483 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd29761419510c7469e993b29ea117d8, type: 3}
+  m_Name: DemoItemCollection
+  m_EditorClassIdentifier: 
+  m_Categories:
+  - {fileID: 114688281249701904}
+  - {fileID: 114729592465516552}
+  - {fileID: 114319108146194208}
+  m_ItemTypes:
+  - {fileID: 114334400771614146}
+  - {fileID: 114399628520483710}
+  - {fileID: 114165112627310990}
+  - {fileID: 114982450061250758}
+  - {fileID: 114575177125770392}
+  - {fileID: 114074367643677680}
+  - {fileID: 114971095791176372}
+  - {fileID: 114053257604410210}
+  - {fileID: 114459215557555358}
+  - {fileID: 114735020259635174}
+  - {fileID: 114219753444480056}
+  - {fileID: 114980215125769966}
+  - {fileID: 114670242716888252}
+  - {fileID: 114628928406164210}
+  - {fileID: 114621131875131168}
+  - {fileID: 114099228593570972}
+  - {fileID: 114544757700045432}
+  - {fileID: 114046018007686742}
+  - {fileID: 114346260507904370}
+  - {fileID: 114038489858704770}
+  - {fileID: 114957327483737902}
+  - {fileID: 114679104364087316}
+  - {fileID: 114597926302919460}
+  - {fileID: 114719901230668630}
+  - {fileID: 114327507680120068}
+--- !u!114 &114038489858704770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: Fireball
+  m_EditorClassIdentifier: 
+  m_ID: 19
+  m_CategoryIDs: bf70bfd8
+  m_Description: 
+  m_Capacity: 2147483647
+--- !u!114 &114046018007686742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: Shield
+  m_EditorClassIdentifier: 
+  m_ID: 17
+  m_CategoryIDs: bf70bfd8
+  m_Description: 
+  m_Capacity: 1
+--- !u!114 &114053257604410210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: BowArrow
+  m_EditorClassIdentifier: 
+  m_ID: 7
+  m_CategoryIDs: 
+  m_Description: 
+  m_Capacity: 2147483647
+--- !u!114 &114074367643677680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: FragGrenade
+  m_EditorClassIdentifier: 
+  m_ID: 5
+  m_CategoryIDs: bf70bfd8c5986f382767c004
+  m_Description: 
+  m_Capacity: 2147483647
+--- !u!114 &114099228593570972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: Knife
+  m_EditorClassIdentifier: 
+  m_ID: 15
+  m_CategoryIDs: bf70bfd8
+  m_Description: 
+  m_Capacity: 1
+--- !u!114 &114165112627310990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: Sword
+  m_EditorClassIdentifier: 
+  m_ID: 2
+  m_CategoryIDs: bf70bfd8
+  m_Description: 
+  m_Capacity: 1
+--- !u!114 &114219753444480056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: ShotgunBullet
+  m_EditorClassIdentifier: 
+  m_ID: 10
+  m_CategoryIDs: 
+  m_Description: 
+  m_Capacity: 2147483647
+--- !u!114 &114319108146194208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ee2c1a75ff367a42ba5f16bd97e5519, type: 3}
+  m_Name: Right Hand Secondary Grenades
+  m_EditorClassIdentifier: 
+  m_ID: 79718183
+--- !u!114 &114327507680120068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: Teleport
+  m_EditorClassIdentifier: 
+  m_ID: 24
+  m_CategoryIDs: bf70bfd8
+  m_Description: 
+  m_Capacity: 2147483647
+--- !u!114 &114334400771614146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: AssaultRifle
+  m_EditorClassIdentifier: 
+  m_ID: 0
+  m_CategoryIDs: bf70bfd8
+  m_Description: 
+  m_Capacity: 1
+--- !u!114 &114346260507904370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: Flashlight
+  m_EditorClassIdentifier: 
+  m_ID: 18
+  m_CategoryIDs: bf70bfd8
+  m_Description: 
+  m_Capacity: 1
+--- !u!114 &114399628520483710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: AssaultRifleBullet
+  m_EditorClassIdentifier: 
+  m_ID: 1
+  m_CategoryIDs: 
+  m_Description: 
+  m_Capacity: 2147483647
+--- !u!114 &114459215557555358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: Body
+  m_EditorClassIdentifier: 
+  m_ID: 8
+  m_CategoryIDs: bf70bfd8
+  m_Description: 
+  m_Capacity: 2147483647
+--- !u!114 &114544757700045432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: Katana
+  m_EditorClassIdentifier: 
+  m_ID: 16
+  m_CategoryIDs: bf70bfd8
+  m_Description: 
+  m_Capacity: 1
+--- !u!114 &114575177125770392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: PistolBullet
+  m_EditorClassIdentifier: 
+  m_ID: 4
+  m_CategoryIDs: bf70bfd8
+  m_Description: 
+  m_Capacity: 2147483647
+--- !u!114 &114597926302919460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: Heal
+  m_EditorClassIdentifier: 
+  m_ID: 22
+  m_CategoryIDs: bf70bfd8
+  m_Description: 
+  m_Capacity: 2147483647
+--- !u!114 &114621131875131168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: SniperRifleBullet
+  m_EditorClassIdentifier: 
+  m_ID: 14
+  m_CategoryIDs: 
+  m_Description: 
+  m_Capacity: 2147483647
+--- !u!114 &114628928406164210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: SniperRifle
+  m_EditorClassIdentifier: 
+  m_ID: 13
+  m_CategoryIDs: bf70bfd8
+  m_Description: 
+  m_Capacity: 1
+--- !u!114 &114670242716888252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: Rocket
+  m_EditorClassIdentifier: 
+  m_ID: 12
+  m_CategoryIDs: 
+  m_Description: 
+  m_Capacity: 2147483647
+--- !u!114 &114679104364087316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: Ricochet
+  m_EditorClassIdentifier: 
+  m_ID: 21
+  m_CategoryIDs: bf70bfd8
+  m_Description: 
+  m_Capacity: 2147483647
+--- !u!114 &114688281249701904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ee2c1a75ff367a42ba5f16bd97e5519, type: 3}
+  m_Name: Items
+  m_EditorClassIdentifier: 
+  m_ID: 3636424895
+--- !u!114 &114719901230668630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: ShieldBubble
+  m_EditorClassIdentifier: 
+  m_ID: 23
+  m_CategoryIDs: bf70bfd8
+  m_Description: 
+  m_Capacity: 2147483647
+--- !u!114 &114729592465516552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ee2c1a75ff367a42ba5f16bd97e5519, type: 3}
+  m_Name: Left Hand Secondary Grenades
+  m_EditorClassIdentifier: 
+  m_ID: 946837701
+--- !u!114 &114735020259635174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: Shotgun
+  m_EditorClassIdentifier: 
+  m_ID: 9
+  m_CategoryIDs: bf70bfd8
+  m_Description: 
+  m_Capacity: 1
+--- !u!114 &114957327483737902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: ParticleStream
+  m_EditorClassIdentifier: 
+  m_ID: 20
+  m_CategoryIDs: bf70bfd8
+  m_Description: 
+  m_Capacity: 2147483647
+--- !u!114 &114971095791176372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: Bow
+  m_EditorClassIdentifier: 
+  m_ID: 6
+  m_CategoryIDs: bf70bfd8
+  m_Description: 
+  m_Capacity: 1
+--- !u!114 &114980215125769966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: RocketLauncher
+  m_EditorClassIdentifier: 
+  m_ID: 11
+  m_CategoryIDs: bf70bfd8
+  m_Description: 
+  m_Capacity: 1
+--- !u!114 &114982450061250758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e74c32144565264eb86dc7514aca7f7, type: 3}
+  m_Name: Pistol
+  m_EditorClassIdentifier: 
+  m_ID: 3
+  m_CategoryIDs: bf70bfd8
+  m_Description: 
+  m_Capacity: 2

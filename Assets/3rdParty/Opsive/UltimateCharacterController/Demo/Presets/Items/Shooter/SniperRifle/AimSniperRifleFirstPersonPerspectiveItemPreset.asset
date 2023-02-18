@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 114f4adff47823d4aadb77159ef6731f, type: 3}
+  m_Name: AimSniperRifleFirstPersonPerspectiveItemPreset
+  m_EditorClassIdentifier: 
+  m_Data:
+    m_ObjectType: Opsive.UltimateCharacterController.FirstPersonController.Items.FirstPersonPerspectiveItem
+    m_ValueHashes: d503f5e0880e149f9454659629f7acba
+    m_ValuePositions: 000000000c000000100000001c000000
+    m_Values: be9f5abe0ad723be9a9919be00000000000000000000000000000000000000000000000000000000
+    m_UnityObjects: []
+    m_Version: 2.0

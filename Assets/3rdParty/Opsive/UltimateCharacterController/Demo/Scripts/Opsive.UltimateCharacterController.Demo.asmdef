@@ -1,0 +1,15 @@
+{
+    "name": "Opsive.UltimateCharacterController.Demo",
+    "references": [
+        "Opsive.UltimateCharacterController",
+        "Opsive.Shared"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

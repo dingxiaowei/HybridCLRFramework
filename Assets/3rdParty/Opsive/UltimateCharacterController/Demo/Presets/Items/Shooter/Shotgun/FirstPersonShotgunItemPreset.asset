@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 114f4adff47823d4aadb77159ef6731f, type: 3}
+  m_Name: FirstPersonShotgunItemPreset
+  m_EditorClassIdentifier: 
+  m_Data:
+    m_ObjectType: Opsive.UltimateCharacterController.Items.Item
+    m_ValueHashes: 3d259b4867ae675d80ce8a07ae8b2f8ad923c7cac90a8319622da28369226272d0f60f3016444c51297d3bb711ddcfd5f69f684609d957acf138eccaafa5f46fc2dee3d5aa3e78f45de7cac47020ba2a58804e49
+    m_ValuePositions: 000000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000c0000000d0000001100000011000000120000001600000016000000170000001b0000001b0000001c000000
+    m_Values: 00000000000000000000000000000000000000000000009a99993e000000003f
+    m_UnityObjects: []
+    m_Version: 2.0

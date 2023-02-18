@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 114f4adff47823d4aadb77159ef6731f, type: 3}
+  m_Name: AimAssaultRifleShootableWeaponPreset
+  m_EditorClassIdentifier: 
+  m_Data:
+    m_ObjectType: Opsive.UltimateCharacterController.Items.Actions.ShootableWeapon
+    m_ValueHashes: f32a30792bab1df15947fc5a4ae1fcb3
+    m_ValuePositions: 00000000000000000c00000018000000
+    m_Values: 00000000000000000ad7a3bc000000000ad7a33b0ad723bc000000000000000000000000
+    m_UnityObjects: []
+    m_Version: 2.0

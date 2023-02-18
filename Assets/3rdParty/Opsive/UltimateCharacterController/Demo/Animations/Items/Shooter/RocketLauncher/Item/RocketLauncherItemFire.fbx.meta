@@ -1,0 +1,219 @@
+fileFormatVersion: 2
+guid: 87df32064049d5247bd38abe1aabb0a8
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: AssaultRifle
+    100002: //RootNode
+    100004: Clip
+    100006: ClipBone
+    100008: Mantel
+    100010: MantelBone
+    100012: Scope
+    100014: Trigger
+    100016: TriggerBone
+    100018: Weapon
+    100020: WeaponRig
+    100022: Clip_0
+    100024: Lever
+    100026: Lever_0
+    100028: Main
+    100030: SniperRifle
+    100032: Trigger_0
+    100034: BottomDoor
+    100036: BottomDoor_0
+    100038: Handle
+    100040: Handle_0
+    100042: RocketLauncher
+    100044: TopDoor
+    100046: TopDoor_0
+    400000: AssaultRifle
+    400002: //RootNode
+    400004: Clip
+    400006: ClipBone
+    400008: Mantel
+    400010: MantelBone
+    400012: Scope
+    400014: Trigger
+    400016: TriggerBone
+    400018: Weapon
+    400020: WeaponRig
+    400022: Clip_0
+    400024: Lever
+    400026: Lever_0
+    400028: Main
+    400030: SniperRifle
+    400032: Trigger_0
+    400034: BottomDoor
+    400036: BottomDoor_0
+    400038: Handle
+    400040: Handle_0
+    400042: RocketLauncher
+    400044: TopDoor
+    400046: TopDoor_0
+    2300000: Clip
+    2300002: Scope
+    3300000: Clip
+    3300002: Scope
+    4300000: AssaultRifle
+    4300002: Mantel
+    4300004: Trigger
+    4300006: Scope
+    4300008: Clip
+    4300010: Lever
+    4300012: SniperRifle
+    4300014: Handle
+    4300016: BottomDoor
+    4300018: TopDoor
+    4300020: RocketLauncher
+    7400000: RocketLauncherItemFire
+    7400002: AssaultRifleItemAttackIdle
+    9500000: //RootNode
+    13700000: AssaultRifle
+    13700002: Mantel
+    13700004: Scope
+    13700006: Trigger
+    13700008: Clip
+    13700010: Lever
+    13700012: SniperRifle
+    13700014: BottomDoor
+    13700016: Handle
+    13700018: RocketLauncher
+    13700020: TopDoor
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: RocketLauncherItemFire
+      takeName: AssaultRifle_Attack
+      firstFrame: 0
+      lastFrame: 5
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: AssaultRifle
+        weight: 1
+      - path: Clip
+        weight: 1
+      - path: Mantel
+        weight: 1
+      - path: Scope
+        weight: 1
+      - path: Trigger
+        weight: 1
+      - path: WeaponRig
+        weight: 1
+      - path: WeaponRig/Weapon
+        weight: 1
+      - path: WeaponRig/Weapon/ClipBone
+        weight: 1
+      - path: WeaponRig/Weapon/MantelBone
+        weight: 1
+      - path: WeaponRig/Weapon/TriggerBone
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 100
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 1
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: Main
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 09036fd227441e2478facac29773117f,
+    type: 3}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

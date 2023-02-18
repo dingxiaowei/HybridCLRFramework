@@ -34,6 +34,7 @@ MonoBehaviour:
   - {fileID: 102900000, guid: 2a51c3cac5ef0ef429a9730f4bf5da64, type: 3}
   - {fileID: 102900000, guid: cee379fab8f84074d844a3ff28fd1305, type: 3}
   - {fileID: 102900000, guid: 47cb3adff207dbf4fbee311a2aa8daf7, type: 3}
+  - {fileID: 102900000, guid: ab58cd6113e3d29489d85125c65ca63a, type: 3}
   extension: .ab
   nameByHash: 0
   options: 256
@@ -354,6 +355,11 @@ MonoBehaviour:
     bundle: 
     id: 0
     groupBy: 3
+  - name: ActDemo.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
   patches:
   - name: Splash
     assets:
@@ -401,14 +407,9 @@ MonoBehaviour:
     - Assets/Prefabs/TestHybridCLR.prefab
     - Assets/Prefabs/TV.prefab
   - name: scenario
-    assets:
-    - Assets/Scenes/TestHybridCLR.unity
-    - Assets/Demo/TestPrefabs/HotUpdatePrefab.prefab
-    - Assets/Demo/Configs/wolfKill.bytes
-    - Assets/Demo/Configs/worldInfoConfig.json
-    - Assets/Prefabs/LevelScreen.prefab
-    - Assets/Prefabs/TestHybridCLR.prefab
-    - Assets/Prefabs/TV.prefab
+    assets: []
+  - name: ActDemo
+    assets: []
   bundles:
   - assetBundleName: assets_demo_ui_prefabs_levelscreen.ab
     assetNames:

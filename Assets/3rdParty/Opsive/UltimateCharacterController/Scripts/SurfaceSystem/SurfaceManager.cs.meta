@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 3230f1117d4c11549b64332c8db164af
+timeCreated: 1545819676
+licenseType: Pro
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_FallbackSurfaceImpact: {instanceID: 0}
+  - m_FallbackSurfaceType: {fileID: 11400000, guid: e616b14f5d2d0cf42bb5b4360f2b2089,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

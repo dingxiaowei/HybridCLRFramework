@@ -1,0 +1,160 @@
+fileFormatVersion: 2
+guid: 0bd2c7f282928974284e03d68a705aef
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Room_AntiGravity_Dividers
+    100002: Room_AntiGravity_Floor
+    100004: Room_AntiGravity_Walls
+    100006: //RootNode
+    100008: Room_AntiGravity
+    100010: Room_AntiGravity_Dividers_001
+    100012: Room_AntiGravity_001
+    100014: Room_AntiGravity_Inverter
+    100016: Room_AntiGravity_Inverter2
+    100018: Room_AntiGravity_Inverter_003
+    100020: Room_AntiGravity_004
+    100022: RoomGravity
+    100024: RoomGravity_002
+    100026: RoomGravityEntrance
+    400000: Room_AntiGravity_Dividers
+    400002: Room_AntiGravity_Floor
+    400004: Room_AntiGravity_Walls
+    400006: //RootNode
+    400008: Room_AntiGravity
+    400010: Room_AntiGravity_Dividers_001
+    400012: Room_AntiGravity_001
+    400014: Room_AntiGravity_Inverter
+    400016: Room_AntiGravity_Inverter2
+    400018: Room_AntiGravity_Inverter_003
+    400020: Room_AntiGravity_004
+    400022: RoomGravity
+    400024: RoomGravity_002
+    400026: RoomGravityEntrance
+    2300000: Room_AntiGravity_Dividers
+    2300002: Room_AntiGravity_Floor
+    2300004: Room_AntiGravity_Walls
+    2300006: Room_AntiGravity
+    2300008: Room_AntiGravity_Dividers_001
+    2300010: Room_AntiGravity_001
+    2300012: Room_AntiGravity_Inverter
+    2300014: Room_AntiGravity_Inverter2
+    2300016: //RootNode
+    2300018: Room_AntiGravity_Inverter_003
+    2300020: Room_AntiGravity_004
+    2300022: RoomGravity
+    2300024: RoomGravity_002
+    2300026: RoomGravityEntrance
+    3300000: Room_AntiGravity_Dividers
+    3300002: Room_AntiGravity_Floor
+    3300004: Room_AntiGravity_Walls
+    3300006: Room_AntiGravity
+    3300008: Room_AntiGravity_Dividers_001
+    3300010: Room_AntiGravity_001
+    3300012: Room_AntiGravity_Inverter
+    3300014: Room_AntiGravity_Inverter2
+    3300016: //RootNode
+    3300018: Room_AntiGravity_Inverter_003
+    3300020: Room_AntiGravity_004
+    3300022: RoomGravity
+    3300024: RoomGravity_002
+    3300026: RoomGravityEntrance
+    4300000: Room_AntiGravity_Floor
+    4300002: Room_AntiGravity_Dividers
+    4300004: Room_AntiGravity_Walls
+    4300006: Room_AntiGravity
+    4300008: Room_AntiGravity_Dividers_001
+    4300010: Room_AntiGravity_001
+    4300012: Room_AntiGravity_Inverter
+    4300014: Room_AntiGravity_Inverter2
+    4300016: Room_AntiGravity_Inverter_003
+    4300018: Room_AntiGravity_004
+    4300020: RoomGravity
+    4300022: RoomGravity_002
+    4300024: RoomGravityEntrance
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

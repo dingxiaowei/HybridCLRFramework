@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c9437dfa59d0164c89d59c14938f889, type: 3}
+  m_Name: BulletOnTile
+  m_EditorClassIdentifier: 
+  m_SpawnedObjects: []
+  m_Decals:
+  - {fileID: 1805676039915944, guid: 202865e5794816946bb3f9c0dbea8db0, type: 2}
+  - {fileID: 1805676039915944, guid: 5052e5743e1b1244e94e3074c5f5d633, type: 2}
+  - {fileID: 1805676039915944, guid: 3baca41d35343074989ac4b7aedb7afd, type: 2}
+  - {fileID: 1805676039915944, guid: bb8f3a5e082a19a44830477e8346a223, type: 2}
+  m_MinDecalScale: 1
+  m_MaxDecalScale: 1
+  m_AllowedDecalEdgeOverlap: 0.25
+  m_AudioClips:
+  - {fileID: 8300000, guid: eed68194dd92f5140a6108fc7ed030ba, type: 3}
+  - {fileID: 8300000, guid: d90aca40b3536314fa17df1720bc6050, type: 3}
+  - {fileID: 8300000, guid: 3570226beb55cc24ea26ed3f6f4c7a73, type: 3}
+  m_MinAudioVolume: 0.459
+  m_MaxAudioVolume: 0.633
+  m_MinAudioPitch: 1
+  m_MaxAudioPitch: 1
+  m_OneClipPerFrame: 0
+  m_RandomClipSelection: 1
+  m_StateName: 
+  m_StateDisableTimer: 10

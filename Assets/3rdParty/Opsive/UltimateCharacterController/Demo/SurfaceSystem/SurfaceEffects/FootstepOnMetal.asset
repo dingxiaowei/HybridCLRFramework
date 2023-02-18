@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c9437dfa59d0164c89d59c14938f889, type: 3}
+  m_Name: FootstepOnMetal
+  m_EditorClassIdentifier: 
+  m_SpawnedObjects: []
+  m_Decals: []
+  m_MinDecalScale: 1
+  m_MaxDecalScale: 1
+  m_AllowedDecalEdgeOverlap: 0.25
+  m_AudioClips:
+  - {fileID: 8300000, guid: 70da37ba7f460554397d1d7a7842128d, type: 3}
+  - {fileID: 8300000, guid: 021cc71140265f84583fc2db46ab1697, type: 3}
+  - {fileID: 8300000, guid: 4e5870ec3bc16da4da4d3dd260d16329, type: 3}
+  - {fileID: 8300000, guid: 1c4c18b3a1b46f842b8b7e216beedeeb, type: 3}
+  m_MinAudioPitch: 1
+  m_MaxAudioPitch: 1
+  m_OneClipPerFrame: 0
+  m_RandomClipSelection: 1
+  m_StateName: 
+  m_StateDisableTimer: 10

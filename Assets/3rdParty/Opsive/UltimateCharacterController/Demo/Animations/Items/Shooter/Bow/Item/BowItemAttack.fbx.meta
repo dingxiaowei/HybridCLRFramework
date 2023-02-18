@@ -1,0 +1,354 @@
+fileFormatVersion: 2
+guid: 6be50a47dd6681f48b160024604099ca
+timeCreated: 1516574646
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Bottom_Bone
+    100004: Bottom_Bone1
+    100006: Bottom_Bone2
+    100008: Bottom_Bone3
+    100010: Bottom_Bone4
+    100012: Bottom_Bone5
+    100014: Bottom_Bone6
+    100016: Bottom_Bone7
+    100018: Bottom_Bone8
+    100020: Bottom_Bone9
+    100022: Bottom_IK
+    100024: Bottom_Limit
+    100026: Bottom_Rotation
+    100028: BowArmature
+    100030: Main
+    100032: String
+    100034: Top_Bone
+    100036: Top_Bone1
+    100038: Top_Bone2
+    100040: Top_Bone3
+    100042: Top_Bone4
+    100044: Top_Bone5
+    100046: Top_Bone6
+    100048: Top_Bone7
+    100050: Top_Bone8
+    100052: Top_Bone9
+    100054: Top_IK
+    100056: Top_Limit
+    100058: Top_Rotation
+    100060: AssaultRifle
+    100062: Clip
+    100064: ClipBone
+    100066: Mantel
+    100068: MantelBone
+    100070: Scope
+    100072: Trigger
+    100074: TriggerBone
+    100076: Weapon
+    100078: WeaponRig
+    100080: Bow
+    400000: //RootNode
+    400002: Bottom_Bone
+    400004: Bottom_Bone1
+    400006: Bottom_Bone2
+    400008: Bottom_Bone3
+    400010: Bottom_Bone4
+    400012: Bottom_Bone5
+    400014: Bottom_Bone6
+    400016: Bottom_Bone7
+    400018: Bottom_Bone8
+    400020: Bottom_Bone9
+    400022: Bottom_IK
+    400024: Bottom_Limit
+    400026: Bottom_Rotation
+    400028: BowArmature
+    400030: Main
+    400032: String
+    400034: Top_Bone
+    400036: Top_Bone1
+    400038: Top_Bone2
+    400040: Top_Bone3
+    400042: Top_Bone4
+    400044: Top_Bone5
+    400046: Top_Bone6
+    400048: Top_Bone7
+    400050: Top_Bone8
+    400052: Top_Bone9
+    400054: Top_IK
+    400056: Top_Limit
+    400058: Top_Rotation
+    400060: AssaultRifle
+    400062: Clip
+    400064: ClipBone
+    400066: Mantel
+    400068: MantelBone
+    400070: Scope
+    400072: Trigger
+    400074: TriggerBone
+    400076: Weapon
+    400078: WeaponRig
+    400080: Bow
+    2300000: Clip
+    2300002: Scope
+    3300000: Clip
+    3300002: Scope
+    4300000: AssaultRifle
+    4300002: Mantel
+    4300004: Trigger
+    4300006: Clip
+    4300008: Scope
+    4300010: Bow
+    7400000: BowItemAttackPullBack
+    7400002: AssaultRifle_Attack
+    7400004: BowItemAttackRelease
+    9500000: //RootNode
+    13700000: AssaultRifle
+    13700002: Mantel
+    13700004: Trigger
+    13700006: Bow
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 0
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: BowItemAttackPullBack
+      takeName: Attack
+      firstFrame: 0
+      lastFrame: 17
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: BowArmature
+        weight: 1
+      - path: BowArmature/Main
+        weight: 1
+      - path: BowArmature/Main/Bottom_Bone
+        weight: 1
+      - path: BowArmature/Main/Bottom_Bone/Bottom_Bone1
+        weight: 1
+      - path: BowArmature/Main/Bottom_Bone/Bottom_Bone1/Bottom_Bone2
+        weight: 1
+      - path: BowArmature/Main/Bottom_Bone/Bottom_Bone1/Bottom_Bone2/Bottom_Bone3
+        weight: 1
+      - path: BowArmature/Main/Bottom_Bone/Bottom_Bone1/Bottom_Bone2/Bottom_Bone3/Bottom_Bone4
+        weight: 1
+      - path: BowArmature/Main/Bottom_Bone/Bottom_Bone1/Bottom_Bone2/Bottom_Bone3/Bottom_Bone4/Bottom_Bone5
+        weight: 1
+      - path: BowArmature/Main/Bottom_Bone/Bottom_Bone1/Bottom_Bone2/Bottom_Bone3/Bottom_Bone4/Bottom_Bone5/Bottom_Bone6
+        weight: 1
+      - path: BowArmature/Main/Bottom_Bone/Bottom_Bone1/Bottom_Bone2/Bottom_Bone3/Bottom_Bone4/Bottom_Bone5/Bottom_Bone6/Bottom_Bone7
+        weight: 1
+      - path: BowArmature/Main/Bottom_Bone/Bottom_Bone1/Bottom_Bone2/Bottom_Bone3/Bottom_Bone4/Bottom_Bone5/Bottom_Bone6/Bottom_Bone7/Bottom_Bone8
+        weight: 1
+      - path: BowArmature/Main/Bottom_Bone/Bottom_Bone1/Bottom_Bone2/Bottom_Bone3/Bottom_Bone4/Bottom_Bone5/Bottom_Bone6/Bottom_Bone7/Bottom_Bone8/Bottom_Bone9
+        weight: 1
+      - path: BowArmature/Main/Bottom_Limit
+        weight: 1
+      - path: BowArmature/Main/Bottom_Rotation
+        weight: 1
+      - path: BowArmature/Main/Bottom_Rotation/Bottom_IK
+        weight: 1
+      - path: BowArmature/Main/String
+        weight: 1
+      - path: BowArmature/Main/Top_Bone
+        weight: 1
+      - path: BowArmature/Main/Top_Bone/Top_Bone1
+        weight: 1
+      - path: BowArmature/Main/Top_Bone/Top_Bone1/Top_Bone2
+        weight: 1
+      - path: BowArmature/Main/Top_Bone/Top_Bone1/Top_Bone2/Top_Bone3
+        weight: 1
+      - path: BowArmature/Main/Top_Bone/Top_Bone1/Top_Bone2/Top_Bone3/Top_Bone4
+        weight: 1
+      - path: BowArmature/Main/Top_Bone/Top_Bone1/Top_Bone2/Top_Bone3/Top_Bone4/Top_Bone5
+        weight: 1
+      - path: BowArmature/Main/Top_Bone/Top_Bone1/Top_Bone2/Top_Bone3/Top_Bone4/Top_Bone5/Top_Bone6
+        weight: 1
+      - path: BowArmature/Main/Top_Bone/Top_Bone1/Top_Bone2/Top_Bone3/Top_Bone4/Top_Bone5/Top_Bone6/Top_Bone7
+        weight: 1
+      - path: BowArmature/Main/Top_Bone/Top_Bone1/Top_Bone2/Top_Bone3/Top_Bone4/Top_Bone5/Top_Bone6/Top_Bone7/Top_Bone8
+        weight: 1
+      - path: BowArmature/Main/Top_Bone/Top_Bone1/Top_Bone2/Top_Bone3/Top_Bone4/Top_Bone5/Top_Bone6/Top_Bone7/Top_Bone8/Top_Bone9
+        weight: 1
+      - path: BowArmature/Main/Top_Limit
+        weight: 1
+      - path: BowArmature/Main/Top_Rotation
+        weight: 1
+      - path: BowArmature/Main/Top_Rotation/Top_IK
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: BowItemAttackRelease
+      takeName: Attack
+      firstFrame: 18
+      lastFrame: 26
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: BowArmature
+        weight: 1
+      - path: BowArmature/Main
+        weight: 1
+      - path: BowArmature/Main/Bottom_Bone
+        weight: 1
+      - path: BowArmature/Main/Bottom_Bone/Bottom_Bone1
+        weight: 1
+      - path: BowArmature/Main/Bottom_Bone/Bottom_Bone1/Bottom_Bone2
+        weight: 1
+      - path: BowArmature/Main/Bottom_Bone/Bottom_Bone1/Bottom_Bone2/Bottom_Bone3
+        weight: 1
+      - path: BowArmature/Main/Bottom_Bone/Bottom_Bone1/Bottom_Bone2/Bottom_Bone3/Bottom_Bone4
+        weight: 1
+      - path: BowArmature/Main/Bottom_Bone/Bottom_Bone1/Bottom_Bone2/Bottom_Bone3/Bottom_Bone4/Bottom_Bone5
+        weight: 1
+      - path: BowArmature/Main/Bottom_Bone/Bottom_Bone1/Bottom_Bone2/Bottom_Bone3/Bottom_Bone4/Bottom_Bone5/Bottom_Bone6
+        weight: 1
+      - path: BowArmature/Main/Bottom_Bone/Bottom_Bone1/Bottom_Bone2/Bottom_Bone3/Bottom_Bone4/Bottom_Bone5/Bottom_Bone6/Bottom_Bone7
+        weight: 1
+      - path: BowArmature/Main/Bottom_Bone/Bottom_Bone1/Bottom_Bone2/Bottom_Bone3/Bottom_Bone4/Bottom_Bone5/Bottom_Bone6/Bottom_Bone7/Bottom_Bone8
+        weight: 1
+      - path: BowArmature/Main/Bottom_Bone/Bottom_Bone1/Bottom_Bone2/Bottom_Bone3/Bottom_Bone4/Bottom_Bone5/Bottom_Bone6/Bottom_Bone7/Bottom_Bone8/Bottom_Bone9
+        weight: 1
+      - path: BowArmature/Main/Bottom_Limit
+        weight: 1
+      - path: BowArmature/Main/Bottom_Rotation
+        weight: 1
+      - path: BowArmature/Main/Bottom_Rotation/Bottom_IK
+        weight: 1
+      - path: BowArmature/Main/String
+        weight: 1
+      - path: BowArmature/Main/Top_Bone
+        weight: 1
+      - path: BowArmature/Main/Top_Bone/Top_Bone1
+        weight: 1
+      - path: BowArmature/Main/Top_Bone/Top_Bone1/Top_Bone2
+        weight: 1
+      - path: BowArmature/Main/Top_Bone/Top_Bone1/Top_Bone2/Top_Bone3
+        weight: 1
+      - path: BowArmature/Main/Top_Bone/Top_Bone1/Top_Bone2/Top_Bone3/Top_Bone4
+        weight: 1
+      - path: BowArmature/Main/Top_Bone/Top_Bone1/Top_Bone2/Top_Bone3/Top_Bone4/Top_Bone5
+        weight: 1
+      - path: BowArmature/Main/Top_Bone/Top_Bone1/Top_Bone2/Top_Bone3/Top_Bone4/Top_Bone5/Top_Bone6
+        weight: 1
+      - path: BowArmature/Main/Top_Bone/Top_Bone1/Top_Bone2/Top_Bone3/Top_Bone4/Top_Bone5/Top_Bone6/Top_Bone7
+        weight: 1
+      - path: BowArmature/Main/Top_Bone/Top_Bone1/Top_Bone2/Top_Bone3/Top_Bone4/Top_Bone5/Top_Bone6/Top_Bone7/Top_Bone8
+        weight: 1
+      - path: BowArmature/Main/Top_Bone/Top_Bone1/Top_Bone2/Top_Bone3/Top_Bone4/Top_Bone5/Top_Bone6/Top_Bone7/Top_Bone8/Top_Bone9
+        weight: 1
+      - path: BowArmature/Main/Top_Limit
+        weight: 1
+      - path: BowArmature/Main/Top_Rotation
+        weight: 1
+      - path: BowArmature/Main/Top_Rotation/Top_IK
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 100
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 1
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 2073b67b18a7cf447a5d0f80c1531cba,
+    type: 3}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
