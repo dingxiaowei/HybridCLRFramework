@@ -4,16 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using System;
+using System.Collections.Generic;
+using Opsive.UltimateCharacterController.Utility;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+
 namespace Opsive.UltimateCharacterController.Editor.Managers
 {
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.Utility;
-    using System;
-    using System.Collections.Generic;
-    using UnityEditor;
-    using UnityEngine;
-
     /// <summary>
     /// The MainManagerWindow is an editor window which contains all of the sub managers. This window draws the high level menu options and draws
     /// the selected sub manager.
@@ -33,7 +32,11 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
         // Unity's serialization doesn't support abstract classes so serialize the data separately.
         private Serialization[] m_ManagerData;
 
+#if UNITY_2018_3_OR_NEWER
         private UnityEngine.Networking.UnityWebRequest m_UpdateCheckRequest;
+#else
+        private WWW m_UpdateCheckRequest;
+#endif
         private DateTime m_LastUpdateCheck = DateTime.MinValue;
 
         public string LatestVersion
@@ -65,20 +68,10 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
         }
 
         private GUIStyle m_MenuBackground;
-        private GUIStyle MenuBackground {
-            get {
-#if UNITY_2019_3_OR_NEWER
-                if (m_MenuBackground == null) {
-                    m_MenuBackground = new GUIStyle(EditorStyles.label);
-                    // The left, top, and bottom background border should extend to prevent it from being seen.
-                    var overflow = m_MenuBackground.overflow;
-                    overflow.left = overflow.top = overflow.bottom = 3;
-                    m_MenuBackground.overflow = overflow;
-                    var border = m_MenuBackground.border;
-                    border.left = border.right = 10;
-                    m_MenuBackground.border = border;
-                }
-#else
+        private GUIStyle MenuBackground
+        {
+            get
+            {
                 if (m_MenuBackground == null) {
                     m_MenuBackground = new GUIStyle(EditorStyles.textArea);
                     // The left, top, and bottom background border should extend to prevent it from being seen.
@@ -86,21 +79,15 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                     overflow.left = overflow.top = overflow.bottom = 3;
                     m_MenuBackground.overflow = overflow;
                 }
-#endif
                 return m_MenuBackground;
             }
         }
 
         private GUIStyle m_MenuButton;
-        private GUIStyle MenuButton {
-            get {
-#if UNITY_2019_3_OR_NEWER
-                if (m_MenuButton == null) {
-                    m_MenuButton = new GUIStyle(EditorStyles.label);
-                    m_MenuButton.fontSize = 13;
-                    m_MenuButton.alignment = TextAnchor.MiddleRight;
-                }
-#else
+        private GUIStyle MenuButton
+        {
+            get
+            {
                 if (m_MenuButton == null) {
                     m_MenuButton = new GUIStyle(EditorStyles.toolbarButton);
                     m_MenuButton.active.background = m_MenuButton.normal.background = null;
@@ -111,19 +98,18 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                     padding.right = 2;
                     m_MenuBackground.padding = padding;
                 }
-#endif
                 return m_MenuButton;
             }
         }
         private GUIStyle m_SelectedMenuButton;
-        private GUIStyle SelectedMenuButton {
-            get {
+        private GUIStyle SelectedMenuButton
+        {
+            get
+            {
                 if (m_SelectedMenuButton == null) {
                     m_SelectedMenuButton = new GUIStyle(MenuButton);
-#if !UNITY_2019_3_OR_NEWER
                     var overflow = m_SelectedMenuButton.overflow;
                     overflow.top = overflow.bottom = 4;
-#endif
                 }
                 if (m_SelectedMenuButton.active.background == null) {
 #if UNITY_2018_1_OR_NEWER
@@ -163,7 +149,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
         /// <summary>
         /// Initializes the Main Manager.
         /// </summary> 
-        [MenuItem("Tools/Opsive/Ultimate Character Controller/Main Manager", false, 1)]
+        [MenuItem("Tools/Opsive/Ultimate Character Controller/Main Manager", false, 0)]
         public static MainManagerWindow ShowWindow()
         {
             var window = EditorWindow.GetWindow<MainManagerWindow>(false, "Character Manager");
@@ -286,7 +272,11 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
         {
             if (m_UpdateCheckRequest != null && m_UpdateCheckRequest.isDone) {
                 if (string.IsNullOrEmpty(m_UpdateCheckRequest.error)) {
+#if UNITY_2018_3_OR_NEWER
                     LatestVersion = m_UpdateCheckRequest.downloadHandler.text;
+#else
+                    LatestVersion = m_UpdateCheckRequest.text;
+#endif
                 }
                 m_UpdateCheckRequest = null;
                 return false;
@@ -295,8 +285,12 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
             if (m_UpdateCheckRequest == null && DateTime.Compare(LastUpdateCheck.AddDays(1), DateTime.UtcNow) < 0) {
                 var url = string.Format("https://opsive.com/asset/UpdateCheck.php?asset=UltimateCharacterController&type={0}&version={1}&unityversion={2}&devplatform={3}&targetplatform={4}",
                                             AssetInfo.Name.Replace(" ", ""), AssetInfo.Version, Application.unityVersion, Application.platform, EditorUserBuildSettings.activeBuildTarget);
+#if UNITY_2018_3_OR_NEWER
                 m_UpdateCheckRequest = UnityEngine.Networking.UnityWebRequest.Get(url);
                 m_UpdateCheckRequest.SendWebRequest();
+#else
+                m_UpdateCheckRequest = new WWW(url);
+#endif
                 LastUpdateCheck = DateTime.UtcNow;
             }
 

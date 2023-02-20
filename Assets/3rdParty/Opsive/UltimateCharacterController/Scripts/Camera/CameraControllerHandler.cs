@@ -4,14 +4,14 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Input;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Camera
 {
-    using Opsive.Shared.Events;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Input;
-    using System.Collections.Generic;
-    using UnityEngine;
-
     /// <summary>
     /// The CameraControllerHandler manages player input and the CameraController.
     /// </summary>

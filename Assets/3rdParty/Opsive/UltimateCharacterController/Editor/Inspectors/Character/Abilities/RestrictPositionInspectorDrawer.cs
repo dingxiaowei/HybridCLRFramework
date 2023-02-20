@@ -4,13 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using Opsive.UltimateCharacterController.Character.Abilities;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Character.Abilities
 {
-    using Opsive.UltimateCharacterController.Character.Abilities;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using UnityEditor;
-    using UnityEngine;
-
     /// <summary>
     /// Draws a custom inspector for the RestrictPosition Ability.
     /// </summary>
@@ -61,6 +61,15 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Character.Abiliti
                 }
                 InspectorUtility.SetFieldValue(target, "m_MinZPosition", minValue);
                 InspectorUtility.SetFieldValue(target, "m_MaxZPosition", maxValue);
+                EditorGUI.indentLevel--;
+            }
+
+            var stopAnimation = EditorGUILayout.Toggle(new GUIContent("Stop Animation", InspectorUtility.GetFieldTooltip(target, "m_StopAnimation")),
+                                                        InspectorUtility.GetFieldValue<bool>(target, "m_StopAnimation"));
+            InspectorUtility.SetFieldValue(target, "m_StopAnimation", stopAnimation);
+            if (stopAnimation) {
+                EditorGUI.indentLevel++;
+                InspectorUtility.DrawField(target, "m_StopAnimationBuffer");
                 EditorGUI.indentLevel--;
             }
 

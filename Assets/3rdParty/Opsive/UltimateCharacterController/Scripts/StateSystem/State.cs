@@ -4,12 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.StateSystem
 {
-    using Opsive.Shared.Utility;
-    using System.Collections.Generic;
-    using UnityEngine;
-
     /// <summary>
     /// A State contains a preset which can change property values at runtime. The state has a name associated with it which allows for easy reference to it.
     /// </summary>
@@ -91,7 +90,7 @@ namespace Opsive.UltimateCharacterController.StateSystem
                 if (m_Preset.IsInitialized) {
                     m_Preset = Object.Instantiate(m_Preset);
                 }
-                m_Preset.Initialize(owner, MemberVisibility.Public);
+                m_Preset.Initialize(owner, Utility.MemberVisibility.Public);
             }
             m_Owner = owner;
             UpdateBlockList(nameStateMap);

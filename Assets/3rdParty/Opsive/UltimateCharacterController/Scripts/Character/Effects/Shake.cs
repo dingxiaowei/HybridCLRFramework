@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Motion;
+
 namespace Opsive.UltimateCharacterController.Character.Effects
 {
-    using Opsive.Shared.Events;
-    using Opsive.UltimateCharacterController.Motion;
-    using UnityEngine;
-
     /// <summary>
     /// Shakes the camera, item, or character based on a force magnitude.
     /// </summary>

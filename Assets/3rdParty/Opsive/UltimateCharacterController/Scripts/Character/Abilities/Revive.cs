@@ -4,13 +4,14 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Traits;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Traits;
-    using UnityEngine;
-
     /// <summary>
     /// The Revive ability will play a standing animation from laying on the ground. The OnRespawn event will be executed when the animation is complete.
     /// </summary>

@@ -4,13 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Input;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities.Items
 {
-    using Opsive.Shared.Events;
-    using Opsive.UltimateCharacterController.Input;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// ItemAbility which will aim the item.
     /// </summary>
@@ -25,12 +25,9 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         [SerializeField] protected bool m_StopSpeedChange = true;
         [Tooltip("Should the ability activate when the first person perspective is enabled?")]
         [SerializeField] protected bool m_ActivateInFirstPerson = true;
-        [Tooltip("Should the ability rotate the character to face the look source target?")]
-        [SerializeField] protected bool m_RotateTowardsLookSourceTarget = true;
 
         public bool StopSpeedChange { get { return m_StopSpeedChange; } set { m_StopSpeedChange = value; } }
         public bool ActivateInFirstPerson { get { return m_ActivateInFirstPerson; } set { m_ActivateInFirstPerson = value; } }
-        public bool RotateTowardsLookSourceTarget { get { return m_RotateTowardsLookSourceTarget; } set { m_RotateTowardsLookSourceTarget = value; } }
 
         private ILookSource m_LookSource;
         private bool m_FirstPersonPerspective;
@@ -58,8 +55,9 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
 
             EventHandler.RegisterEvent<ILookSource>(m_GameObject, "OnCharacterAttachLookSource", OnAttachLookSource);
             EventHandler.RegisterEvent<bool>(m_GameObject, "OnCameraWillChangePerspectives", OnChangePerspectives);
-            EventHandler.RegisterEvent<Ability, bool>(m_GameObject, "OnCharacterAbilityActive", OnAbilityActive);
+#if ULTIMATE_CHARACTER_CONTROLLER_SHOOTER || UNITY_EDITOR
             EventHandler.RegisterEvent<ItemAbility, bool>(m_GameObject, "OnCharacterItemAbilityActive", OnItemAbilityActive);
+#endif
             EventHandler.RegisterEvent(m_GameObject, "OnRespawn", OnRespawn);
         }
 
@@ -123,7 +121,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             }
 #endif
             // Return the UsableItem's substate index if it isn't 0. This will allow the animator to know if the item is out of ammo.
-            var item = m_Inventory.GetActiveItem(slotID);
+            var item = m_Inventory.GetItem(slotID);
             if (item != null && item.DominantItem) {
                 var itemActions = item.ItemActions;
                 for (int i = 0; i < itemActions.Length; ++i) {
@@ -149,11 +147,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             if (m_InputStart) {
                 return false;
             }
-#if THIRD_PERSON_CONTROLLER
-            if (m_ItemPullback != null && m_ItemPullback.IsActive) {
-                return false;
-            }
-#endif
             return base.CanStartAbility();
         }
 
@@ -226,7 +219,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             }
 
             // The look source may be null if a remote player is still being initialized.
-            if (m_LookSource == null || !m_RotateTowardsLookSourceTarget) {
+            if (m_LookSource == null) {
                 return;
             }
 
@@ -274,6 +267,23 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         }
 
         /// <summary>
+        /// Can the ability be force stopped?
+        /// </summary>
+        /// <returns>True if the ability can be force stopped.</returns>
+        public override bool CanForceStopAbility()
+        {
+            if (m_PerspectiveSwitch) {
+                return true;
+            }
+
+            // The ability should always be active in first person.
+            if (m_ActivateInFirstPerson && m_CharacterLocomotion.FirstPersonPerspective) {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
         /// The ability has stopped running.
         /// </summary>
         /// <param name="force">Was the ability force stopped?</param>
@@ -298,19 +308,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         protected override bool ShouldCheckInput() { return false; }
 
         /// <summary>
-        /// The ability has been started or stopped.
-        /// </summary>
-        /// <param name="ability">The ability which was started or stopped.</param>
-        /// <param name="active">True if the ability was started, false if it was stopped.</param>
-        private void OnAbilityActive(Ability ability, bool active)
-        {
-            // Another ability may have stopped aiming while in first person. Activate aiming again if necessary.
-            if (!IsActive && !active && m_ActivateInFirstPerson && m_CharacterLocomotion.FirstPersonPerspective) {
-                StartAbility();
-            }
-        }
-
-        /// <summary>
         /// The item ability has been started or stopped.
         /// </summary>
         /// <param name="itemAbility">The item ability which was started or stopped.</param>
@@ -323,7 +320,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
                 || itemAbility is Reload
 #endif
                 )) {
-                Debug.Log($"Warning: The ability {itemAbility.GetType().Name} started but it has a lower priority than the aim ability." +
+                Debug.Log("Warning: The ability " + itemAbility.GetType().Name + " started but it has a lower priority than the aim ability." +
                           "This will prevent that ability from updating the Animator.");
             }
 #endif
@@ -361,8 +358,9 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
 
             EventHandler.UnregisterEvent<ILookSource>(m_GameObject, "OnCharacterAttachLookSource", OnAttachLookSource);
             EventHandler.UnregisterEvent<bool>(m_GameObject, "OnCameraWillChangePerspectives", OnChangePerspectives);
-            EventHandler.UnregisterEvent<Ability, bool>(m_GameObject, "OnCharacterAbilityActive", OnAbilityActive);
+#if ULTIMATE_CHARACTER_CONTROLLER_SHOOTER || UNITY_EDITOR
             EventHandler.UnregisterEvent<ItemAbility, bool>(m_GameObject, "OnCharacterItemAbilityActive", OnItemAbilityActive);
+#endif
             EventHandler.UnregisterEvent(m_GameObject, "OnRespawn", OnRespawn);
         }
     }

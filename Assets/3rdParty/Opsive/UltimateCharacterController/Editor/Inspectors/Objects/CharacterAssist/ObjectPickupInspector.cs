@@ -4,15 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using UnityEditorInternal;
+using Opsive.UltimateCharacterController.Objects.CharacterAssist;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Audio;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Objects.CharacterAssist
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Audio;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.Objects.CharacterAssist;
-    using UnityEditor;
-    using UnityEditorInternal;
-    using UnityEngine;
-
     /// <summary>
     /// Custom inspector for the ObjectPickup component.
     /// </summary>
@@ -50,7 +50,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Objects.Character
             }
             if (Foldout("Audio")) {
                 EditorGUI.indentLevel++;
-                m_ReorderablePickupAudioClipsList = AudioClipSetInspector.DrawAudioClipSet(m_ObjectPickup.PickupAudioClipSet, PropertyFromName("m_PickupAudioClipSet"), m_ReorderablePickupAudioClipsList, OnPickupAudioClipDraw, OnPickupAudioClipListAdd, OnPickupAudioClipListRemove);
+                AudioClipSetInspector.DrawAudioClipSet(m_ObjectPickup.PickupAudioClipSet, PropertyFromName("m_PickupAudioClipSet"), ref m_ReorderablePickupAudioClipsList, OnPickupAudioClipDraw, OnPickupAudioClipListAdd, OnPickupAudioClipListRemove);
                 EditorGUI.indentLevel--;
             }
 

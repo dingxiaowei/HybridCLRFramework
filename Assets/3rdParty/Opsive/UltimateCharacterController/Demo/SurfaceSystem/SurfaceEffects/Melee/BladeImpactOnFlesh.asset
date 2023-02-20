@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c9437dfa59d0164c89d59c14938f889, type: 3}
+  m_Name: BladeImpactOnFlesh
+  m_EditorClassIdentifier: 
+  m_SpawnedObjects:
+  - m_Object: {fileID: 1761779572085872, guid: 91ddedab041cf7448bf2e1a01273536a, type: 2}
+    m_Probability: 1
+    m_RandomSpin: 0
+  m_Decals: []
+  m_MinDecalScale: 1
+  m_MaxDecalScale: 1
+  m_AllowedDecalEdgeOverlap: 0.25
+  m_AudioClips:
+  - {fileID: 8300000, guid: d076551602a4e4e4ca56c07d049485a3, type: 3}
+  - {fileID: 8300000, guid: aea3a2e240072164d86503179e95290d, type: 3}
+  - {fileID: 8300000, guid: e36ce3751374bde4ebee13d172d18058, type: 3}
+  m_MinAudioVolume: 1
+  m_MaxAudioVolume: 1
+  m_MinAudioPitch: 1
+  m_MaxAudioPitch: 1
+  m_OneClipPerFrame: 0
+  m_RandomClipSelection: 1
+  m_StateName: 
+  m_StateDisableTimer: 10

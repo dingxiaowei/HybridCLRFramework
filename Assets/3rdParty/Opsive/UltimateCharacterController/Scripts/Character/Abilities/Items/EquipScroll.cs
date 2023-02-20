@@ -4,17 +4,16 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities.Items
 {
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// The EquipScroll ability will scroll between the previous and next abilities with the scroll wheel.
     /// </summary>
     [DefaultStartType(AbilityStartType.Axis)]
     [DefaultInputName("Mouse ScrollWheel")]
-    [AllowDuplicateTypes]
+    [AllowMultipleAbilityTypes]
     public class EquipScroll : ItemSetAbilityBase
     {
         [Tooltip("The sensitivity for switching between items. The higher the value the faster the scroll wheel has to scroll in order to switch items.")]
@@ -33,7 +32,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
 
             // The EquipUnequip must exist in order for the item to be able to be equip toggled.
             if (m_EquipUnequipItemAbility == null) {
-                Debug.LogError($"Error: The EquipUnequip ItemAbility with the category ID {m_ItemSetCategoryID} must be added to the character.");
+                Debug.LogError("Error: The EquipUnequip ItemAbility must be added to the character.");
                 Enabled = false;
             }
         }

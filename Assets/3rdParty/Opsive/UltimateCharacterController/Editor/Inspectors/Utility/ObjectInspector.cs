@@ -4,16 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
 {
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Utility;
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using UnityEditor;
-    using UnityEngine;
-
     /// <summary>
     /// Draws individual object values.
     /// </summary>
@@ -35,18 +34,6 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
         /// <returns>The updated object value based on the drawn fields.</returns>
         public static object DrawFields(object obj, bool drawNoFieldsNotice)
         {
-            return DrawFields(obj, drawNoFieldsNotice, 0);
-        }
-
-        /// <summary>
-        /// Draws all of the serialized fields.
-        /// </summary>
-        /// <param name="obj">The object to draw all of the fields of.</param>
-        /// <param name="drawNoFieldsNotice">Should a notice be drawn if no fields can be drawn?</param>
-        /// <param name="hashPrefix">The prefix of the hash from the parent class. This value will prevent collisions with similarly named objects.</param>
-        /// <returns>The updated object value based on the drawn fields.</returns>
-        private static object DrawFields(object obj, bool drawNoFieldsNotice, int hashPrefix)
-        {
             if (obj == null) {
                 return null;
             }
@@ -54,7 +41,6 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
             // Only the serialized objects need to be drawn.
             var objType = obj.GetType();
             var fieldsDrawn = false;
-            var hash = hashPrefix + Serialization.StringHash(obj.GetType().FullName);
             var fields = Serialization.GetSerializedFields(objType, MemberVisibility.Public);
             for (int i = 0; i < fields.Length; ++i) {
                 // Do not draw HideInInspector fields.
@@ -71,7 +57,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
                     guiContent = new GUIContent(InspectorUtility.SplitCamelCase(fields[i].Name));
                 }
                 var value = fields[i].GetValue(obj);
-                value = DrawObject(guiContent, fields[i].FieldType, value, fields[i].Name, hash, null, null, fields[i], true);
+                value = DrawObject(guiContent, fields[i].FieldType, value, fields[i].Name, 0, null, null, fields[i], true);
                 // Update the object if the value was changed.
                 if (EditorGUI.EndChangeCheck()) {
                     fields[i].SetValue(obj, value);
@@ -103,13 +89,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
             // Only the serialized properties need to be drawn.
             var properties = Serialization.GetSerializedProperties(type, visibility);
             for (int i = 0; i < properties.Length; ++i) {
-                var bitwiseHash = new Version(serialization.Version).CompareTo(new Version("3.1")) >= 0;
-                int hash;
-                if (bitwiseHash) {
-                    hash = (hashPrefix * Serialization.HashMultiplier) ^ (Serialization.StringHash(properties[i].PropertyType.FullName) + Serialization.StringHash(properties[i].Name));
-                } else {
-                    hash = hashPrefix + Serialization.StringHash(properties[i].PropertyType.FullName) + Serialization.StringHash(properties[i].Name);
-                }
+                var hash = hashPrefix + Serialization.StringHash(properties[i].PropertyType.FullName) + Serialization.StringHash(properties[i].Name);
                 int position;
                 // The value may not be serialized.
                 if (!valuePositionMap.TryGetValue(hash, out position)) {
@@ -121,14 +101,14 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
                     startDrawElementCallback();
                 }
                 var value = Serializer.BytesToValue(properties[i].PropertyType, properties[i].Name, valuePositionMap, hashPrefix, serialization.Values,
-                                                    serialization.ValuePositions, serialization.UnityObjects, false, visibility, bitwiseHash);
+                                                    serialization.ValuePositions, serialization.UnityObjects, false, visibility);
 
                 EditorGUI.BeginChangeCheck();
 
                 // Get a list of Unity Objects before the property is drawn. This will be used if the property is deleted and the Unity Object array needs to be cleaned up.
                 var unityObjectIndexes = new List<int>();
                 Serialization.GetUnityObjectIndexes(ref unityObjectIndexes, properties[i].PropertyType, properties[i].Name, hashPrefix, valuePositionMap, serialization.ValueHashes, serialization.ValuePositions,
-                                                    serialization.Values, false, visibility, bitwiseHash);
+                                                    serialization.Values, false, visibility);
 
                 // Draw the property.
                 value = DrawObject(new GUIContent(InspectorUtility.SplitCamelCase(properties[i].Name)), properties[i].PropertyType, value, properties[i].Name, hashPrefix, valuePositionMap, serialization, properties[i], false);
@@ -154,9 +134,13 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
                         return obj;
                     }
 
+                    var localValueCount = Serialization.GetValueCount(properties[i].PropertyType, value, false, visibility);
+                    if (localValueCount == 0) {
+                        return obj;
+                    }
                     // Remove the current element and then add it back at the end. The order of the values doesn't matter and this prevents each subsequent element from needing to be modified because the current
                     // value could have changed sizes.
-                    Serialization.RemoveProperty(i, unityObjectIndexes, serialization, visibility, bitwiseHash);
+                    Serialization.RemoveProperty(i, unityObjectIndexes, serialization, visibility);
 
                     // Add the property to the Serialization data.
                     Serialization.AddProperty(properties[i], value, unityObjectIndexes, serialization, visibility);
@@ -392,7 +376,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
                 return DrawLayerMask(guiContent, (LayerMask)value);
             }
             if (type.IsEnum) {
-                return EditorGUILayout.EnumPopup(guiContent, (Enum)Enum.ToObject(type, value));
+                return EditorGUILayout.EnumPopup(guiContent, (Enum)value);
             }
             if (typeof(UnityEngine.Object).IsAssignableFrom(type)) {
                 return EditorGUILayout.ObjectField(guiContent, (UnityEngine.Object)value, type, true);
@@ -418,11 +402,8 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
                         }
                         if (InspectorUtility.Foldout(value, guiContent)) {
                             EditorGUI.indentLevel++;
-                            var inspectorDrawer = InspectorDrawerUtility.InspectorDrawerForType(type);
-                            if (inspectorDrawer != null) {
-                                inspectorDrawer.OnInspectorGUI(value, null);
-                            } else if (drawFields) {
-                                value = DrawFields(value, true, hashPrefix + Serialization.StringHash(type.FullName) + Serialization.StringHash(name));
+                            if (drawFields) {
+                                value = DrawFields(value, true);
                             } else {
                                 value = DrawProperties(type, value, hashPrefix + Serialization.StringHash(type.FullName) + Serialization.StringHash(name), valuePositionMap, serialization, MemberVisibility.Public, null, null);
                             }
@@ -433,7 +414,6 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
                         return value;
                     } catch (Exception /*e*/) {
                         // Clean up any exceptions.
-                        EditorGUI.indentLevel--;
                         GUILayout.EndVertical();
                         s_DrawnObjects.Remove(hash);
                         return null;

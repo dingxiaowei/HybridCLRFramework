@@ -4,14 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Items
 {
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using UnityEngine;
-
     /// <summary>
     /// Describes any perspective dependent properties for the ItemAction.
     /// </summary>

@@ -4,19 +4,19 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using UnityEngine.SceneManagement;
+using UnityEditor.SceneManagement;
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System.Reflection;
+using Opsive.UltimateCharacterController.Traits;
+using Opsive.UltimateCharacterController.Motion;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
 {
-    using Opsive.UltimateCharacterController.Traits;
-    using Opsive.UltimateCharacterController.Motion;
-    using System;
-    using System.Collections.Generic;
-    using System.Text.RegularExpressions;
-    using System.Reflection;
-    using UnityEditor;
-    using UnityEditor.SceneManagement;
-    using UnityEngine;
-    using UnityEngine.SceneManagement;
-
     /// <summary>
     /// Utility class for the Ultimate Character Controller inspectors.
     /// </summary>
@@ -134,9 +134,6 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
         /// <returns>True if the foldout is expanded.</returns>
         public static bool Foldout(object obj, GUIContent guiContent, bool defaultExpanded, string identifyingString)
         {
-            if (obj == null) {
-                return false;
-            }
             var key = c_EditorPrefsFoldoutKey + "." + obj.GetType() + (obj is MonoBehaviour ? ("." + (obj as MonoBehaviour).name) : string.Empty) + "." + identifyingString + "." + guiContent.text;
             bool prevFoldout;
             if (!s_FoldoutValueMap.TryGetValue(key, out prevFoldout)) {
@@ -355,10 +352,6 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
         /// </summary>
         public static void DrawObject(object obj, bool drawHeader, bool friendlyNamespacePrefix, UnityEngine.Object target, bool drawNoFieldsNotice, Action changeCallback)
         {
-            if (obj == null) {
-                return;
-            }
-
             if (drawHeader) {
                 EditorGUILayout.LabelField(DisplayTypeName(obj.GetType(), friendlyNamespacePrefix), EditorStyles.boldLabel);
             }
@@ -388,13 +381,11 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
         {
             var field = GetField(obj, name);
             if (field != null) {
-                try {
-                    var prevValue = field.GetValue(obj);
-                    var value = ObjectInspector.DrawObject(new GUIContent(SplitCamelCase(name), GetFieldTooltip(field)), field.FieldType, prevValue, name, 0, null, null, field, true);
-                    if (prevValue != value && GUI.changed) {
-                        field.SetValue(obj, value);
-                    }
-                } catch (Exception /*e*/) { }
+                var prevValue = field.GetValue(obj);
+                var value = ObjectInspector.DrawObject(new GUIContent(SplitCamelCase(name), GetFieldTooltip(field)), field.FieldType, prevValue, name, 0, null, null, field, true);
+                if (prevValue != value && GUI.changed) {
+                    field.SetValue(obj, value);
+                }
             } else {
                 Debug.LogError("Error: Unable to find a field with name " + name + " on object " + obj);
             }
@@ -458,11 +449,12 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
         /// <summary>
         /// Draws the Attribute fields.
         /// </summary>
+        /// <param name="target">The UnityEngine object.</param>
         /// <param name="attributeManager">The AttributeManager that the target uses.</param>
         /// <param name="attributeName">The name of the selected attribute.</param>
         /// <param name="fieldName">The name of the field that is being drawn.</param>
         /// <returns>The name of the attribute.</returns>
-        public static string DrawAttribute(AttributeManager attributeManager, string attributeName, string fieldName)
+        public static string DrawAttribute(UnityEngine.Object target, AttributeManager attributeManager, string attributeName, string fieldName)
         {
             if (attributeManager != null) {
                 var attributeNames = new string[attributeManager.Attributes.Length + 1];
@@ -487,12 +479,12 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
         /// <summary>
         /// Draws the AttributeModifier fields.
         /// </summary>
+        /// <param name="target">The UnityEngine object.</param>
         /// <param name="attributeManager">The AttributeManager that the target uses.</param>
         /// <param name="attributeModifier">The AttributeModifier that should be drawn.</param>
-        /// <param name="fieldName">The name of the attribute field.</param>
-        public static void DrawAttributeModifier(AttributeManager attributeManager, AttributeModifier attributeModifier, string fieldName)
+        public static void DrawAttributeModifier(UnityEngine.Object target, AttributeManager attributeManager, AttributeModifier attributeModifier)
         {
-            var attributeName = DrawAttribute(attributeManager, attributeModifier.AttributeName, fieldName);
+            var attributeName = DrawAttribute(target, attributeManager, attributeModifier.AttributeName, "Attribute Name");
             if (attributeName != attributeModifier.AttributeName) {
                 attributeModifier.AttributeName = attributeName;
                 GUI.changed = true;
@@ -507,7 +499,6 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
                         attributeModifier.AutoUpdateStartDelay = EditorGUILayout.FloatField("Start Delay", attributeModifier.AutoUpdateStartDelay);
                         attributeModifier.AutoUpdateInterval = EditorGUILayout.FloatField("Interval", attributeModifier.AutoUpdateInterval);
                         attributeModifier.AutoUpdateAmount = EditorGUILayout.FloatField("Amount", attributeModifier.AutoUpdateAmount);
-                        attributeModifier.AutoUpdateDuration = EditorGUILayout.FloatField("Duration", attributeModifier.AutoUpdateDuration);
                     }
                 }
                 EditorGUI.indentLevel--;
@@ -688,7 +679,6 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
             }
 
             PrefabUtility.RecordPrefabInstancePropertyModifications(obj);
-            new SerializedObject(obj).ApplyModifiedProperties();
             if (obj is Component) {
                 EditorSceneManager.MarkSceneDirty((obj as Component).gameObject.scene);
             } else if (obj is GameObject) {
@@ -712,6 +702,21 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
             }
 
             return selectedPath;
+        }
+
+        /// <summary>
+        /// Adds the component of the specified type if it doesn't already exist.
+        /// </summary>
+        /// <typeparam name="T">The type of component to add.</typeparam>
+        /// <param name="gameObject">The GameObject to add the component to.</param>
+        /// <returns>The added component.</returns>
+        public static T AddComponent<T>(GameObject gameObject) where T : Component
+        {
+            T component;
+            if ((component = gameObject.GetComponent<T>()) == null) {
+                return gameObject.AddComponent<T>();
+            }
+            return component;
         }
     }
 }

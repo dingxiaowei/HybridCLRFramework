@@ -4,14 +4,14 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Character.Abilities;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Objects.CharacterAssist
 {
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Character.Abilities;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// A Gravity Zone represents a trigger area that adjusts the character's gravity direction when the character is within the trigger.
     /// </summary>

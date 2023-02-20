@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character.MovementTypes;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.FirstPersonController.Character.MovementTypes
 {
-    using Opsive.UltimateCharacterController.Character.MovementTypes;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// With the Combat movement type the character can strafe and move backwards, and is always facing in the direction of the camera.
     /// </summary>
@@ -27,12 +27,6 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Character.Mov
         /// <returns>The delta yaw rotation of the character.</returns>
         public override float GetDeltaYawRotation(float characterHorizontalMovement, float characterForwardMovement, float cameraHorizontalMovement, float cameraVerticalMovement)
         {
-#if UNITY_EDITOR
-            if (m_LookSource == null) {
-                Debug.LogError("Error: There is no look source attached to the character. Ensure the character has a look source attached. For player characters the look source is the Camera Controller, and AI agents use the Local Look Source.");
-                return 0;
-            }
-#endif
             var lookRotation = Quaternion.LookRotation(m_LookSource.LookDirection(true), m_CharacterLocomotion.Up);
             // Convert to a local character rotation and then only return the relative y rotation.
             return MathUtility.ClampInnerAngle(MathUtility.InverseTransformQuaternion(m_Transform.rotation, lookRotation).eulerAngles.y);

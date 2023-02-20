@@ -4,13 +4,14 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using Opsive.UltimateCharacterController.Items;
+using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
+using System;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
-    using Opsive.UltimateCharacterController.Items;
-    using System;
-    using UnityEditor;
-
     /// <summary>
     /// Shows a custom inspector for the ThirdPersonMeleeWeaponProperties.
     /// </summary>

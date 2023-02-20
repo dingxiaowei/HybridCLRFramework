@@ -4,37 +4,29 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEngine.AI;
+using Opsive.UltimateCharacterController.Events;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities.AI
 {
-    using Opsive.Shared.Events;
-    using UnityEngine;
-    using UnityEngine.AI;
-
     /// <summary>
     /// Moves the character according to the NavMeshAgent desired velocity.
     /// </summary>
     [RequireComponent(typeof(NavMeshAgent))]
     public class NavMeshAgentMovement : PathfindingMovement
     {
-        [Tooltip("The agent has arrived at the destination when the remaining distance is less than the arrived distance.")]
-        [SerializeField] protected float m_ArrivedDistance = 0.2f;
-
-        public float ArrivedDistance { get { return m_ArrivedDistance; } set { m_ArrivedDistance = value; } }
-
         private NavMeshAgent m_NavMeshAgent;
         private Jump m_JumpAbility;
         private Fall m_FallAbility;
 
-        private bool m_PrevEnabled = true;
         private Vector2 m_InputVector;
         private Vector3 m_DeltaRotation;
         private bool m_UpdateRotation;
         private int m_LastPathPendingFrame;
-        private int m_NavMeshJumpArea;
 
         public override Vector2 InputVector { get { return m_InputVector; } }
         public override Vector3 DeltaRotation { get { return m_DeltaRotation; } }
-        public override bool Enabled { set { base.Enabled = value; if (m_NavMeshAgent != null) { m_NavMeshAgent.enabled = value; } } }
 
         /// <summary>
         /// Initialize the default values.
@@ -47,7 +39,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.AI
             m_NavMeshAgent.autoTraverseOffMeshLink = false;
             m_NavMeshAgent.updatePosition = false;
             m_LastPathPendingFrame = int.MinValue;
-            m_NavMeshJumpArea = NavMesh.GetAreaFromName("Jump");
 
             m_JumpAbility = m_CharacterLocomotion.GetAbility<Jump>();
             m_FallAbility = m_CharacterLocomotion.GetAbility<Fall>();
@@ -55,34 +46,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.AI
             EventHandler.RegisterEvent<bool>(m_GameObject, "OnCharacterGrounded", OnGrounded);
             EventHandler.RegisterEvent<Vector3, Vector3, GameObject>(m_GameObject, "OnDeath", OnDeath);
             EventHandler.RegisterEvent(m_GameObject, "OnRespawn", OnRespawn);
-
-            if (!Enabled) {
-                m_NavMeshAgent.enabled = false;
-            }
-        }
-
-        /// <summary>
-        /// Sets the destination of the pathfinding agent.
-        /// </summary>
-        /// <param name="target">The position to move towards.</param>
-        /// <returns>True if the destination was set.</returns>
-        public override bool SetDestination(Vector3 target)
-        {
-            // Set the new destination if the ability is already active.
-            if (m_NavMeshAgent.hasPath && IsActive) {
-                return m_NavMeshAgent.SetDestination(target);
-            }
-
-            // The NavMeshAgent must be enabled in order to set the destination.
-            m_PrevEnabled = Enabled;
-            Enabled = true;
-            // Move towards the destination.
-            if (m_NavMeshAgent.isOnNavMesh && m_NavMeshAgent.SetDestination(target)) {
-                StartAbility();
-                return true;
-            }
-            Enabled = m_PrevEnabled;
-            return false;
         }
 
         /// <summary>
@@ -101,14 +64,9 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.AI
                 }
                 // Only move if a path exists.
                 if (m_NavMeshAgent.desiredVelocity.sqrMagnitude > 0.01f && m_NavMeshAgent.remainingDistance > 0.01f && m_LastPathPendingFrame + 2 < Time.frameCount) {
-                    Vector3 velocity;
-                    if (m_NavMeshAgent.updateRotation) {
-                        lookRotation = Quaternion.LookRotation(m_NavMeshAgent.desiredVelocity, m_CharacterLocomotion.Up);
-                        // The normalized velocity should be relative to the target rotation.
-                        velocity = Quaternion.Inverse(lookRotation) * m_NavMeshAgent.desiredVelocity;
-                    } else {
-                        velocity = m_Transform.InverseTransformDirection(m_NavMeshAgent.desiredVelocity);
-                    }
+                    lookRotation = Quaternion.LookRotation(m_NavMeshAgent.desiredVelocity, m_CharacterLocomotion.Up);
+                    // The normalized velocity should be relative to the target rotation.
+                    var velocity = Quaternion.Inverse(lookRotation) * m_NavMeshAgent.desiredVelocity;
                     // Only normalize if the magnitude is greater than 1. This will allow the character to walk.
                     if (velocity.sqrMagnitude > 1) {
                         velocity.Normalize();
@@ -148,8 +106,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.AI
         /// </summary>
         protected virtual void UpdateOffMeshLink()
         {
-            if (m_NavMeshAgent.currentOffMeshLinkData.linkType == OffMeshLinkType.LinkTypeDropDown || m_NavMeshAgent.currentOffMeshLinkData.linkType == OffMeshLinkType.LinkTypeJumpAcross ||
-                (m_NavMeshAgent.currentOffMeshLinkData.linkType == OffMeshLinkType.LinkTypeManual && m_NavMeshAgent.currentOffMeshLinkData.offMeshLink.area == m_NavMeshJumpArea)) {
+            if (m_NavMeshAgent.currentOffMeshLinkData.linkType == OffMeshLinkType.LinkTypeDropDown || m_NavMeshAgent.currentOffMeshLinkData.linkType == OffMeshLinkType.LinkTypeJumpAcross) {
                 // Ignore the y difference when determining a look direction and velocity.
                 // This will give XZ distances a greater impact when normalized.
                 var direction = m_NavMeshAgent.currentOffMeshLinkData.endPos - m_Transform.position;
@@ -164,38 +121,11 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.AI
                 }
 
                 // Jump if the agent hasn't jumped yet.
-                if (m_JumpAbility != null && (m_NavMeshAgent.currentOffMeshLinkData.linkType == OffMeshLinkType.LinkTypeJumpAcross ||
-                    (m_NavMeshAgent.currentOffMeshLinkData.linkType == OffMeshLinkType.LinkTypeManual && m_NavMeshAgent.currentOffMeshLinkData.offMeshLink.area == m_NavMeshJumpArea))) {
+                if (m_JumpAbility != null && m_NavMeshAgent.currentOffMeshLinkData.linkType == OffMeshLinkType.LinkTypeJumpAcross) {
                     if (!m_JumpAbility.IsActive && (m_FallAbility == null || !m_FallAbility.IsActive)) {
                         m_CharacterLocomotion.TryStartAbility(m_JumpAbility);
                     }
                 }
-            }
-        }
-
-        /// <summary>
-        /// Can the ability be stopped?
-        /// </summary>
-        /// <returns>True if the ability can be stopped.</returns>
-        public override bool CanStopAbility()
-        {
-            if (!base.CanStopAbility()) {
-                return false;
-            }
-
-            return m_NavMeshAgent.hasPath && m_NavMeshAgent.remainingDistance <= m_ArrivedDistance;
-        }
-
-        /// <summary>
-        /// The ability has stopped running.
-        /// </summary>
-        /// <param name="force">Was the ability force stopped?</param>
-        protected override void AbilityStopped(bool force)
-        {
-            base.AbilityStopped(force);
-
-            if (!m_PrevEnabled) {
-                Enabled = false;
             }
         }
 
@@ -205,7 +135,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.AI
         /// <param name="grounded">Is the character on the ground?</param>
         protected virtual void OnGrounded(bool grounded)
         {
-            if (grounded && m_NavMeshAgent.enabled) {
+            if (grounded) {
                 // The agent is no longer on an off mesh link if they just landed.
                 if (m_NavMeshAgent.isOnOffMeshLink && (m_NavMeshAgent.currentOffMeshLinkData.linkType == OffMeshLinkType.LinkTypeDropDown ||
                                                        m_NavMeshAgent.currentOffMeshLinkData.linkType == OffMeshLinkType.LinkTypeJumpAcross)) {

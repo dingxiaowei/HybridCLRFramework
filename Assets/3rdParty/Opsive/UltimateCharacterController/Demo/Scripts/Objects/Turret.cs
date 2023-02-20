@@ -4,21 +4,20 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Game;
+#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
+using Opsive.UltimateCharacterController.Networking;
+using Opsive.UltimateCharacterController.Networking.Game;
+#endif
+using Opsive.UltimateCharacterController.Objects;
+using Opsive.UltimateCharacterController.SurfaceSystem;
+using Opsive.UltimateCharacterController.Traits;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Demo.Objects
 {
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Game;
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-    using Opsive.UltimateCharacterController.Networking;
-    using Opsive.UltimateCharacterController.Networking.Game;
-#endif
-    using Opsive.UltimateCharacterController.Objects;
-    using Opsive.UltimateCharacterController.SurfaceSystem;
-    using Opsive.UltimateCharacterController.Traits;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// A simple turret which will fire a projectile towards the character. This turret is setup for the demo scene and will likely require modifications if used in other areas.
     /// </summary>
@@ -86,6 +85,7 @@ namespace Opsive.UltimateCharacterController.Demo.Objects
             if (m_TurretHead == null) {
                 m_TurretHead = m_Transform;
             }
+            m_LastFireTime = -m_FireDelay;
         }
 
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
@@ -99,14 +99,6 @@ namespace Opsive.UltimateCharacterController.Demo.Objects
             }
         }
 #endif
-
-        /// <summary>
-        /// The turret has been enabled.
-        /// </summary>
-        private void OnEnable()
-        {
-            m_LastFireTime = Time.time;
-        }
 
         /// <summary>
         /// Rotates the turret head and attacks if the character is within range.
@@ -154,7 +146,7 @@ namespace Opsive.UltimateCharacterController.Demo.Objects
                                     m_ImpactLayers, string.Empty, 0, m_SurfaceImpact, m_GameObject);
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
             if (m_NetworkInfo != null) {
-                NetworkObjectPool.NetworkSpawn(m_Projectile, projectile.gameObject, true);
+                NetworkObjectPool.NetworkSpawn(m_Projectile, projectile.gameObject);
             }
 #endif
 

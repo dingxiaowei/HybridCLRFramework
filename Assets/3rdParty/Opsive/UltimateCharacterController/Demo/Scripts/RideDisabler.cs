@@ -4,20 +4,22 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character.Abilities;
+using Opsive.UltimateCharacterController.Demo.Objects;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Demo
 {
-    using Opsive.Shared.Events;
-    using Opsive.UltimateCharacterController.Character.Abilities;
-    using Opsive.UltimateCharacterController.Demo.Objects;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// Disables or removes objects when the ride ability is active.
     /// </summary>
     public class RideDisabler : MonoBehaviour
     {
+        [Tooltip("A reference to Nolan.")]
+        [SerializeField] protected GameObject m_Nolan;
         [Tooltip("A reference to Blitz.")]
         [SerializeField] protected GameObject m_Blitz;
         [Tooltip("The doors that should be locked when the ride ability is active.")]
@@ -25,7 +27,6 @@ namespace Opsive.UltimateCharacterController.Demo
         [Tooltip("The objects that should be deactivated when the ride ability is active.")]
         [SerializeField] protected GameObject[] m_Objects;
 
-        private GameObject m_Nolan;
         private bool m_RideActive;
         private bool m_BlitzInTrigger;
 
@@ -34,9 +35,6 @@ namespace Opsive.UltimateCharacterController.Demo
         /// </summary>
         private void Awake()
         {
-            var demoManager = FindObjectOfType<DemoManager>();
-            m_Nolan = demoManager.Character;
-
             EventHandler.RegisterEvent<Ability, bool>(m_Nolan, "OnCharacterAbilityActive", OnAbilityActive);
             EventHandler.RegisterEvent<Transform>(m_Blitz, "OnCharacterChangeMovingPlatforms", OnCharacterChangeMovingPlatforms);
         }

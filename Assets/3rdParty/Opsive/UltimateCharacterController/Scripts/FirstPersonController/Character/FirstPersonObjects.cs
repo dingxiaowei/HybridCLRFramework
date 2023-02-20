@@ -4,19 +4,18 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Camera;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Items;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Utility;
+using Opsive.UltimateCharacterController.FirstPersonController.Character.Identifiers;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.FirstPersonController.Character
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Camera;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Items;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using Opsive.UltimateCharacterController.Utility;
-    using Opsive.UltimateCharacterController.FirstPersonController.Character.Identifiers;
-    using System.Collections.Generic;
-    using UnityEngine;
-
     /// <summary>
     /// Manages the location of the first person objects while in first or third person view.
     /// </summary>
@@ -275,8 +274,8 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Character
             }
             m_Transform.rotation = Quaternion.Slerp(m_Transform.rotation, rotation, m_RotationSpeed * m_CharacterLocomotion.TimeScale * Time.timeScale * Time.deltaTime);
 
-            if (m_IgnorePositionalLookOffset && m_CameraController.ActiveViewType is FirstPersonController.Camera.ViewTypes.FirstPerson) {
-                var firstPersonViewType = m_CameraController.ActiveViewType as FirstPersonController.Camera.ViewTypes.FirstPerson;
+            if (m_IgnorePositionalLookOffset && m_CameraController.ActiveViewType is Camera.ViewTypes.FirstPerson) {
+                var firstPersonViewType = m_CameraController.ActiveViewType as Camera.ViewTypes.FirstPerson;
                 var targetPosition = firstPersonViewType.GetTargetPosition() + m_CharacterTransform.TransformDirection(m_PositionOffset);
                 m_Transform.position = Vector3.MoveTowards(m_Transform.position, targetPosition, m_MoveSpeed * m_CharacterLocomotion.TimeScale * Time.timeScale * Time.deltaTime);
             } else if (m_Transform.localPosition != Vector3.zero) {
@@ -290,10 +289,6 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Character
         /// <param name="item">The item that was added.</param>
         private void OnAddItem(Item item)
         {
-            if (m_ItemBaseObjectMap.ContainsKey(item)) {
-                return;
-            }
-
             var firstPersonPerspective = item.GetComponent<Items.FirstPersonPerspectiveItem>();
             if (firstPersonPerspective != null && firstPersonPerspective.Object != null) {
                 // If the item contains a first person object then the item will have a parent FirstPersonBaseObject. This object should be enabled/disabled depending on
@@ -349,8 +344,9 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Character
             
             for (int i = 0; i < m_EquippedItems.Length; ++i) {
                 if (m_EquippedItems[i] != null) {
-                    if (!m_ItemBaseObjectMap.TryGetValue(m_EquippedItems[i], out var baseObjects)) {
-                        Debug.LogError($"Error: Unable to find the base object for item {m_EquippedItems[i].name}. Ensure the item specifies a base object under the First Person Perspective Item component.");
+                    GameObject[] baseObjects;
+                    if (!m_ItemBaseObjectMap.TryGetValue(m_EquippedItems[i], out baseObjects)) {
+                        Debug.LogError("Error: Unable to find the base object for item " + m_EquippedItems[i].name + ". Ensure the item specifies a base object under the First Person Perspective Item component.");
                         continue;
                     }
                     for (int j = 0; j < baseObjects.Length; ++j) {

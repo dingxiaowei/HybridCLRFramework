@@ -4,14 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using Opsive.UltimateCharacterController.Character.Abilities.Items;
+using Opsive.UltimateCharacterController.Inventory;
+using Opsive.UltimateCharacterController.Items.AnimatorAudioStates;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Items.Actions
 {
-    using Opsive.Shared.Inventory;
-    using Opsive.UltimateCharacterController.Character.Abilities;
-    using Opsive.UltimateCharacterController.Character.Abilities.Items;
-    using Opsive.UltimateCharacterController.Items.AnimatorAudioStates;
-    using Opsive.UltimateCharacterController.Utility;
-
     /// <summary>
     /// Interface for an item that can be used (fired, swung, thrown, etc).
     /// </summary>
@@ -72,27 +71,27 @@ namespace Opsive.UltimateCharacterController.Items.Actions
         float StopUseAbilityDelay { get; }
 
         /// <summary>
-        /// Returns the ItemIdentifier which can be consumed by the item.
+        /// Returns the ItemType which can be consumed by the item.
         /// </summary>
-        /// <returns>The ItemIdentifier which can be consumed by the item.</returns>
-        IItemIdentifier GetConsumableItemIdentifier();
+        /// <returns>The ItemType which can be consumed by the item.</returns>
+        ItemType GetConsumableItemType();
 
         /// <summary>
-        /// Returns the amount of UsableItemIdentifier which has been consumed by the UsableItem.
+        /// Returns the amount of UsableItemType which has been consumed by the UsableItem.
         /// </summary>
-        /// <returns>The amount consumed of the UsableItemIdentifier.</returns>
-        int GetConsumableItemIdentifierAmount();
+        /// <returns>The amount consumed of the UsableItemType.</returns>
+        float GetConsumableItemTypeCount();
 
         /// <summary>
-        /// Sets the UsableItemIdentifier amount on the UsableItem.
+        /// Sets the UsableItemType amount on the UsableItem.
         /// </summary>
-        /// <param name="amount">The amount to set the UsableItemIdentifier to.</param>
-        void SetConsumableItemIdentifierAmount(int amount);
+        /// <param name="count">The amount to set the UsableItemType to.</param>
+        void SetConsumableItemTypeCount(float count);
 
         /// <summary>
-        /// Removes the amount of UsableItemIdentifier which has been consumed by the UsableItem.
+        /// Removes the amount of UsableItemType which has been consumed by the UsableItem.
         /// </summary>
-        void RemoveConsumableItemIdentifierAmount();
+        void RemoveConsumableItemTypeCount();
 
         /// <summary>
         /// Can the item be used?
@@ -103,17 +102,9 @@ namespace Opsive.UltimateCharacterController.Items.Actions
         bool CanUseItem(ItemAbility itemAbility, UsableItem.UseAbilityState abilityState);
 
         /// <summary>
-        /// Can the ability be started?
-        /// </summary>
-        /// <param name="ability">The ability that is trying to start.</param>
-        /// <returns>True if the ability can be started.</returns>
-        bool CanStartAbility(Ability ability);
-
-        /// <summary>
         /// Starts the item use.
         /// </summary>
-        /// <param name="itemAbility">The item ability that is using the item.</param>
-        void StartItemUse(ItemAbility itemAbility);
+        void StartItemUse();
 
         /// <summary>
         /// Uses the item.

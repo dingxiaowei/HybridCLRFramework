@@ -4,15 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEngine.UI;
+using Opsive.UltimateCharacterController.Character.Abilities;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Objects.CharacterAssist;
+
 namespace Opsive.UltimateCharacterController.UI
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Character.Abilities;
-    using Opsive.UltimateCharacterController.Objects.CharacterAssist;
-    using UnityEngine;
-    using UnityEngine.UI;
-
     /// <summary>
     /// The MessageMonitor will update the UI for any external object messages such as an ability being able to start or the character picking up an item.
     /// </summary>
@@ -188,7 +188,7 @@ namespace Opsive.UltimateCharacterController.UI
         /// <returns>True if the UI can be shown.</returns>
         protected override bool CanShowUI()
         {
-            return base.CanShowUI() && (m_Ability != null || m_ObjectPickup != null || m_ShouldFade);
+            return m_Ability != null || m_ObjectPickup != null || m_ShouldFade;
         }
     }
 }

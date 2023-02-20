@@ -4,18 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Traits;
+using Opsive.UltimateCharacterController.Objects.CharacterAssist;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-using Opsive.UltimateCharacterController.Networking;
-#endif
-    using Opsive.UltimateCharacterController.Traits;
-    using Opsive.UltimateCharacterController.Objects.CharacterAssist;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// Interacts with another object within the scene. The object that the ability interacts with must have the Interact component added to it.
     /// </summary>
@@ -24,7 +21,7 @@ using Opsive.UltimateCharacterController.Networking;
     [DefaultAbilityIndex(9)]
     [DefaultAllowPositionalInput(false)]
     [DefaultAllowRotationalInput(false)]
-    [AllowDuplicateTypes]
+    [AllowMultipleAbilityTypes]
     public class Interact : DetectObjectAbilityBase
     {
         [Tooltip("The ID of the Interactable. A value of -1 indicates no ID.")]
@@ -45,11 +42,7 @@ using Opsive.UltimateCharacterController.Networking;
         public AnimationEventTrigger InteractCompleteEvent { get { return m_InteractCompleteEvent; } set { m_InteractCompleteEvent = value; } }
 
         private CharacterIKBase m_CharacterIK;
-        protected Interactable m_Interactable;
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-        private INetworkInfo m_NetworkInfo;
-#endif
-
+        private Interactable m_Interactable;
         private ScheduledEventBase[] m_DisableIKInteractionEvents;
         private bool m_HasInteracted;
         private bool m_ExitedTrigger;
@@ -81,10 +74,6 @@ using Opsive.UltimateCharacterController.Networking;
 
             m_CharacterIK = m_GameObject.GetCachedComponent<CharacterIKBase>();
 
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-            m_NetworkInfo = m_GameObject.GetCachedComponent<INetworkInfo>();
-#endif
-
             EventHandler.RegisterEvent(m_GameObject, "OnAnimatorInteract", DoInteract);
             EventHandler.RegisterEvent(m_GameObject, "OnAnimatorInteractComplete", InteractComplete);
         }
@@ -110,42 +99,38 @@ using Opsive.UltimateCharacterController.Networking;
         }
 
         /// <summary>
-        /// Returns the possible MoveTowardsLocations that the character can move towards.
+        /// Returns the possible AbilityStartLocations that the character can move towards.
         /// </summary>
-        /// <returns>The possible MoveTowardsLocations that the character can move towards.</returns>
-        public override MoveTowardsLocation[] GetMoveTowardsLocations()
+        /// <returns>The possible AbilityStartLocations that the character can move towards.</returns>
+        public override AbilityStartLocation[] GetStartLocations()
         {
-            return m_Interactable.gameObject.GetCachedComponents<MoveTowardsLocation>();
+            return m_Interactable.gameObject.GetCachedComponents<AbilityStartLocation>();
         }
 
         /// <summary>
         /// Validates the object to ensure it is valid for the current ability.
         /// </summary>
         /// <param name="obj">The object being validated.</param>
-        /// <param name="raycastHit">The raycast hit of the detected object. Will be null for trigger detections.</param>
+        /// <param name="fromTrigger">Is the object being validated from a trigger?</param>
         /// <returns>True if the object is valid. The object may not be valid if it doesn't have an ability-specific component attached.</returns>
-        protected override bool ValidateObject(GameObject obj, RaycastHit? raycastHit)
+        protected override bool ValidateObject(GameObject obj, bool fromTrigger)
         {
-            if (!base.ValidateObject(obj, raycastHit)) {
+            if (!base.ValidateObject(obj, fromTrigger)) {
                 return false;
             }
 
-            if (m_Interactable != null && raycastHit.HasValue) {
-                return obj == m_Interactable.gameObject || obj.transform.IsChildOf(m_Interactable.transform);
+            if (m_Interactable != null) {
+                return obj == m_Interactable.gameObject;
             }
 
             // The object must have the Interactable component.
-            var interactable = obj.GetCachedParentComponent<Interactable>();
-            if (interactable != null) {
+            if ((m_Interactable = obj.GetCachedComponent<Interactable>()) != null) {
                 // If the ID is used then the IDs must match.
-                if (m_InteractableID != -1 && interactable.ID != m_InteractableID) {
+                if (m_InteractableID != -1 && m_Interactable.ID != m_InteractableID) {
+                    m_Interactable = null;
                     return false;
                 }
 
-                // Interactable will not be null if coming from a trigger.
-                if (m_Interactable == null) {
-                    m_Interactable = interactable;
-                }
                 return true;
             }
             return false;
@@ -234,13 +219,6 @@ using Opsive.UltimateCharacterController.Networking;
                 return;
             }
 
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-            // The Interact event will be sent through a message. The ability does not need to call the interaction.
-            if (m_NetworkInfo != null && !m_NetworkInfo.IsLocalPlayer()) {
-                return;
-            }
-#endif
-
             m_Interactable.Interact(m_GameObject);
             m_HasInteracted = true;
 
@@ -274,12 +252,7 @@ using Opsive.UltimateCharacterController.Networking;
             }
 
             if (base.TriggerExit(other)) {
-                // The character may have been in multiple triggers.
-                if (m_DetectedObject == null) {
-                    m_Interactable = null;
-                } else {
-                    m_Interactable = m_DetectedObject.GetCachedParentComponent<Interactable>();
-                }
+                m_Interactable = null;
                 return true;
             }
             return false;

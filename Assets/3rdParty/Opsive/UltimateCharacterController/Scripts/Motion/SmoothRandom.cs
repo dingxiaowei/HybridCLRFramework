@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using System;
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Motion
 {
-    using System;
-    using UnityEngine;
-
     /// <summary>
     /// This is a modified version of the perlin noise class from the official Unity 'Procedural Examples' at the following URL:
     /// https://www.assetstore.unity3d.com/en/#!/content/5141

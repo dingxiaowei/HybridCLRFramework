@@ -4,19 +4,17 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Items;
+using Opsive.UltimateCharacterController.Motion;
+using Opsive.UltimateCharacterController.Utility;
+using Opsive.UltimateCharacterController.FirstPersonController.Character;
+using Opsive.UltimateCharacterController.FirstPersonController.Character.Identifiers;
+
 namespace Opsive.UltimateCharacterController.FirstPersonController.Items
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Items;
-    using Opsive.UltimateCharacterController.Motion;
-    using Opsive.UltimateCharacterController.Utility;
-    using Opsive.UltimateCharacterController.FirstPersonController.Character;
-    using Opsive.UltimateCharacterController.FirstPersonController.Character.Identifiers;
-    using UnityEngine;
-
     /// <summary>
     /// Component which represents the item object actually rendererd.
     /// </summary>
@@ -33,10 +31,8 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Items
         [Tooltip("Any additional objects that the item should control the location of. This is useful for dual wielding where the item should update the location of another base object.")]
         [UnityEngine.Serialization.FormerlySerializedAs("m_AdditionalObjects")]
         [SerializeField] protected GameObject[] m_AdditionalControlObjects;
-        [Tooltip("Any additional object IDs that the item should control the location of. This is useful for dual wielding where the item should update the location of another base object.")]
-        [SerializeField] protected int[] m_AdditionalControlObjectBaseIDs;
         [Tooltip("The positional spring used for regular movement (bob, sway, etc).")]
-        [SerializeField] protected Spring m_PositionSpring = new Spring();
+        [SerializeField] protected Spring m_PositionSpring;
         [Tooltip("An offset relative to the parent pivot Transform. This position is where the item \"wants to be\". It will try to go back to this position after any forces are applied.")]
         [SerializeField] protected Vector3 m_PositionOffset;
         [Tooltip("An offset relative to the parent pivot Transform. This is the desired position when the item is moving off screen (in the case of unequipping).")]
@@ -93,7 +89,7 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Items
 	    [SerializeField] protected float m_RotationMaxInputVelocity = 15;
         
         [Tooltip("The positional spring used for the item pivot Transform.")]
-        [SerializeField] protected Spring m_PivotPositionSpring = new Spring();
+        [SerializeField] protected Spring m_PivotPositionSpring;
         [Tooltip("An offset relative to the parent First Person Object Transform.")]
         [SerializeField] protected Vector3 m_PivotPositionOffset;
         [Tooltip("The rotational spring used for the item pivot Transform.")]
@@ -273,15 +269,21 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Items
             m_CharacterTransform = character.transform;
 
             // The object can be retrieved dynamically for first person objects.
-            FirstPersonObjects firstPersonObjects = null;
             if (m_Object == null) {
-                // If the object doesn't have a FirstPersonObjects parent then the object is a completely new arm model.
-                firstPersonObjects = GetFirstPersonObjects(character);
+                FirstPersonObjects firstPersonObjects;
+                Transform objTransform = null;
+                if ((firstPersonObjects = character.GetComponentInChildren<FirstPersonObjects>(true))) {
+                    objTransform = firstPersonObjects.transform;
+                } else {
+                    var camera = UnityEngineUtility.FindCamera(character);
+                    if (camera != null && (firstPersonObjects = camera.GetComponentInChildren<FirstPersonObjects>(true))) {
+                        objTransform = firstPersonObjects.transform;
+                    }
+                }
                 // The character may not have a first person perspective setup.
-                if (firstPersonObjects == null) {
+                if (objTransform == null) {
                     return false;
                 }
-                var objTransform = firstPersonObjects.transform;
 
                 // A First Person Base Object ID can specified if there are multiple FirstPersonBaseObjects and the item should be spawned under a particular
                 // ItemID within that FirstPersonBaseObject.
@@ -303,20 +305,23 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Items
                 m_VisibleItem.transform.localRotation = Quaternion.Euler(m_LocalSpawnRotation);
             } else if (m_Object.GetComponentInParent<FirstPersonObjects>() == null) {
                 // If the object doesn't have a FirstPersonObjects parent then the object is a completely new arm model.
-                firstPersonObjects = GetFirstPersonObjects(character);
-                if (firstPersonObjects == null) {
-                    Debug.LogError("Error: Unable to find the parent FirstPersonObjects component.");
+                FirstPersonObjects firstPersonObjects;
+                Transform parentTransform = null;
+                if ((firstPersonObjects = character.GetComponentInChildren<FirstPersonObjects>(true))) {
+                    parentTransform = firstPersonObjects.transform;
+                } else {
+                    var camera = UnityEngineUtility.FindCamera(character);
+                    if ((firstPersonObjects = camera.GetComponentInChildren<FirstPersonObjects>(true))) {
+                        parentTransform = firstPersonObjects.transform;
+                    }
+                }
+
+                if (parentTransform == null) {
+                    Debug.LogError("Error: Unable to find the parent FirstPersonObjects component");
                     return false;
                 }
-                m_Object.transform.SetParentOrigin(firstPersonObjects.transform);
-            } else if (m_VisibleItem != null && !m_VisibleItem.transform.IsChildOf(m_Object.transform)) {
-                // The object is being initialized after being destroyed.
-                var localScale = m_VisibleItem.transform.localScale;
-                var parent = GetSpawnParent(character, m_Item.SlotID, true);
-                m_VisibleItem.transform.parent = parent;
-                m_VisibleItem.transform.localScale = localScale;
-                m_VisibleItem.transform.localPosition = m_LocalSpawnPosition;
-                m_VisibleItem.transform.localRotation = Quaternion.Euler(m_LocalSpawnRotation);
+
+                m_Object.transform.SetParentOrigin(parentTransform);
             }
             
             if (!base.Initialize(character)) {
@@ -357,25 +362,6 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Items
             }
             m_FirstPersonObjects = m_ObjectTransform.GetComponentInParent<FirstPersonObjects>();
 
-            // The control objects can be loaded from IDs.
-            if (m_AdditionalControlObjectBaseIDs.Length > 0 && m_AdditionalControlObjects.Length == 0) {
-                if (firstPersonObjects == null) {
-                    firstPersonObjects = GetFirstPersonObjects(character);
-                }
-                var controlObjects = firstPersonObjects.GetComponentsInChildren<FirstPersonBaseObject>(true);
-                m_AdditionalControlObjects = new GameObject[m_AdditionalControlObjectBaseIDs.Length];
-                for (int i = 0; i < m_AdditionalControlObjectBaseIDs.Length; ++i) {
-                    for (int j = 0; j < controlObjects.Length; ++j) {
-                        if (m_AdditionalControlObjectBaseIDs[i] == controlObjects[j].ID) {
-                            m_AdditionalControlObjects[i] = controlObjects[j].gameObject;
-                            break;
-                        }
-                    }
-                    if (m_AdditionalControlObjects[i] == null) {
-                        Debug.LogError($"Error: Unable to find the control object with ID {m_AdditionalControlObjectBaseIDs[i]}.");
-                    }
-                }
-            }
             m_AdditionalControlObjectsTransform = new Transform[m_AdditionalControlObjects.Length];
             for (int i = 0; i < m_AdditionalControlObjects.Length; ++i) {
                 m_AdditionalControlObjectsTransform[i] = m_AdditionalControlObjects[i].transform;
@@ -398,23 +384,6 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Items
             EventHandler.RegisterEvent<bool>(m_Character, "OnCharacterImmediateTransformChange", OnImmediateTransformChange);
 
             return true;
-        }
-
-        /// <summary>
-        /// Returns the character's FirstPersonObjects component.
-        /// </summary>
-        /// <param name="character">The character that the objects belong to.</param>
-        /// <returns>The character's FirstPersonObject's component.</returns>
-        private FirstPersonObjects GetFirstPersonObjects(GameObject character)
-        {
-            var firstPersonObjects = character.GetComponentInChildren<FirstPersonObjects>(true);
-            if (firstPersonObjects == null) {
-                var camera = UnityEngineUtility.FindCamera(character);
-                if (camera != null) {
-                    return camera.GetComponentInChildren<FirstPersonObjects>(true);
-                }
-            }
-            return firstPersonObjects;
         }
 
         /// <summary>
@@ -477,21 +446,18 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Items
         /// <returns>True if the VisibleItem is active.</param>
         public override bool IsActive()
         {
-            var active = true;
             if (m_IndependentItem
 #if ULTIMATE_CHARACTER_CONTROLLER_VR
                 && !m_VRHandParent
 #endif
                 ) {
-                active = base.IsActive();
-            } else if (m_VisibleItem == null) {
-                return m_Item.VisibleObjectActive;
+                return base.IsActive();
+            } else {
+                if (m_VisibleItem == null) {
+                    return m_Item.VisibleObjectActive;
+                }
+                return m_VisibleItem.activeSelf;
             }
-            if (m_VisibleItem != null) {
-                active = active && m_VisibleItem.activeSelf;
-            }
-
-            return active;
         }
 
         /// <summary>
@@ -511,8 +477,7 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Items
 
                 m_PrevPlatformMovement = m_CharacterLocomotion.PlatformMovement;
                 m_PrevPlatformRotationMovement = m_CharacterLocomotion.PlatformTorque;
-            }
-            if (m_VisibleItem != null) {
+            } else if (m_VisibleItem != null) {
                 m_VisibleItem.SetActive(active);
             }
         }
@@ -918,7 +883,7 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Items
 
         /// <summary>
         /// The item has been removed.
-        /// </summary>        /// <param name="destroy">Should the object be destroyed?</param>
+        /// </summary>
         public override void Remove()
         {
             if (m_IndependentItem

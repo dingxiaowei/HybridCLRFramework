@@ -4,13 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.SurfaceSystem
 {
-    using Opsive.Shared.Game;
-    using System.Collections.Generic;
-    using UnityEngine;
-    using UnityEngine.SceneManagement;
-
     /// <summary>
     /// The SurfaceManager is responsible for determining which SurfaceEffect to spawn based on the speicifed RaycastHit.
     /// </summary>
@@ -34,8 +33,6 @@ namespace Opsive.UltimateCharacterController.SurfaceSystem
 
         [Tooltip("An array of SurfaceTypes which are paired to a UV position within a texture.")]
         [SerializeField] protected ObjectSurface[] m_ObjectSurfaces;
-        [Tooltip("Should the textures from trees on the terrain be detected? Note that this is a CPU-intensive operation.")]
-        [SerializeField] protected bool m_DetectTerrainTreeTextures;
         [Tooltip("The fallback SurfaceImpact if no SurfaceImpacts can be found.")]
         [SerializeField] protected SurfaceImpact m_FallbackSurfaceImpact;
         [Tooltip("The fallback SurfaceType if no SurfaceTypes can be found.")]
@@ -44,7 +41,6 @@ namespace Opsive.UltimateCharacterController.SurfaceSystem
         [SerializeField] protected bool m_FallbackAllowDecals = true;
 
         public ObjectSurface[] ObjectSurfaces { get { return m_ObjectSurfaces; } }
-        public bool DetectTerrainTreeTextures { get { return m_DetectTerrainTreeTextures; } }
         public SurfaceImpact FallbackSurfaceImpact { get { return m_FallbackSurfaceImpact; } }
         public SurfaceType FallbackSurfaceType { get { return m_FallbackSurfaceType; } }
         public bool FallbackAllowDecals { get { return m_FallbackAllowDecals; } }
@@ -90,7 +86,7 @@ namespace Opsive.UltimateCharacterController.SurfaceSystem
             s_MaskID = Shader.PropertyToID("_Mask");
             s_SecondaryTextureID = Shader.PropertyToID("_MainTex2");
 
-            m_HasTerrain = FindObjectsOfType<Terrain>() != null;
+            m_HasTerrain = FindObjectsOfType<Terrain>().Length > 0;
         }
 
         /// <summary>
@@ -398,14 +394,15 @@ namespace Opsive.UltimateCharacterController.SurfaceSystem
                 return false;
             }
 
-            if (!m_ColliderComplexMaterialsMap.TryGetValue(collider, out var complexMaterials)) {
+            var complexMaterials = false;
+            if (!m_ColliderComplexMaterialsMap.TryGetValue(collider, out complexMaterials)) {
                 var renderer = GetRenderer(collider);
                 if (renderer != null) {
                     complexMaterials = renderer.sharedMaterials.Length > 1;
                 }
 
                 // A complex material also includes a secondary map.
-                if (!complexMaterials && renderer != null && renderer.sharedMaterials.Length > 0) {
+                if (!complexMaterials && renderer != null) {
                     var material = renderer.sharedMaterials[0];
                     complexMaterials = material != null && material.HasProperty(s_MaskID) && material.HasProperty(s_SecondaryTextureID);
                 }
@@ -762,7 +759,29 @@ namespace Opsive.UltimateCharacterController.SurfaceSystem
         /// <returns>The terrain SurfaceType from the specified RaycastHit. Can be null.</returns>
         private SurfaceType GetTerrainSurfaceType(RaycastHit hit, Collider collider)
         {
-            if (!m_HasTerrain || collider == null) {
+            if (!m_HasTerrain) {
+                return null;
+            }
+
+            var texture = GetTerrainTexture(collider, hit.point);
+            if (texture == null) {
+                return null;
+            }
+
+            SurfaceType surfaceType;
+            m_TextureSurfaceTypeMap.TryGetValue(texture, out surfaceType);
+            return surfaceType;
+        }
+
+        /// <summary>
+        /// Returns the terrain texture from the specified collider and position.
+        /// </summary>
+        /// <param name="collider">The collider to get the texture from.</param>
+        /// <param name="worldPosition">The position to retrieve the texture of.</param>
+        /// <returns>The terrain texture from the specified collider and position. Can be null.</returns>
+        private Texture GetTerrainTexture(Collider collider, Vector3 worldPosition)
+        {
+            if (collider == null) {
                 return null;
             }
 
@@ -777,91 +796,21 @@ namespace Opsive.UltimateCharacterController.SurfaceSystem
                 return null;
             }
 
-            // The raycast may have hit a tree.
-            var texture = GetTreeTexture(hit, terrain);
-            if (texture == null) {
-                // The raycast did not hit a tree. Test the terrain.
-                texture = GetTerrainTexture(hit.point, terrain);
-                if (texture == null) {
-                    return null;
-                }
-            }
-
-            SurfaceType surfaceType;
-            m_TextureSurfaceTypeMap.TryGetValue(texture, out surfaceType);
-            return surfaceType;
-        }
-
-        /// <summary>
-        /// Returns the tree texture from the specified collider and position.
-        /// </summary>
-        /// <param name="hit">The RaycastHit which caused the SurfaceEffect to spawn.</param>
-        /// <returns>The terrain that was hit by the raycast.</returns>
-        /// <returns>The tree texture from the specified RaycastHit and terrain. Can be null.</returns>
-        private Texture GetTreeTexture(RaycastHit hit, Terrain terrain)
-        {
-            if (!m_DetectTerrainTreeTextures) {
-                return null;
-            }
-
-            var terrainData = terrain.terrainData;
-            if (terrainData.treeInstanceCount == 0) {
-                return null;
-            }
-
-            // At least one tree exists. Determine if the raycast hit a tree.
-            Texture texture = null;
-            for (int i = 0; i < terrainData.treeInstanceCount; ++i) {
-                var treeInstance = terrainData.treeInstances[i];
-                var position = Vector3.Scale(terrainData.size, treeInstance.position) + terrain.GetPosition();
-                var treePrototype = terrainData.treePrototypes[treeInstance.prototypeIndex];
-                if (treePrototype.prefab == null) {
-                    continue;
-                }
-
-                // Determine if the raycast hit a tree. This is done by instantiating a tree from the prototype index and placing it in the world.
-                var tree = ObjectPool.Instantiate(treePrototype.prefab);
-                var treeCollider = tree.GetCachedComponent<Collider>();
-                if (treeCollider == null) {
-                    ObjectPool.Destroy(tree);
-                    continue;
-                }
-
-                tree.transform.position = position;
-                // The transforms need to be synced so the new tree position will respawn to tree raycasts.
-                if (!Physics.autoSyncTransforms) {
-                    Physics.SyncTransforms();
-                }
-
-                // Perform a raycast on the tree to determine if the tree was hit.
-                if (treeCollider.Raycast(new Ray(hit.point + hit.normal * hit.distance, -hit.normal), out var treeHit, hit.distance + 1)) {
-                    texture = GetMainTexture(treeCollider);
-                }
-
-                ObjectPool.Destroy(tree);
-                if (texture == null) {
-                    continue;
-                }
-                return texture;
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Returns the terrain texture from the specified collider and position.
-        /// </summary>
-        /// <param name="worldPosition">The position to retrieve the texture of.</param>
-        /// <returns>The terrain that was hit by the raycast.</returns>
-        /// <returns>The terrain texture from the specified position and terrain. Can be null.</returns>
-        private Texture GetTerrainTexture(Vector3 worldPosition, Terrain terrain)
-        {
             // Return the dominant ground texture at the world position in terrain.
             var terrainTextureID = GetDominantTerrainTexture(worldPosition, terrain);
-            if (terrain.terrainData.terrainLayers == null || terrainTextureID > terrain.terrainData.terrainLayers.Length - 1) {
+#if UNITY_2018_3_OR_NEWER
+            if (terrain.terrainData.terrainLayers == null || terrainTextureID > terrain.terrainData.terrainLayers.Length- 1) {
                 return null;
             }
 
             return terrain.terrainData.terrainLayers[terrainTextureID].diffuseTexture;
+#else
+            if (terrainTextureID > terrain.terrainData.splatPrototypes.Length - 1) {
+                return null;
+            }
+
+            return terrain.terrainData.splatPrototypes[terrainTextureID].texture;
+#endif
         }
 
         /// <summary>
@@ -1046,17 +995,5 @@ namespace Opsive.UltimateCharacterController.SurfaceSystem
         {
             SceneManager.sceneUnloaded += SceneUnloaded;
         }
-
-#if UNITY_2019_3_OR_NEWER
-        /// <summary>
-        /// Reset the static variables for domain reloading.
-        /// </summary>
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        private static void DomainReset()
-        {
-            s_Initialized = false;
-            s_Instance = null;
-        }
-#endif
     }
 }

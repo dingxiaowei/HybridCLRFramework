@@ -4,17 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Character.Abilities.Items;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Objects.CharacterAssist;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Inventory;
-    using Opsive.UltimateCharacterController.Character.Abilities.Items;
-    using Opsive.UltimateCharacterController.Inventory;
-    using Opsive.UltimateCharacterController.Objects.CharacterAssist;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// Plays an animation which picks up the item.
     /// </summary>
@@ -27,37 +25,25 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
     {
         [Tooltip("The slot ID to pick up. A value of -1 indicates any slot.")]
         [SerializeField] protected int m_SlotID = -1;
-        [Tooltip("Specifies a list of ItemIdentifiers that should be picked up. If the list is empty any ItemIdentifier will trigger the animation.")]
-        [UnityEngine.Serialization.FormerlySerializedAs("m_PickupItemTypes")]
-        [SerializeField] protected ItemDefinitionBase[] m_PickupItemDefinitions;
+        [Tooltip("Specifies a list of ItemTypes that should be picked up. If the list is empty any ItemType will trigger the animation.")]
+        [SerializeField] protected Inventory.ItemType[] m_PickupItemTypes;
         [Tooltip("Specifies if the ability should wait for the OnAnimatorPickupItem animation event or wait for the specified duration before picking up the item.")]
         [SerializeField] protected AnimationEventTrigger m_PickupEvent = new AnimationEventTrigger(true, 0.2f);
         [Tooltip("Specifies if the ability should wait for the OnAnimatorPickupItemComplete animation event or wait for the specified duration before stopping the ability.")]
         [SerializeField] protected AnimationEventTrigger m_PickupCompleteEvent = new AnimationEventTrigger(false, 0.4f);
 
         public int SlotID { get { return m_SlotID; } set { m_SlotID = value; } }
-        public ItemDefinitionBase[] PickupItemDefinitions { get { return m_PickupItemDefinitions; } set { m_PickupItemDefinitions = value; } }
+        public Inventory.ItemType[] PickupItemTypes { get { return m_PickupItemTypes; } set { m_PickupItemTypes = value; } }
         public AnimationEventTrigger PickupEvent { get { return m_PickupEvent; } set { m_PickupEvent = value; } }
         public AnimationEventTrigger PickupCompleteEvent { get { return m_PickupCompleteEvent; } set { m_PickupCompleteEvent = value; } }
 
         public override bool CanReceiveMultipleStarts { get { return true; } }
         public override bool ImmediateStartItemVerifier { get { return true; } }
-        public override string AbilityMessageText {
-            get {
-                var message = m_AbilityMessageText;
-                if (m_AvailablePickupCount > 0) {
-                    message = string.Format(message, m_AvailableItemPickups[0].PickupMessageText);
-                }
-                return message;
-            }
-            set { base.AbilityMessageText = value; }
-        }
 
-        private ItemPickupBase m_ItemPickup;
-        private ItemPickupBase[] m_AvailableItemPickups;
+        private ItemPickup m_ItemPickup;
+        private ItemPickup[] m_AvailableItemPickups;
         private int m_AvailablePickupCount;
         private EquipUnequip[] m_EquipUnequipAbilities;
-        private ItemSetManagerBase m_ItemSetManager;
 
         /// <summary>
         /// Initialize the default values.
@@ -66,8 +52,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         {
             base.Awake();
 
-            m_AvailableItemPickups = new ItemPickupBase[m_MaxTriggerObjectCount];
-            m_ItemSetManager = m_GameObject.GetCachedComponent<ItemSetManagerBase>();
+            m_AvailableItemPickups = new ItemPickup[m_MaxTriggerObjectCount];
             EventHandler.RegisterEvent(m_GameObject, "OnAnimatorPickupItem", DoItemPickup);
             EventHandler.RegisterEvent(m_GameObject, "OnAnimatorPickupItemComplete", PickupComplete);
         }
@@ -78,9 +63,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         public override void Start()
         {
             m_EquipUnequipAbilities = m_CharacterLocomotion.GetAbilities<EquipUnequip>();
-
-            // Assume every ItemIdentifier can be picked up. The local mask should be set so the ability doesn't block the pickup with EquipUnequip.ShouldEquip.
-            m_AllowEquippedSlotsMask = (1 << m_Inventory.SlotCount) - 1;
         }
 
         /// <summary>
@@ -89,10 +71,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         /// <returns>True if the ItemPickup component should pickup the item.</returns>
         public bool CanItemPickup()
         {
-            // CanItemPickup will be called when a trigger is entered. The item can only be picked up if the start type is automatic.
-            if (m_StartType != AbilityStartType.Automatic) {
-                return false;
-            }
             // The ItemPickup component should always pickup the item if the Ride ability is active.
             if (m_CharacterLocomotion.IsAbilityTypeActive<Ride>()) {
                 return true;
@@ -113,11 +91,11 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         /// Validates the object to ensure it is valid for the current ability.
         /// </summary>
         /// <param name="obj">The object being validated.</param>
-        /// <param name="raycastHit">The raycast hit of the detected object. Will be null for trigger detections.</param>
+        /// <param name="fromTrigger">Is the object being validated from a trigger?</param>
         /// <returns>True if the object is valid. The object may not be valid if it doesn't have an ability-specific component attached.</returns>
-        protected override bool ValidateObject(GameObject obj, RaycastHit? raycastHit)
+        protected override bool ValidateObject(GameObject obj, bool fromTrigger)
         {
-            if (!base.ValidateObject(obj, raycastHit)) {
+            if (!base.ValidateObject(obj, fromTrigger)) {
                 return false;
             }
 
@@ -129,13 +107,8 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
                 }
             }
 
-            ItemPickupBase itemPickup;
-            if ((itemPickup = obj.GetCachedComponent<ItemPickupBase>()) != null && !itemPickup.PickupOnTriggerEnter && !itemPickup.IsDepleted) {
-                if (m_AvailableItemPickups.Length == m_AvailablePickupCount) {
-                    Debug.LogWarning("Warning: Unable to pickup " + itemPickup.name + ". Ensure the MaxTriggerObject count is at least " + 
-                                            (m_AvailablePickupCount + 1) + " on the PickupItem ability.");
-                    return false;
-                }
+            ItemPickup itemPickup;
+            if ((itemPickup = obj.GetCachedComponent<ItemPickup>()) != null && !itemPickup.PickupOnTriggerEnter && !itemPickup.IsDepleted) {
                 m_AvailableItemPickups[m_AvailablePickupCount] = itemPickup;
                 m_AvailablePickupCount++;
                 return true;
@@ -151,12 +124,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         {
             // An attribute may prevent the ability from starting.
             if (!base.CanStartAbility()) {
-                if (m_AvailablePickupCount > 0) {
-                    for (int i = 0; i < m_AvailablePickupCount; ++i) {
-                        m_AvailableItemPickups[i] = null;
-                    }
-                    m_AvailablePickupCount = 0;
-                }
                 return false;
             }
 
@@ -176,7 +143,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
 
             // If the item pickup isn't null then the ability is currently working on equipping another item.
             if (m_ItemPickup != null && m_ItemPickup != m_AvailableItemPickups[0]) {
-                m_ItemPickup.DoItemIdentifierPickup(m_GameObject, m_Inventory, m_SlotID, true, false);
+                m_ItemPickup.DoItemTypePickup(m_GameObject, m_Inventory, m_SlotID, true, false);
             }
 
             m_ItemPickup = m_AvailableItemPickups[0];
@@ -185,16 +152,14 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
                 m_AvailableItemPickups[i] = m_AvailableItemPickups[i + 1];
             }
 
-            var itemDefinitionAmounts = m_ItemPickup.GetItemDefinitionAmounts();
-
-            // If the PickupItemIdentifier array contains any ItemIdentifiers then the PickupItem ability should only start if the PickupItem object contains one of the ItemIdentifiers
-            // within the array. If it doesn't contain the ItemIdentifier then that ItemIdentifier should be equipped as if the PickupItem ability doesn't exist.
+            // If the PickupItemType array contains any ItemTypes then the PickupItem ability should only start if the PickupItem object contains one of the ItemTypes
+            // within the array. If it doesn't contain the ItemType then that ItemType should be equipped as if the PickupItem ability doesn't exist.
             var immediatePickup = false;
-            if (m_PickupItemDefinitions != null && m_PickupItemDefinitions.Length > 0) {
+            if (m_PickupItemTypes != null && m_PickupItemTypes.Length > 0) {
                 immediatePickup = true;
-                for (int i = 0; i < m_PickupItemDefinitions.Length; ++i) {
-                    for (int j = 0; j < itemDefinitionAmounts.Length; ++j) {
-                        if (m_PickupItemDefinitions[i] == itemDefinitionAmounts[j].ItemIdentifier.GetItemDefinition()) {
+                for (int i = 0; i < m_PickupItemTypes.Length; ++i) {
+                    for (int j = 0; j < m_ItemPickup.ItemTypeCounts.Length; ++j) {
+                        if (m_PickupItemTypes[i] == m_ItemPickup.ItemTypeCounts[j].ItemType) {
                             immediatePickup = false;
                             break;
                         }
@@ -207,28 +172,32 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
 
             m_ItemPickup.DoItemPickup(m_GameObject, m_Inventory, m_SlotID, !immediatePickup, immediatePickup);
 
-            // The ability shouldn't start if the ItemIdentifier has already been picked up.
+            // The ability shouldn't start if the ItemType has already been picked up.
             if (immediatePickup) {
                 StopAbility();
                 return;
             }
 
+            m_AllowEquippedSlotsMask = (1 << m_Inventory.SlotCount) - 1;
+
             // Before the item can be picked up the currently equipped items need to be unequipped.
             for (int i = 0; i < m_EquipUnequipAbilities.Length; ++i) {
                 m_EquipUnequipAbilities[i].WillStartPickup();
             }
-            var allowedEquippedSlotsMask = 0;
-            for (int i = 0; i < itemDefinitionAmounts.Length; ++i) {
-                var itemDefinition = itemDefinitionAmounts[i].ItemDefinition;
-                var itemIdentifier = itemDefinitionAmounts[i].ItemIdentifier;
+            for (int i = 0; i < m_ItemPickup.ItemTypeCounts.Length; ++i) {
+                var itemType = m_ItemPickup.ItemTypeCounts[i].ItemType;
 
                 for (int j = 0; j < m_Inventory.SlotCount; ++j) {
+                    var item = m_Inventory.GetItem(j, itemType);
+                    if (item == null) {
+                        continue;
+                    }
+
                     // Determine if the item should be equipped. The current item needs to be unequipped if it doesn't match the item being picked up.
                     var categoryIndex = 0;
                     var shouldEquip = false;
                     for (int k = 0; k < m_EquipUnequipAbilities.Length; ++k) {
-                        if (m_ItemSetManager.IsCategoryMember(itemDefinition, m_EquipUnequipAbilities[k].ItemSetCategoryIndex) && 
-                            m_EquipUnequipAbilities[k].ShouldEquip(itemIdentifier, j, itemDefinitionAmounts[i].Amount)) {
+                        if (itemType.CategoryIDMatch(m_EquipUnequipAbilities[k].ItemSetCategoryID) && m_EquipUnequipAbilities[k].ShouldEquip(item, m_ItemPickup.ItemTypeCounts[i].Count)) {
                             shouldEquip = true;
                             categoryIndex = m_EquipUnequipAbilities[k].ItemSetCategoryIndex;
                             break;
@@ -240,9 +209,9 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
                     }
 
                     // The item should be equipped.
-                    var equippedItem = m_Inventory.GetActiveItem(j);
-                    if (equippedItem == null || itemIdentifier != equippedItem.ItemIdentifier) {
-                        allowedEquippedSlotsMask |= (1 << j);
+                    var equippedItemType = m_Inventory.GetItem(item.SlotID);
+                    if (itemType != equippedItemType) {
+                        m_AllowEquippedSlotsMask &= ~(1 << item.SlotID);
                     }
 
                     break;
@@ -250,7 +219,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
             }
 
             // If the item doesn't need to be equipped then it should still be picked up.
-            if (allowedEquippedSlotsMask == 0) {
+            if (m_AllowEquippedSlotsMask == (1 << m_Inventory.SlotCount) - 1) {
                 m_ItemPickup.DoItemPickup(m_GameObject, m_Inventory, m_SlotID, false, true);
                 StopAbility();
                 return;
@@ -273,7 +242,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
                 return;
             }
 
-            m_ItemPickup.DoItemIdentifierPickup(m_GameObject, m_Inventory, m_SlotID, true, true);
+            m_ItemPickup.DoItemTypePickup(m_GameObject, m_Inventory, m_SlotID, true, true);
 
             if (!m_PickupCompleteEvent.WaitForAnimationEvent) {
                 Scheduler.ScheduleFixed(m_PickupCompleteEvent.Duration, PickupComplete);

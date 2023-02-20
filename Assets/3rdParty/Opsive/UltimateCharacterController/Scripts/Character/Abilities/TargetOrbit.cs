@@ -1,17 +1,10 @@
-﻿/// ---------------------------------------------
-/// Ultimate Character Controller
-/// Copyright (c) Opsive. All Rights Reserved.
-/// https://www.opsive.com
-/// ---------------------------------------------
+﻿using UnityEngine;
+using Opsive.UltimateCharacterController.Camera;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Utility;
 
 namespace Opsive.UltimateCharacterController.Character.Abilities
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Camera;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// Orbits around the target when the character moves.
     /// </summary>

@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Game;
+
 namespace Opsive.UltimateCharacterController.Objects.ItemAssist
 {
-    using Opsive.Shared.Game;
-    using UnityEngine;
-
     /// <summary>
     /// Represents a shell casing which uses the trajectory object for kinematic shell movement.
     /// </summary>

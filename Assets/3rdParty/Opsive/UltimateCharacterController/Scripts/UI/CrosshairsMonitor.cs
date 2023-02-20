@@ -4,32 +4,27 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEngine.UI;
+using Opsive.UltimateCharacterController.Camera;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Items;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.UI
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Camera;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Items;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-    using UnityEngine.UI;
-
     /// <summary>
     /// The CrosshairsMonitor will update the UI for the crosshair.
     /// </summary>
     public class CrosshairsMonitor : CharacterMonitor
     {
-#if UNITY_EDITOR
-        [Tooltip("Draw a debug line to see the direction that the crosshairs is looking (editor only).")]
-        [SerializeField] protected bool m_DebugDrawLookRay;
-#endif
+        [Tooltip("Should the crosshairs be shown?")]
+        [SerializeField] protected bool m_ShowCrosshairs = true;
         [Tooltip("The radius of the crosshair's collision sphere to detect if it is targetting an enemy.")]
         [SerializeField] protected float m_CollisionRadius = 0.05f;
         [Tooltip("The maximum number of colliders that the crosshairs can detect.")]
         [SerializeField] protected int m_MaxCollisionCount = 40;
-        [Tooltip("Specifies if the crosshairscan detect triggers.")]
-        [SerializeField] protected QueryTriggerInteraction m_TriggerInteraction = QueryTriggerInteraction.Ignore;
         [Tooltip("The crosshairs used when the item doesn't specify a crosshairs.")]
         [SerializeField] protected Sprite m_DefaultSprite;
         [Tooltip("The default color of the crosshairs.")]
@@ -49,8 +44,8 @@ namespace Opsive.UltimateCharacterController.UI
         [Tooltip("Should the crosshairs be disabled when the character dies?")]
         [SerializeField] protected bool m_DisableOnDeath = true;
 
+        public bool ShowCrosshairs { get { return m_ShowCrosshairs; } set { m_ShowCrosshairs = value; if (Application.isPlaying) m_GameObject.SetActive(m_ShowCrosshairs); } }
         public float CollisionRadius { get { return m_CollisionRadius; } set { m_CollisionRadius = value; } }
-        public QueryTriggerInteraction TriggerInteraction { get { return m_TriggerInteraction; } set { m_TriggerInteraction = value; } }
         public Color DefaultColor { get { return m_DefaultColor; } set { m_DefaultColor = value; } }
         public Color TargetColor { get { return m_TargetColor; } set { m_TargetColor = value; } }
         public bool DisableOnDeath { get { return m_DisableOnDeath; } set { m_DisableOnDeath = value; } }
@@ -154,7 +149,7 @@ namespace Opsive.UltimateCharacterController.UI
             var inventory = m_Character.GetCachedComponent<Inventory.InventoryBase>();
             if (inventory != null) {
                 for (int i = 0; i < inventory.SlotCount; ++i) {
-                    var item = inventory.GetActiveItem(i);
+                    var item = inventory.GetItem(i);
                     if (item != null) {
                         OnEquipItem(item, i);
                     }
@@ -176,13 +171,7 @@ namespace Opsive.UltimateCharacterController.UI
                 direction.y = 0;
                 crosshairsRay.origin = crosshairsRay.GetPoint(direction.magnitude);
             }
-#if UNITY_EDITOR
-            // Visualize the direction of the look direction.
-            if (m_DebugDrawLookRay) {
-                Debug.DrawRay(crosshairsRay.origin, crosshairsRay.direction * m_CameraController.LookDirectionDistance, Color.white);
-            }
-#endif
-            var hitCount = Physics.SphereCastNonAlloc(crosshairsRay, m_CollisionRadius, m_RaycastHits, m_CameraController.LookDirectionDistance, m_CharacterLayerManager.IgnoreInvisibleLayers, m_TriggerInteraction);
+            var hitCount = Physics.SphereCastNonAlloc(crosshairsRay, m_CollisionRadius, m_RaycastHits, m_CameraController.LookDirectionDistance, m_CharacterLayerManager.IgnoreInvisibleLayers, QueryTriggerInteraction.Ignore);
 #if UNITY_EDITOR
             if (hitCount == m_MaxCollisionCount) {
                 Debug.LogWarning("Warning: The crosshairs detected the maximum number of objects. Consider increasing the Max Collision Count on the Crosshairs Monitor.");
@@ -240,7 +229,7 @@ namespace Opsive.UltimateCharacterController.UI
         /// <summary>
         /// An item has been equipped.
         /// </summary>
-        /// <param name="item">The equipped item.</param>
+        /// <param name="itemType">The equipped item.</param>
         /// <param name="slotID">The slot that the item now occupies.</param>
         private void OnEquipItem(Item item, int slotID)
         {
@@ -320,7 +309,7 @@ namespace Opsive.UltimateCharacterController.UI
         /// <summary>
         /// An item has been unequipped.
         /// </summary>
-        /// <param name="item">The unequipped item.</param>
+        /// <param name="itemType">The unequipped item.</param>
         /// <param name="slotID">The slot that the item previously occupied.</param>
         private void OnUnequipItem(Item item, int slotID)
         {
@@ -439,21 +428,12 @@ namespace Opsive.UltimateCharacterController.UI
         /// </summary>
         private void OnRespawn()
         {
-            if (m_DisableOnDeath && base.CanShowUI()) {
+            if (m_DisableOnDeath && m_ShowCrosshairs && m_ShowUI) {
                 m_GameObject.SetActive(true);
             }
 
             // Force the crosshairs to update so the color will be correct.
             Update();
-        }
-
-        /// <summary>
-        /// Can the UI be shown?
-        /// </summary>
-        /// <returns>True if the UI can be shown.</returns>
-        protected override bool CanShowUI()
-        {
-            return base.CanShowUI() && (!m_DisableOnDeath || m_CharacterLocomotion.Alive);
         }
     }
 }

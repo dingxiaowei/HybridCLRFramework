@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Game;
+
 namespace Opsive.UltimateCharacterController.Objects.ItemAssist
 {
-    using Opsive.Shared.Game;
-    using UnityEngine;
-
     /// <summary>
     /// The tracer will show a Line Renderer from the hitscan fire point to the hit point.
     /// </summary>
@@ -34,7 +34,7 @@ namespace Opsive.UltimateCharacterController.Objects.ItemAssist
         /// Sets the hit point that the tracer should move to.
         /// </summary>
         /// <param name="hitPoint">The hit point position.</param>
-        public virtual void Initialize(Vector3 hitPoint)
+        public void Initialize(Vector3 hitPoint)
         {
             m_LineRenderer.SetPosition(0, m_Transform.position);
             m_LineRenderer.SetPosition(1, hitPoint);

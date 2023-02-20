@@ -4,13 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using Opsive.UltimateCharacterController.Character.Abilities.Items;
+using Opsive.UltimateCharacterController.Inventory;
+using Opsive.UltimateCharacterController.Items.AnimatorAudioStates;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Items.Actions
 {
-    using Opsive.Shared.Inventory;
-    using Opsive.UltimateCharacterController.Character.Abilities.Items;
-    using Opsive.UltimateCharacterController.Items.AnimatorAudioStates;
-    using Opsive.UltimateCharacterController.Utility;
-
     /// <summary>
     /// Interface for an item that can be reloaded.
     /// </summary>
@@ -53,10 +53,10 @@ namespace Opsive.UltimateCharacterController.Items.Actions
         bool CanCameraZoom { get; }
 
         /// <summary>
-        /// Returns the ItemIdentifier which can be reloaded by the item.
+        /// Returns the ItemType which can be reloaded by the item.
         /// </summary>
-        /// <returns>The ItemIdentifier which can be reloaded by the item.</returns>
-        IItemIdentifier GetReloadableItemIdentifier();
+        /// <returns>The ItemType which can be reloaded by the item.</returns>
+        ItemType GetReloadableItemType();
 
         /// <summary>
         /// Starts to reload the item.
@@ -86,7 +86,6 @@ namespace Opsive.UltimateCharacterController.Items.Actions
         /// The item has finished reloading.
         /// </summary>
         /// <param name="success">Was the item reloaded successfully?</param>
-        /// <param name="immediateReload">Should the item be reloaded immediately?</param>
-        void ItemReloadComplete(bool success, bool immediateReload);
+        void ItemReloadComplete(bool success);
     }
 }

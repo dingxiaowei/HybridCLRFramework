@@ -4,16 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.StateSystem;
+
 namespace Opsive.UltimateCharacterController.Character.MovementTypes
 {
-    using Opsive.Shared.Events;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using UnityEngine;
-
     /// <summary>
     /// MovementType is an abstract class which tells the character controller how to move and rotate. This allows for different movement types such as combat and adventure.
     /// </summary>
-    [UnityEngine.Scripting.Preserve]
     public abstract class MovementType : StateObject
     {
         protected GameObject m_GameObject;

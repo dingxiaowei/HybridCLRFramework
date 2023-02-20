@@ -5,10 +5,10 @@
 /// ---------------------------------------------
 
 #if UNITY_EDITOR
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.StateSystem
 {
-    using UnityEngine;
-
     /// <summary>
     /// Inspector helper class for the UltimateCharacterControllerInspector to be able to display states within the ReorderableList.
     /// </summary>

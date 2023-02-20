@@ -3,12 +3,11 @@
 /// Copyright (c) Opsive. All Rights Reserved.
 /// https://www.opsive.com
 /// ---------------------------------------------
+using UnityEngine;
+using System.Collections.Generic;
 
 namespace Opsive.UltimateCharacterController.Utility
 {
-    using System.Collections.Generic;
-    using UnityEngine;
-
     /// <summary>
     /// A collection of math functions.
     /// </summary>

@@ -4,17 +4,17 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using UnityEditorInternal;
+using Opsive.UltimateCharacterController.Traits;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Audio;
+using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+using System;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Traits
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Audio;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.Traits;
-    using System;
-    using UnityEditor;
-    using UnityEditorInternal;
-    using UnityEngine;
-
     /// <summary>
     /// Shows a custom inspector for the Respawner component.
     /// </summary>
@@ -59,7 +59,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Traits
 
                 if (Foldout("Respawn Audio")) {
                     EditorGUI.indentLevel++;
-                    m_ReorderableRespawnAudioClipsList = AudioClipSetInspector.DrawAudioClipSet(m_Respawner.RespawnAudioClipSet, PropertyFromName("m_RespawnAudioClipSet"), m_ReorderableRespawnAudioClipsList, OnRespawnAudioClipDraw, OnRespawnAudioClipListAdd, OnRespawnAudioClipListRemove);
+                    AudioClipSetInspector.DrawAudioClipSet(m_Respawner.RespawnAudioClipSet, PropertyFromName("m_RespawnAudioClipSet"), ref m_ReorderableRespawnAudioClipsList, OnRespawnAudioClipDraw, OnRespawnAudioClipListAdd, OnRespawnAudioClipListRemove);
                     EditorGUI.indentLevel--;
                 }
 

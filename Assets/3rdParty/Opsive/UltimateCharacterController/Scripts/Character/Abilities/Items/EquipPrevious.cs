@@ -4,17 +4,16 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities.Items
 {
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// The EquipPrevious ability will equip the previous ItemSet in the specified category.
     /// </summary>
     [DefaultStartType(AbilityStartType.ButtonDown)]
     [DefaultInputName("Equip Previous Item")]
-    [AllowDuplicateTypes]
+    [AllowMultipleAbilityTypes]
     public class EquipPrevious : EquipSwitcher
     {
         private int m_PrevItemSetIndex;
@@ -26,8 +25,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         /// <param name="itemSetIndex">The updated active ItemSet index value.</param>
         protected override void OnItemSetIndexChange(int itemSetIndex)
         {
-            if (itemSetIndex == -1 ||
-                (m_ItemSetIndex != -1 && itemSetIndex == m_ItemSetManager.GetDefaultItemSetIndex(m_ItemSetCategoryIndex) && !m_ItemSetManager.CategoryItemSets[m_ItemSetCategoryIndex].ItemSetList[itemSetIndex].CanSwitchTo)) {
+            if (itemSetIndex == -1 || (m_ItemSetIndex != -1 && itemSetIndex == m_ItemSetManager.GetDefaultItemSetIndex(m_ItemSetCategoryIndex))) {
                 return;
             }
 

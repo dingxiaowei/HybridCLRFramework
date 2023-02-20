@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Traits
 {
-    using UnityEngine;
-
     /// <summary>
     /// Sets the ConstantForce component to the specified gravity direction.
     /// </summary>

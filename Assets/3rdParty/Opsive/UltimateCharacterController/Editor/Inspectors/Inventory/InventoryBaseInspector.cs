@@ -4,19 +4,22 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using UnityEditorInternal;
+using Opsive.UltimateCharacterController.Inventory;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Inventory
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.Inventory;
-    using UnityEditor;
-    using UnityEngine;
-
     /// <summary>
     /// Custom inspector for the InventoryBase component.
     /// </summary>
-    [CustomEditor(typeof(InventoryBase))]
+    [CustomEditor(typeof(InventoryBase), true)]
     public class InventoryBaseInspector : InspectorBase
     {
+        private ReorderableList m_DefaultLoadoutReordableList;
+
         /// <summary>
         /// Draws the inspector.
         /// </summary>
@@ -30,22 +33,21 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Inventory
             if (Foldout("Current Inventory")) {
                 EditorGUI.indentLevel++;
                 var inventory = target as InventoryBase;
-                var itemIdentifiers = inventory.GetAllItemIdentifiers();
-                if (itemIdentifiers.Count > 0) {
+                var itemTypes = inventory.GetAllItemTypes();
+                if (itemTypes.Count > 0) {
                     GUI.enabled = false;
                     EditorGUILayout.BeginHorizontal();
-                    EditorGUILayout.LabelField("Item Identifier");
+                    EditorGUILayout.LabelField("ItemType");
                     EditorGUILayout.LabelField("Count");
                     GUILayout.Space(-150);
                     EditorGUILayout.EndHorizontal();
-                    for (int i = 0; i < itemIdentifiers.Count; ++i) {
+                    for (int i = 0; i < itemTypes.Count; ++i) {
                         EditorGUILayout.BeginHorizontal();
                         var style = EditorStyles.label;
-                        var label = itemIdentifiers[i].ToString();
+                        var label = itemTypes[i].name;
                         var activeCount = 0;
                         for (int j = 0; j < inventory.SlotCount; ++j) {
-                            var item = inventory.GetActiveItem(j);
-                            if (item != null && item.ItemIdentifier == itemIdentifiers[i]) {
+                            if (inventory.GetItem(j) != null && inventory.GetItem(j).ItemType == itemTypes[i]) {
                                 if (activeCount == 0) {
                                     label += " (Slot " + j;
                                 } else {
@@ -59,7 +61,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Inventory
                             label += ")";
                         }
                         EditorGUILayout.LabelField(label, style);
-                        EditorGUILayout.LabelField(inventory.GetItemIdentifierAmount(itemIdentifiers[i]).ToString());
+                        EditorGUILayout.LabelField(inventory.GetItemTypeCount(itemTypes[i]).ToString());
                         GUILayout.Space(-150);
                         EditorGUILayout.EndHorizontal();
                     }
@@ -70,19 +72,31 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Inventory
                 EditorGUI.indentLevel--;
             }
 
-            DrawInventoryProperties();
+            if (Foldout("Default Loadout")) {
+                EditorGUI.indentLevel++;
+                if (m_DefaultLoadoutReordableList == null) {
+                    var itemListProperty = PropertyFromName("m_DefaultLoadout");
+                    m_DefaultLoadoutReordableList = new ReorderableList(serializedObject, itemListProperty, true, true, true, true);
+                    m_DefaultLoadoutReordableList.drawHeaderCallback = OnDefaultLoadoutHeaderDraw;
+                    m_DefaultLoadoutReordableList.drawElementCallback = OnDefaultLoadoutElementDraw;
+                }
+                var listRect = GUILayoutUtility.GetRect(0, m_DefaultLoadoutReordableList.GetHeight());
+                listRect.x += EditorGUI.indentLevel * InspectorUtility.IndentWidth;
+                listRect.xMax -= EditorGUI.indentLevel * InspectorUtility.IndentWidth;
+                m_DefaultLoadoutReordableList.DoList(listRect);
+                EditorGUI.indentLevel--;
+            }
 
             EditorGUILayout.PropertyField(PropertyFromName("m_RemoveAllOnDeath"));
             EditorGUILayout.PropertyField(PropertyFromName("m_LoadDefaultLoadoutOnRespawn"));
-            EditorGUILayout.PropertyField(PropertyFromName("m_UnequippedStateName"));
 
             if (Foldout("Events")) {
                 EditorGUI.indentLevel++;
                 InspectorUtility.UnityEventPropertyField(PropertyFromName("m_OnAddItemEvent"));
-                InspectorUtility.UnityEventPropertyField(PropertyFromName("m_OnPickupItemIdentifierEvent"));
+                InspectorUtility.UnityEventPropertyField(PropertyFromName("m_OnPickupItemTypeEvent"));
                 InspectorUtility.UnityEventPropertyField(PropertyFromName("m_OnPickupItemEvent"));
                 InspectorUtility.UnityEventPropertyField(PropertyFromName("m_OnEquipItemEvent"));
-                InspectorUtility.UnityEventPropertyField(PropertyFromName("m_OnAdjustItemIdentifierAmountEvent"));
+                InspectorUtility.UnityEventPropertyField(PropertyFromName("m_OnUseItemTypeEvent"));
                 InspectorUtility.UnityEventPropertyField(PropertyFromName("m_OnUnequipItemEvent"));
                 InspectorUtility.UnityEventPropertyField(PropertyFromName("m_OnRemoveItemEvent"));
                 EditorGUI.indentLevel--;
@@ -95,8 +109,19 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Inventory
         }
 
         /// <summary>
-        /// Draws the properties for the inventory subclass.
+        /// Draws the DefaultLoadout ReordableList header.
         /// </summary>
-        protected virtual void DrawInventoryProperties() { }
+        private void OnDefaultLoadoutHeaderDraw(Rect rect)
+        {
+            ItemTypeCountInspector.OnItemTypeCountHeaderDraw(rect);
+        }
+
+        /// <summary>
+        /// Draws the DefaultLoadout ReordableList element.
+        /// </summary>
+        private void OnDefaultLoadoutElementDraw(Rect rect, int index, bool isActive, bool isFocused)
+        {
+            ItemTypeCountInspector.OnItemTypeCountElementDraw(PropertyFromName("m_DefaultLoadout"), rect, index, isActive, isFocused);
+        }
     }
 }

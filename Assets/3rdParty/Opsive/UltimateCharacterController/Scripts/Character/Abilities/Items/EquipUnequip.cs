@@ -4,21 +4,21 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Items;
+using Opsive.UltimateCharacterController.Items.Actions;
+using Opsive.UltimateCharacterController.Inventory;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Utility;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities.Items
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Inventory;
-    using Opsive.UltimateCharacterController.Items;
-    using Opsive.UltimateCharacterController.Items.Actions;
-    using Opsive.UltimateCharacterController.Utility;
-    using System.Collections.Generic;
-    using UnityEngine;
-
     /// <summary>
     /// Equips or unequips an ItemSet. Can be started manually by calling EquipUnequip.StartEquipUnequip(ItemSetIndex).
     /// </summary>
-    [DefaultStartType(AbilityStartType.ButtonDown)]
+    [DefaultStartType(AbilityStartType.Manual)]
     [DefaultInputName("Equip First Item", 0)]
     [DefaultInputName("Equip Second Item", 1)]
     [DefaultInputName("Equip Third Item", 2)]
@@ -29,7 +29,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
     [DefaultInputName("Equip Eighth Item", 7)]
     [DefaultInputName("Equip Ninth Item", 8)]
     [DefaultInputName("Equip Tenth Item", 9)]
-    [AllowDuplicateTypes]
+    [AllowMultipleAbilityTypes]
     public class EquipUnequip : ItemSetAbilityBase
     {
         /// <summary>
@@ -39,7 +39,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         {
             Always = 1,             // Always equip a picked up item.
             Unequipped = 2,         // Equip the item if there are no items equipped.
-            OutOfUsableItem = 4,    // Equip the item if the current item has no more usable ItemIdentifiers left.
+            OutOfUsableItem = 4,    // Equip the item if the current item has no more usable ItemTypes left.
             NotPreset = 8,          // Equip the item if the item hasn't been added to the inventory already.
             FirstTime = 16          // Equip the item the first time the item has been added.
         }
@@ -78,7 +78,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         private bool m_CanEquip;
         private bool[] m_EquippingItems;
         private bool[] m_UnequippingItems;
-        private Dictionary<IItemIdentifier, int> m_InventoryAmount = new Dictionary<IItemIdentifier, int>();
+        private Dictionary<Item, float> m_InventoryCount = new Dictionary<Item, float>();
         private bool m_ImmediateEquipUnequip;
         private bool m_PlayEquipAudio;
         private bool m_Aiming;
@@ -94,6 +94,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         {
             base.Awake();
 
+            m_ItemSetManager = m_GameObject.GetCachedComponent<ItemSetManager>();
             m_EquipUnequipActions = new EquipUnequipAction[m_Inventory.SlotCount];
             m_EquipItems = new Item[m_Inventory.SlotCount];
             m_UnequipItems = new Item[m_Inventory.SlotCount];
@@ -103,9 +104,8 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
 
             EventHandler.RegisterEvent(m_GameObject, "OnItemPickupStartPickup", WillStartPickup);
             EventHandler.RegisterEvent(m_GameObject, "OnItemPickupStopPickup", StopPickup);
-            EventHandler.RegisterEvent<Item, int, bool, bool>(m_GameObject, "OnInventoryPickupItem", OnPickupItem);
-            EventHandler.RegisterEvent<IItemIdentifier, int, bool, bool>(m_GameObject, "OnInventoryPickupItemIdentifier", OnPickupItemIdentifier);
-            EventHandler.RegisterEvent<int, int>(m_GameObject, "OnItemSetIndexChange", OnItemSetIndexChange);
+            EventHandler.RegisterEvent<Item, float, bool, bool>(m_GameObject, "OnInventoryPickupItem", OnPickupItem);
+            EventHandler.RegisterEvent<ItemType, float, bool, bool>(m_GameObject, "OnInventoryPickupItemType", OnPickupItemType);
             // Animation events cannot have multiple parameters so use the event name to determine which slot to equip/unequip.
             EventHandler.RegisterEvent(m_GameObject, "OnAnimatorItemUnequip", OnItemUnequip);
             EventHandler.RegisterEvent(m_GameObject, "OnAnimatorItemUnequipComplete", OnItemUnequipComplete);
@@ -115,7 +115,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             EventHandler.RegisterEvent(m_GameObject, "OnAnimatorItemUnequipCompleteSecondSlot", OnItemUnequipCompleteSecondSlot);
             EventHandler.RegisterEvent(m_GameObject, "OnAnimatorItemUnequipThirdSlot", OnItemUnequipThirdSlot);
             EventHandler.RegisterEvent(m_GameObject, "OnAnimatorItemUnequipCompleteThirdSlot", OnItemUnequipCompleteThirdSlot);
-            EventHandler.RegisterEvent<int, int>(m_GameObject, "OnEquipUnequipVerifyUnequipItem", OnVerifyUnequipItem);
             EventHandler.RegisterEvent(m_GameObject, "OnAnimatorItemEquip", OnItemEquip);
             EventHandler.RegisterEvent(m_GameObject, "OnAnimatorItemEquipComplete", OnItemEquipComplete);
             EventHandler.RegisterEvent(m_GameObject, "OnAnimatorItemEquipFirstSlot", OnItemEquipFirstSlot);
@@ -131,26 +130,21 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         }
 
         /// <summary>
-        /// The ItemPickup component is starting to pick up ItemIdentifiers.
+        /// The ItemPickup component is starting to pick up ItemTypes.
         /// </summary>
         public void WillStartPickup()
         {
             // Remember the initial item inventory list to be able to determine if an item has been added.
-            m_InventoryAmount.Clear();
+            m_InventoryCount.Clear();
             var allItems = m_Inventory.GetAllItems();
             for (int i = 0; i < allItems.Count; ++i) {
-                // A duplicate item will exist if the item shares IItemIdentifiers.
-                if (m_InventoryAmount.ContainsKey(allItems[i].ItemIdentifier)) {
-                    continue;
-                }
-
-                m_InventoryAmount.Add(allItems[i].ItemIdentifier, m_Inventory.GetItemIdentifierAmount(allItems[i].ItemIdentifier));
+                m_InventoryCount.Add(allItems[i], m_Inventory.GetItemTypeCount(allItems[i].ItemType));
             }
             m_PlayEquipAudio = true;
         }
 
         /// <summary>
-        /// The ItemPickup component is no longer picking up any ItemIdentifiers.
+        /// The ItemPickup component is no longer picking up any ItemTypes.
         /// </summary>
         private void StopPickup()
         {
@@ -161,20 +155,20 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         /// An item has been picked up within the inventory. Determine if the ability should start.
         /// </summary>
         /// <param name="item">The item that has been equipped.</param>
-        /// <param name="amount">The amount of item picked up.</param>
+        /// <param name="count">The amount of item picked up.</param>
         /// <param name="immediatePickup">Was the item be picked up immediately?</param>
         /// <param name="forceEquip">Should the item be force equipped?</param>
-        private void OnPickupItem(Item item, int amount, bool immediatePickup, bool forceEquip)
+        private void OnPickupItem(Item item, float count, bool immediatePickup, bool forceEquip)
         {
             // The ability doesn't need to respond if the category doesn't match.
-            if (!m_ItemSetManager.IsCategoryMember(item.ItemDefinition, m_ItemSetCategoryIndex) || !Enabled) {
+            if (!item.ItemType.CategoryIDMatch(m_ItemSetCategoryID) || !Enabled) {
                 return;
             }
 
             // Determine if the item should be auto equipped. There are a variety of circumstances which will allow the item to be equipped.
-            if (ShouldEquip(item.ItemIdentifier, item.SlotID, amount)) {
+            if (ShouldEquip(item, count)) {
                 // The ItemSetManager will manage which items are equipped.
-                var itemSetIndex = m_ItemSetManager.GetItemSetIndex(item, m_ItemSetCategoryIndex, true);
+                var itemSetIndex = m_ItemSetManager.GetItemSetIndex(item, m_ItemSetCategoryIndex, true, immediatePickup);
                 // The itemSet may not be valid for the item yet. 
                 if (itemSetIndex != -1) {
                     // The ItemSet can be equipped immediately or play the equip animation. If equipping immediately ensure
@@ -188,35 +182,35 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
                             // The current slot will be updated immediately.
                             ForceEquipUnequip(i, false);
 
-                            var itemIdentifier = m_ItemSetManager.GetEquipItemIdentifier(m_ItemSetCategoryIndex, itemSetIndex, i);
-                            if (itemIdentifier == null) {
+                            var itemType = m_ItemSetManager.GetEquipItemType(m_ItemSetCategoryIndex, itemSetIndex, i);
+                            if (itemType == null) {
                                 // Unequip the current item if no items should be equipped with the current item set.
-                                var unequipItem = m_Inventory.GetActiveItem(i);
-                                if (unequipItem != null && m_ItemSetManager.IsCategoryMember(unequipItem.ItemIdentifier.GetItemDefinition(), m_ItemSetCategoryIndex)) {
+                                var unequipItem = m_Inventory.GetItem(i);
+                                if (unequipItem != null && unequipItem.ItemType.CategoryIDMatch(m_ItemSetCategoryID)) {
                                     m_Inventory.UnequipItem(i);
                                     EventHandler.ExecuteEvent(m_GameObject, "OnAbilityUnequipItemComplete", unequipItem, i);
                                 }
 
                                 continue;
                             }
-                            // Only manage the ItemIdentifier if the category matches.
-                            if (m_ItemSetManager.IsCategoryMember(itemIdentifier.GetItemDefinition(), m_ItemSetCategoryIndex)) {
-                                var equippedItem = m_Inventory.GetActiveItem(i);
+                            // Only manage the ItemType if the category matches.
+                            if (itemType.CategoryIDMatch(m_ItemSetCategoryID)) {
+                                var equippedItem = m_Inventory.GetItem(i);
                                 if (equippedItem != null) {
-                                    // No changes are necessary if the ItemIdentifier that should be equipped is the same as the ItemIdentifier that is already equipped.
-                                    if (itemIdentifier == equippedItem.ItemIdentifier) {
+                                    // No changes are necessary if the ItemType that should be equipped is the same as the ItemType that is already equipped.
+                                    if (itemType == equippedItem.ItemType) {
                                         continue;
                                     }
                                     m_Inventory.UnequipItem(i);
                                     EventHandler.ExecuteEvent(m_GameObject, "OnAbilityUnequipItemComplete", equippedItem, i);
                                 }
-                                var equipItem = m_Inventory.GetItem(itemIdentifier, i);
+                                var equipItem = m_Inventory.GetItem(i, itemType);
                                 if (equipItem != null) {
                                     equipItem.WillEquip();
                                     EventHandler.ExecuteEvent(m_GameObject, "OnAbilityWillEquipItem", equipItem, i);
                                     equipItem.StartEquip(true);
                                 }
-                                m_Inventory.EquipItem(itemIdentifier, i, !m_PlayEquipAudio);
+                                m_Inventory.EquipItem(itemType, i, !m_PlayEquipAudio);
                             }
                         }
                     } else if (forceEquip) {
@@ -233,11 +227,10 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         /// <summary>
         /// Should the item be equipped?
         /// </summary>
-        /// <param name="itemIdentifier">The IItemIdentifier that may be equipped.</param>
-        /// <param name="slotID">The ID of the slot may be equipped.</param>
-        /// <param name="amount">The amount of item picked up.</param>
+        /// <param name="item">The item that may be equipped.</param>
+        /// <param name="count">The amount of item picked up.</param>
         /// <returns>True if the item should be equipped.</returns>
-        public bool ShouldEquip(IItemIdentifier itemIdentifier, int slotID, int amount)
+        public bool ShouldEquip(Item item, float count)
         {
             // The character shouldn't equip the item if an item is currently in use or is reloading.
             if (m_CharacterLocomotion.IsAbilityTypeActive<Use>()
@@ -249,93 +242,53 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             }
 
             var shouldEquip = false;
-            var currentItem = m_Inventory.GetActiveItem(slotID);
-            if (!m_InventoryAmount.TryGetValue(itemIdentifier, out var itemAmount)) {
-                itemAmount = -1;
+            var currentItem = m_Inventory.GetItem(item.SlotID);
+            float itemCount;
+            if (!m_InventoryCount.TryGetValue(item, out itemCount)) {
+                itemCount = -1;
             }
             if ((m_AutoEquip & AutoEquipType.Always) != 0) {
                 shouldEquip = true;
-            } else if ((m_AutoEquip & AutoEquipType.Unequipped) != 0 && currentItem == null && m_EquipItems[slotID] == null) {
+            } else if ((m_AutoEquip & AutoEquipType.Unequipped) != 0 && currentItem == null && m_EquipItems[item.SlotID] == null) {
                 shouldEquip = true;
-            } else if ((m_AutoEquip & AutoEquipType.NotPreset) != 0 && itemAmount < amount) {
+            } else if ((m_AutoEquip & AutoEquipType.NotPreset) != 0 && itemCount < count) {
                 shouldEquip = true;
-            } else if ((m_AutoEquip & AutoEquipType.FirstTime) != 0 && itemAmount <= 0) {
+            } else if ((m_AutoEquip & AutoEquipType.FirstTime) != 0 && itemCount == -1) {
                 shouldEquip = true;
-            } else if ((m_AutoEquip & AutoEquipType.OutOfUsableItem) != 0 && (currentItem is IUsableItem) && m_Inventory.GetItemIdentifierAmount((currentItem as IUsableItem).GetConsumableItemIdentifier()) == 0) {
+            } else if ((m_AutoEquip & AutoEquipType.OutOfUsableItem) != 0 && (currentItem is IUsableItem) && m_Inventory.GetItemTypeCount((currentItem as IUsableItem).GetConsumableItemType()) == 0) {
                 shouldEquip = true;
-            }
-
-            // An active ability may prevent the item equip.
-            if (shouldEquip && !IsEquipAllowed(-1, itemIdentifier.GetItemDefinition(), slotID)) {
-                shouldEquip = false;
             }
 
             return shouldEquip;
         }
 
         /// <summary>
-        /// Can the specified ItemDefinition be equipped? An ability may prevent it from being equipped.
+        /// An ItemType has been picked up within the inventory.
         /// </summary>
-        /// <param name="itemSetIndex">The index of the ItemSet that is being equipped.</param>
-        /// <param name="itemDefinition">The ItemDefinition of the item that is trying to be equipped.</param>
-        /// <param name="slotID">The slot ID of the item that is trying to be equipped.</param>
-        /// <returns>True if the ItemIdentifier can be equipped.</returns>
-        private bool IsEquipAllowed(int itemSetIndex, ItemDefinitionBase itemDefinition, int slotID)
-        {
-            if (itemDefinition == null || (itemSetIndex != -1 && m_ItemSetManager != null && m_ItemSetManager.CategoryItemSets[m_ItemSetCategoryIndex].DefaultItemSetIndex == itemSetIndex)) {
-                return true;
-            }
-            for (int i = 0; i < m_CharacterLocomotion.ActiveAbilityCount; ++i) {
-                var ability = m_CharacterLocomotion.ActiveAbilities[i];
-                if (!MathUtility.InLayerMask(slotID, ability.AllowEquippedSlotsMask)) {
-                    return false;
-                }
-
-                // The AllowItemIdentifiers list may prevent the item from being equipped.
-                if (ability.AllowItemDefinitions != null && ability.AllowItemDefinitions.Length > 0) {
-                    var allowed = false;
-                    for (int j = 0; j < ability.AllowItemDefinitions.Length; ++j) {
-                        if (ability.AllowItemDefinitions[j] == itemDefinition) {
-                            allowed = true;
-                            break;
-                        }
-                    }
-                    if (!allowed) {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// An ItemIdentifier has been picked up within the inventory.
-        /// </summary>
-        /// <param name="itemIdentifier">The ItemIdentifier that has been picked up.</param>
-        /// <param name="amount">The amount of item picked up.</param>
+        /// <param name="itemType">The ItemType that has been picked up.</param>
+        /// <param name="count">The amount of item picked up.</param>
         /// <param name="immediatePickup">Was the item be picked up immediately?</param>
         /// <param name="forceEquip">Should the item be force equipped?</param>
-        private void OnPickupItemIdentifier(IItemIdentifier itemIdentifier, int amount, bool immediatePickup, bool forceEquip)
+        private void OnPickupItemType(ItemType itemType, float count, bool immediatePickup, bool forceEquip)
         {
             // The ability doesn't need to respond if the category doesn't match.
-            var itemDefinition = itemIdentifier.GetItemDefinition();
-            if (!m_ItemSetManager.IsCategoryMember(itemDefinition, m_ItemSetCategoryIndex) || !Enabled) {
+            if (!itemType.CategoryIDMatch(m_ItemSetCategoryID) || !Enabled) {
                 return;
             }
 
-            // An ItemIdentifier may be picked up after the item is picked up. If this occurs OnPickUpItem will never be called and the item won't be equipped
-            // even if it should be. Loop through the available items to determine if the ItemIdentifier should cause an item to be equipped.
+            // An ItemType may be picked up after the item is picked up. If this occurs OnPickUpItem will never be called and the item won't be equipped
+            // even if it should be. Loop through the available items to determine if the ItemType should cause an item to be equipped.
             var allItems = m_Inventory.GetAllItems();
             for (int i = 0; i < allItems.Count; ++i) {
-                if (allItems[i].ItemIdentifier == itemIdentifier) {
+                if (allItems[i].ItemType == itemType) {
                     continue;
                 }
 
                 var itemActions = allItems[i].ItemActions;
                 for (int j = 0; j < itemActions.Length; ++j) {
                     var usableItem = itemActions[j] as IUsableItem;
-                    if (usableItem != null && usableItem.GetConsumableItemIdentifier() == itemIdentifier) {
-                        OnPickupItem(allItems[i], m_Inventory.GetItemIdentifierAmount(allItems[i].ItemIdentifier), immediatePickup, forceEquip);
+                    if (usableItem != null && usableItem.GetConsumableItemType() == itemType) {
+                        OnPickupItem(allItems[i], m_Inventory.GetItemTypeCount(allItems[i].ItemType), immediatePickup, forceEquip);
                     }
                 }
             }
@@ -368,7 +321,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         /// <param name="immediateEquipUnequip">Should the items be equipped or unequipped immediately?</param>
         public void StartEquipUnequip(int itemSetIndex, bool forceEquipUnequip, bool immediateEquipUnequip)
         {
-            if (IsActive && itemSetIndex == m_ActiveItemSetIndex && !immediateEquipUnequip) {
+            if (itemSetIndex == m_ActiveItemSetIndex) {
                 return;
             }
 
@@ -411,19 +364,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             // Don't start if the ItemSetIndex is the same or invalid. The check has already been performed for the manual start type.
             if (InputIndex != -1 && (itemSetIndex == m_ActiveItemSetIndex || !m_ItemSetManager.IsItemSetValid(m_ItemSetCategoryIndex, itemSetIndex, true))) {
                 InputIndex = -1;
-                return false;
-            }
-
-            // Don't start the ability if another ability is preventing the ability from being equipped.
-            for (int i = 0; i < m_Inventory.SlotCount; ++i) {
-                var itemIdentifier = m_ItemSetManager.GetEquipItemIdentifier(m_ItemSetCategoryIndex, itemSetIndex, i);
-                if (itemIdentifier != null && !IsEquipAllowed(itemSetIndex, itemIdentifier.GetItemDefinition(), i)) {
-                    return false;
-                }
-            }
-
-            // Don't try to equip to an invalid ItemSet index.
-            if (itemSetIndex >= m_ItemSetManager.CategoryItemSets[m_ItemSetCategoryIndex].ItemSetList.Count) {
                 return false;
             }
 
@@ -530,26 +470,26 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
 
                     // Determine the item that is currently equipped and the item that should be equipped.
                     Item currentItem = null, targetItem = null;
-                    var currentItemIdentifier = m_ItemSetManager.GetEquipItemIdentifier(m_ItemSetCategoryIndex, i);
-                    if (currentItemIdentifier != null) {
-                        currentItem = m_Inventory.GetItem(currentItemIdentifier, i);
+                    var currentItemType = m_ItemSetManager.GetEquipItemType(m_ItemSetCategoryIndex, i);
+                    if (currentItemType != null) {
+                        currentItem = m_Inventory.GetItem(i, currentItemType);
                     }
-                    var targetItemIdentifier = m_ItemSetManager.GetEquipItemIdentifier(m_ItemSetCategoryIndex, m_ActiveItemSetIndex, i);
+                    var targetItemType = m_ItemSetManager.GetEquipItemType(m_ItemSetCategoryIndex, m_ActiveItemSetIndex, i);
                     var skipEquip = false;
-                    // If the target ItemIdentifier doesn't equal the equip ItemIdentifier from the ItemSetManager then the equip ItemIdentifier is equipped in a different category.
+                    // If the target ItemType doesn't equal the equip ItemType from the ItemSetManager then the equip ItemType is equipped in a different category.
                     // Only the lower categories should be searched because they have a higher priority.
                     for (int j = 0; j < m_ItemSetCategoryIndex; ++j) {
-                        var equipItemIdentifier = m_ItemSetManager.GetEquipItemIdentifier(j, i);
-                        if (equipItemIdentifier != null && equipItemIdentifier != targetItemIdentifier) {
+                        var equipItemType = m_ItemSetManager.GetEquipItemType(j, i);
+                        if (equipItemType != null && equipItemType != targetItemType) {
                             skipEquip = true;
-                            break;
+                            continue;
                         }
                     }
                     if (skipEquip) {
                         continue;
                     }
-                    if (targetItemIdentifier != null && m_Inventory.GetItemIdentifierAmount(targetItemIdentifier) > 0) {
-                        targetItem = m_Inventory.GetItem(targetItemIdentifier, i);
+                    if (targetItemType != null && m_Inventory.GetItemTypeCount(targetItemType) > 0) {
+                        targetItem = m_Inventory.GetItem(i, targetItemType);
                     }
 
                     // Nothing needs to be done if the current item is equal to the item that should be equipped. The target item may not be active if
@@ -557,20 +497,16 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
                     if (currentItem == targetItem && (targetItem == null || (targetItem != null && targetItem.IsActive()))) {
                         continue;
                     }
-                    // ForceEquipUnequip may be unequipping the item.
-                    if (m_UnequipItems[i] != null) {
-                        unequip = true;
-                    } else if (currentItem != targetItem && currentItem != null && currentItem.IsActive() &&
-                                    m_ItemSetManager.IsCategoryMember(currentItem.ItemIdentifier.GetItemDefinition(), m_ItemSetCategoryIndex)) {
-                        // The item first needs to be unequipped before another item can be equipped.
+                    // The item first needs to be unequipped before another item can be equipped.
+                    if (m_UnequipItems[i] == null && currentItem != targetItem && currentItem != null && (currentItem.ItemType.CategoryIDMatch(m_ItemSetCategoryID)) && currentItem.IsActive()) {
                         m_UnequipItems[i] = currentItem;
                         m_UnequippingItems[i] = true;
-                        unequip = true;
                         currentItem.StartUnequip(m_ImmediateEquipUnequip);
                     }
-                    if (targetItemIdentifier != null && m_ItemSetManager.IsCategoryMember(targetItemIdentifier.GetItemDefinition(), m_ItemSetCategoryIndex)) {
+                    // ForceEquipUnequip may be unequipping the item.
+                    unequip = unequip || m_UnequipItems[i] != null;
+                    if (targetItemType != null && (targetItemType.CategoryIDMatch(m_ItemSetCategoryID))) {
                         m_EquipItems[i] = targetItem;
-                        // Wait to equip until unequip is complete.
                         m_EquippingItems[i] = false;
                         equip = true;
                     }
@@ -597,9 +533,9 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
                             }
                         } else if (m_EquipItems[i] != null && canEqup) {
                             m_EquippingItems[i] = true;
+                            m_EquipItems[i].StartEquip(m_ImmediateEquipUnequip);
                             m_EquipItems[i].WillEquip();
                             EventHandler.ExecuteEvent(m_GameObject, "OnAbilityWillEquipItem", m_EquipItems[i], i);
-                            m_EquipItems[i].StartEquip(m_ImmediateEquipUnequip);
                             if (!m_EquipItems[i].EquipEvent.WaitForAnimationEvent || m_ImmediateEquipUnequip) {
                                 var duration = m_ImmediateEquipUnequip ? 0 : m_EquipItems[i].EquipEvent.Duration;
                                 m_ItemEvents[i] = Scheduler.ScheduleFixed(duration, ItemEquip, i, duration == 0);
@@ -652,17 +588,12 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
                 if (startAbility) {
                     if (m_EquipItems[slotID] != null && m_EquippingItems[slotID]) {
                         m_EquipItems[slotID].StartUnequip(true);
-                        m_Inventory.UnequipItem(m_EquipItems[slotID].ItemIdentifier, slotID);
+                        m_Inventory.UnequipItem(m_EquipItems[slotID].ItemType, slotID);
                         EventHandler.ExecuteEvent(m_GameObject, "OnAbilityUnequipItemComplete", m_EquipItems[slotID], slotID);
                     } else if (m_EquipItems[slotID] != null && m_CanEquip) {
                         // Don't unequip the item currently being equipped if the ItemSet uses it.
-                        var equipItemIdentifier = m_ItemSetManager.GetEquipItemIdentifier(m_ItemSetCategoryIndex, m_ActiveItemSetIndex, slotID);
-                        if (equipItemIdentifier == null || m_EquipItems[slotID].ItemIdentifier != equipItemIdentifier) {
-                            if (m_UnequipItems[slotID] != null) {
-                                m_Inventory.UnequipItem(m_UnequipItems[slotID].ItemIdentifier, slotID);
-                                EventHandler.ExecuteEvent(m_GameObject, "OnAbilityUnequipItemComplete", m_UnequipItems[slotID], slotID);
-                            }
-
+                        var equipItemType = m_ItemSetManager.GetEquipItemType(m_ItemSetCategoryIndex, m_ActiveItemSetIndex, slotID);
+                        if (equipItemType == null || m_EquipItems[slotID].ItemType != equipItemType) {
                             // The equipping item should be unequipped smoothly.
                             m_UnequipItems[slotID] = m_EquipItems[slotID];
                             m_UnequippingItems[slotID] = true;
@@ -673,11 +604,10 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
                 } else {
                     // Equip the equip item immediately if the ability is being stopped to prevent the items from getting into an invalid state.
                     if (m_EquipItems[slotID] != null) {
-
+                        m_EquipItems[slotID].StartEquip(m_ImmediateEquipUnequip);
                         m_EquipItems[slotID].WillEquip();
                         EventHandler.ExecuteEvent(m_GameObject, "OnAbilityWillEquipItem", m_EquipItems[slotID], slotID);
-                        m_EquipItems[slotID].StartEquip(m_ImmediateEquipUnequip);
-                        m_Inventory.EquipItem(m_EquipItems[slotID].ItemIdentifier, slotID, m_ImmediateEquipUnequip);
+                        m_Inventory.EquipItem(m_EquipItems[slotID].ItemType, slotID, m_ImmediateEquipUnequip);
                     }
                 }
                 m_EquipItems[slotID] = null;
@@ -687,29 +617,22 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
                     if (m_UnequippingItems[slotID] && startAbility) {
                         // Reset the unequpping item back to being equip if the item set uses the same item again. If a different item should be equipped
                         // then the ability will unequip it through AbilityStarted.
-                        var itemIdentifier = m_ItemSetManager.GetEquipItemIdentifier(m_ItemSetCategoryIndex, m_ActiveItemSetIndex, slotID);
-                        if (itemIdentifier == m_UnequipItems[slotID].ItemIdentifier) {
+                        if (m_ItemSetManager.GetEquipItemType(m_ItemSetCategoryIndex, m_ActiveItemSetIndex, slotID) == m_UnequipItems[slotID].ItemType) {
+                            m_UnequipItems[slotID].StartEquip(m_ImmediateEquipUnequip);
                             m_UnequipItems[slotID].WillEquip();
                             EventHandler.ExecuteEvent(m_GameObject, "OnAbilityWillEquipItem", m_UnequipItems[slotID], slotID);
-                            m_UnequipItems[slotID].StartEquip(m_ImmediateEquipUnequip);
-                            m_Inventory.EquipItem(m_UnequipItems[slotID].ItemIdentifier, slotID, true);
-                            m_UnequipItems[slotID] = null;
-                            m_UnequippingItems[slotID] = false;
-                        } else if (m_EquipUnequipActions[slotID] == EquipUnequipAction.Unequip) {
-                            m_Inventory.UnequipItem(m_UnequipItems[slotID].ItemIdentifier, slotID);
-                            EventHandler.ExecuteEvent(m_GameObject, "OnAbilityUnequipItemComplete", m_UnequipItems[slotID], slotID);
+                            m_Inventory.EquipItem(m_UnequipItems[slotID].ItemType, slotID, true);
                             m_UnequipItems[slotID] = null;
                             m_UnequippingItems[slotID] = false;
                         }
                     } else {
                         m_UnequipItems[slotID].StartUnequip(true);
-                        m_Inventory.UnequipItem(m_UnequipItems[slotID].ItemIdentifier, slotID);
+                        m_Inventory.UnequipItem(m_UnequipItems[slotID].ItemType, slotID);
                         EventHandler.ExecuteEvent(m_GameObject, "OnAbilityUnequipItemComplete", m_UnequipItems[slotID], slotID);
                         m_UnequipItems[slotID] = null;
                         m_UnequippingItems[slotID] = false;
                     }
                 }
-
                 m_CharacterLocomotion.UpdateItemAbilityAnimatorParameters();
             }
         }
@@ -770,11 +693,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         /// <param name="canUpdate">Can the item be updated? If false the status enum will be set and the item will be updated within the Update loop.</param>
         private void ItemUnequip(int slotID, bool canUpdate)
         {
-            var unequipItem = m_UnequipItems[slotID];
-            if (unequipItem == null || !m_UnequippingItems[slotID]) {
-                return;
-            }
-
             // If the item can't be updated then the event should wait until the Update loop. This ensures items are updated in the proper order.
             if (!canUpdate) {
                 m_EquipUnequipActions[slotID] = EquipUnequipAction.Unequip;
@@ -783,6 +701,11 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             m_EquipUnequipActions[slotID] = EquipUnequipAction.Inactive;
 
             // Clear out the unequipped item and notify those interested.
+            var unequipItem = m_UnequipItems[slotID];
+            if (unequipItem == null || !m_UnequippingItems[slotID]) {
+                return;
+            }
+
             m_Inventory.UnequipItem(slotID);
             m_UnequippingItems[slotID] = false;
 
@@ -835,17 +758,17 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         /// <param name="canUpdate">Can the item be updated? If false the status enum will be set and the item will be updated within the Update loop.</param>
         private void ItemUnequipComplete(int slotID, bool canUpdate)
         {
-            var unequipItem = m_UnequipItems[slotID];
-            if (unequipItem == null) {
-                return;
-            }
-
             // If the item can't be updated then the event should wait until the Update loop. This ensures items are updated in the proper order.
             if (!canUpdate) {
                 m_EquipUnequipActions[slotID] = EquipUnequipAction.UnequipComplete;
                 return;
             }
             m_EquipUnequipActions[slotID] = EquipUnequipAction.Inactive;
+
+            var unequipItem = m_UnequipItems[slotID];
+            if (unequipItem == null) {
+                return;
+            }
 
             m_UnequipItems[slotID] = null;
             Scheduler.Cancel(m_ItemEvents[slotID]);
@@ -880,25 +803,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             // Stop the ability if no items need to be unequipped/equipped.
             if (stopAbility) {
                 TryStopEquipUnequipAbility();
-            }
-        }
-
-        /// <summary>
-        /// An item was just equipped. Verify that the unequip item in the specified slot still needs to be unequipped.
-        /// </summary>
-        /// <param name="categoryIndex">The index that the item was equipped.</param>
-        /// <param name="slotID">The slot ID of the equipped item.</param>
-        private void OnVerifyUnequipItem(int categoryIndex, int slotID)
-        {
-            if (m_UnequipItems[slotID] == null || m_ItemSetCategoryIndex == categoryIndex) {
-                return;
-            }
-
-            // Don't unequip the item if it should be equipped.
-            if (m_UnequipItems[slotID].ItemIdentifier == m_ItemSetManager.GetEquipItemIdentifier(slotID)) {
-                m_UnequipItems[slotID] = null;
-                m_UnequippingItems[slotID] = false;
-                m_CharacterLocomotion.UpdateItemAbilityAnimatorParameters();
             }
         }
 
@@ -945,27 +849,26 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         /// <param name="canUpdate">Can the item be updated? If false the status enum will be set and the item will be updated within the Update loop.</param>
         private void ItemEquip(int slotID, bool canUpdate)
         {
-            if (!m_CanEquip) {
-                return;
-            }
-            var equipItem = m_EquipItems[slotID];
-            if (equipItem == null || !m_EquippingItems[slotID]) {
-                return;
-            }
-
             // If the item can't be updated then the event should wait until the Update loop. This ensures items are updated in the proper order.
             if (!canUpdate) {
                 m_EquipUnequipActions[slotID] = EquipUnequipAction.Equip;
                 return;
             }
-
             m_EquipUnequipActions[slotID] = EquipUnequipAction.Inactive;
+            if (!m_CanEquip) {
+                return;
+            }
 
             // Clear out the equipped item and notify those interested.
+            var equipItem = m_EquipItems[slotID];
+            if (equipItem == null || !m_EquippingItems[slotID]) {
+                return;
+            }
+
             m_EquippingItems[slotID] = false;
             m_CharacterLocomotion.UpdateItemAbilityAnimatorParameters();
             equipItem.StartEquip(m_ImmediateEquipUnequip);
-            m_Inventory.EquipItem(equipItem.ItemIdentifier, slotID, m_ImmediateEquipUnequip);
+            m_Inventory.EquipItem(equipItem.ItemType, slotID, m_ImmediateEquipUnequip);
 
             // The new ItemSet is active as soon as the new items are equipped.
             var equip = false;
@@ -977,9 +880,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             }
             if (!equip) {
                 m_ItemSetManager.UpdateActiveItemSet(m_ItemSetCategoryIndex, m_ActiveItemSetIndex);
-                // Throughout the duration that the item was equipped a different category may have started to equip. 
-                // Verify that the unequip item should still be unequipped.
-                EventHandler.ExecuteEvent(m_GameObject, "OnEquipUnequipVerifyUnequipItem", m_ItemSetCategoryIndex, slotID);
             }
 
             if (!equipItem.EquipCompleteEvent.WaitForAnimationEvent || m_ImmediateEquipUnequip) {
@@ -1031,6 +931,13 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         /// <param name="canUpdate">Can the item be updated? If false the status enum will be set and the item will be updated within the Update loop.</param>
         private void ItemEquipComplete(int slotID, bool canUpdate)
         {
+            // If the item can't be updated then the event should wait until the Update loop. This ensures items are updated in the proper order.
+            if (!canUpdate) {
+                m_EquipUnequipActions[slotID] = EquipUnequipAction.EquipComplete;
+                return;
+            }
+            m_EquipUnequipActions[slotID] = EquipUnequipAction.Inactive;
+
             if (!m_CanEquip) {
                 return;
             }
@@ -1038,13 +945,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             if (equipItem == null) {
                 return;
             }
-
-            // If the item can't be updated then the event should wait until the Update loop. This ensures items are updated in the proper order.
-            if (!canUpdate) {
-                m_EquipUnequipActions[slotID] = EquipUnequipAction.EquipComplete;
-                return;
-            }
-            m_EquipUnequipActions[slotID] = EquipUnequipAction.Inactive;
 
             m_EquipItems[slotID] = null;
             Scheduler.Cancel(m_ItemEvents[slotID]);
@@ -1091,33 +991,20 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         }
 
         /// <summary>
-        /// The ItemSetManager has changed the active ItemSet.
-        /// </summary>
-        /// <param name="categoryIndex">The index of the category that changed.</param>
-        /// <param name="itemSetIndex">The updated active ItemSet index value.</param>
-        protected void OnItemSetIndexChange(int categoryIndex, int itemSetIndex)
-        {
-            if (m_ItemSetCategoryIndex != categoryIndex) {
-                return;
-            }
-            m_ActiveItemSetIndex = itemSetIndex;
-        }
-
-        /// <summary>
         /// An item has been removed.
         /// </summary>
         /// <param name="item">The item that was removed.</param>
         /// <param name="slotID">The slot that the item was removed from.</param>
         private void OnRemoveItem(Item item, int slotID)
         {
-            if (m_ItemSetManager.IsCategoryMember(item.ItemDefinition, m_ItemSetCategoryIndex)) {
+            if (item.ItemType.CategoryIDMatch(m_ItemSetCategoryID)) {
                 // The item may not be included in the active ItemSet.
-                if (m_ActiveItemSetIndex == m_ItemSetManager.GetItemSetIndex(item, m_ItemSetCategoryIndex, false)) {
+                if (m_ActiveItemSetIndex == m_ItemSetManager.GetItemSetIndex(item, m_ItemSetCategoryIndex, false, true)) {
                     var prevImmediateEquipUnequip = m_ImmediateEquipUnequip;
                     // If the ItemSet contains an item that isn't being removed then the character should animate moving to the next ItemSet.
                     for (int i = 0; i < m_Inventory.SlotCount; ++i) {
-                        var equipItemIdentifier = m_ItemSetManager.GetEquipItemIdentifier(m_ItemSetCategoryIndex, m_ActiveItemSetIndex, i);
-                        if (equipItemIdentifier != null && equipItemIdentifier != item.ItemIdentifier) {
+                        var equipItemType = m_ItemSetManager.GetEquipItemType(m_ItemSetCategoryIndex, m_ActiveItemSetIndex, i);
+                        if (equipItemType != null && equipItemType != item.ItemType) {
                             m_ImmediateEquipUnequip = false;
                             break;
                         }
@@ -1141,7 +1028,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             StartEquipUnequip(-1, false, !m_CharacterLocomotion.FirstPersonPerspective);
 
             if (m_Inventory.RemoveAllOnDeath) {
-                m_InventoryAmount.Clear();
+                m_InventoryCount.Clear();
             }
         }
 
@@ -1169,9 +1056,8 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
 
             EventHandler.UnregisterEvent(m_GameObject, "OnItemPickupStartPickup", WillStartPickup);
             EventHandler.UnregisterEvent(m_GameObject, "OnItemPickupStopPickup", StopPickup);
-            EventHandler.UnregisterEvent<Item, int, bool, bool>(m_GameObject, "OnInventoryPickupItem", OnPickupItem);
-            EventHandler.UnregisterEvent<IItemIdentifier, int, bool, bool>(m_GameObject, "OnInventoryPickupItemIdentifier", OnPickupItemIdentifier);
-            EventHandler.UnregisterEvent<int, int>(m_GameObject, "OnItemSetIndexChange", OnItemSetIndexChange);
+            EventHandler.UnregisterEvent<Item, float, bool, bool>(m_GameObject, "OnInventoryPickupItem", OnPickupItem);
+            EventHandler.UnregisterEvent<ItemType, float, bool, bool>(m_GameObject, "OnInventoryPickupItemType", OnPickupItemType);
             EventHandler.UnregisterEvent(m_GameObject, "OnAnimatorItemUnequip", OnItemUnequip);
             EventHandler.UnregisterEvent(m_GameObject, "OnAnimatorItemUnequipComplete", OnItemUnequipComplete);
             EventHandler.UnregisterEvent(m_GameObject, "OnAnimatorItemUnequipFirstSlot", OnItemUnequipFirstSlot);
@@ -1180,7 +1066,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             EventHandler.UnregisterEvent(m_GameObject, "OnAnimatorItemUnequipCompleteSecondSlot", OnItemUnequipCompleteSecondSlot);
             EventHandler.UnregisterEvent(m_GameObject, "OnAnimatorItemUnequipThirdSlot", OnItemUnequipThirdSlot);
             EventHandler.UnregisterEvent(m_GameObject, "OnAnimatorItemUnequipCompleteThirdSlot", OnItemUnequipCompleteThirdSlot);
-            EventHandler.UnregisterEvent<int, int>(m_GameObject, "OnEquipUnequipVerifyUnequip", OnVerifyUnequipItem);
             EventHandler.UnregisterEvent(m_GameObject, "OnAnimatorItemEquip", OnItemEquip);
             EventHandler.UnregisterEvent(m_GameObject, "OnAnimatorItemEquipComplete", OnItemEquipComplete);
             EventHandler.UnregisterEvent(m_GameObject, "OnAnimatorItemEquipFirstSlot", OnItemEquipFirstSlot);

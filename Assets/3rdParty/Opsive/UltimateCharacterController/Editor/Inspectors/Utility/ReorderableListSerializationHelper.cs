@@ -4,17 +4,16 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using UnityEditorInternal;
+using Opsive.UltimateCharacterController.Character.Abilities;
+using Opsive.UltimateCharacterController.Character.Abilities.Items;
+using System;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
 {
-    using Opsive.UltimateCharacterController.Character.Abilities;
-    using Opsive.UltimateCharacterController.Character.Abilities.Items;
-    using Opsive.UltimateCharacterController.Utility;
-    using System;
-    using System.Collections.Generic;
-    using UnityEditor;
-    using UnityEditorInternal;
-    using UnityEngine;
-
     /// <summary>
     /// Helper class for managing the ReoderableList.
     /// </summary>
@@ -66,28 +65,19 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
                     reorderableList.index = EditorPrefs.GetInt(key, -1);
                 }
             }
-            
-            var indentLevel = EditorGUI.indentLevel;
-            if (indentList) {
-                // ReorderableLists do not like indentation.
-                while (EditorGUI.indentLevel > 0) {
-                    EditorGUI.indentLevel--;
-                }
-            }
 
             var listRect = GUILayoutUtility.GetRect(0, reorderableList.GetHeight());
             // Indent the list so it lines up with the rest of the content.
             if (indentList) {
-                listRect.x += InspectorUtility.IndentWidth * indentLevel;
-                listRect.xMax -= InspectorUtility.IndentWidth * indentLevel;
+                listRect.x += InspectorUtility.IndentWidth;
+                listRect.xMax -= InspectorUtility.IndentWidth;
             }
             reorderableList.DoList(listRect);
-            while (EditorGUI.indentLevel < indentLevel) {
-                EditorGUI.indentLevel++;
-            }
             if (reorderableList != null && reorderableList.index != -1) {
                 if (drawnObject != null && reorderableList.index < drawnObject.Length) {
+                    EditorGUI.indentLevel++;
                     drawSelectedElementCallback(reorderableList.index);
+                    EditorGUI.indentLevel--;
                 }
             }
         }
@@ -106,7 +96,8 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
         /// </summary>
         public static void AddObjectType(Type type, bool friendlyNamespacePrefix, Array existingTypes, GenericMenu.MenuFunction2 addCallback)
         {
-            if (!s_ObjectTypes.TryGetValue(type, out var typeList)) {
+            List<Type> typeList;
+            if (!s_ObjectTypes.TryGetValue(type, out typeList)) {
                 // Search through all of the assemblies to find any types that derive from specified type.
                 typeList = new List<Type>();
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies();
@@ -163,11 +154,17 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
         /// <returns>True if multiple of the same type can be added.</returns>
         private static bool CanAddMultipleTypes(Type type)
         {
-            if (s_CanAddMultipleTypes.TryGetValue(type, out var multipleTypes)) {
+            // Multiple effects can always be added.
+            if (typeof(UltimateCharacterController.Character.Effects.Effect).IsAssignableFrom(type)) {
+                return true;
+            }
+
+            bool multipleTypes;
+            if (s_CanAddMultipleTypes.TryGetValue(type, out multipleTypes)) {
                 return multipleTypes;
             }
 
-            multipleTypes = type.GetCustomAttributes(typeof(AllowDuplicateTypes), true).Length > 0;
+            multipleTypes = type.GetCustomAttributes(typeof(AllowMultipleAbilityTypes), true).Length > 0;
             s_CanAddMultipleTypes.Add(type, multipleTypes);
             return multipleTypes;
         }

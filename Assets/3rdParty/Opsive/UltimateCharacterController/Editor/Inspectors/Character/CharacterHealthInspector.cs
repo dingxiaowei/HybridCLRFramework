@@ -4,13 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEditor;
+using Opsive.UltimateCharacterController.Traits;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+using System;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Traits
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.Traits;
-    using System;
-    using UnityEditor;
-
     /// <summary>
     /// Shows a custom inspector for the CharacterHealth component.
     /// </summary>

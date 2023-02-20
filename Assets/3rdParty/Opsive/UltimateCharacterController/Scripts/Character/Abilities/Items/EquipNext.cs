@@ -4,19 +4,18 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Items;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities.Items
 {
-    using Opsive.Shared.Events;
-    using Opsive.UltimateCharacterController.Items;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// The EquipNext ability will equip the Next ItemSet in the specified category.
     /// </summary>
     [DefaultStartType(AbilityStartType.ButtonDown)]
     [DefaultInputName("Equip Next Item")]
-    [AllowDuplicateTypes]
+    [AllowMultipleAbilityTypes]
     public class EquipNext : EquipSwitcher
     {
         private int m_PrevItemSetIndex;
@@ -43,8 +42,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         /// <param name="itemSetIndex">The updated active ItemSet index value.</param>
         protected override void OnItemSetIndexChange(int itemSetIndex)
         {
-            if (itemSetIndex == -1 || 
-                (m_ItemSetIndex != -1 && itemSetIndex == m_ItemSetManager.GetDefaultItemSetIndex(m_ItemSetCategoryIndex) && !m_ItemSetManager.CategoryItemSets[m_ItemSetCategoryIndex].ItemSetList[itemSetIndex].CanSwitchTo)) {
+            if (itemSetIndex == -1 || (m_ItemSetIndex != -1 && itemSetIndex == m_ItemSetManager.GetDefaultItemSetIndex(m_ItemSetCategoryIndex))) {
                 return;
             }
 
@@ -90,14 +88,14 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         /// <param name="unequipOnFailure">Should the current ItemSet be unequipped if the next ItemSet cannot be activated?</param>
         private void OnNextItemSet(Item item, bool unequipOnFailure)
         {
-            var itemIdentifier = item.ItemIdentifier;
-            if (!m_ItemSetManager.IsCategoryMember(itemIdentifier.GetItemDefinition(), m_ItemSetCategoryIndex)) {
+            var itemType = item.ItemType;
+            if (!itemType.CategoryIDMatch(m_ItemSetCategoryID)) {
                 return;
             }
 
-            // Don't equip the next item if the current ItemSet doesn't contain the ItemIdentifier.
-            var activeItemIdentifier = m_ItemSetManager.GetEquipItemIdentifier(m_ItemSetCategoryIndex, item.SlotID);
-            if (itemIdentifier != activeItemIdentifier) {
+            // Don't equip the next item if the current ItemSet doesn't contain the ItemType.
+            var activeItemType = m_ItemSetManager.GetEquipItemType(m_ItemSetCategoryIndex, item.SlotID);
+            if (itemType != activeItemType) {
                 return;
             }
 

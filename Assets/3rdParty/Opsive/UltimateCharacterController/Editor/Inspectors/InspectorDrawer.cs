@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using System;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors
 {
-    using System;
-
     /// <summary>
     /// InspectorDrawers allow non-Unity Objects to draw custom objects to the editor inspector.
     /// </summary>

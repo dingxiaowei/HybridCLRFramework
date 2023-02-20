@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Game;
+
 namespace Opsive.UltimateCharacterController.Traits
 {
-    using Opsive.Shared.Game;
-    using UnityEngine;
-
     /// <summary>
     /// Places the object back in the ObjectPool after the specified number of seconds.
     /// </summary>

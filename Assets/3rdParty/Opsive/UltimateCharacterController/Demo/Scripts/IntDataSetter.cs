@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character.Abilities;
+using Opsive.UltimateCharacterController.Events;
+
 namespace Opsive.UltimateCharacterController.Demo.Character.Abilities
 {
-    using Opsive.Shared.Events;
-    using Opsive.UltimateCharacterController.Character.Abilities;
-    using UnityEngine;
-
     /// <summary>
     /// Sets the int data parameter to the specified value when move towards is not active.
     /// </summary>

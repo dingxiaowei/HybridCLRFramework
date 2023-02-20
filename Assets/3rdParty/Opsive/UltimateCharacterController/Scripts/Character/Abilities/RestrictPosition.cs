@@ -4,10 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities
 {
-    using UnityEngine;
-
     /// <summary>
     /// The RestrictPosition ability restricts the character to the specified position.
     /// </summary>
@@ -35,7 +36,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         [HideInInspector] [SerializeField] protected float m_MinZPosition;
         [Tooltip("If restricting the Z axis, specifies the maximum local Z position the character can move to.")]
         [HideInInspector] [SerializeField] protected float m_MaxZPosition;
-         
+
         public RestrictionType Restiction { get { return m_Restriction; } set { m_Restriction = value; } }
         public float MinXPosition { get { return m_MinXPosition; } set { m_MinXPosition = value; } }
         public float MaxXPosition { get { return m_MaxXPosition; } set { m_MaxXPosition = value; } }

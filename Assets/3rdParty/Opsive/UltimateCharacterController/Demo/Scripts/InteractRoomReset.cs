@@ -4,13 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Utility;
+using Opsive.UltimateCharacterController.Objects.CharacterAssist;
+
 namespace Opsive.UltimateCharacterController.Demo
 {
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Objects.CharacterAssist;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// Resets the specified interactable objects when the character leaves the room.
     /// </summary>

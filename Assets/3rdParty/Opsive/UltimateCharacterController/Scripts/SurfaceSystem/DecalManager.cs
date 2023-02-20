@@ -4,15 +4,14 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Utility;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.SurfaceSystem
 {
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Utility;
-    using System.Collections.Generic;
-    using UnityEngine;
-    using UnityEngine.SceneManagement;
-
     /// <summary>
     /// The DecalManager is responsible for managing the spawned decals. The decals can be capped at a limit to prevent too many from being
     /// spawned. These decals can then slowly be faded (weathered) for a smooth transition rather than the decal just popping out of existance.
@@ -250,10 +249,6 @@ namespace Opsive.UltimateCharacterController.SurfaceSystem
         {
             // As each decal is added to the weathered list it should slowly fade out.
             for (int i = 0; i < m_WeatheredDecals.Count; ++i) {
-                if (m_WeatheredDecals[i] == null) {
-                    m_WeatheredDecals.RemoveAt(i);
-                    continue;
-                }
                 var color = m_WeatheredDecals[i].material.color;
                 color.a = Mathf.Clamp01(color.a - (1 / (float)m_WeatheredDecalLimit));
                 m_WeatheredDecals[i].material.color = color;
@@ -273,10 +268,6 @@ namespace Opsive.UltimateCharacterController.SurfaceSystem
         private void Update()
         {
             for (int i = m_DecalsToFade.Count - 1; i >= 0; --i) {
-                if (m_DecalsToFade[i] == null) {
-                    m_DecalsToFade.RemoveAt(i);
-                    continue;
-                }
                 var color = m_DecalsToFade[i].material.color;
                 color.a = Mathf.Lerp(color.a, 0, Time.deltaTime * m_RemoveFadeoutSpeed);
                 // The decal can be removed from the list when it is completely faded out.
@@ -311,17 +302,5 @@ namespace Opsive.UltimateCharacterController.SurfaceSystem
         {
             SceneManager.sceneUnloaded += SceneUnloaded;
         }
-
-#if UNITY_2019_3_OR_NEWER
-        /// <summary>
-        /// Reset the static variables for domain reloading.
-        /// </summary>
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        private static void DomainReset()
-        {
-            s_Initialized = false;
-            s_Instance = null;
-        }
-#endif
     }
 }

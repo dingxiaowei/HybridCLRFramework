@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Game
 {
-    using UnityEngine;
-
     /// <summary>
     /// Specifies a location that the object can spawn.
     /// </summary>
@@ -103,7 +103,7 @@ namespace Opsive.UltimateCharacterController.Game
         /// <param name="position">The position of the spawn point.</param>
         /// <param name="rotation">The rotation of the spawn point.</param>
         /// <returns>True if the spawn point was successfully retrieved.</returns>
-        public virtual bool GetPlacement(GameObject spawningObject, ref Vector3 position, ref Quaternion rotation)
+        public bool GetPlacement(GameObject spawningObject, ref Vector3 position, ref Quaternion rotation)
         {
             position = RandomPosition(0);
 

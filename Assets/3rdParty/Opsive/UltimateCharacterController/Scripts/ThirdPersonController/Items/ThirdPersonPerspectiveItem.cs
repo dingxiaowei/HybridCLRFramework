@@ -4,15 +4,14 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Items;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.ThirdPersonController.Items
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Items;
-    using UnityEngine;
-
     /// <summary>
     /// Component which represents the item object actually rendererd.
     /// </summary>
@@ -33,7 +32,6 @@ namespace Opsive.UltimateCharacterController.ThirdPersonController.Items
 
         [NonSerialized] public Transform NonDominantHandIKTarget { get { return m_NonDominantHandIKTarget; } set { m_NonDominantHandIKTarget = value; } }
         [NonSerialized] public Transform NonDominantHandIKTargetHint { get { return m_NonDominantHandIKTargetHint; } set { m_NonDominantHandIKTargetHint = value; } }
-        [NonSerialized] public Transform HolsterTarget { get { return m_HolsterTarget; } set { m_HolsterTarget = value; } }
 
         private CharacterIKBase m_CharacterIK;
         private Transform m_ParentBone;

@@ -4,15 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEditor;
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Items;
+using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
+using System;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Items
 {
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
-    using Opsive.UltimateCharacterController.Items;
-    using System;
-    using UnityEditor;
-    using UnityEngine;
-
     /// <summary>
     /// Shows a custom inspector for the PerspectiveItem component.
     /// </summary>

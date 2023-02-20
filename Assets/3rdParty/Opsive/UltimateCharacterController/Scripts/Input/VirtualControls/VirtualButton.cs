@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEngine.EventSystems;
+
 namespace Opsive.UltimateCharacterController.Input.VirtualControls
 {
-    using UnityEngine;
-    using UnityEngine.EventSystems;
-
     /// <summary>
     /// A virtual control that the player can press.
     /// </summary>

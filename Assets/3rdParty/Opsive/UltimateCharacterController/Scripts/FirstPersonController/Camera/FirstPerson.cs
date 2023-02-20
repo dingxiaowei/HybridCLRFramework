@@ -4,41 +4,27 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Camera;
+using Opsive.UltimateCharacterController.Camera.ViewTypes;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Motion;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTypes
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Camera;
-    using Opsive.UltimateCharacterController.Camera.ViewTypes;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Motion;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// The FirstPerson ViewType allows the camera to be placed in a first person perspective.
     /// </summary>
     public abstract class FirstPerson : ViewType
     {
-#if ULTIMATE_CHARACTER_CONTROLLER_LWRP || ULTIMATE_CHARACTER_CONTROLLER_UNIVERSALRP
-        /// <summary>
-        /// Specifies how the overlay objects are rendered.
-        /// </summary>
-        public enum ObjectOverlayRenderType
-        {
-            SecondCamera,   // Use a second stacked camera to ensure the overlay objects do no clip with any other objects.
-            RenderPipeline, // Use the LWRP/URP render pipeline to ensure the overlay objects do no clip with any other objects.
-            None            // No special rendering for the overlay objects.
-        }
-#endif
-
         [Tooltip("The distance that the character should look ahead.")]
         [SerializeField] protected float m_LookDirectionDistance = 100;
         
         [Tooltip("The offset between the anchor and the camera.")]
-        [SerializeField] protected Vector3 m_LookOffset = new Vector3(0, .1f, 0.27f);
+        [SerializeField] protected Vector3 m_LookOffset = new Vector3(0, 0, 0.27f);
         [Tooltip("Amount to adjust the camera position by when the character is looking down.")]
         [SerializeField] protected Vector3 m_LookDownOffset = new Vector3(0, 0, 0.28f);
         [Tooltip("The culling mask of the camera.")]
@@ -51,17 +37,12 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTy
         [SerializeField] protected Vector3 m_FirstPersonPositionOffset;
         [Tooltip("Specifies the rotation offset from the camera that the first person objects should render.")]
         [SerializeField] protected Vector3 m_FirstPersonRotationOffset;
-#if ULTIMATE_CHARACTER_CONTROLLER_LWRP || ULTIMATE_CHARACTER_CONTROLLER_UNIVERSALRP
-        [Tooltip("Specifies how the overlay objects are rendered.")]
-        [SerializeField] protected ObjectOverlayRenderType m_OverlayRenderType = ObjectOverlayRenderType.SecondCamera;
-#else
         [Tooltip("Should the first person camera be used?")]
         [SerializeField] protected bool m_UseFirstPersonCamera = true;
-#endif
         [Tooltip("A reference to the first person camera.")]
         [SerializeField] protected UnityEngine.Camera m_FirstPersonCamera;
-        [Tooltip("The culling mask of the first person objects.")]
-        [SerializeField] protected LayerMask m_FirstPersonCullingMask = 1 << LayerManager.Overlay;
+        [Tooltip("The culling mask of the first person camera.")]
+        [SerializeField] protected LayerMask m_FirstPersonCullingMask = (1 << LayerManager.Overlay);
         [Tooltip("Should the first person camera's field of view be synchronized with the main camera?")]
         [SerializeField] protected bool m_SynchronizeFieldOfView = true;
         [Tooltip("Specifies the field of view for the first person camera.")]
@@ -78,18 +59,18 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTy
         [Tooltip("Rotates the camera depending on the sideways local velocity of the character, resulting in the camera leaning into or away from its sideways movement direction.")]
         [SerializeField] protected float m_RotationStrafeRoll = 0.01f;
         [Tooltip("Determines how much the camera will roll when the player falls onto a surface.")]
-        [SerializeField] protected float m_RotationFallImpact = 0.1f;
+        [SerializeField] protected float m_RotationFallImpact = 0.05f;
         [Tooltip("The number of frames that the fall impact force should be applied.")]
         [SerializeField] protected int m_RotationFallImpactSoftness = 1;
 
         [Tooltip("The positional spring used for regular movement.")]
-        [SerializeField] protected Spring m_PositionSpring = new Spring();
+        [SerializeField] protected Spring m_PositionSpring;
         [Tooltip("The rotational spring used for regular movement.")]
-        [SerializeField] protected Spring m_RotationSpring = new Spring();
+        [SerializeField] protected Spring m_RotationSpring;
         [Tooltip("The positional spring which returns to equilibrium after a small amount of time (for recoil).")]
-        [SerializeField] protected Spring m_SecondaryPositionSpring = new Spring();
+        [SerializeField] protected Spring m_SecondaryPositionSpring;
         [Tooltip("The rotational spring which returns to equilibrium after a small amount of time (for recoil).")]
-        [SerializeField] protected Spring m_SecondaryRotationSpring = new Spring();
+        [SerializeField] protected Spring m_SecondaryRotationSpring;
 
         [Tooltip("The minimum pitch angle (in degrees).")]
         [SerializeField] protected float m_MinPitchLimit = -72;
@@ -164,9 +145,6 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTy
             }
         }
         public override float LookDirectionDistance { get { return m_LookDirectionDistance; } }
-#if ULTIMATE_CHARACTER_CONTROLLER_LWRP || ULTIMATE_CHARACTER_CONTROLLER_UNIVERSALRP
-        [NonSerialized] public ObjectOverlayRenderType OverlayRenderType { get { return m_OverlayRenderType; } set { m_OverlayRenderType = value; } }
-#else
         public bool UseFirstPersonCamera { get { return m_UseFirstPersonCamera; }
             set
             {
@@ -177,7 +155,6 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTy
                 UpdateFirstPersonCamera(m_CharacterLocomotion.FirstPersonPerspective);
             }
         }
-#endif
         [NonSerialized] public UnityEngine.Camera FirstPersonCamera { get { return m_FirstPersonCamera; } set { m_FirstPersonCamera = value; } }
         public LayerMask FirstPersonCullingMask { get { return m_FirstPersonCullingMask; }
             set {
@@ -235,12 +212,7 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTy
         public bool BobRequireGroundContact { get { return m_BobRequireGroundContact; } set { m_BobRequireGroundContact = value; } }
         public float ShakeSpeed { get { return m_ShakeSpeed; } set { m_ShakeSpeed = value; } }
         public Vector3 ShakeAmplitude { get { return m_ShakeAmplitude; } set { m_ShakeAmplitude = value; } }
-        public int SmoothHeadOffsetSteps { get { return m_SmoothHeadOffsetSteps; } set { 
-                m_SmoothHeadOffsetSteps = value;
-                if (value == 0) {
-                    m_SmoothHeadBufferCount = 0;
-                }
-            } }
+        public int SmoothHeadOffsetSteps { get { return m_SmoothHeadOffsetSteps; } set { m_SmoothHeadOffsetSteps = value; } }
         public bool RotateWithHead { get { return m_RotateWithHead; } set { m_RotateWithHead = value; } }
 
         private UnityEngine.Camera m_Camera;
@@ -302,28 +274,24 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTy
             m_AimAssist = m_GameObject.GetCachedComponent<AimAssist>();
 
             m_Camera.depth = 0;
-#if ULTIMATE_CHARACTER_CONTROLLER_LWRP || ULTIMATE_CHARACTER_CONTROLLER_UNIVERSALRP
-            if (m_OverlayRenderType != ObjectOverlayRenderType.None) {
-#else
             if (m_UseFirstPersonCamera) {
-#endif
                 m_Camera.cullingMask &= m_CullingMask;
             }
 
             // Setup the overlay camera.
             if (m_FirstPersonCamera != null) {
+                m_FirstPersonCameraTransform = m_FirstPersonCamera.transform;
                 if (!UnityEngine.XR.XRSettings.enabled) {
                     m_Camera.fieldOfView = m_FieldOfView;
                     m_FirstPersonCamera.fieldOfView = m_SynchronizeFieldOfView ? m_FieldOfView : m_FirstPersonFieldOfView;
                 }
                 m_FirstPersonCamera.clearFlags = CameraClearFlags.Depth;
                 m_FirstPersonCamera.cullingMask = m_FirstPersonCullingMask;
-                m_FirstPersonCamera.depth = m_Camera.depth + 1;
-                m_FirstPersonCamera.rect = m_Camera.rect;
-                m_FirstPersonCameraTransform = m_FirstPersonCamera.transform;
+                m_FirstPersonCamera.depth = 1;
                 m_FirstPersonCameraTransform.parent = m_Transform;
                 m_FirstPersonCameraTransform.localPosition = m_FirstPersonPositionOffset;
                 m_FirstPersonCameraTransform.localRotation = Quaternion.Euler(m_FirstPersonRotationOffset);
+                m_FirstPersonCamera.gameObject.SetActive(false);
             }
 
             // Using the buffer is optional.
@@ -364,7 +332,7 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTy
             // Unregister from any events on the previous character.
             if (m_Character != null) {
                 EventHandler.UnregisterEvent<Transform>(m_Character, "OnCharacterChangeMovingPlatforms", OnCharacterChangeMovingPlatforms);
-                EventHandler.UnregisterEvent<bool>(m_Character, "OnCameraChangePerspectives", UpdateFirstPersonCamera);
+                EventHandler.UnregisterEvent<bool>(m_Character, "OnCameraChangePerspectives", OnChangePerspectives);
                 EventHandler.UnregisterEvent<float>(m_Character, "OnCharacterLand", OnCharacterLand);
                 EventHandler.UnregisterEvent<float, float, float>(m_Character, "OnCharacterLean", OnCharacterLean);
                 EventHandler.UnregisterEvent<float>(m_Character, "OnHeightChangeAdjustHeight", AdjustVerticalOffset);
@@ -392,7 +360,7 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTy
                 m_SmoothHeadBufferCount = 0;
 
                 EventHandler.RegisterEvent<Transform>(m_Character, "OnCharacterChangeMovingPlatforms", OnCharacterChangeMovingPlatforms);
-                EventHandler.RegisterEvent<bool>(m_Character, "OnCameraChangePerspectives", UpdateFirstPersonCamera);
+                EventHandler.RegisterEvent<bool>(m_Character, "OnCameraChangePerspectives", OnChangePerspectives);
                 EventHandler.RegisterEvent<float>(m_Character, "OnCharacterLand", OnCharacterLand);
                 EventHandler.RegisterEvent<float, float, float>(m_Character, "OnCharacterLean", OnCharacterLean);
             }
@@ -520,33 +488,18 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTy
         /// <param name="firstPersonPerspective">Is the character in a first person perspective?</param>
         private void UpdateFirstPersonCamera(bool firstPersonPerspective)
         {
-#if ULTIMATE_CHARACTER_CONTROLLER_LWRP || ULTIMATE_CHARACTER_CONTROLLER_UNIVERSALRP
-            if (m_OverlayRenderType == ObjectOverlayRenderType.None) {
-#else
-            if (!m_UseFirstPersonCamera) {
-#endif
-                return;
-            }
-
-
-            if (firstPersonPerspective) {
-                if (m_FirstPersonCamera != null) {
+            if (m_UseFirstPersonCamera) {
+                if (firstPersonPerspective) {
                     m_FirstPersonCamera.gameObject.SetActive(true);
                 }
-#if ULTIMATE_CHARACTER_CONTROLLER_LWRP || ULTIMATE_CHARACTER_CONTROLLER_UNIVERSALRP
-                if (m_OverlayRenderType == ObjectOverlayRenderType.RenderPipeline) {
-                    m_Camera.cullingMask |= m_FirstPersonCullingMask;
-                }
-#endif
+                m_Camera.cullingMask &= m_CullingMask;
             } else {
                 if (m_FirstPersonCamera != null) {
                     m_FirstPersonCamera.gameObject.SetActive(false);
                 }
-#if ULTIMATE_CHARACTER_CONTROLLER_LWRP || ULTIMATE_CHARACTER_CONTROLLER_UNIVERSALRP
-                if (m_OverlayRenderType == ObjectOverlayRenderType.RenderPipeline) {
-                    m_Camera.cullingMask &= ~m_FirstPersonCullingMask;
+                if (firstPersonPerspective) {
+                    m_Camera.cullingMask |= ~m_CullingMask;
                 }
-#endif
             }
         }
 
@@ -569,6 +522,21 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTy
                 m_RotationSpring.Value = firstPersonViewType.RotationSpring.Value;
                 m_RotationSpring.Velocity = firstPersonViewType.RotationSpring.Velocity;
                 m_Shake = firstPersonViewType.Shake;
+            }
+        }
+
+        /// <summary>
+        /// The camera perspective between first and third person has changed.
+        /// </summary>
+        /// <param name="firstPersonPerspective">Is the camera in a first person perspective?</param>
+        private void OnChangePerspectives(bool firstPersonPerspective)
+        {
+            if (m_FirstPersonCamera != null) {
+                if (firstPersonPerspective) {
+                    UpdateFirstPersonCamera(true);
+                } else {
+                    m_FirstPersonCamera.gameObject.SetActive(false);
+                }
             }
         }
 
@@ -720,7 +688,7 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTy
             if (Physics.SphereCast(startPosition, m_CollisionRadius, direction.normalized, out m_RaycastHit, direction.magnitude + m_Camera.nearClipPlane, 
                             m_CharacterLayerManager.IgnoreInvisibleCharacterWaterLayers, QueryTriggerInteraction.Ignore)) {
                 // Move the camera in if an object obstructed the view.
-                targetPosition -= direction.normalized * ((direction.magnitude + m_Camera.nearClipPlane) - m_RaycastHit.distance);
+                targetPosition = m_RaycastHit.point + m_RaycastHit.normal * (m_Camera.nearClipPlane + m_CharacterLocomotion.ColliderSpacing);
             }
             m_CharacterLocomotion.EnableColliderCollisionLayer(collisionLayerEnabled);
 
@@ -747,7 +715,7 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTy
         private void UpdateHeadOffset()
         {
             // Allow the camera to move with the character's neck/head so the body doesn't clip the camera.
-            if (m_CharacterAnchor != null && m_SmoothHeadOffsetBuffer != null && m_SmoothHeadOffsetSteps > 0) {
+            if (m_CharacterAnchor != null && m_SmoothHeadOffsetBuffer != null) {
                 var offset = m_CharacterTransform.InverseTransformPoint(m_CharacterAnchor.position) - m_CharacterAnchorOffset;
                 // Allow the offset to settle before storing the difference.
                 if (offset.sqrMagnitude > 0) {

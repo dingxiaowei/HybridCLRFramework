@@ -4,16 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.StateSystem;
+
 namespace Opsive.UltimateCharacterController.Items.AnimatorAudioStates
 {
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using UnityEngine;
-
     /// <summary>
     /// The AnimatorAudioState will return a Item Substate Index parameter based on the object's state. 
     /// </summary>
-    [UnityEngine.Scripting.Preserve]
     public abstract class AnimatorAudioStateSelector
     {
         protected Item m_Item;

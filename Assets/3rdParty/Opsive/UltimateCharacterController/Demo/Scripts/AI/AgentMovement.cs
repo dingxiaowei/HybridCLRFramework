@@ -4,13 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character.Abilities.AI;
+using Opsive.UltimateCharacterController.Character.Abilities.Items;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Demo.AI
 {
-    using Opsive.UltimateCharacterController.Character.Abilities.AI;
-    using Opsive.UltimateCharacterController.Character.Abilities.Items;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// Moves the agent to random positions within a circle. No pathfinding is done.
     /// </summary>
@@ -52,19 +52,8 @@ namespace Opsive.UltimateCharacterController.Demo.AI
         {
             var randomPosition = Random.insideUnitSphere * m_Radius;
             randomPosition.y = 0;
-            SetDestination(m_Center + randomPosition);
-        }
-
-        /// <summary>
-        /// Sets the destination of the pathfinding agent.
-        /// </summary>
-        /// <param name="destination">The position to move towards.</param>
-        /// <returns>True if the destination was set.</returns>
-        public override bool SetDestination(Vector3 destination)
-        {
-            m_Destination = destination;
+            m_Destination = m_Center + randomPosition;
             m_ArriveTime = -1;
-            return true;
         }
 
         /// <summary>

@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Motion
 {
-    using UnityEngine;
-
     /// <summary>
     /// Defines the character's movements when there is no root motion data available.
     /// </summary>

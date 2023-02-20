@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using System.Reflection;
+using System.Collections.Generic;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.StateSystem
 {
-    using Opsive.Shared.Utility;
-    using System.Collections.Generic;
-    using System.Reflection;
-
     /// <summary>
     /// Used by the state system for the default preset. The default preset will only set the property value when there has been a change from another preset.
     /// </summary>
@@ -23,9 +23,7 @@ namespace Opsive.UltimateCharacterController.StateSystem
         /// <returns>The created preset.</returns>
         public static DefaultPreset CreateDefaultPreset()
         {
-            var preset = CreateInstance<DefaultPreset>();
-            preset.hideFlags = UnityEngine.HideFlags.HideAndDontSave;
-            return preset;
+            return CreateInstance<DefaultPreset>();
         }
 
         /// <summary>

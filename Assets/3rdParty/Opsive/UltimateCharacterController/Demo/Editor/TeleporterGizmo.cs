@@ -4,13 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using Opsive.UltimateCharacterController.Demo.Objects;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Demo
 {
-    using Opsive.UltimateCharacterController.Demo.Objects;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using UnityEditor;
-    using UnityEngine;
-
     /// <summary>
     /// Shows a custom gizmo for the Teleporter component.
     /// </summary>

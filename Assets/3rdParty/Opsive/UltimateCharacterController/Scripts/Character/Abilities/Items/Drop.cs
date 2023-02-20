@@ -4,20 +4,19 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Items;
+using Opsive.UltimateCharacterController.Inventory;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities.Items
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Inventory;
-    using Opsive.UltimateCharacterController.Items;
-    using Opsive.UltimateCharacterController.Inventory;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// The Drop ItemAbility will drop the currently equipped item.
     /// </summary>
-    [AllowDuplicateTypes]
+    [AllowMultipleAbilityTypes]
     [DefaultStartType(AbilityStartType.ButtonDown)]
     [DefaultInputName("Drop")]
     [DefaultItemStateIndex(6)]
@@ -25,17 +24,15 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
     {
         [Tooltip("The slot that should be dropped. -1 will drop all of the slots.")]
         [SerializeField] protected int m_SlotID = -1;
-        [Tooltip("The ItemIdentifiers that cannot be dropped.")]
-        [UnityEngine.Serialization.FormerlySerializedAs("m_NoDropItemTypes")]
-        [UnityEngine.Serialization.FormerlySerializedAs("m_NoDropItemIdentifiers")]
-        [SerializeField] protected ItemDefinitionBase[] m_NoDropItemDefinitions;
+        [Tooltip("The ItemTypes that cannot be dropped.")]
+        [SerializeField] protected ItemType[] m_NoDropItemTypes;
         [Tooltip("Should the item wait to be dropped until it is unequipped?")]
         [SerializeField] protected bool m_WaitForUnequip;
         [Tooltip("Specifies if the item should be dropped when the OnAnimatorDropItem event is received or wait for the specified duration before dropping the item.")]
         [SerializeField] protected AnimationEventTrigger m_DropEvent;
 
         public int SlotID { get { return m_SlotID; } set { m_SlotID = value; } }
-        public ItemDefinitionBase[] NoDropItemDefinitions { get { return m_NoDropItemDefinitions; } set { m_NoDropItemDefinitions = value; } }
+        public ItemType[] NoDropItemTypes { get { return m_NoDropItemTypes; } set { m_NoDropItemTypes = value; } }
         public bool WaitForUnequip { get { return m_WaitForUnequip; } set { m_WaitForUnequip = value; } }
         public AnimationEventTrigger DropEvent { get { return m_DropEvent; } set { m_DropEvent = value; } }
 
@@ -89,39 +86,37 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             var canDrop = false;
             if (m_SlotID == -1) {
                 for (int i = 0; i < m_Items.Length; ++i) {
-                    m_Items[i] = m_Inventory.GetActiveItem(i);
+                    m_Items[i] = m_Inventory.GetItem(i);
                     if (m_Items[i] == null) {
                         continue;
                     }
-                    // Certain ItemIdentifiers cannot be dropped.
-                    if (m_NoDropItemDefinitions != null) {
-                        var skipItemIdentifier = false;
-                        for (int j = 0; j < m_NoDropItemDefinitions.Length; ++j) {
-                            if (m_Items[i].ItemIdentifier.GetItemDefinition() == m_NoDropItemDefinitions[j]) {
-                                skipItemIdentifier = true;
-                                break;
-                            }
+                    // Certain ItemTypes cannot be dropped.
+                    var skipItemType = false;
+                    for (int j = 0; j < m_NoDropItemTypes.Length; ++j) {
+                        if (m_Items[i].ItemType == m_NoDropItemTypes[j]) {
+                            skipItemType = true;
+                            break;
                         }
-                        if (skipItemIdentifier) {
-                            continue;
-                        }
+                    }
+                    if (skipItemType) {
+                        continue;
                     }
                     // The item can be droppped.
                     canDrop = true;
                 }
             } else {
-                m_Items[0] = m_Inventory.GetActiveItem(m_SlotID);
-                // Certain ItemIdentifiers cannot be dropped.
-                var skipItemIdentifier = false;
-                if (m_NoDropItemDefinitions != null) {
-                    for (int j = 0; j < m_NoDropItemDefinitions.Length; ++j) {
-                        if (ReferenceEquals(m_Items[0].ItemIdentifier.GetItemDefinition(), m_NoDropItemDefinitions[j])) {
-                            skipItemIdentifier = true;
+                m_Items[0] = m_Inventory.GetItem(m_SlotID);
+                // Certain ItemTypes cannot be dropped.
+                var skipItemType = false;
+                if (m_NoDropItemTypes != null) {
+                    for (int j = 0; j < m_NoDropItemTypes.Length; ++j) {
+                        if (m_Items[0].ItemType == m_NoDropItemTypes[j]) {
+                            skipItemType = true;
                             break;
                         }
                     }
                 }
-                canDrop = !skipItemIdentifier && m_Items[0] != null;
+                canDrop = !skipItemType && m_Items[0] != null;
             }
 
             return canDrop;
@@ -179,7 +174,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
                 for (int i = 0; i < m_Items.Length; ++i) {
                     if (m_Items[i] != null) {
                         for (int j = 0; j < m_EquipUnequipAbilities.Length; ++j) {
-                            if (m_ItemSetManager.IsCategoryMember(m_Items[i].ItemIdentifier.GetItemDefinition(), m_EquipUnequipAbilities[j].ItemSetCategoryIndex)) {
+                            if (m_Items[i].ItemType.CategoryIDMatch(m_EquipUnequipAbilities[j].ItemSetCategoryID)) {
                                 m_EquipUnequipAbilities[j].StartEquipUnequip(m_ItemSetManager.GetDefaultItemSetIndex(m_EquipUnequipAbilities[j].ItemSetCategoryIndex));
                                 waitForUnequip = true;
                             }
@@ -206,7 +201,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             // Drop each item. If a drop prefab is specified then the item will be dropped.
             for (int i = 0; i < m_Items.Length; ++i) {
                 if (m_Items[i] != null) {
-                    m_Inventory.RemoveItem(m_Items[i].ItemIdentifier, m_Items[i].SlotID, 1, true);
+                    m_Inventory.RemoveItem(m_Items[i].ItemType, m_Items[i].SlotID, true);
                     m_Items[i] = null;
                 }
             }
@@ -226,7 +221,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             }
 
             // Once the item has been unequipped it can be removed from the inventory. This will trigger the drop.
-            m_Inventory.RemoveItem(m_Items[slotID].ItemIdentifier, m_Items[slotID].SlotID, 1, true);
+            m_Inventory.RemoveItem(m_Items[slotID].ItemType, m_Items[slotID].SlotID, true);
             m_Items[slotID] = null;
 
             // The ability can be stopped as soon as all items are removed.

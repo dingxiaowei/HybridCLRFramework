@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
 namespace Opsive.UltimateCharacterController.Input.VirtualControls
 {
-    using UnityEngine;
-    using UnityEngine.EventSystems;
-    using UnityEngine.UI;
-
     /// <summary>
     /// A virtual joystick that stays within the specified radius range. When the press is released the joystick knob will snap back to the starting position.
     /// </summary>

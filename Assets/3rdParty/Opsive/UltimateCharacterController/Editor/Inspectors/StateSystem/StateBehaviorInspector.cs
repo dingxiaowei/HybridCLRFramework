@@ -4,19 +4,18 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using UnityEditorInternal;
+using System;
+using System.Reflection;
+using System.Collections.Generic;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Utility;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem
 {
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using Opsive.UltimateCharacterController.Utility;
-    using System;
-    using System.Reflection;
-    using System.Collections.Generic;
-    using UnityEditor;
-    using UnityEditorInternal;
-    using UnityEngine;
-
     /// <summary>
     /// Contains the base inspector logic for every component which is derived from BaseComponent.
     /// </summary>

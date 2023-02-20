@@ -4,39 +4,36 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEngine.Events;
+using Opsive.UltimateCharacterController.Audio;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Inventory;
+using Opsive.UltimateCharacterController.Items.Actions;
+using Opsive.UltimateCharacterController.Items.AnimatorAudioStates;
+#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
+using Opsive.UltimateCharacterController.Networking;
+using Opsive.UltimateCharacterController.Networking.Character;
+#endif
+using Opsive.UltimateCharacterController.Objects.CharacterAssist;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Utility;
+#if ULTIMATE_CHARACTER_CONTROLLER_VR
+using Opsive.UltimateCharacterController.VR;
+#endif
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Items
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Inventory;
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Audio;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Inventory;
-    using Opsive.UltimateCharacterController.Items.Actions;
-    using Opsive.UltimateCharacterController.Items.AnimatorAudioStates;
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-    using Opsive.UltimateCharacterController.Networking;
-    using Opsive.UltimateCharacterController.Networking.Character;
-#endif
-    using Opsive.UltimateCharacterController.Objects.CharacterAssist;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using Opsive.UltimateCharacterController.Utility;
-#if ULTIMATE_CHARACTER_CONTROLLER_VR
-    using Opsive.UltimateCharacterController.VR;
-#endif
-    using System.Collections.Generic;
-    using UnityEngine;
-    using UnityEngine.Events;
-
     /// <summary>
     /// An item represents anything that can be picked up by the character. 
     /// </summary>
     public class Item : StateBehavior
     {
         [Tooltip("A reference to the object used to identify the item.")]
-        [UnityEngine.Serialization.FormerlySerializedAs("m_ItemType")]
-        [SerializeField] protected ItemDefinitionBase m_ItemDefinition;
+        [SerializeField] protected ItemType m_ItemType;
         [Tooltip("Specifies the inventory slot/spawn location of the item.")]
         [SerializeField] protected int m_SlotID;
         [Tooltip("Unique ID used for item identification within the animator.")]
@@ -45,8 +42,6 @@ namespace Opsive.UltimateCharacterController.Items
         [SerializeField] protected int m_AnimatorMovementSetID;
         [Tooltip("Does the item control the movement and the UI shown?")]
         [SerializeField] protected bool m_DominantItem = true;
-        [Tooltip("Does the item belong to a unique ItemSet?")]
-        [SerializeField] protected bool m_UniqueItemSet = true;
         [Tooltip("Can the camera zoom when the item is equipped?")]
         [SerializeField] protected bool m_AllowCameraZoom = true;
         [Tooltip("The GameObject that is dropped when the item is removed from the character.")]
@@ -55,10 +50,6 @@ namespace Opsive.UltimateCharacterController.Items
         [Tooltip("The multiplier to apply to the velocity when the item is dropped.")]
         [SerializeField] protected float m_DropVelocityMultiplier = 4;
 #endif
-        [Tooltip("When the item is dropped should the entire item be dropped? Throwable Items will want this option enabled.")]
-        [SerializeField] protected bool m_FullInventoryDrop = false;
-        [Tooltip("Should the consumable items be dropped along with the current item?")]
-        [SerializeField] protected bool m_DropConsumableItems = true;
         [Tooltip("Specifies if the item should wait for the OnAnimatorItemEquip animation event or wait for the specified duration before equipping.")]
         [SerializeField] protected AnimationEventTrigger m_EquipEvent = new AnimationEventTrigger(true, 0.3f);
         [Tooltip("Specifies if the item should wait for the OnAnimatorItemEquipComplete animation event or wait for the specified duration before stopping the equip ability.")]
@@ -106,10 +97,7 @@ namespace Opsive.UltimateCharacterController.Items
         [Tooltip("Unity event that is invoked when the item is dropped.")]
         [SerializeField] protected UnityEvent m_DropItemEvent;
 
-        [NonSerialized] public ItemDefinitionBase ItemDefinition { 
-            get { return m_ItemDefinition; } 
-            set { m_ItemDefinition = value; }
-        }
+        [NonSerialized] public ItemType ItemType { get { return m_ItemType; } set { m_ItemType = value; } }
         [NonSerialized] public int SlotID { get { return m_SlotID; } set { m_SlotID = value; } }
         [NonSerialized] public int AnimatorItemID { get { return m_AnimatorItemID; } set { m_AnimatorItemID = value; } }
         [NonSerialized] public int AnimatorMovementSetID { get { return m_AnimatorMovementSetID; } set { m_AnimatorMovementSetID = value; } }
@@ -117,14 +105,11 @@ namespace Opsive.UltimateCharacterController.Items
             set { m_DominantItem = value;
                 if (Application.isPlaying) { EventHandler.ExecuteEvent(m_Character, "OnItemUpdateDominantItem", this, m_DominantItem); }
             } }
-        public bool UniqueItemSet { get { return m_UniqueItemSet; } set { m_UniqueItemSet = value; } }
         public bool AllowCameraZoom { get { return m_AllowCameraZoom; } set { m_AllowCameraZoom = value; } }
-        public GameObject DropPrefab { get { return m_DropPrefab; } set { m_DropPrefab = value; } }
+        public GameObject DropPrefab { get { return m_DropPrefab; } }
 #if ULTIMATE_CHARACTER_CONTROLLER_VR
         public float DropVelocityMultiplier { get { return m_DropVelocityMultiplier; } set { m_DropVelocityMultiplier = value; } }
 #endif
-        public bool FullInventoryDrop { get { return m_FullInventoryDrop; } set { m_FullInventoryDrop = value; } }
-        public bool DropConsumableItems { get { return m_DropConsumableItems; } set { m_DropConsumableItems = value; } }
         public AnimationEventTrigger EquipEvent { get { return m_EquipEvent; } set { m_EquipEvent = value; } }
         public AnimationEventTrigger EquipCompleteEvent { get { return m_EquipCompleteEvent; } set { m_EquipCompleteEvent = value; } }
         public AnimatorAudioStateSet EquipAnimatorAudioStateSet { get { return m_EquipAnimatorAudioStateSet; } set { m_EquipAnimatorAudioStateSet = value; } }
@@ -132,18 +117,19 @@ namespace Opsive.UltimateCharacterController.Items
         public AnimationEventTrigger UnequipCompleteEvent { get { return m_UnequipCompleteEvent; } set { m_UnequipCompleteEvent = value; } }
         public AnimatorAudioStateSet UnequipAnimatorAudioStateSet { get { return m_UnequipAnimatorAudioStateSet; } set { m_UnequipAnimatorAudioStateSet = value; } }
         public int UIMonitorID { get { return m_UIMonitorID; } set { m_UIMonitorID = value; } }
-        public Sprite Icon { get { return m_Icon; } set { m_Icon = value; } }
+        public Sprite Icon { get { return m_Icon; } }
         public bool ShowCrosshairsOnAim { get { return m_ShowCrosshairsOnAim; } set { m_ShowCrosshairsOnAim = value; } }
         public Sprite CenterCrosshairs { get { return m_CenterCrosshairs; } }
-        public float QuadrantOffset { get { return m_QuadrantOffset; } set { m_QuadrantOffset = value; } }
-        public float MaxQuadrantSpread { get { return m_MaxQuadrantSpread; } set { m_MaxQuadrantSpread = value; } }
-        public float QuadrantSpreadDamping { get { return m_QuadrantSpreadDamping; } set { m_QuadrantSpreadDamping = value; } }
+        public float QuadrantOffset { get { return m_QuadrantOffset; } }
+        public float MaxQuadrantSpread { get { return m_MaxQuadrantSpread; } }
+        public float QuadrantSpreadDamping { get { return m_QuadrantSpreadDamping; } }
         public Sprite LeftCrosshairs { get { return m_LeftCrosshairs; } }
         public Sprite TopCrosshairs { get { return m_TopCrosshairs; } }
         public Sprite RightCrosshairs { get { return m_RightCrosshairs; } }
         public Sprite BottomCrosshairs { get { return m_BottomCrosshairs; } }
         public bool ShowFullScreenUI { get { return m_ShowFullScreenUI; }
-            set {
+            set
+            {
                 m_ShowFullScreenUI = value;
                 if (Application.isPlaying && DominantItem && IsActive()) {
                     EventHandler.ExecuteEvent(m_Character, "OnItemShowFullScreenUI", m_FullScreenUIID, m_ShowFullScreenUI);
@@ -159,7 +145,6 @@ namespace Opsive.UltimateCharacterController.Items
         private GameObject m_GameObject;
         protected GameObject m_Character;
         protected UltimateCharacterLocomotion m_CharacterLocomotion;
-        private IItemIdentifier m_ItemIdentifier;
         protected InventoryBase m_Inventory;
         protected PerspectiveItem m_ActivePerspectiveItem;
         private PerspectiveItem m_ThirdPersonPerspectiveItem;
@@ -181,7 +166,7 @@ namespace Opsive.UltimateCharacterController.Items
 
         private bool m_Started;
         private bool m_VisibleObjectActive;
-        private int m_UnequipDropAmount;
+        private bool m_ShouldDropAfterUnequip;
         private Vector3 m_UnequpDropPosition;
         private Quaternion m_UnequipDropRotation;
 
@@ -192,10 +177,8 @@ namespace Opsive.UltimateCharacterController.Items
 #else
                 return null;
 #endif
-            }
-        }
+            } }
 
-        public IItemIdentifier ItemIdentifier { get { return m_ItemIdentifier; } set { m_ItemIdentifier = value; } }
         public PerspectiveItem ThirdPersonPerspectiveItem { get { return m_ThirdPersonPerspectiveItem; } }
         public ItemAction[] ItemActions { get { return m_ItemActions; } }
         public bool VisibleObjectActive { get { return m_VisibleObjectActive; } }
@@ -215,11 +198,6 @@ namespace Opsive.UltimateCharacterController.Items
 #if ULTIMATE_CHARACTER_CONTROLLER_VR
             m_HandHandler = m_Character.GetCachedComponent<IVRHandHandler>();
 #endif
-
-            // Item Definitions can be assigned after the item is active.
-            if (m_ItemDefinition != null && m_ItemIdentifier == null) {
-                m_ItemIdentifier = m_ItemDefinition.CreateItemIdentifier();
-            }
 
             base.Awake();
 
@@ -286,6 +264,8 @@ namespace Opsive.UltimateCharacterController.Items
             m_EquipAnimatorAudioStateSet.Awake(m_GameObject);
             m_UnequipAnimatorAudioStateSet.Awake(m_GameObject);
 
+            m_Inventory.AddItem(this, true);
+
             EventHandler.RegisterEvent<bool>(m_Character, "OnCharacterChangePerspectives", OnChangePerspectives);
         }
 
@@ -333,9 +313,6 @@ namespace Opsive.UltimateCharacterController.Items
 
             // Set the correct visible object for the current perspective.
             if (m_CharacterLocomotion.FirstPersonPerspective
-#if FIRST_PERSON_CONTROLLER
-                && m_FirstPersonPerspectiveItem != null
-#endif
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
                 && !remotePlayer
 #endif
@@ -349,12 +326,7 @@ namespace Opsive.UltimateCharacterController.Items
             // The character should ignore any of the item's colliders.
             var colliders = GetComponents<Collider>();
             for (int i = 0; i < colliders.Length; ++i) {
-                m_CharacterLocomotion.AddIgnoredCollider(colliders[i]);
-            }
-
-            // The item may have already been added at runtime.
-            if (!m_Inventory.HasItem(this)) {
-                m_Inventory.AddItem(this, true, false);
+                m_CharacterLocomotion.AddSubCollider(colliders[i]);
             }
         }
 
@@ -406,7 +378,7 @@ namespace Opsive.UltimateCharacterController.Items
                 }
                 return null;
             }
-
+            
             // Multiple actions exist - look up the action based on the ID.
             ItemAction itemAction;
             if (m_IDItemActionMap.TryGetValue(id, out itemAction)) {
@@ -493,7 +465,6 @@ namespace Opsive.UltimateCharacterController.Items
             // Update the full screen UI property to handle the case when the preset has already been applied.
             ShowFullScreenUI = m_ShowFullScreenUI;
         }
-
         /// <summary>
         /// Moves the item according to the horizontal and vertical movement, as well as the character velocity.
         /// </summary>
@@ -585,8 +556,8 @@ namespace Opsive.UltimateCharacterController.Items
             }
 
             // Drop could have been called before the item was unequipped. Now that the item is unequipped it can be dropped.
-            if (m_UnequipDropAmount > 0) {
-                Drop(m_UnequipDropAmount, false);
+            if (m_ShouldDropAfterUnequip) {
+                Drop(false);
             }
         }
 
@@ -1080,56 +1051,39 @@ namespace Opsive.UltimateCharacterController.Items
         /// <summary>
         /// Drop the item from the character.
         /// </summary>
-        /// <param name="forceDrop">Should the item be dropped even if the inventory doesn't contain any count for the item?</param>
-        /// <param name="amount">The amount of ItemIdentifier that should be dropped.</param>
-        /// <param name="remove">Should the item be removed after it is dropped?</param>
-        public void Drop(int amount, bool forceDrop)
+        public void Drop()
         {
-            Drop(amount, forceDrop, true);
+            Drop(false);
         }
 
         /// <summary>
         /// Drop the item from the character.
         /// </summary>
         /// <param name="forceDrop">Should the item be dropped even if the inventory doesn't contain any count for the item?</param>
-        /// <param name="amount">The amount of ItemIdentifier that should be dropped.</param>
-        /// <param name="remove">Should the item be removed after it is dropped?</param>
-        public void Drop(int amount, bool forceDrop, bool remove)
+        public void Drop(bool forceDrop)
         {
             // The item needs to first be unequipped before it can be dropped.
-            if (m_VisibleObjectActive && m_CharacterLocomotion.FirstPersonPerspective && remove) {
-                m_UnequipDropAmount = amount;
+            if (m_VisibleObjectActive && m_CharacterLocomotion.FirstPersonPerspective) {
+                m_ShouldDropAfterUnequip = true;
                 var itemObject = GetVisibleObject().transform;
                 m_UnequpDropPosition = itemObject.position;
                 m_UnequipDropRotation = itemObject.rotation;
                 return;
             }
 
-            ItemPickupBase itemPickup = null;
+            ItemPickup itemPickup = null;
             // If a drop prefab exists then the character should drop a prefab of the item so it can later be picked up.
             if (m_DropPrefab != null) {
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
                 if (m_NetworkInfo == null || m_NetworkInfo.IsServer()) {
 #endif
-                    var existingAmount = m_Inventory.GetItemIdentifierAmount(m_ItemIdentifier);
-                    if (existingAmount > 0) {
-                        // If the usable item prevents the item from being equipped when empty, and the usable item is empty, then the item
-                        // should not be dropped.
-                        for (int i = 0; i < m_ItemActions.Length; ++i) {
-                            var usableItem = (m_ItemActions[i] as UsableItem);
-                            if (usableItem != null && usableItem.GetConsumableItemIdentifier() != null &&
-                                !usableItem.CanEquipEmptyItem && m_Inventory.GetItemIdentifierAmount(usableItem.GetConsumableItemIdentifier()) == 0) {
-                                existingAmount = 0;
-                                break;
-                            }
-                        }
-                    }
+                    var count = m_Inventory.GetItemTypeCount(m_ItemType);
                     // The prefab can be dropped if the inventory contains the item or is force dropped.
-                    if (existingAmount > 0 || forceDrop) {
+                    if (count > 0 || forceDrop) {
                         Vector3 dropPosition;
                         Quaternion dropRotation;
                         // If the item is unequipped before it is dropped then it could be holstered so the current transform should not be used.
-                        if (m_UnequipDropAmount > 0) {
+                        if (m_ShouldDropAfterUnequip) {
                             dropPosition = m_UnequpDropPosition;
                             dropRotation = m_UnequipDropRotation;
                         } else {
@@ -1138,56 +1092,60 @@ namespace Opsive.UltimateCharacterController.Items
                             dropRotation = itemObject.rotation;
                         }
                         var spawnedObject = ObjectPool.Instantiate(m_DropPrefab, dropPosition, dropRotation);
-                        // The ItemPickup component is responsible for allowing characters to pick up the item. Save the ItemIdentifier count
-                        // to the ItemIdentifierAmount array so that same amount can be picked up again.
-                        itemPickup = spawnedObject.GetCachedComponent<ItemPickupBase>();
+                        // The ItemPickup component is responsible for allowing characters to pick up the item. Save the ItemType count
+                        // to the ItemTypeAmount array so that same amount can be picked up again.
+                        itemPickup = spawnedObject.GetCachedComponent<ItemPickup>();
                         if (itemPickup != null) {
                             // Return the old.
-                            var itemDefinitionAmounts = itemPickup.GetItemDefinitionAmounts();
-                            var itemDefinitionAmount = new ItemDefinitionAmount(m_ItemIdentifier.GetItemDefinition(), Mathf.Min(existingAmount, amount));
+                            for (int j = 0; j < itemPickup.ItemTypeCounts.Length; ++j) {
+                                ObjectPool.Return(itemPickup.ItemTypeCounts[j]);
+                            }
+                            var itemTypeCount = ObjectPool.Get<ItemTypeCount>();
+                            itemTypeCount.Initialize(m_ItemType, 1);
 
-                            // If the dropped Item is a usable item then the array should be larger to be able to pick up the usable ItemIdentifier.
-                            var consumableItemIdentifiers = 0;
+                            // If the dropped Item is a usable item then the array should be larger to be able to pick up the usable ItemType.
+                            var consumableItemTypes = 0;
                             UsableItem usableItem;
-                            if (m_DropConsumableItems) {
-                                for (int i = 0; i < m_ItemActions.Length; ++i) {
-                                    if ((usableItem = (m_ItemActions[i] as UsableItem)) != null &&
-                                            usableItem.GetConsumableItemIdentifier() != null && usableItem.GetConsumableItemIdentifierAmount() != -1) {
-                                        consumableItemIdentifiers++;
-                                    }
+                            for (int i = 0; i < m_ItemActions.Length; ++i) {
+                                if ((usableItem = (m_ItemActions[i] as UsableItem)) != null && usableItem.GetConsumableItemType() != null) {
+                                    consumableItemTypes++;
                                 }
                             }
 
-                            // Save the main ItemIdentifier.
-                            var length = consumableItemIdentifiers + 1;
-                            if (itemDefinitionAmounts.Length != length) {
-                                itemDefinitionAmounts = new ItemDefinitionAmount[length];
+                            // Save the main ItemType.
+                            var mainItemTypeCount = (m_ItemType.DroppedItemTypes != null ? m_ItemType.DroppedItemTypes.Length : 0) + 1;
+                            var length = consumableItemTypes + mainItemTypeCount;
+                            if (itemPickup.ItemTypeCounts.Length != length) {
+                                itemPickup.ItemTypeCounts = new ItemTypeCount[length];
                             }
-                            itemDefinitionAmounts[0] = itemDefinitionAmount;
+                            itemPickup.ItemTypeCounts[0] = itemTypeCount;
+                            if (m_ItemType.DroppedItemTypes != null) {
+                                for (int i = 0; i < m_ItemType.DroppedItemTypes.Length; ++i) {
+                                    itemTypeCount = ObjectPool.Get<ItemTypeCount>();
+                                    itemTypeCount.Initialize(m_ItemType.DroppedItemTypes[i], 1);
+                                    itemPickup.ItemTypeCounts[i + 1] = itemTypeCount;
+                                }
+                            }
 
-                            // Save the usable ItemIdentifier if any exist.
-                            if (m_DropConsumableItems) {
-                                IItemIdentifier consumableItemIdentifier;
-                                consumableItemIdentifiers = 1;
-                                for (int i = 0; i < m_ItemActions.Length; ++i) {
-                                    if ((usableItem = (m_ItemActions[i] as UsableItem)) != null && (consumableItemIdentifier = usableItem.GetConsumableItemIdentifier()) != null &&
-                                            usableItem.GetConsumableItemIdentifierAmount() != -1) {
-                                        var consumableDropCount = 0;
-                                        // Only remove the remaining inventory if there is just one ItemIdentifier remaining. This will allow the character to keep the consumable ammo
-                                        // if only one item is dropped and the character has multiple of the same item.
-                                        if (existingAmount == 1) {
-                                            consumableDropCount = m_Inventory.GetItemIdentifierAmount(consumableItemIdentifier);
-                                        }
-                                        var remainingConsumableAmount = usableItem.GetConsumableItemIdentifierAmount(); // The count may be negative (for use by the UI).
-                                        var consumableDefinitionAmount = new ItemDefinitionAmount(consumableItemIdentifier.GetItemDefinition(), consumableDropCount + (remainingConsumableAmount > 0 ? remainingConsumableAmount : 0));
-                                        itemDefinitionAmounts[consumableItemIdentifiers] = consumableDefinitionAmount;
-                                        consumableItemIdentifiers++;
+                            // Save the usable ItemTypes if any exist.
+                            ItemType consumableItemType;
+                            consumableItemTypes = 0;
+                            for (int i = 0; i < m_ItemActions.Length; ++i) {
+                                if ((usableItem = (m_ItemActions[i] as UsableItem)) != null && (consumableItemType = usableItem.GetConsumableItemType()) != null) {
+                                    var itemTypeAmount = ObjectPool.Get<ItemTypeCount>();
+                                    var consumableDropCount = 0f;
+                                    // Only remove the remaining inventory if there is just one ItemType remaining. This will allow the character to keep the consumable ammo
+                                    // if only one item is dropped and the character has multiple of the same item.
+                                    if (count == 1) {
+                                        consumableDropCount = m_Inventory.GetItemTypeCount(consumableItemType);
                                     }
+                                    var remainingConsumableCount = usableItem.GetConsumableItemTypeCount(); // The count may be negative (for use by the UI).
+                                    itemTypeAmount.Initialize(consumableItemType, consumableDropCount + (remainingConsumableCount > 0 ? remainingConsumableCount : 0));
+                                    itemPickup.ItemTypeCounts[consumableItemTypes + mainItemTypeCount] = itemTypeAmount;
                                 }
                             }
 
                             // Enable the ItemPickup.
-                            itemPickup.SetItemDefinitionAmounts(itemDefinitionAmounts);
                             itemPickup.Initialize(true);
                         }
 
@@ -1195,26 +1153,39 @@ namespace Opsive.UltimateCharacterController.Items
                         var trajectoryObject = spawnedObject.GetCachedComponent<Objects.TrajectoryObject>();
                         if (trajectoryObject != null) {
                             var velocity = m_CharacterLocomotion.Velocity;
-    #if ULTIMATE_CHARACTER_CONTROLLER_VR
+#if ULTIMATE_CHARACTER_CONTROLLER_VR
                             if (m_HandHandler != null) {
                                 velocity += m_HandHandler.GetVelocity(m_SlotID) * m_DropVelocityMultiplier;
                             }
-    #endif
+#endif
                             trajectoryObject.Initialize(velocity, m_CharacterLocomotion.Torque.eulerAngles, m_Character);
                         }
-    #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-                            if (m_NetworkInfo != null) {
-                                Networking.Game.NetworkObjectPool.NetworkSpawn(m_DropPrefab, spawnedObject, true);
-                            }
-    #endif
+#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
+                        if (m_NetworkInfo != null) {
+                            Networking.Game.NetworkObjectPool.NetworkSpawn(m_DropPrefab, spawnedObject);
+                        }
+#endif
                     }
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
                 }
 #endif
             }
-            if (remove) {
-                m_UnequipDropAmount = 0;
-                Remove();
+            m_ShouldDropAfterUnequip = false;
+            Remove();
+
+            // The item can be removed from the inventory after it has been dropped. All corresponding DroppedItemTypes should also be dropped.
+            if (m_ItemType.DroppedItemTypes != null) {
+                for (int i = 0; i < m_ItemType.DroppedItemTypes.Length; ++i) {
+                    var droppedItemType = m_ItemType.DroppedItemTypes[i];
+                    if (m_Inventory.GetItemTypeCount(droppedItemType) > 0) {
+                        for (int j = 0; j < m_Inventory.SlotCount; ++j) {
+                            var item = m_Inventory.GetItem(j, droppedItemType);
+                            if (item != null) {
+                                m_Inventory.RemoveItem(droppedItemType, j, m_DropPrefab == null);
+                            }
+                        }
+                    }
+                }
             }
 
             if (m_DropItemEvent != null) {
@@ -1251,28 +1222,6 @@ namespace Opsive.UltimateCharacterController.Items
             m_EquipAnimatorAudioStateSet.OnDestroy();
             m_UnequipAnimatorAudioStateSet.OnDestroy();
             EventHandler.UnregisterEvent<bool>(m_Character, "OnCharacterChangePerspectives", OnChangePerspectives);
-        }
-
-        /// <summary>
-        /// Spawns the item under the specified character.
-        /// </summary>
-        /// <param name="character">The character that should parent the item.</param>
-        /// <param name="item">The item that should be spawned.</param>
-        /// <returns>The spawned item GameObject.</returns>
-        public static Item SpawnItem(GameObject character, Item item)
-        {
-            // Spawn the item under the character's ItemPlacement GameObject.
-            var itemPlacement = character.GetComponentInChildren<ItemPlacement>(true);
-            if (itemPlacement == null) {
-                Debug.LogError($"Error: ItemPlacement doesn't exist under the character {character.name}.");
-                return null;
-            }
-
-            var itemGameObject = ObjectPool.Instantiate(item.gameObject, Vector3.zero, Quaternion.identity, itemPlacement.transform);
-            itemGameObject.name = item.name;
-            itemGameObject.transform.localPosition = Vector3.zero;
-            itemGameObject.transform.localRotation = Quaternion.identity;
-            return itemGameObject.GetComponent<Item>();
         }
     }
 }

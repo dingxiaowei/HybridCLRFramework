@@ -4,24 +4,21 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Audio;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Objects;
+#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
+using Opsive.UltimateCharacterController.Networking;
+using Opsive.UltimateCharacterController.Networking.Traits;
+#endif
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Utility;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Traits
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Audio;
-    using Opsive.UltimateCharacterController.Events;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Objects;
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-    using Opsive.UltimateCharacterController.Networking;
-    using Opsive.UltimateCharacterController.Networking.Traits;
-#endif
-    using Opsive.UltimateCharacterController.StateSystem;
-    using Opsive.UltimateCharacterController.Utility;
-    using System.Collections.Generic;
-    using UnityEngine;
-
     /// <summary>
     /// Adds health and a shield to the object.
     /// </summary>
@@ -147,7 +144,6 @@ namespace Opsive.UltimateCharacterController.Traits
             if (!string.IsNullOrEmpty(m_ShieldAttributeName)) {
                 m_ShieldAttribute = m_AttributeManager.GetAttribute(m_ShieldAttributeName);
             }
-            m_AliveLayer = m_GameObject.layer;
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
             m_NetworkInfo = m_GameObject.GetCachedComponent<INetworkInfo>();
             m_NetworkHealthMonitor = m_GameObject.GetCachedComponent<INetworkHealthMonitor>();
@@ -243,23 +239,6 @@ namespace Opsive.UltimateCharacterController.Traits
         /// <param name="hitCollider">The Collider that was hit.</param>
         public void Damage(float amount, Vector3 position, Vector3 direction, float forceMagnitude, int frames, float radius, GameObject attacker, Collider hitCollider)
         {
-            Damage(amount, position, direction, forceMagnitude, frames, radius, attacker, null, hitCollider);
-        }
-
-        /// <summary>
-        /// The object has been damaged.
-        /// </summary>
-        /// <param name="amount">The amount of damage taken.</param>
-        /// <param name="position">The position of the damage.</param>
-        /// <param name="direction">The direction that the object took damage from.</param>
-        /// <param name="forceMagnitude">The magnitude of the force that is applied to the object.</param>
-        /// <param name="frames">The number of frames to add the force to.</param>
-        /// <param name="radius">The radius of the explosive damage. If 0 then a non-explosive force will be used.</param>
-        /// <param name="attacker">The GameObject that did the damage.</param>
-        /// <param name="attackerObject">The object that did the damage.</param>
-        /// <param name="hitCollider">The Collider that was hit.</param>
-        public void Damage(float amount, Vector3 position, Vector3 direction, float forceMagnitude, int frames, float radius, GameObject attacker, object attackerObject, Collider hitCollider)
-        {
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
             if (m_NetworkInfo != null && !m_NetworkInfo.IsLocalPlayer()) {
                 return;
@@ -271,7 +250,7 @@ namespace Opsive.UltimateCharacterController.Traits
                 return;
             }
 
-            OnDamage(amount, position, direction, forceMagnitude, frames, radius, attacker, attackerObject, hitCollider);
+            OnDamage(amount, position, direction, forceMagnitude, frames, radius, attacker, hitCollider);
         }
 
         /// <summary>
@@ -284,12 +263,11 @@ namespace Opsive.UltimateCharacterController.Traits
         /// <param name="frames">The number of frames to add the force to.</param>
         /// <param name="radius">The radius of the explosive damage. If 0 then a non-explosive force will be used.</param>
         /// <param name="attacker">The GameObject that did the damage.</param>
-        /// <param name="attackerObject">The object that did the damage.</param>
         /// <param name="hitCollider">The Collider that was hit.</param>
-        public virtual void OnDamage(float amount, Vector3 position, Vector3 direction, float forceMagnitude, int frames, float radius, GameObject attacker, object attackerObject, Collider hitCollider)
+        public virtual void OnDamage(float amount, Vector3 position, Vector3 direction, float forceMagnitude, int frames, float radius, GameObject attacker, Collider hitCollider)
         {
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-            if (m_NetworkInfo != null && m_NetworkInfo.IsLocalPlayer()) {
+            if (m_NetworkInfo != null && m_NetworkInfo.IsServer()) {
                 m_NetworkHealthMonitor.OnDamage(amount, position, direction, forceMagnitude, frames, radius, attacker, hitCollider);
             }
 #endif
@@ -367,13 +345,7 @@ namespace Opsive.UltimateCharacterController.Traits
 
             // The object is dead when there is no more health or shield.
             if (!IsAlive()) {
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-                if (m_NetworkInfo == null || m_NetworkInfo.IsLocalPlayer()) {
-#endif
-                    Die(position, force, attacker);
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-                }
-#endif
+                Die(position, force, attacker);
             } else {
                 // Play any take damage audio if the object did not die. If the object died then the death audio will play.
                 m_TakeDamageAudioClipSet.PlayAudioClip(m_GameObject);
@@ -399,7 +371,7 @@ namespace Opsive.UltimateCharacterController.Traits
         public virtual void Die(Vector3 position, Vector3 force, GameObject attacker)
         {
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-            if (m_NetworkInfo != null && m_NetworkInfo.IsLocalPlayer()) {
+            if (m_NetworkInfo != null && m_NetworkInfo.IsServer()) {
                 m_NetworkHealthMonitor.Die(position, force, attacker);
             }
 #endif
@@ -436,8 +408,8 @@ namespace Opsive.UltimateCharacterController.Traits
                 m_GameObject.layer = m_DeathLayer;
             }
 
-            // Play any take death audio. Use PlayAtPosition because the audio won't play if the GameObject is inactive.
-            m_DeathAudioClipSet.PlayAtPosition(m_Transform.position);
+            // Play any take death audio.
+            m_DeathAudioClipSet.PlayAudioClip(m_GameObject);
 
             // Deactivate the object if requested.
             if (m_DeactivateOnDeath) {
@@ -502,34 +474,34 @@ namespace Opsive.UltimateCharacterController.Traits
             }
 #endif
 
-            var healAmount = 0f;
+            var healed = false;
 
             // Contribute the amount of the health first.
             if (m_HealthAttribute != null && m_HealthAttribute.Value < m_HealthAttribute.MaxValue) {
                 var healthAmount = Mathf.Min(amount, m_HealthAttribute.MaxValue - m_HealthAttribute.Value);
                 amount -= healthAmount;
                 m_HealthAttribute.Value += healthAmount;
-                healAmount += healthAmount;
+                healed = true;
             }
 
             // Add any remaining amount to the shield.
             if (m_ShieldAttribute != null && amount > 0 && m_ShieldAttribute.Value < m_ShieldAttribute.MaxValue) {
                 var shieldAmount = Mathf.Min(amount, m_ShieldAttribute.MaxValue - m_ShieldAttribute.Value);
                 m_ShieldAttribute.Value += shieldAmount;
-                healAmount += shieldAmount;
+                healed = true;
             }
 
             // Don't play any effects if the object wasn't healed.
-            if (healAmount == 0) {
+            if (!healed) {
                 return false;
             }
 
             // Play any heal audio.
             m_HealAudioClipSet.PlayAudioClip(m_GameObject);
 
-            EventHandler.ExecuteEvent<float>(m_GameObject, "OnHealthHeal", healAmount);
+            EventHandler.ExecuteEvent<float>(m_GameObject, "OnHealthHeal", amount);
             if (m_OnHealEvent != null) {
-                m_OnHealEvent.Invoke(healAmount);
+                m_OnHealEvent.Invoke(amount);
             }
 
             return true;

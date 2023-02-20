@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using System.Collections.Generic;
 
 namespace Opsive.UltimateCharacterController.Editor.Utility
 {
-    using System.Collections.Generic;
-    using UnityEditor;
-
     /// <summary>
     /// Updates the Unity input manager with the correct button bindings.
     /// </summary>
@@ -46,16 +46,13 @@ namespace Opsive.UltimateCharacterController.Editor.Utility
             AddInputAxis(axesProperty, "Vertical", "down", "up", "s", "w", 1000, 0.001f, 3, true, false, AxisType.KeyMouseButton, AxisNumber.X);
             AddInputAxis(axesProperty, "Fire1", "", "left ctrl", "", "mouse 0", 1000, 0.001f, 1000, false, false, AxisType.KeyMouseButton, AxisNumber.X);
             AddInputAxis(axesProperty, "Fire2", "", "", "", "mouse 1", 1000, 0.001f, 1000, false, false, AxisType.KeyMouseButton, AxisNumber.X);
-            AddInputAxis(axesProperty, "Fire3", "", "left shift", "", "mouse 2", 1000, 0.001f, 1000, false, false, AxisType.KeyMouseButton, AxisNumber.X);
             AddInputAxis(axesProperty, "Jump", "", "space", "", "", 1000, 0.001f, 1000, false, false, AxisType.KeyMouseButton, AxisNumber.X);
             AddInputAxis(axesProperty, "Mouse X", "", "", "", "", 0, 0, 0.1f, false, false, AxisType.Mouse, AxisNumber.X);
             AddInputAxis(axesProperty, "Mouse Y", "", "", "", "", 0, 0, 0.1f, false, false, AxisType.Mouse, AxisNumber.Y);
-            AddInputAxis(axesProperty, "Mouse ScrollWheel", "", "", "", "", 0, 0, 0.1f, false, false, AxisType.Mouse, AxisNumber.Three);
             AddInputAxis(axesProperty, "Horizontal", "", "", "", "", 1000, 0.19f, 1, false, false, AxisType.Joystick, AxisNumber.X);
             AddInputAxis(axesProperty, "Vertical", "", "", "", "", 1000, 0.19f, 1, false, true, AxisType.Joystick, AxisNumber.Y);
             AddInputAxis(axesProperty, "Fire1", "", "", "", "", 1000, 0.001f, 1000, false, false, AxisType.Joystick, AxisNumber.Ten);
             AddInputAxis(axesProperty, "Fire2", "", "", "", "", 1000, 0.001f, 1000, false, false, AxisType.Joystick, AxisNumber.Nine);
-            AddInputAxis(axesProperty, "Fire3", "", "joystick button 2", "", "", 1000, 0.001f, 1000, false, false, AxisType.KeyMouseButton, AxisNumber.X);
             AddInputAxis(axesProperty, "Jump", "", "joystick button 0", "", "", 1000, 0.001f, 1000, false, false, AxisType.KeyMouseButton, AxisNumber.X);
             AddInputAxis(axesProperty, "Mouse X", "", "", "", "", 0, 0.19f, 1, false, false, AxisType.Joystick, AxisNumber.Four);
             AddInputAxis(axesProperty, "Mouse Y", "", "", "", "", 0, 0.19f, 1, false, true, AxisType.Joystick, AxisNumber.Five);

@@ -4,17 +4,17 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using UnityEditorInternal;
+using Opsive.UltimateCharacterController.Objects;
+using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+using System;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Objects
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.Objects;
-    using System;
-    using System.Collections.Generic;
-    using UnityEditor;
-    using UnityEditorInternal;
-    using UnityEngine;
-
     /// <summary>
     /// Custom inspector for the MovingPlatform component.
     /// </summary>
@@ -48,7 +48,6 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Objects
 
             baseCallback += () =>
             {
-                EditorGUILayout.PropertyField(PropertyFromName("m_UpdateLocation"));
                 if (Foldout("Path")) {
                     EditorGUI.indentLevel++;
 

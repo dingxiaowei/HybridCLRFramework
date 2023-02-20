@@ -4,15 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// Enables or disables the ragdoll colliders. Can be started when the character dies.
     /// </summary>
@@ -41,6 +39,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         public Vector3 CameraRotationalForce { get { return m_CameraRotationalForce; } set { m_CameraRotationalForce = value; } }
         
         private Rigidbody[] m_Rigidbodies;
+        private CollisionDetectionMode[] m_RigidbodyCollisionDetectionMode;
         private GameObject[] m_RigidbodyGameObjects;
 
         private Vector3 m_Force;
@@ -66,6 +65,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
             // The character's Rigidbody should be ignored.
             var index = 0;
             m_Rigidbodies = new Rigidbody[rigidbodies.Length - 1];
+            m_RigidbodyCollisionDetectionMode = new CollisionDetectionMode[m_Rigidbodies.Length];
             m_RigidbodyGameObjects = new GameObject[m_Rigidbodies.Length];
             for (int i = 0; i < rigidbodies.Length; ++i) {
                 if (rigidbodies[i] == characterRigidbody) {
@@ -73,6 +73,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
                 }
 
                 m_Rigidbodies[index] = rigidbodies[i];
+                m_RigidbodyCollisionDetectionMode[index] = rigidbodies[i].collisionDetectionMode;
                 m_RigidbodyGameObjects[index] = rigidbodies[i].gameObject;
                 index++;
             }
@@ -121,7 +122,11 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
             // Add the ragdoll force.
             for (int i = 0; i < m_Rigidbodies.Length; ++i) {
                 m_Rigidbodies[i].useGravity = enable;
-                m_Rigidbodies[i].collisionDetectionMode = enable ? CollisionDetectionMode.ContinuousSpeculative : CollisionDetectionMode.Discrete;
+                // The collision detection mode may have changed.
+                if (!enable) {
+                    m_RigidbodyCollisionDetectionMode[i] = m_Rigidbodies[i].collisionDetectionMode;
+                }
+                m_Rigidbodies[i].collisionDetectionMode = enable ? m_RigidbodyCollisionDetectionMode[i] : CollisionDetectionMode.Discrete;
                 m_Rigidbodies[i].isKinematic = !enable;
                 m_Rigidbodies[i].constraints = (enable ? RigidbodyConstraints.None : RigidbodyConstraints.FreezeAll);
                 m_RigidbodyGameObjects[i].layer = enable ? m_RagdollLayer : m_InactiveRagdollLayer;

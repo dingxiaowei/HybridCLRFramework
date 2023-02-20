@@ -4,19 +4,19 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Camera;
+using Opsive.UltimateCharacterController.Events;
+
 namespace Opsive.UltimateCharacterController.Demo.UI
 {
-    using Opsive.Shared.Events;
-    using Opsive.UltimateCharacterController.Camera;
-    using Opsive.UltimateCharacterController.Character;
-    using UnityEngine;
-
     /// <summary>
     /// Manages the movement types zone. Allows switching between movement types.
     /// </summary>
     public class MovementTypesZone : UIZone
     {
-        public enum MovementType { FirstPersonCombat, FirstPersonFreeLook, ThirdPersonAdventure, ThirdPersonCombat, ThirdPersonRPG, None }
+        private enum MovementType { FirstPersonCombat, FirstPersonFreeLook, ThirdPersonAdventure, ThirdPersonCombat, ThirdPersonRPG, None }
 
         private MovementType m_MovementType = MovementType.FirstPersonCombat;
 
@@ -79,12 +79,19 @@ namespace Opsive.UltimateCharacterController.Demo.UI
         private void ChangeMovementType(MovementType type, bool updateSwitcher)
         {
             // Revert the old.
+            UnityEngine.UI.ColorBlock buttonColors;
             if (m_ButtonImages[(int)m_MovementType] != null) {
-                SetButtonColor((int)m_MovementType, m_NormalColor);
+                m_ButtonImages[(int)m_MovementType].color = m_NormalColor;
+                buttonColors = m_Buttons[(int)m_MovementType].colors;
+                buttonColors.normalColor = m_NormalColor;
+                m_Buttons[(int)m_MovementType].colors = buttonColors;
             }
 
             m_MovementType = type;
-            SetButtonColor((int)m_MovementType, m_PressedColor);
+            m_ButtonImages[(int)m_MovementType].color = m_PressedColor;
+            buttonColors = m_Buttons[(int)m_MovementType].colors;
+            buttonColors.normalColor = m_PressedColor;
+            m_Buttons[(int)m_MovementType].colors = buttonColors;
 
             // Set the new movement type with the Movement Type Switcher.
             if (updateSwitcher) {

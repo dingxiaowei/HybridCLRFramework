@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEditor;
+using Opsive.UltimateCharacterController.Objects;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Objects
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.Objects;
-    using UnityEditor;
-
     /// <summary>
     /// Custom inspector for the Destructible component.
     /// </summary>

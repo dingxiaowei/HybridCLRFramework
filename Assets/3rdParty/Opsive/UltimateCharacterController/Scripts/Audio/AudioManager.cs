@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Audio
 {
-    using System.Collections.Generic;
-    using UnityEngine;
-    using UnityEngine.SceneManagement;
-
     /// <summary>
     /// The AudioManager manages the audio to ensure to ensure no two clips are playing on the same AudioSource at the same time.
     /// </summary>
@@ -310,10 +310,10 @@ namespace Opsive.UltimateCharacterController.Audio
         /// </summary>
         /// <param name="gameObject">The GameObject that is playing the audio clip.</param>
         /// <param name="clip">The clip to play.</param>
-        /// <returns>The AudioSource that is playing the AudioClip (can be null).</returns>
-        public static AudioSource Play(GameObject gameObject, AudioClip clip)
+        /// <returns>The AudioSource that is playing hte AudioClip (can be null).</returns>
+        public static void Play(GameObject gameObject, AudioClip clip)
         {
-            return Instance.PlayInternal(gameObject, clip, 1, false, 0, -1);
+            Instance.PlayInternal(gameObject, clip, 1, false, 0, -1);
         }
 
         /// <summary>
@@ -322,10 +322,10 @@ namespace Opsive.UltimateCharacterController.Audio
         /// <param name="gameObject">The GameObject that is playing the audio clip.</param>
         /// <param name="clip">The clip to play.</param>
         /// <param name="loop">Does the clip loop?</param>
-        /// <returns>The AudioSource that is playing the AudioClip (can be null).</returns>
-        public static AudioSource Play(GameObject gameObject, AudioClip clip, bool loop)
+        /// <returns>The AudioSource that is playing hte AudioClip (can be null).</returns>
+        public static void Play(GameObject gameObject, AudioClip clip, bool loop)
         {
-            return Instance.PlayInternal(gameObject, clip, 1, loop, 0, -1);
+            Instance.PlayInternal(gameObject, clip, 1, loop, 0, -1);
         }
 
         /// <summary>
@@ -335,10 +335,10 @@ namespace Opsive.UltimateCharacterController.Audio
         /// <param name="clip">The clip to play.</param>
         /// <param name="pitch">The pitch to play the clip at.</param>
         /// <param name="delay">The number of seconds to delay the clip from playing.</param>
-        /// <returns>The AudioSource that is playing the AudioClip (can be null).</returns>
-        public static AudioSource PlayDelayed(GameObject gameObject, AudioClip clip, float delay)
+        /// <returns>The AudioSource that is playing hte AudioClip (can be null).</returns>
+        public static void PlayDelayed(GameObject gameObject, AudioClip clip, float delay)
         {
-            return Instance.PlayInternal(gameObject, clip, 1, false, delay, -1);
+            Instance.PlayInternal(gameObject, clip, 1, false, delay, -1);
         }
 
         /// <summary>
@@ -349,10 +349,10 @@ namespace Opsive.UltimateCharacterController.Audio
         /// <param name="pitch">The pitch to play the clip at.</param>
         /// <param name="loop">Does the clip loop?</param>
         /// <param name="delay">The number of seconds to delay the clip from playing.</param>
-        /// <returns>The AudioSource that is playing the AudioClip (can be null).</returns>
-        public static AudioSource PlayDelayed(GameObject gameObject, AudioClip clip, float delay, bool loop)
+        /// <returns>The AudioSource that is playing hte AudioClip (can be null).</returns>
+        public static void PlayDelayed(GameObject gameObject, AudioClip clip, float delay, bool loop)
         {
-            return Instance.PlayInternal(gameObject, clip, 1, loop, delay, -1);
+            Instance.PlayInternal(gameObject, clip, 1, loop, delay, -1);
         }
 
         /// <summary>
@@ -363,10 +363,10 @@ namespace Opsive.UltimateCharacterController.Audio
         /// <param name="pitch">The pitch to play the clip at.</param>
         /// <param name="delay">The number of seconds to delay the clip from playing.</param>
         /// <param name="reservedIndex">The index of the component that should be played. -1 indicates any component.</param>
-        /// <returns>The AudioSource that is playing the AudioClip (can be null).</returns>
-        public static AudioSource PlayDelayed(GameObject gameObject, AudioClip clip, float delay, int reservedIndex)
+        /// <returns>The AudioSource that is playing hte AudioClip (can be null).</returns>
+        public static void PlayDelayed(GameObject gameObject, AudioClip clip, float delay, int reservedIndex)
         {
-            return Instance.PlayInternal(gameObject, clip, 1, false, delay, reservedIndex);
+            Instance.PlayInternal(gameObject, clip, 1, false, delay, reservedIndex);
         }
 
         /// <summary>
@@ -375,50 +375,10 @@ namespace Opsive.UltimateCharacterController.Audio
         /// <param name="gameObject">The GameObject that is playing the audio clip.</param>
         /// <param name="clip">The clip to play.</param>
         /// <param name="pitch">The pitch to play the clip at.</param>
-        /// <returns>The AudioSource that is playing the AudioClip (can be null).</returns>
-        public static AudioSource Play(GameObject gameObject, AudioClip clip, float pitch)
+        /// <returns>The AudioSource that is playing hte AudioClip (can be null).</returns>
+        public static void Play(GameObject gameObject, AudioClip clip, float pitch)
         {
-            return Instance.PlayInternal(gameObject, clip, pitch, false, 0, -1);
-        }
-
-        /// <summary>
-        /// Plays the audio clip.
-        /// </summary>
-        /// <param name="gameObject">The GameObject that is playing the audio clip.</param>
-        /// <param name="clip">The clip to play.</param>
-        /// <param name="pitch">The pitch to play the clip at.</param>
-        /// <param name="loop">Does the clip loop?</param>
-        /// <returns>The AudioSource that is playing the AudioClip (can be null).</returns>
-        public static AudioSource Play(GameObject gameObject, AudioClip clip, float pitch, bool loop)
-        {
-            return Instance.PlayInternal(gameObject, clip, pitch, loop, 0, -1);
-        }
-
-        /// <summary>
-        /// Plays the audio clip.
-        /// </summary>
-        /// <param name="gameObject">The GameObject that is playing the audio clip.</param>
-        /// <param name="clip">The clip to play.</param>
-        /// <param name="pitch">The pitch to play the clip at.</param>
-        /// <param name="delay">The number of seconds to delay the clip from playing.</param>
-        /// <returns>The AudioSource that is playing the AudioClip (can be null).</returns>
-        public static AudioSource Play(GameObject gameObject, AudioClip clip, float pitch, float delay)
-        {
-            return Instance.PlayInternal(gameObject, clip, pitch, false, delay, -1);
-        }
-
-        /// <summary>
-        /// Plays the audio clip.
-        /// </summary>
-        /// <param name="gameObject">The GameObject that is playing the audio clip.</param>
-        /// <param name="clip">The clip to play.</param>
-        /// <param name="pitch">The pitch to play the clip at.</param>
-        /// <param name="delay">The number of seconds to delay the clip from playing.</param>
-        /// <param name="reservedIndex">The index of the component that should be played. -1 indicates any component.</param>
-        /// <returns>The AudioSource that is playing the AudioClip (can be null).</returns>
-        public static AudioSource Play(GameObject gameObject, AudioClip clip, float pitch, float delay, int reservedIndex)
-        {
-            return Instance.PlayInternal(gameObject, clip, pitch, false, delay, reservedIndex);
+            Instance.PlayInternal(gameObject, clip, pitch, false, 0, -1);
         }
 
         /// <summary>
@@ -428,12 +388,52 @@ namespace Opsive.UltimateCharacterController.Audio
         /// <param name="clip">The clip to play.</param>
         /// <param name="pitch">The pitch to play the clip at.</param>
         /// <param name="loop">Does the clip loop?</param>
+        /// <returns>The AudioSource that is playing hte AudioClip (can be null).</returns>
+        public static void Play(GameObject gameObject, AudioClip clip, float pitch, bool loop)
+        {
+            Instance.PlayInternal(gameObject, clip, pitch, loop, 0, -1);
+        }
+
+        /// <summary>
+        /// Plays the audio clip.
+        /// </summary>
+        /// <param name="gameObject">The GameObject that is playing the audio clip.</param>
+        /// <param name="clip">The clip to play.</param>
+        /// <param name="pitch">The pitch to play the clip at.</param>
+        /// <param name="delay">The number of seconds to delay the clip from playing.</param>
+        /// <returns>The AudioSource that is playing hte AudioClip (can be null).</returns>
+        public static void Play(GameObject gameObject, AudioClip clip, float pitch, float delay)
+        {
+            Instance.PlayInternal(gameObject, clip, pitch, false, delay, -1);
+        }
+
+        /// <summary>
+        /// Plays the audio clip.
+        /// </summary>
+        /// <param name="gameObject">The GameObject that is playing the audio clip.</param>
+        /// <param name="clip">The clip to play.</param>
+        /// <param name="pitch">The pitch to play the clip at.</param>
         /// <param name="delay">The number of seconds to delay the clip from playing.</param>
         /// <param name="reservedIndex">The index of the component that should be played. -1 indicates any component.</param>
-        /// <returns>The AudioSource that is playing the AudioClip (can be null).</returns>
-        public static AudioSource Play(GameObject gameObject, AudioClip clip, float pitch, bool loop, float delay, int reservedIndex)
+        /// <returns>The AudioSource that is playing hte AudioClip (can be null).</returns>
+        public static void Play(GameObject gameObject, AudioClip clip, float pitch, float delay, int reservedIndex)
         {
-            return Instance.PlayInternal(gameObject, clip, pitch, loop, delay, reservedIndex);
+            Instance.PlayInternal(gameObject, clip, pitch, false, delay, reservedIndex);
+        }
+
+        /// <summary>
+        /// Plays the audio clip.
+        /// </summary>
+        /// <param name="gameObject">The GameObject that is playing the audio clip.</param>
+        /// <param name="clip">The clip to play.</param>
+        /// <param name="pitch">The pitch to play the clip at.</param>
+        /// <param name="loop">Does the clip loop?</param>
+        /// <param name="delay">The number of seconds to delay the clip from playing.</param>
+        /// <param name="reservedIndex">The index of the component that should be played. -1 indicates any component.</param>
+        /// <returns>The AudioSource that is playing hte AudioClip (can be null).</returns>
+        public static void Play(GameObject gameObject, AudioClip clip, float pitch, bool loop, float delay, int reservedIndex)
+        {
+            Instance.PlayInternal(gameObject, clip, pitch, loop, delay, reservedIndex);
         }
 
         /// <summary>
@@ -443,10 +443,10 @@ namespace Opsive.UltimateCharacterController.Audio
         /// <param name="clip">The clip to play.</param>
         /// <param name="pitch">The pitch to play the clip at.</param>
         /// <param name="reservedIndex">The index of the component that should be played. -1 indicates any component.</param>
-        /// <returns>The AudioSource that is playing the AudioClip (can be null).</returns>
-        public static AudioSource Play(GameObject gameObject, AudioClip clip, float pitch, int reservedIndex)
+        /// <returns>The AudioSource that is playing hte AudioClip (can be null).</returns>
+        public static void Play(GameObject gameObject, AudioClip clip, float pitch, int reservedIndex)
         {
-            return Instance.PlayInternal(gameObject, clip, pitch, false, 0, reservedIndex);
+            Instance.PlayInternal(gameObject, clip, pitch, false, 0, reservedIndex);
         }
 
         /// <summary>
@@ -458,11 +458,11 @@ namespace Opsive.UltimateCharacterController.Audio
         /// <param name="loop">Does the clip loop?</param>
         /// <param name="delay">The number of seconds to delay the clip from playing.</param>
         /// <param name="reservedIndex">The index of the component that should be played. -1 indicates any component.</param>
-        /// <returns>The AudioSource that is playing the AudioClip (can be null).</returns>
-        protected virtual AudioSource PlayInternal(GameObject gameObject, AudioClip clip, float pitch, bool loop, float delay, int reservedIndex)
+        /// <returns>The AudioSource that is playing hte AudioClip (can be null).</returns>
+        protected virtual void PlayInternal(GameObject gameObject, AudioClip clip, float pitch, bool loop, float delay, int reservedIndex)
         {
             if (clip == null) {
-                return null;
+                return;
             }
 
             AudioSourcesIndex audioSourcesIndex;
@@ -490,7 +490,6 @@ namespace Opsive.UltimateCharacterController.Audio
             } else {
                 audioSource.PlayDelayed(delay);
             }
-            return audioSource;
         }
 
         /// <summary>
@@ -498,10 +497,9 @@ namespace Opsive.UltimateCharacterController.Audio
         /// </summary>
         /// <param name="clip">The clip that should be played.</param>
         /// <param name="position">The position that the clip should be played at.</param>
-        /// <returns>The AudioSource that is playing the AudioClip (can be null).</returns>
-        public static AudioSource PlayAtPosition(AudioClip clip, Vector3 position)
+        public static void PlayAtPosition(AudioClip clip, Vector3 position)
         {
-            return Instance.PlayAtPositionInternal(clip, position, 1, 1);
+            Instance.PlayAtPositionInternal(clip, position, 1, 1);
         }
 
         /// <summary>
@@ -511,10 +509,9 @@ namespace Opsive.UltimateCharacterController.Audio
         /// <param name="position">The position that the clip should be played at.</param>
         /// <param name="volume">The volume to play the clip at.</param>
         /// <param name="pitch">The pitch to play the clip at.</param>
-        /// <returns>The AudioSource that is playing the AudioClip (can be null).</returns>
-        public static AudioSource PlayAtPosition(AudioClip clip, Vector3 position, float volume, float pitch)
+        public static void PlayAtPosition(AudioClip clip, Vector3 position, float volume, float pitch)
         {
-            return Instance.PlayAtPositionInternal(clip, position, volume, pitch);
+            Instance.PlayAtPositionInternal(clip, position, volume, pitch);
         }
 
         /// <summary>
@@ -524,23 +521,19 @@ namespace Opsive.UltimateCharacterController.Audio
         /// <param name="position">The position that the clip should be played at.</param>
         /// <param name="volume">The volume to play the clip at.</param>
         /// <param name="pitch">The pitch to play the clip at.</param>
-        /// <returns>The AudioSource that is playing the AudioClip (can be null).</returns>
-        protected virtual AudioSource PlayAtPositionInternal(AudioClip clip, Vector3 position, float volume, float pitch)
+        protected virtual void PlayAtPositionInternal(AudioClip clip, Vector3 position, float volume, float pitch)
         {
             var sceneAudioSourcesIndex = m_GameObjectAudioSourcesMap[m_GameObject];
             var audioSource = sceneAudioSourcesIndex.GetAvailableAudioSource(-1, sceneAudioSourcesIndex.AudioSources[0], true);
             audioSource.transform.position = position;
 
             // Play the clip.
-            audioSource.loop = false;
             audioSource.clip = clip;
             audioSource.volume = volume;
             audioSource.pitch = pitch;
             audioSource.spatialBlend = 1;
             audioSource.maxDistance = 500;
             audioSource.Play();
-
-            return audioSource;
         }
 
         /// <summary>
@@ -595,17 +588,5 @@ namespace Opsive.UltimateCharacterController.Audio
         {
             SceneManager.sceneUnloaded += SceneUnloaded;
         }
-
-#if UNITY_2019_3_OR_NEWER
-        /// <summary>
-        /// Reset the static variables for domain reloading.
-        /// </summary>
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        private static void DomainReset()
-        {
-            s_Initialized = false;
-            s_Instance = null;
-        }
-#endif
     }
 }

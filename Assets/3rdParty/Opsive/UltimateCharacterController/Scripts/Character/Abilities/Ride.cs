@@ -4,15 +4,14 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Objects.CharacterAssist;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Objects.CharacterAssist;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// The Ride ability allows the character to ride another Ultimate Character Locomotion character (such as a horse).
     /// </summary>
@@ -27,7 +26,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
     [DefaultUseRootMotionPosition(AbilityBoolOverride.True)]
     [DefaultUseRootMotionRotation(AbilityBoolOverride.True)]
     [DefaultEquippedSlots(0)]
-    [AllowDuplicateTypes]
+    [AllowMultipleAbilityTypes]
     public class Ride : DetectObjectAbilityBase, Items.IItemToggledReceiver
     {
         /// <summary>
@@ -44,28 +43,22 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
 
         [Tooltip("Specifies if the ability should wait for the OnAnimatorMount animation event or wait for the specified duration before mounting to the rideable object.")]
         [SerializeField] protected AnimationEventTrigger m_MountEvent;
-        [Tooltip("The speed at which the character moves towards the ride location.")]
-        [SerializeField] protected float m_MoveSpeed = 0.2f;
-        [Tooltip("The speed at which the character rotates towards ride location.")]
-        [SerializeField] protected float m_RotationSpeed = 2f;
         [Tooltip("Specifies if the ability should wait for the OnAnimatorDismount animation event or wait for the specified duration before dismounting from the rideable object.")]
         [SerializeField] protected AnimationEventTrigger m_DismountEvent;
         [Tooltip("After the character mounts should the ability reequip the item that the character had before mounting?")]
         [SerializeField] protected bool m_ReequipItemAfterMount = true;
 
         public AnimationEventTrigger MountEvent { get { return m_MountEvent; } set { m_MountEvent = value; } }
-        public float MoveSpeed { get { return m_MoveSpeed; } set { m_MoveSpeed = value; } }
-        public float RotationSpeed { get { return m_RotationSpeed; } set { m_RotationSpeed = value; } }
         public AnimationEventTrigger DismountEvent { get { return m_DismountEvent; } set { m_DismountEvent = value; } }
         public bool ReequipItemAfterMount { get { return m_ReequipItemAfterMount; } set { m_ReequipItemAfterMount = value; } }
 
         private Rideable m_Rideable;
         
         private bool m_LeftMount;
-        private KinematicObjectManager.UpdateLocation m_StartUpdateLocation;
         private ScheduledEventBase m_MountDismountEvent;
         private RideState m_RideState = RideState.DismountComplete;
-        private float m_Epsilon = 0.99999f;
+
+        private Vector3 m_PositionOffset;
 
         public override int AbilityIntData
         {
@@ -99,11 +92,11 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         /// Validates the object to ensure it is valid for the current ability.
         /// </summary>
         /// <param name="obj">The object being validated.</param>
-        /// <param name="raycastHit">The raycast hit of the detected object. Will be null for trigger detections.</param>
+        /// <param name="fromTrigger">Is the object being validated within a trigger?</param>
         /// <returns>True if the object is valid. The object may not be valid if it doesn't have an ability-specific component attached.</returns>
-        protected override bool ValidateObject(GameObject obj, RaycastHit? raycastHit)
+        protected override bool ValidateObject(GameObject obj, bool withinTrigger)
         {
-            if (!base.ValidateObject(obj, raycastHit)) {
+            if (!base.ValidateObject(obj, withinTrigger)) {
                 return false;
             }
 
@@ -123,12 +116,12 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         }
 
         /// <summary>
-        /// Returns the possible MoveTowardsLocations that the character can move towards.
+        /// Returns the possible AbilityStartLocations that the character can move towards.
         /// </summary>
-        /// <returns>The possible MoveTowardsLocations that the character can move towards.</returns>
-        public override MoveTowardsLocation[] GetMoveTowardsLocations()
+        /// <returns>The possible AbilityStartLocations that the character can move towards.</returns>
+        public override AbilityStartLocation[] GetStartLocations()
         {
-            return m_Rideable.GameObject.GetComponentsInChildren<MoveTowardsLocation>();
+            return m_Rideable.GameObject.GetComponentsInChildren<AbilityStartLocation>();
         }
 
         /// <summary>
@@ -138,19 +131,13 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         {
             base.AbilityStarted();
 
-            m_StartUpdateLocation = m_CharacterLocomotion.UpdateLocation;
-            // Used FixedUpdate so the root motion location is accurate when getting on the Rideable object.
-            m_CharacterLocomotion.UpdateLocation = KinematicObjectManager.UpdateLocation.FixedUpdate;
-
             m_LeftMount = m_Rideable.Transform.InverseTransformPoint(m_Transform.position).x < 0;
             m_Rideable.Mount(this);
-            m_CharacterLocomotion.SetPlatform(m_Rideable.Transform);
 
             // The character will look independently of the rotation.
             EventHandler.ExecuteEvent(m_GameObject, "OnCharacterForceIndependentLook", true);
             m_RideState = RideState.Mount;
             m_CharacterLocomotion.UpdateAbilityAnimatorParameters();
-
             // Update the rideable object's parameters as well so it can stay synchronized to the ride obejct.
             m_Rideable.CharacterLocomotion.UpdateAbilityAnimatorParameters();
             if (!m_MountEvent.WaitForAnimationEvent) {
@@ -180,7 +167,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
             if (m_RideState != RideState.Ride && startingAbility is Items.ItemAbility) {
                 return true;
             }
-            return startingAbility is HeightChange || base.ShouldBlockAbilityStart(startingAbility);
+            return base.ShouldBlockAbilityStart(startingAbility);
         }
 
         /// <summary>
@@ -207,9 +194,10 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
             m_RideState = RideState.Ride;
             m_CharacterLocomotion.ForceRootMotionPosition = false;
             m_CharacterLocomotion.AllowRootMotionPosition = false;
-            m_CharacterLocomotion.UpdateLocation = m_StartUpdateLocation;
             m_CharacterLocomotion.UpdateAbilityAnimatorParameters();
             m_Rideable.OnCharacterMount();
+
+            m_PositionOffset = m_Rideable.Transform.InverseTransformPoint(m_Transform.position);
 
             // The item was unequipped when mounting - it may need to be reequiped again.
             if (m_CharacterLocomotion.ItemEquipVerifierAbility != null) {
@@ -230,47 +218,30 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
                 // The input parameters should match the rideable object's input parameters.
                 m_CharacterLocomotion.InputVector = m_Rideable.CharacterLocomotion.InputVector;
                 m_CharacterLocomotion.DeltaRotation = m_Rideable.CharacterLocomotion.DeltaRotation;
-            } else if (m_RideState == RideState.DismountComplete) {
-                StopAbility();
             }
         }
 
         /// <summary>
-        /// Update the controller's rotation values.
+        /// Verify the rotation values.
         /// </summary>
-        public override void UpdateRotation()
+        public override void ApplyRotation()
         {
-            var deltaRotation = Quaternion.identity;
-            var rotation = m_Transform.rotation;
-            if (m_RideState != RideState.Ride && m_RideState != RideState.WaitForItemUnequip) {
-                var upNormal = m_RideState == RideState.Mount ? m_Rideable.Transform.up : -m_CharacterLocomotion.GravityDirection;
-                // When the character is starting to mount they should rotate to face the same up direction as the rideable object. This allows the character to enter while on slopes.
-                // Similarly, when the character exits they should rotate to the gravity direction.
-                var proj = (rotation * Vector3.forward) - Vector3.Dot(rotation * Vector3.forward, upNormal) * upNormal;
-                if (proj.sqrMagnitude > 0.0001f) {
-                    var speed = m_RotationSpeed * m_CharacterLocomotion.TimeScale * Time.timeScale * Time.deltaTime * (m_RideState == RideState.DismountComplete ? 100 : 1);
-                    var targetRotation = Quaternion.Slerp(rotation, Quaternion.LookRotation(proj, upNormal), speed);
-                    deltaRotation = deltaRotation * (Quaternion.Inverse(rotation) * targetRotation);
-                }
-            } else if (m_Rideable.RideLocation != null) {
-                // The character should fully rotate towards the target rotation after they have mounted.
-                deltaRotation = MathUtility.InverseTransformQuaternion(m_Transform.rotation, m_Rideable.RideLocation.rotation);
+            if (m_RideState == RideState.Ride || m_RideState == RideState.WaitForItemUnequip) {
+                // Ensure the character stays in the correct rotation.
+                m_CharacterLocomotion.Torque = m_Rideable.Torque;
             }
-            m_CharacterLocomotion.DeltaRotation = deltaRotation.eulerAngles;
         }
 
         /// <summary>
-        /// Update the controller's position values.
+        /// Verify the position values.
         /// </summary>
-        public override void UpdatePosition()
+        public override void ApplyPosition()
         {
-            if (m_RideState != RideState.Ride && m_RideState != RideState.WaitForItemUnequip) {
-                return;
+            if (m_RideState == RideState.Ride || m_RideState == RideState.WaitForItemUnequip) {
+                // Ensure the character stays in the correct position.
+                var targetPosition = m_Rideable.Transform.TransformPoint(m_PositionOffset);
+                m_CharacterLocomotion.MoveDirection = targetPosition - m_Transform.position;
             }
-
-            m_CharacterLocomotion.MotorThrottle = Vector3.zero;
-            var deltaPosition = Vector3.MoveTowards(m_Transform.position, m_Rideable.RideLocation.position, m_MoveSpeed) - m_Transform.position;
-            m_CharacterLocomotion.AbilityMotor = deltaPosition / (m_CharacterLocomotion.TimeScaleSquared * Time.timeScale * TimeUtility.FramerateDeltaTime);
         }
 
         /// <summary>
@@ -309,7 +280,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         private void StartDismount()
         {
             m_RideState = RideState.Dismount;
-            m_CharacterLocomotion.AbilityMotor = Vector3.zero;
             m_CharacterLocomotion.ForceRootMotionPosition = true;
             m_CharacterLocomotion.AllowRootMotionPosition = true;
             m_CharacterLocomotion.UpdateAbilityAnimatorParameters();
@@ -336,7 +306,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
             m_RideState = RideState.DismountComplete;
             m_Rideable.Dismounted();
             m_Rideable = null;
-            m_CharacterLocomotion.SetPlatform(null);
             EventHandler.ExecuteEvent(m_GameObject, "OnCharacterForceIndependentLook", false);
 
             StopAbility();
@@ -349,7 +318,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         public override bool CanStopAbility()
         {
             // The character has to be dismounted in order to stop.
-            return m_RideState == RideState.DismountComplete && Vector3.Dot(m_Transform.rotation * Vector3.up, -m_CharacterLocomotion.GravityDirection) >= m_Epsilon;
+            return m_RideState == RideState.DismountComplete;
         }
 
         /// <summary>
@@ -370,7 +339,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
                 m_Rideable.StartDismount();
                 m_Rideable.Dismounted();
                 m_Rideable = null;
-                m_CharacterLocomotion.SetPlatform(null);
                 EventHandler.ExecuteEvent(m_GameObject, "OnCharacterForceIndependentLook", false);
             }
         }

@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Utility;
+using Opsive.UltimateCharacterController.Events;
+
 namespace Opsive.UltimateCharacterController.Camera.ViewTypes
 {
-    using Opsive.Shared.Events;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// The Transition View Type will transition the camera from one view type to another.
     /// </summary>

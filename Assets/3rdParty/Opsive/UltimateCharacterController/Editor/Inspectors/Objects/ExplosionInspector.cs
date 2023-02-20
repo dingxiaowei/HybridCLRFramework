@@ -4,15 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using UnityEditorInternal;
+using Opsive.UltimateCharacterController.Objects;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Audio;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Objects
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Audio;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.Objects;
-    using UnityEditor;
-    using UnityEditorInternal;
-    using UnityEngine;
-
     /// <summary>
     /// Custom inspector for the Explosion component.
     /// </summary>
@@ -50,7 +50,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Objects
             EditorGUILayout.PropertyField(PropertyFromName("m_MaxCollisionCount"));
             if (Foldout("Audio")) {
                 EditorGUI.indentLevel++;
-                m_ReorderableExplosionAudioClipsList = AudioClipSetInspector.DrawAudioClipSet(m_Explosion.ExplosionAudioClipSet, PropertyFromName("m_ExplosionAudioClipSet"), m_ReorderableExplosionAudioClipsList, OnExplosionAudioClipDraw, OnExplosionAudioClipListAdd, OnExplosionAudioClipListRemove);
+                AudioClipSetInspector.DrawAudioClipSet(m_Explosion.ExplosionAudioClipSet, PropertyFromName("m_ExplosionAudioClipSet"), ref m_ReorderableExplosionAudioClipsList, OnExplosionAudioClipDraw, OnExplosionAudioClipListAdd, OnExplosionAudioClipListRemove);
                 EditorGUI.indentLevel--;
             }
             InspectorUtility.UnityEventPropertyField(PropertyFromName("m_OnImpactEvent"));

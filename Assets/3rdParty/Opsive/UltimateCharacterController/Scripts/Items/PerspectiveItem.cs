@@ -4,13 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Items
 {
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using UnityEngine;
-
     /// <summary>
     /// Component which represents the item object actually rendererd. The main responsibility is to determine the location that the object should be rendered at.
     /// </summary>
@@ -55,7 +54,7 @@ namespace Opsive.UltimateCharacterController.Items
 
                 // Layer sanity check.
                 if (m_Object.layer == m_Character.layer) {
-                    Debug.LogWarning($"Warning: The item {name} has the same layer as the character. This will likely cause collision problems and should be changed.");
+                    Debug.LogWarning("Warning: The item " + name + " has the same layer as the character. This will likely cause collision problems and should be changed.");
                 }
             }
             m_Item = gameObject.GetCachedComponent<Item>();

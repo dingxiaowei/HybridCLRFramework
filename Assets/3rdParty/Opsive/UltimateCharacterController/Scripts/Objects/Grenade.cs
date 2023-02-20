@@ -4,13 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.SurfaceSystem;
+
 namespace Opsive.UltimateCharacterController.Objects
 {
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.SurfaceSystem;
-    using UnityEngine;
-
     /// <summary>
     /// The Projectile component moves a Destructible object along the specified path. Can apply damage at the collision point.
     /// </summary>
@@ -82,7 +81,7 @@ namespace Opsive.UltimateCharacterController.Objects
         /// <param name="originator">The object that instantiated the trajectory object.</param>
         public void StartCooking(GameObject originator)
         {
-            SetOriginator(originator, Vector3.up);
+            m_Originator = originator;
 
             // The grenade should destruct after a specified amount of time.
             m_ScheduledDeactivation = Scheduler.Schedule(m_Lifespan, Deactivate);

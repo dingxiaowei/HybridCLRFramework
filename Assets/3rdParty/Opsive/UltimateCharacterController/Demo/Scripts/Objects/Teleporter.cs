@@ -4,13 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Demo.Objects
 {
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// Teleports the character to the specified destination.
     /// </summary>
@@ -63,12 +63,6 @@ namespace Opsive.UltimateCharacterController.Demo.Objects
 
             UltimateCharacterLocomotion characterLocomotion;
             if ((characterLocomotion = other.GetComponentInParent<UltimateCharacterLocomotion>()) != null) {
-                // Do not allow teleportation if the Drive or Ride abilities are active.
-                if (characterLocomotion.IsAbilityTypeActive<UltimateCharacterController.Character.Abilities.Drive>() ||
-                    characterLocomotion.IsAbilityTypeActive<UltimateCharacterController.Character.Abilities.Ride>()) {
-                    return;
-                }
-
                 var destinationTeleporter = m_Destination.GetComponentInParent<Teleporter>();
                 if (destinationTeleporter != null) {
                     destinationTeleporter.IgnoreCharacterEnter = true;

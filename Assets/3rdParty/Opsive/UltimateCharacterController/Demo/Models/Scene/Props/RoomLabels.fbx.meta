@@ -1,7 +1,9 @@
 fileFormatVersion: 2
 guid: d5b0b1ac93a13d6459f2949b4b55920d
+timeCreated: 1528304430
+licenseType: Pro
 ModelImporter:
-  serializedVersion: 23
+  serializedVersion: 19
   fileIDToRecycleName:
     100000: RoomLabel_Aiming
     100002: RoomLabel_Death
@@ -13,7 +15,6 @@ ModelImporter:
     100014: RoomLabel_Shootable
     100016: RoomLabel_SurfaceEffects
     100018: //RootNode
-    100020: RoomLabel_Magic
     400000: RoomLabel_Aiming
     400002: RoomLabel_Death
     400004: RoomLabel_Effects
@@ -24,7 +25,6 @@ ModelImporter:
     400014: RoomLabel_Shootable
     400016: RoomLabel_SurfaceEffects
     400018: //RootNode
-    400020: RoomLabel_Magic
     2300000: RoomLabel_Aiming
     2300002: RoomLabel_Death
     2300004: RoomLabel_Effects
@@ -34,7 +34,6 @@ ModelImporter:
     2300012: RoomLabel_Melee
     2300014: RoomLabel_Shootable
     2300016: RoomLabel_SurfaceEffects
-    2300018: RoomLabel_Magic
     3300000: RoomLabel_Aiming
     3300002: RoomLabel_Death
     3300004: RoomLabel_Effects
@@ -44,7 +43,6 @@ ModelImporter:
     3300012: RoomLabel_Melee
     3300014: RoomLabel_Shootable
     3300016: RoomLabel_SurfaceEffects
-    3300018: RoomLabel_Magic
     4300000: RoomLabel_Aiming
     4300002: RoomLabel_Death
     4300004: RoomLabel_Effects
@@ -54,13 +52,10 @@ ModelImporter:
     4300012: RoomLabel_FirstPersonSprings
     4300014: RoomLabel_Melee
     4300016: RoomLabel_Shootable
-    4300018: RoomLabel_Magic
-  externalObjects: {}
   materials:
     importMaterials: 0
     materialName: 0
     materialSearch: 1
-    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -73,50 +68,35 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    importAnimatedCustomProperties: 0
-    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 100
     meshCompression: 0
     addColliders: 0
-    useSRGBMaterialColor: 1
-    importVisibility: 0
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
-    preserveHierarchy: 0
-    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
-    normalCalculationMode: 0
-    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
-    blendShapeNormalImportMode: 1
-    normalSmoothingSource: 0
   importAnimation: 0
   copyAvatar: 0
   humanDescription:
@@ -131,6 +111,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

@@ -4,14 +4,14 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using UnityEditorInternal;
+using Opsive.UltimateCharacterController.Demo;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Demo
 {
-    using Opsive.UltimateCharacterController.Demo;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using UnityEditor;
-    using UnityEditorInternal;
-    using UnityEngine;
-
     /// <summary>
     /// Shows a custom inspector for the DemoManager component.
     /// </summary>
@@ -100,8 +100,8 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Demo
         protected virtual void DrawFreeRoamFields()
         {
             EditorGUILayout.PropertyField(PropertyFromName("m_FreeRoam"));
-            EditorGUILayout.PropertyField(PropertyFromName("m_FreeRoamPickupItemDefinitions"));
-            EditorGUILayout.PropertyField(PropertyFromName("m_FreeRoamItemDefinitionAmounts"), true);
+            EditorGUILayout.PropertyField(PropertyFromName("m_FreeRoamPickupItemTypes"));
+            EditorGUILayout.PropertyField(PropertyFromName("m_FreeRoamItemTypeCounts"), true);
         }
 
         /// <summary>

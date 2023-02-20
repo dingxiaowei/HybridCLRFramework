@@ -4,13 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Character.Abilities.Items;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Demo.AI
 {
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Character.Abilities.Items;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// An extremely simple AI agent that will attack at a fixed interval.
     /// </summary>
@@ -73,10 +73,6 @@ namespace Opsive.UltimateCharacterController.Demo.AI
         /// </summary>
         public void Attack()
         {
-            if (m_AgentMovement == null) {
-                return;
-            }
-
             // The agent should be able to move while attacking.
             if (!m_AgentMovement.Enabled) {
                 m_AgentMovement.Enabled = true;

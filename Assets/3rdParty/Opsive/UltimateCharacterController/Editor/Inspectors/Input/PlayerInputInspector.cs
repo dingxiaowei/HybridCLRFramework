@@ -4,14 +4,14 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEditor;
+using Opsive.UltimateCharacterController.Input;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
+using System;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Input
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
-    using Opsive.UltimateCharacterController.Input;
-    using System;
-    using UnityEditor;
-
     /// <summary>
     /// Shows a custom inspector for the PlayerInput.
     /// </summary>
@@ -35,7 +35,6 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Input
                 if (lookVector.enumValueIndex == (int)PlayerInput.LookVectorMode.Smoothed) {
                     EditorGUI.indentLevel++;
                     EditorGUILayout.PropertyField(PropertyFromName("m_LookSensitivity"));
-                    EditorGUILayout.PropertyField(PropertyFromName("m_LookSensitivityMultiplier"));
                     EditorGUILayout.PropertyField(PropertyFromName("m_SmoothLookSteps"));
                     EditorGUILayout.PropertyField(PropertyFromName("m_SmoothLookWeight"));
                     EditorGUILayout.PropertyField(PropertyFromName("m_SmoothExponent"));

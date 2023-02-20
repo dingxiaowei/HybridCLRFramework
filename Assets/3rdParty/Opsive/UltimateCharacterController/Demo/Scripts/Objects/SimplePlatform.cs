@@ -1,17 +1,11 @@
-﻿/// ---------------------------------------------
-/// Ultimate Character Controller
-/// Copyright (c) Opsive. All Rights Reserved.
-/// https://www.opsive.com
-/// ---------------------------------------------
+﻿using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Character.Abilities;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Utility;
 
 namespace Opsive.UltimateCharacterController.Demo.Objects
 {
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Character.Abilities;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// Moves the platform between two points. This gives an example of using the Move With Object ability and moving on an object that is
     /// updated outside of the Kinematic Object Manager update loop.

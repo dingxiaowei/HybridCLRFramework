@@ -4,16 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities
 {
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// The SpeedChange ability will update the controller's horizontal and forward movement values based on the multiplier. This value will then be used
     /// by the controller and Animator to change the character's speed.
     /// </summary>
-    [AllowDuplicateTypes]
+    [AllowMultipleAbilityTypes]
     [DefaultInputName("Change Speeds")]
     [DefaultStartType(AbilityStartType.ButtonDownContinuous)]
     [DefaultStopType(AbilityStopType.ButtonUp)]
@@ -77,7 +76,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         {
             base.Update();
 
-            // If RequireMovement is true then the character must be moving in order for the ability to be active.
+            // If RequireMovement is true then the cahracter must be moving in order for the ability to be active.
             if (m_RequireMovement && !m_CharacterLocomotion.Moving) {
                 StopAbility(true);
                 return;

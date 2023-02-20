@@ -4,17 +4,16 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Character.Abilities;
+using Opsive.UltimateCharacterController.Input;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.FirstPersonController.Character.Abilities
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Character.Abilities;
-    using Opsive.UltimateCharacterController.Input;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// The Lean ability allows the character to lean the camera to the left or the right of the character. This allows the character to peak
     /// without exposing their body. An optional collider can be used as a hitpoint and to detect any collisions.
@@ -88,7 +87,7 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Character.Abi
             // If a handler exists then the ability is interested in updates when the axis value changes. This for example allows the lean to switch 
             // between the left and right lean without having to stop and start again.
             if (m_Handler != null) {
-                m_LeanInput = GenericObjectPool.Get<ActiveInputEvent>();
+                m_LeanInput = ObjectPool.Get<ActiveInputEvent>();
                 m_LeanInput.Initialize(ActiveInputEvent.Type.Axis, InputNames[InputIndex], "OnLeanInputUpdate");
                 m_Handler.RegisterInputEvent(m_LeanInput);
             }
@@ -226,7 +225,7 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Character.Abi
 
             if (m_Handler != null) {
                 m_Handler.UnregisterInputEvent(m_LeanInput);
-                GenericObjectPool.Return(m_LeanInput);
+                ObjectPool.Return(m_LeanInput);
             }
             EventHandler.UnregisterEvent<float>(m_GameObject, "OnLeanInputUpdate", OnInputUpdate);
         }

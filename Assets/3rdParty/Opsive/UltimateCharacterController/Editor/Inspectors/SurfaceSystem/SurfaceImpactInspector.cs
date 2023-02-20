@@ -4,13 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using Opsive.UltimateCharacterController.SurfaceSystem;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.SurfaceSystem
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.SurfaceSystem;
-    using UnityEditor;
-    using UnityEngine;
-
     /// <summary>
     /// Custom inspector for the SurfaceImpact component.
     /// </summary>

@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEditor;
+using Opsive.UltimateCharacterController.Input;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Input
 {
-    using Opsive.UltimateCharacterController.Input;
-    using UnityEditor;
-
     /// <summary>
     /// Shows a custom inspector for the UnityInput.
     /// </summary>

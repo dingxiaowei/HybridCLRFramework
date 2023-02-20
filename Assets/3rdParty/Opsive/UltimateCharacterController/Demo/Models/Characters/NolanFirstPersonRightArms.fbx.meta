@@ -1,7 +1,9 @@
 fileFormatVersion: 2
 guid: 67055e150787eeb449dea1478d8a71f7
+timeCreated: 1529520510
+licenseType: Pro
 ModelImporter:
-  serializedVersion: 23
+  serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
     100002: ORG-f_index_01_R
@@ -47,25 +49,6 @@ ModelImporter:
     100082: ORG-thumb_02_L
     100084: ORG-thumb_03_L
     100086: ORG-upper_arm_L
-    100088: ORG-f_index.01.R
-    100090: ORG-f_index.02.R
-    100092: ORG-f_index.03.R
-    100094: ORG-f_middle.01.R
-    100096: ORG-f_middle.02.R
-    100098: ORG-f_middle.03.R
-    100100: ORG-f_pinky.01.R
-    100102: ORG-f_pinky.02.R
-    100104: ORG-f_pinky.03.R
-    100106: ORG-f_ring.01.R
-    100108: ORG-f_ring.02.R
-    100110: ORG-f_ring.03.R
-    100112: ORG-forearm.R
-    100114: ORG-hand.R
-    100116: ORG-shoulder.R
-    100118: ORG-thumb.01.R
-    100120: ORG-thumb.02.R
-    100122: ORG-thumb.03.R
-    100124: ORG-upper_arm.R
     400000: //RootNode
     400002: ORG-f_index_01_R
     400004: ORG-f_index_02_R
@@ -110,25 +93,6 @@ ModelImporter:
     400082: ORG-thumb_02_L
     400084: ORG-thumb_03_L
     400086: ORG-upper_arm_L
-    400088: ORG-f_index.01.R
-    400090: ORG-f_index.02.R
-    400092: ORG-f_index.03.R
-    400094: ORG-f_middle.01.R
-    400096: ORG-f_middle.02.R
-    400098: ORG-f_middle.03.R
-    400100: ORG-f_pinky.01.R
-    400102: ORG-f_pinky.02.R
-    400104: ORG-f_pinky.03.R
-    400106: ORG-f_ring.01.R
-    400108: ORG-f_ring.02.R
-    400110: ORG-f_ring.03.R
-    400112: ORG-forearm.R
-    400114: ORG-hand.R
-    400116: ORG-shoulder.R
-    400118: ORG-thumb.01.R
-    400120: ORG-thumb.02.R
-    400122: ORG-thumb.03.R
-    400124: ORG-upper_arm.R
     4300000: RightArmor
     4300002: RightArm
     4300004: LeftArmor
@@ -138,12 +102,10 @@ ModelImporter:
     13700002: RightArmor
     13700004: LeftArm
     13700006: LeftArmor
-  externalObjects: {}
   materials:
     importMaterials: 0
     materialName: 0
     materialSearch: 1
-    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -156,50 +118,35 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    importAnimatedCustomProperties: 0
-    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 100
     meshCompression: 0
     addColliders: 0
-    useSRGBMaterialColor: 1
-    importVisibility: 0
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
-    preserveHierarchy: 0
-    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 100
-    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
-    normalCalculationMode: 0
-    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
-    blendShapeNormalImportMode: 1
-    normalSmoothingSource: 0
   importAnimation: 0
   copyAvatar: 0
   humanDescription:
@@ -214,10 +161,12 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 3b07b39ebb5f8c44c89fd416f004a8bc,
+    type: 3}
   animationType: 2
   humanoidOversampling: 1
   additionalBone: 0

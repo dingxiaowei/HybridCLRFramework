@@ -4,20 +4,17 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Audio;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Objects.ItemAssist;
+using Opsive.UltimateCharacterController.Traits;
+using Opsive.UltimateCharacterController.Utility;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Objects
 {
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Audio;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Events;
-    using Opsive.UltimateCharacterController.Objects.ItemAssist;
-    using Opsive.UltimateCharacterController.Traits;
-    using Opsive.UltimateCharacterController.Utility;
-    using System.Collections.Generic;
-    using UnityEngine;
-
-    using EventHandler = Opsive.Shared.Events.EventHandler;
-
     /// <summary>
     /// Creates an explosion which applies a force and damage to any object that is within the specified radius.
     /// </summary>
@@ -186,6 +183,8 @@ namespace Opsive.UltimateCharacterController.Objects
                 var hitDirection = closestPoint - m_Transform.position;
 
                 // Allow a custom event to be received.
+                EventHandler.ExecuteEvent(m_CollidersHit[i].transform.gameObject, "OnObjectImpact", hitDamageAmount, closestPoint, hitDirection * m_ImpactForce, originator, m_CollidersHit[i]);
+                // TODO: Version 2.1.5 adds another OnObjectImpact parameter. Remove the above event later once there has been a chance to migrate over.
                 EventHandler.ExecuteEvent<float, Vector3, Vector3, GameObject, object, Collider>(m_CollidersHit[i].transform.gameObject, "OnObjectImpact", hitDamageAmount, closestPoint, hitDirection * m_ImpactForce, originator, this, m_CollidersHit[i]);
                 if (m_OnImpactEvent != null) {
                     m_OnImpactEvent.Invoke(hitDamageAmount, closestPoint, hitDirection * m_ImpactForce, originator);
@@ -198,7 +197,7 @@ namespace Opsive.UltimateCharacterController.Objects
                     if ((health = m_CollidersHit[i].gameObject.GetCachedParentComponent<Health>()) != null) {
                         // The further out the collider is, the less it is damaged.
                         var damageModifier = Mathf.Max(1 - (hitDirection.magnitude / m_Radius), 0.01f);
-                        health.Damage(hitDamageAmount * damageModifier, m_Transform.position, hitDirection.normalized, impactForce * damageModifier, impactForceFrames, m_Radius, originator, this, null);
+                        health.Damage(hitDamageAmount * damageModifier, m_Transform.position, hitDirection.normalized, impactForce * damageModifier, impactForceFrames, m_Radius, originator);
                     } else if (forceObject != null) {
                         var damageModifier = Mathf.Max(1 - (hitDirection.magnitude / m_Radius), 0.01f);
                         forceObject.AddForce(hitDirection.normalized * impactForce * damageModifier);

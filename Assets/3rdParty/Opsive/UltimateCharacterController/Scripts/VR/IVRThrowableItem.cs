@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.VR
 {
-    using UnityEngine;
-
     /// <summary>
     /// Allows the ThrowableItem to communicate with a VRThrowableItem.
     /// </summary>

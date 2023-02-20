@@ -4,14 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Demo
 {
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// Adjusts the size of the trigger when the character enters. This is useful for movement type triggers so the character doesn't keep switching modes as the controls
     /// change while on the edge of the trigger.
@@ -62,7 +61,7 @@ namespace Opsive.UltimateCharacterController.Demo
                 // When the mesh is inflated it'll trigger an OnTriggerExit callback. Prevent this callback from doing anything until 
                 // after the inflated mesh has stabalized.
                 m_AllowTriggerExit = false;
-                Scheduler.ScheduleFixed(Time.fixedDeltaTime * 2, () => { m_AllowTriggerExit = true; });
+                Game.Scheduler.ScheduleFixed(Time.fixedDeltaTime * 2, () => { m_AllowTriggerExit = true; });
                 (m_Collider as MeshCollider).sharedMesh = m_ExpandedMesh;
             }
             m_ActiveObject = other.gameObject;

@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Traits;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Objects.CharacterAssist
 {
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Traits;
-    using UnityEngine;
-
     /// <summary>
     /// Heals the object that has the Health component.
     /// </summary>

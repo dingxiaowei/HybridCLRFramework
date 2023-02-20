@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Camera
 {
-    using UnityEngine;
-
     /// <summary>
     /// Specifies an offset to apply to the object targeted by aim assist.
     /// </summary>

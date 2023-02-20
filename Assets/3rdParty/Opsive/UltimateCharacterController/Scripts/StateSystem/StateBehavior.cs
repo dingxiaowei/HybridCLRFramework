@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.StateSystem
 {
-    using UnityEngine;
-
     /// <summary>
     /// Acts as the parent component which can use the state system to change property values.
     /// </summary>
@@ -16,7 +16,7 @@ namespace Opsive.UltimateCharacterController.StateSystem
         [Tooltip("A list of all states that the component can change to.")]
         [HideInInspector] [SerializeField] protected State[] m_States = new State[] { new State("Default", true) };
 
-        [Opsive.Shared.Utility.NonSerialized] public State[] States { get { return m_States; } set { m_States = value; } }
+        [Utility.NonSerialized] public State[] States { get { return m_States; } set { m_States = value; } }
 
         /// <summary>
         /// Initialize the default values.

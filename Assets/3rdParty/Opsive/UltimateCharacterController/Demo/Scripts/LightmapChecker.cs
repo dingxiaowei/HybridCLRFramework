@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Demo
 {
-    using UnityEngine;
-
     /// <summary>
     /// The scene will run slowly if the lightmaps aren't baked with the lights active. If the lightmaps are not baked then disable the lights
     /// so the scene will run at a normal speed.

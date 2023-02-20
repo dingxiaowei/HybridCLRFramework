@@ -4,18 +4,18 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEditor;
+using UnityEngine;
+using UnityEditorInternal;
+using Opsive.UltimateCharacterController.Items.Actions;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Audio;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Items.AnimatorAudioState;
+using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+using System;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Items.Actions
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Audio;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Items.AnimatorAudioState;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.Items.Actions;
-    using System;
-    using UnityEditor;
-    using UnityEditorInternal;
-    using UnityEngine;
-
     /// <summary>
     /// Shows a custom inspector for the ShootableWeapon component.
     /// </summary>
@@ -55,10 +55,9 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Items.Actions
 
             baseCallback += () =>
             {
-                var projectile = PropertyFromName("m_Projectile");
                 if (Foldout("Firing")) {
                     EditorGUI.indentLevel++;
-                    EditorGUILayout.PropertyField(PropertyFromName("m_ConsumableItemDefinition"));
+                    EditorGUILayout.PropertyField(PropertyFromName("m_ConsumableItemType"));
                     var fireMode = PropertyFromName("m_FireMode");
                     EditorGUILayout.PropertyField(fireMode);
                     if (fireMode.enumValueIndex == (int)ShootableWeapon.FireMode.Burst) {
@@ -77,7 +76,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Items.Actions
                         EditorGUILayout.PropertyField(PropertyFromName("m_MinChargeStrength"));
                         if (Foldout("Charge Audio")) {
                             EditorGUI.indentLevel++;
-                            m_ReorderableChargeAudioClipsList = AudioClipSetInspector.DrawAudioClipSet(m_ShootableWeapon.ChargeAudioClipSet, PropertyFromName("m_ChargeAudioClipSet"), m_ReorderableChargeAudioClipsList, OnChargeAudioClipDraw, OnChargeAudioClipListAdd, OnChargeAudioClipListRemove);
+                            AudioClipSetInspector.DrawAudioClipSet(m_ShootableWeapon.ChargeAudioClipSet, PropertyFromName("m_ChargeAudioClipSet"), ref m_ReorderableChargeAudioClipsList, OnChargeAudioClipDraw, OnChargeAudioClipListAdd, OnChargeAudioClipListRemove);
                             EditorGUI.indentLevel--;
                         }
                         EditorGUI.indentLevel--;
@@ -86,9 +85,9 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Items.Actions
                     EditorGUILayout.PropertyField(PropertyFromName("m_Spread"));
                     EditorGUILayout.PropertyField(PropertyFromName("m_FireInLookSourceDirection"));
                     EditorGUILayout.HelpBox("If a projectile prefab is specified then this projectile will be fired from the weapon. If no projectile is specified then a hitscan will be used.", MessageType.Info);
+                    var projectile = PropertyFromName("m_Projectile");
                     EditorGUILayout.PropertyField(projectile);
                     if (projectile.objectReferenceValue == null) {
-                        EditorGUILayout.PropertyField(PropertyFromName("m_HitscanFireDelay"));
                         EditorGUILayout.PropertyField(PropertyFromName("m_HitscanFireRange"));
                         EditorGUILayout.PropertyField(PropertyFromName("m_MaxHitscanCollisionCount"));
                         InspectorUtility.UnityEventPropertyField(PropertyFromName("m_OnHitscanImpactEvent"));
@@ -111,7 +110,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Items.Actions
                     EditorGUILayout.PropertyField(PropertyFromName("m_DryFireItemSubstateParameterValue"));
                     if (InspectorUtility.Foldout(target, "Dry Fire Audio")) {
                         EditorGUI.indentLevel++;
-                        m_ReorderableDryFireAudioClipsList = AudioClipSetInspector.DrawAudioClipSet(m_ShootableWeapon.DryFireAudioClipSet, PropertyFromName("m_DryFireAudioClipSet"), m_ReorderableDryFireAudioClipsList, OnDryFireAudioClipDraw, OnDryFireAudioClipListAdd, OnDryFireAudioClipListRemove);
+                        AudioClipSetInspector.DrawAudioClipSet(m_ShootableWeapon.DryFireAudioClipSet, PropertyFromName("m_DryFireAudioClipSet"), ref m_ReorderableDryFireAudioClipsList, OnDryFireAudioClipDraw, OnDryFireAudioClipListAdd, OnDryFireAudioClipListRemove);
                         EditorGUI.indentLevel--;
                     }
                     EditorGUI.indentLevel--;
@@ -119,10 +118,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Items.Actions
 
                 if (Foldout("Impact")) {
                     EditorGUI.indentLevel++;
-                    EditorGUILayout.PropertyField(PropertyFromName("m_ImpactLayers")); 
-                    if (projectile.objectReferenceValue == null) {
-                        EditorGUILayout.PropertyField(PropertyFromName("m_HitscanTriggerInteraction"));
-                    }
+                    EditorGUILayout.PropertyField(PropertyFromName("m_ImpactLayers"));
                     EditorGUILayout.PropertyField(PropertyFromName("m_DamageAmount"));
                     EditorGUILayout.PropertyField(PropertyFromName("m_ImpactForce"));
                     EditorGUILayout.PropertyField(PropertyFromName("m_ImpactForceFrames"));
@@ -172,7 +168,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Items.Actions
                     }
                     if (InspectorUtility.Foldout(target, "Reload Complete Audio")) {
                         EditorGUI.indentLevel++;
-                        m_ReorderableReloadCompleteAudioClipsList = AudioClipSetInspector.DrawAudioClipSet(m_ShootableWeapon.ReloadCompleteAudioClipSet, PropertyFromName("m_ReloadCompleteAudioClipSet"), m_ReorderableReloadCompleteAudioClipsList, OnReloadCompleteAudioClipDraw, OnReloadCompleteAudioClipListAdd, OnReloadCompleteAudioClipListRemove);
+                        AudioClipSetInspector.DrawAudioClipSet(m_ShootableWeapon.ReloadCompleteAudioClipSet, PropertyFromName("m_ReloadCompleteAudioClipSet"), ref m_ReorderableReloadCompleteAudioClipsList, OnReloadCompleteAudioClipDraw, OnReloadCompleteAudioClipListAdd, OnReloadCompleteAudioClipListRemove);
                         EditorGUI.indentLevel--;
                     }
                 }

@@ -4,18 +4,18 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities.Items
 {
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// The ToggleEquip ability will equip or unequip the current ItemSet. ToggleEquip just specifies which ItemSet should be equipped/unequipped and then will let
     /// the EquipUnequip ability to do the actual equip/unequip.
     /// </summary>
     [DefaultStartType(AbilityStartType.ButtonDown)]
     [DefaultInputName("Toggle Item Equip")]
-    [AllowDuplicateTypes]
+    [AllowMultipleAbilityTypes]
     public class ToggleEquip : EquipSwitcher
     {
         [Tooltip("Should the default ItemSet be toggled upon start?")]
@@ -25,6 +25,23 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
 
         private int m_PrevItemSetIndex = -1;
         private bool m_ShouldEquipItem = true;
+        private bool m_AbilityToggledEquip;
+        private bool m_ImmediateEquipUnequip;
+
+        /// <summary>
+        /// Initialize the default values.
+        /// </summary>
+        public override void Awake()
+        {
+            base.Awake();
+
+            // The EquipUnequip must exist in order for the item to be able to be equip toggled.
+            if (m_EquipUnequipItemAbility == null) {
+                return;
+            }
+
+            EventHandler.RegisterEvent<int, bool, bool>(m_GameObject, "OnAbilityToggleSlots", OnToggleSlots);
+        }
 
         /// <summary>
         /// Start the ability if the default ItemSet should be equipped.
@@ -46,10 +63,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         /// <param name="itemSetIndex">The updated active ItemSet index value.</param>
         protected override void OnItemSetIndexChange(int itemSetIndex)
         {
-            if (!Enabled) {
-                return;
-            }
-
             var defaultItemSetIndex = m_ItemSetManager.GetDefaultItemSetIndex(m_ItemSetCategoryIndex);
             m_ShouldEquipItem = itemSetIndex == defaultItemSetIndex;
             if (itemSetIndex == defaultItemSetIndex) {
@@ -63,6 +76,40 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         }
 
         /// <summary>
+        /// An ability has started/stopped and should have the items in the specified mask equipped or unequipped.
+        /// </summary>
+        /// <param name="slotMask">The slots that should be equipped or unequipped.</param>
+        /// <param name="equip">True if the items in the specified slot should be equipped.</param>
+        /// <param name="forceEquipUnequip">Should the ability be force started? This will stop all abilities that would prevent EquipUnequip from starting.</param>
+        private void OnToggleSlots(int slotMask, bool equip, bool immediateEquipUnequip)
+        {
+            m_ImmediateEquipUnequip = immediateEquipUnequip;
+            if (equip) {
+                if (m_AbilityToggledEquip) {
+                    StartAbility();
+                    m_AbilityToggledEquip = false;
+                }
+            } else {
+                // Determine if the ability is responsible for equipping or unequipping the slot at the specified mask.
+                var slotCount = m_Inventory.SlotCount;
+                for (int i = 0; i < slotCount; ++i) {
+                    // Determine if the item should be equpped.
+                    if ((slotMask & (1 << i)) != (1 << i)) {
+                        var item = m_Inventory.GetItem(i);
+                        if (item != null) {
+                            // Start unequipping the item.
+                            if (item.ItemType.CategoryIDMatch(m_ItemSetCategoryID) && m_ShouldEquipItem == false) {
+                                m_AbilityToggledEquip = true;
+                                StartAbility();
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Called when the ablity is tried to be started. If false is returned then the ability will not be started.
         /// </summary>
         /// <returns>True if the ability can be started.</returns>
@@ -73,7 +120,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
                 return false;
             }
 
-            // PrevItemSetIndex will equal -1 if no non-default items have been equipped.
+            // PrevItemSetIndex will equal -1 if no no-default items have been equipped.
             if (m_PrevItemSetIndex == -1) {
                 return false;
             }
@@ -91,7 +138,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             // Start the EquipUnequip ability and then stop the ability. The EquipUnequip ability will do the actual work of equipping or unequipping the items.
             var defaultItemSetIndex = m_ItemSetManager.GetDefaultItemSetIndex(m_ItemSetCategoryIndex);
             var itemSetIndex = m_ShouldEquipItem ? m_PrevItemSetIndex : defaultItemSetIndex;
-            m_EquipUnequipItemAbility.StartEquipUnequip(itemSetIndex, false, false);
+            m_EquipUnequipItemAbility.StartEquipUnequip(itemSetIndex, false, m_ImmediateEquipUnequip);
             m_ShouldEquipItem = itemSetIndex == defaultItemSetIndex;
             StopAbility();
         }
@@ -107,6 +154,20 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             if (m_Inventory.RemoveAllOnDeath) {
                 m_PrevItemSetIndex = -1;
             }
+        }
+
+        /// <summary>
+        /// The character has been destroyed.
+        /// </summary>
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            if (m_EquipUnequipItemAbility == null) {
+                return;
+            }
+
+            EventHandler.UnregisterEvent<int, bool, bool>(m_GameObject, "OnAbilityToggleSlots", OnToggleSlots);
         }
     }
 }

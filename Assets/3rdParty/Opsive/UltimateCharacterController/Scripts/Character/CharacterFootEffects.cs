@@ -4,20 +4,16 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Audio;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.SurfaceSystem;
+using Opsive.UltimateCharacterController.Utility;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Character
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Audio;
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-    using Opsive.UltimateCharacterController.Networking;
-#endif
-    using Opsive.UltimateCharacterController.StateSystem;
-    using Opsive.UltimateCharacterController.SurfaceSystem;
-    using System.Collections.Generic;
-    using UnityEngine;
-
     /// <summary>
     /// The CharacterFootEffects component will detect when a footstep has occurred.
     /// </summary>
@@ -61,10 +57,12 @@ namespace Opsive.UltimateCharacterController.Character
         [SerializeField] protected FootstepPlacementMode m_FootstepMode;
         [Tooltip("The character's feet. Only used with the BodyStep and Trigger placement modes.")]
         [SerializeField] protected Foot[] m_Feet;
+        [Tooltip("The minimum velocity (squared) that the character must have in order for a footstep to be detected.")]
+        [SerializeField] protected float m_MinVelocity = 3f;
         [Tooltip("If using the BodyStep mode, specifies the number of frames that the foot must be moving in order for it to be checked if it is down.")]
         [SerializeField] protected int m_MoveDirectionFrameCount = 7;
         [Tooltip("Specifies an offset for when a raycast is cast to determine if the character's foot is considered down.")]
-        [SerializeField] protected float m_FootOffset = 0.07f;
+        [SerializeField] protected float m_FootOffset = 0.03f;
         [Tooltip("If using the FixedInterval mode, specifies how often the footsteps occur when the character is moving.")]
         [SerializeField] protected float m_Interval = 0.3f;
         [Tooltip("If using the CameraBob mode, specifies the minimum time that must elapse before another footstep occurs.")]
@@ -83,6 +81,7 @@ namespace Opsive.UltimateCharacterController.Character
         }
         public SurfaceImpact SurfaceImpact { get { return m_SurfaceImpact; } set { m_SurfaceImpact = value; } }
         [NonSerialized] public Foot[] Feet { get { return m_Feet; } set { m_Feet = value; } }
+        public float MinVelocity { get { return m_MinVelocity; } set { m_MinVelocity = value; } }
         public int MoveDirectionFrameCount { get { return m_MoveDirectionFrameCount; } set { m_MoveDirectionFrameCount = value; } }
         public float FootOffset { get { return m_FootOffset; } set { m_FootOffset = value; } }
         public float Interval { get { return m_Interval; } set { m_Interval = value; } }
@@ -93,10 +92,6 @@ namespace Opsive.UltimateCharacterController.Character
         private UltimateCharacterLocomotion m_CharacterLocomotion;
         private CharacterLayerManager m_CharacterLayerManager;
         private ILookSource m_LookSource;
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-        private INetworkInfo m_NetworkInfo;
-        private Vector3 m_PreviousPosition;
-#endif
 
         private List<List<Transform>> m_FeetGrouping = new List<List<Transform>>();
         private HashSet<Transform> m_FlippedFootprints = new HashSet<Transform>();
@@ -119,10 +114,6 @@ namespace Opsive.UltimateCharacterController.Character
             m_Transform = transform;
             m_CharacterLocomotion = m_GameObject.GetCachedComponent<UltimateCharacterLocomotion>();
             m_CharacterLayerManager = m_GameObject.GetCachedComponent<CharacterLayerManager>();
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-            m_NetworkInfo = m_GameObject.GetCachedComponent<INetworkInfo>();
-            m_PreviousPosition = m_Transform.position;
-#endif
 
             if (m_Feet == null) {
                 InitializeHumanoidFeet();
@@ -284,15 +275,8 @@ namespace Opsive.UltimateCharacterController.Character
         /// </summary>
         private void FixedUpdate()
         {
-            var velocity = m_CharacterLocomotion.LocomotionVelocity;
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-            if (m_NetworkInfo != null && !m_NetworkInfo.IsLocalPlayer()) {
-                velocity = (m_PreviousPosition - m_Transform.position) / Time.deltaTime;
-                m_PreviousPosition = m_Transform.position;
-            }
-#endif
             // The character has to be grounded and moving in order to be able to place footsteps.
-            if (!m_CharacterLocomotion.Grounded || !m_CharacterLocomotion.Moving || m_FootstepMode == FootstepPlacementMode.None) {
+            if (!m_CharacterLocomotion.Grounded || m_CharacterLocomotion.LocomotionVelocity.sqrMagnitude < m_MinVelocity || m_FootstepMode == FootstepPlacementMode.None) {
                 return;
             }
 
@@ -387,14 +371,14 @@ namespace Opsive.UltimateCharacterController.Character
         /// <param name="foot">The foot which caused the footstep.</param>
         /// <param name="flipFootprint">Should the footprint be flipped?</param>
         /// <returns>True if the footstep was successfully planted.</returns>
-        public virtual bool FootStep(Transform foot, bool flipFootprint)
+        public bool FootStep(Transform foot, bool flipFootprint)
         {
             // A RaycastHit is required for the SurfaceManager.
             RaycastHit hit;
             if (Physics.Raycast(foot.position + m_CharacterLocomotion.Up * 0.1f, -m_CharacterLocomotion.Up, out hit, 0.11f + m_FootOffset, m_CharacterLayerManager.IgnoreInvisibleCharacterWaterLayers, QueryTriggerInteraction.Ignore)) {
                 SurfaceManager.SpawnEffect(hit, m_SurfaceImpact, m_CharacterLocomotion.GravityDirection, m_CharacterLocomotion.TimeScale, foot.gameObject, m_Transform.forward, flipFootprint);
                 return true;
-            }
+            } 
             return false;
         }
 

@@ -4,14 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// An abstract class for any ability that needs another object to start (such as picking an object up, vaulting, climbing, interacting, etc).
     /// </summary>
@@ -47,8 +46,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         [HideInInspector] [SerializeField] protected int m_CastFrameInterval = 0;
         [Tooltip("The offset to applied to the cast.")]
         [HideInInspector] [SerializeField] protected Vector3 m_CastOffset = new Vector3(0, 1, 0);
-        [Tooltip("Specifies if the cast should interact with triggers.")]
-        [HideInInspector] [SerializeField] protected QueryTriggerInteraction m_TriggerInteraction = QueryTriggerInteraction.Ignore;
         [Tooltip("The radius of the spherecast.")]
         [HideInInspector] [SerializeField] protected float m_SpherecastRadius = 0.5f;
         [Tooltip("The maximum number of valid triggers that the ability can detect.")]
@@ -69,7 +66,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         public bool UseLookDirection { get { return m_UseLookDirection; } set { m_UseLookDirection = value; } }
         public float CastDistance { get { return m_CastDistance; } set { m_CastDistance = value; } }
         public Vector3 CastOffset { get { return m_CastOffset; } set { m_CastOffset = value; } }
-        public QueryTriggerInteraction TriggerInteraction { get { return m_TriggerInteraction; } set { m_TriggerInteraction = value; } }
         public float SpherecastRadius { get { return m_SpherecastRadius; } set { m_SpherecastRadius = value; } }
 
         protected ILookSource m_LookSource;
@@ -131,7 +127,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
             // The ability can start if using a trigger.
             if ((m_ObjectDetection & ObjectDetectionMode.Trigger) != 0 && m_DetectedTriggerObjectsCount > 0) {
                 for (int i = 0; i < m_DetectedTriggerObjectsCount; ++i) {
-                    if (ValidateObject(m_DetectedTriggerObjects[i], null)) {
+                    if (ValidateObject(m_DetectedTriggerObjects[i], true)) {
                         m_DetectedObject = m_DetectedTriggerObjects[i];
                         return true;
                     } else if (!m_DetectedTriggerObjects[i].activeInHierarchy) { // The OnTriggerExit callback doesn't occur when the object is deactivated. 
@@ -164,7 +160,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
             if ((m_ObjectDetection & ObjectDetectionMode.Charactercast) != 0) {
                 if (m_CharacterLocomotion.SingleCast(castDirection * m_CastDistance, castTransform.TransformDirection(m_CastOffset), m_DetectLayers, ref m_RaycastResult)) {
                     var hitObject = m_RaycastResult.collider.gameObject;
-                    if (ValidateObject(hitObject, m_RaycastResult)) {
+                    if (ValidateObject(hitObject, false)) {
                         m_DetectedObject = hitObject;
                         return true;
                     }
@@ -173,9 +169,9 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
 
             // Use a raycast to detect if the character is near the object.
             if ((m_ObjectDetection & ObjectDetectionMode.Raycast) != 0) {
-                if (Physics.Raycast(castTransform.TransformPoint(m_CastOffset), castDirection, out m_RaycastResult, m_CastDistance, m_DetectLayers, m_TriggerInteraction)) {
+                if (Physics.Raycast(castTransform.TransformPoint(m_CastOffset), castDirection, out m_RaycastResult, m_CastDistance, m_DetectLayers, QueryTriggerInteraction.Ignore)) {
                     var hitObject = m_RaycastResult.collider.gameObject;
-                    if (ValidateObject(hitObject, m_RaycastResult)) {
+                    if (ValidateObject(hitObject, false)) {
                         m_DetectedObject = hitObject;
                         return true;
                     }
@@ -185,9 +181,9 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
             // Use a spherecast to detect if the character is near the object.
             if ((m_ObjectDetection & ObjectDetectionMode.Spherecast) != 0) {
                 if (Physics.SphereCast(castTransform.TransformPoint(m_CastOffset) - castTransform.forward * m_SpherecastRadius, m_SpherecastRadius, castDirection, out m_RaycastResult,
-                                        m_CastDistance, m_DetectLayers, m_TriggerInteraction)) {
+                                        m_CastDistance, m_DetectLayers, QueryTriggerInteraction.Ignore)) {
                     var hitObject = m_RaycastResult.collider.gameObject;
-                    if (ValidateObject(hitObject, m_RaycastResult)) {
+                    if (ValidateObject(hitObject, false)) {
                         m_DetectedObject = hitObject;
                         return true;
                     }
@@ -215,16 +211,9 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
                 return;
             }
 
-            // Ensure the detected object isn't duplicated within the list.
-            for (int i = 0; i < m_DetectedTriggerObjectsCount; ++i) {
-                if (m_DetectedTriggerObjects[i] == other.gameObject) {
-                    return;
-                }
-            }
-
-            if (ValidateObject(other.gameObject, null)) {
+            if (ValidateObject(other.gameObject, true)) {
                 if (m_DetectedTriggerObjects.Length == m_DetectedTriggerObjectsCount) {
-                    Debug.LogError($"Error: The maximum number of trigger objects need to be increased on the {GetType().Name} ability.");
+                    Debug.LogError("Error: The maximum number of trigger objects need to be increased on the " + GetType().Name + " ability.");
                     return;
                 }
                 m_DetectedTriggerObjects[m_DetectedTriggerObjectsCount] = other.gameObject;
@@ -273,11 +262,11 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         /// Validates the object to ensure it is valid for the current ability.
         /// </summary>
         /// <param name="obj">The object being validated.</param>
-        /// <param name="raycastHit">The raycast hit of the detected object. Will be null for trigger detections.</param>
+        /// <param name="fromTrigger">Is the object being validated within a trigger?</param>
         /// <returns>True if the object is valid. The object may not be valid if it doesn't have an ability-specific component attached.</returns>
-        protected virtual bool ValidateObject(GameObject obj, RaycastHit? raycastHit)
+        protected virtual bool ValidateObject(GameObject obj, bool withinTrigger)
         {
-            if (obj == null || !obj.activeInHierarchy) {
+            if (!obj.activeInHierarchy) {
                 return false;
             }
 
@@ -300,18 +289,14 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
             }
 
             // The object has to be within the specified angle.
-            if (raycastHit.HasValue) {
+            if (!withinTrigger) {
                 var castDirection = m_UseLookDirection ? m_LookSource.LookDirection(true) : m_Transform.forward;
-                float angle;
+                var angle = Quaternion.Angle(Quaternion.LookRotation(castDirection, m_CharacterLocomotion.Up), Quaternion.LookRotation(-obj.transform.forward, m_CharacterLocomotion.Up));
                 var objectFaces = obj.GetCachedParentComponent<Objects.ObjectForwardFaces>();
+                // If an object has multiple faces then the ability can start from multiple directions.
                 if (objectFaces != null) {
-                    // If an object has multiple faces then the ability can start from multiple directions. It should not start from any angle so don't use the raycast normal.
                     var roundedAngle = 360 / objectFaces.ForwardFaceCount;
-                    angle = Quaternion.Angle(Quaternion.LookRotation(castDirection, m_CharacterLocomotion.Up), Quaternion.LookRotation(-obj.transform.forward, m_CharacterLocomotion.Up));
                     angle = Mathf.Abs(MathUtility.ClampInnerAngle(angle - (roundedAngle * Mathf.RoundToInt(angle / roundedAngle))));
-                } else {
-                    // The object doesn't have the ObjectFaces component. Use the actual angle value.
-                    angle = Quaternion.Angle(Quaternion.LookRotation(castDirection, m_CharacterLocomotion.Up), Quaternion.LookRotation(-raycastHit.Value.normal, m_CharacterLocomotion.Up));
                 }
 
                 if (angle <= m_AngleThreshold) {

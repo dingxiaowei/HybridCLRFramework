@@ -4,24 +4,24 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using UnityEditorInternal;
+using System;
+using System.Collections.Generic;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Character.MovementTypes;
+using Opsive.UltimateCharacterController.Character.Effects;
+using Opsive.UltimateCharacterController.Character.Abilities;
+using Opsive.UltimateCharacterController.Character.Abilities.Items;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Utility;
+using Opsive.UltimateCharacterController.Utility.Builders;
+using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Character
 {
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Character.MovementTypes;
-    using Opsive.UltimateCharacterController.Character.Effects;
-    using Opsive.UltimateCharacterController.Character.Abilities;
-    using Opsive.UltimateCharacterController.Character.Abilities.Items;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using Opsive.UltimateCharacterController.Utility;
-    using Opsive.UltimateCharacterController.Utility.Builders;
-    using System;
-    using System.Collections.Generic;
-    using UnityEditor;
-    using UnityEditorInternal;
-    using UnityEngine;
-
     /// <summary>
     /// Shows a custom inspector for the UltimateCharacterLocomotion.
     /// </summary>
@@ -153,28 +153,21 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Character
                     if (index != selectedIndex) {
                         m_CharacterLocomotion.ThirdPersonMovementTypeFullName = m_ThirdPersonMovementTypes[index].FullName;
                         // Update the default movement type if the current movement type is third person. Do not update when playing because the third person property will update the current type.
-                        if (!Application.isPlaying && (m_CharacterLocomotion.ActiveMovementType == null || m_CharacterLocomotion.ActiveMovementType.GetType().FullName.Contains("ThirdPerson"))) {
+                        if (!Application.isPlaying && m_CharacterLocomotion.ActiveMovementType.GetType().FullName.Contains("ThirdPerson")) {
                             m_CharacterLocomotion.MovementTypeFullName = m_CharacterLocomotion.ThirdPersonMovementTypeFullName;
                         }
                     }
                 }
-                EditorGUILayout.BeginVertical("Box");
                 ReorderableListSerializationHelper.DrawReorderableList(ref m_ReorderableMovementTypeList, this, m_CharacterLocomotion.MovementTypes, "m_MovementTypeData",
                                                                 OnMovementTypeListDrawHeader, OnMovementTypeListDraw, OnMovementTypeListReorder, OnMovementTypeListAdd,
                                                                 OnMovementTypeListRemove, OnMovementTypeListSelect,
                                                                 DrawSelectedMovementType, SelectedMovementTypeIndexKey, true, false);
-                EditorGUILayout.EndVertical();
 
                 EditorGUILayout.PropertyField(PropertyFromName("m_FirstPersonStateName"));
                 EditorGUILayout.PropertyField(PropertyFromName("m_ThirdPersonStateName"));
 
                 if (Foldout("Motor")) {
                     EditorGUI.indentLevel++;
-                    var updateLocation = PropertyFromName("m_UpdateLocation");
-                    EditorGUILayout.PropertyField(updateLocation);
-                    if (updateLocation.enumValueIndex == (int)UltimateCharacterController.Game.KinematicObjectManager.UpdateLocation.Update) {
-                        EditorGUILayout.HelpBox("It is recommended that the framerate is limited using Application.targetFrameRate.", MessageType.Info);
-                    }
                     var useRootMotionPosition = PropertyFromName("m_UseRootMotionPosition");
                     EditorGUILayout.PropertyField(useRootMotionPosition);
                     EditorGUI.indentLevel++;
@@ -240,7 +233,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Character
                         if (gravityDirection != PropertyFromName("m_GravityDirection").vector3Value) {
                             m_CharacterLocomotion.GravityDirection = PropertyFromName("m_GravityDirection").vector3Value;
                         }
-                        EditorGUILayout.PropertyField(PropertyFromName("m_GravityMagnitude"));
+                        EditorGUILayout.PropertyField(PropertyFromName("m_GravityModifier"));
                         EditorGUI.indentLevel--;
                     }
                     EditorGUILayout.PropertyField(PropertyFromName("m_WallGlideCurve"));
@@ -295,31 +288,19 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Character
 
                 // Draw the ability and effect reorderable lists last.
                 if (Foldout("Abilities")) {
-                    EditorGUI.indentLevel++;
-                    EditorGUILayout.BeginVertical("Box");
                     ReorderableListSerializationHelper.DrawReorderableList(ref m_ReorderableAbilityList, this, m_CharacterLocomotion.Abilities, "m_AbilityData",
                                                                     OnAbilityListDrawHeader, OnAbilityListDraw, OnAbilityListReorder, OnAbilityListAdd, OnAbilityListRemove, OnAbilityListSelect,
                                                                     DrawSelectedAbility, SelectedAbilityIndexKey, false, true);
-                    EditorGUILayout.EndVertical();
-                    EditorGUI.indentLevel--;
                 }
                 if (Foldout("Item Abilities")) {
-                    EditorGUI.indentLevel++;
-                    EditorGUILayout.BeginVertical("Box");
                     ReorderableListSerializationHelper.DrawReorderableList(ref m_ReorderableItemAbilityList, this, m_CharacterLocomotion.ItemAbilities, "m_ItemAbilityData",
                                                                     OnItemAbilityListDrawHeader, OnItemAbilityListDraw, OnItemAbilityListReorder, OnItemAbilityListAdd, OnItemAbilityListRemove,
                                                                     OnItemAbilityListSelect, DrawSelectedItemAbility, SelectedItemAbilityIndexKey, false, true);
-                    EditorGUILayout.EndVertical();
-                    EditorGUI.indentLevel--;
                 }
                 if (Foldout("Effects")) {
-                    EditorGUI.indentLevel++;
-                    EditorGUILayout.BeginVertical("Box");
                     ReorderableListSerializationHelper.DrawReorderableList(ref m_ReorderableEffectList, this, m_CharacterLocomotion.Effects, "m_EffectData", OnEffectListDrawHeader,
                                                                     OnEffectListDraw, OnEffectListReorder, OnEffectListAdd, OnEffectListRemove, OnEffectListSelect, DrawSelectedEffect,
                                                                     SelectedEffectIndexKey, false, true);
-                    EditorGUILayout.EndVertical();
-                    EditorGUI.indentLevel--;
                 }
                 if (Foldout("Events")) {
                     EditorGUI.indentLevel++;
@@ -975,7 +956,6 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Character
         /// </summary>
         private void DrawSelectedMovementType(int index)
         {
-            EditorGUI.indentLevel++;
             var movementType = m_CharacterLocomotion.MovementTypes[index];
             InspectorUtility.DrawObject(movementType, true, true, target, true, SerializeMovementTypes);
 
@@ -996,7 +976,6 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Character
                                                             OnMovementTypeStateListReorder, OnMovementTypeStateListRemove);
                 DestroyImmediate(gameObject);
             }
-            EditorGUI.indentLevel--;
         }
 
         /// <summary>
@@ -1224,10 +1203,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Character
         /// </summary>
         private void OnAbilityStateListDraw(Rect rect, int index, bool isActive, bool isFocused)
         {
-            if (m_ReorderableAbilityStateList == null || m_CharacterLocomotion.Abilities == null || m_CharacterLocomotion.Abilities.Length <= EditorPrefs.GetInt(SelectedAbilityIndexKey)) {
-                if (m_ReorderableAbilityStateList != null) {
-                    EditorPrefs.SetInt(SelectedAbilityIndexKey, -1);
-                }
+            if (m_ReorderableAbilityStateList == null) {
                 return;
             }
 
@@ -1364,7 +1340,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Character
         /// </summary>
         private string GetSelectedItemAbilityStateIndexKey(ItemAbility itemAbility)
         {
-            return c_EditorPrefsSelectedItemAbilityStateIndexKey + "." + target.GetType() + "." + target.name + "." + itemAbility.GetType() + "." + itemAbility.Index;
+            return c_EditorPrefsSelectedAbilityStateIndexKey + "." + target.GetType() + "." + target.name + "." + itemAbility.GetType() + "." + itemAbility.Index;
         }
 
         /// <summary>
@@ -1505,7 +1481,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Character
         /// </summary>
         private string GetSelectedEffectStateIndexKey(Effect effect)
         {
-            return c_EditorPrefsSelectedEffectStateIndexKey + "." + target.GetType() + "." + target.name + "." + effect.GetType();
+            return c_EditorPrefsSelectedAbilityStateIndexKey + "." + target.GetType() + "." + target.name + "." + effect.GetType();
         }
 
         /// <summary>
@@ -1618,7 +1594,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Character
         private void SerializeMovementTypes()
         {
             var movementTypes = new List<MovementType>(m_CharacterLocomotion.MovementTypes);
-            m_CharacterLocomotion.MovementTypeData = Shared.Utility.Serialization.Serialize<MovementType>(movementTypes);
+            m_CharacterLocomotion.MovementTypeData = Serialization.Serialize<MovementType>(movementTypes);
             m_CharacterLocomotion.MovementTypes = movementTypes.ToArray();
             UpdateDefaultMovementTypes();
             InspectorUtility.SetDirty(target);
@@ -1709,7 +1685,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Character
         private void SerializeEffects()
         {
             var effects = new List<Effect>(m_CharacterLocomotion.Effects);
-            m_CharacterLocomotion.EffectData = Shared.Utility.Serialization.Serialize<Effect>(effects);
+            m_CharacterLocomotion.EffectData = Serialization.Serialize<Effect>(effects);
             m_CharacterLocomotion.Effects = effects.ToArray();
             InspectorUtility.SetDirty(target);
         }

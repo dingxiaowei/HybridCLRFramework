@@ -4,13 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using Opsive.UltimateCharacterController.Character.Abilities;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Character.Abilities
 {
-    using Opsive.UltimateCharacterController.Character.Abilities;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using UnityEditor;
-    using UnityEngine;
-
     /// <summary>
     /// Draws a custom inspector for the DetectObjectAbilityBase ability.
     /// </summary>
@@ -45,7 +45,6 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Character.Abiliti
                     InspectorUtility.DrawField(target, "m_CastDistance");
                     InspectorUtility.DrawField(target, "m_CastFrameInterval");
                     InspectorUtility.DrawField(target, "m_CastOffset");
-                    InspectorUtility.DrawField(target, "m_TriggerInteraction");
                     if ((objectDetectionEnumValue & DetectObjectAbilityBase.ObjectDetectionMode.Spherecast) != 0) {
                         InspectorUtility.DrawField(target, "m_SpherecastRadius");
                     }

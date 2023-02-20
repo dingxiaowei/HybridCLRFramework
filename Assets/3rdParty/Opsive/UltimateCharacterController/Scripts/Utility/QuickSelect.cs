@@ -3,11 +3,10 @@
 /// Copyright (c) Opsive. All Rights Reserved.
 /// https://www.opsive.com
 /// ---------------------------------------------
+using System.Collections.Generic;
 
 namespace Opsive.UltimateCharacterController.Utility
 {
-    using System.Collections.Generic;
-
     /// <summary>
     /// The QuickSelect algorithm is a selection algorithm that uses a similar method as the QuickSort sorting algorithm. More information can be found on this page:
     /// https://en.wikipedia.org/wiki/Quickselect. 

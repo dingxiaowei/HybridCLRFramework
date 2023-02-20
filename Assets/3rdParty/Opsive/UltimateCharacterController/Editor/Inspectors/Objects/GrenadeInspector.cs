@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEditor;
+using Opsive.UltimateCharacterController.Objects;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Objects
 {
-    using Opsive.UltimateCharacterController.Objects;
-    using UnityEditor;
-
     /// <summary>
     /// Custom inspector for the Grenade component.
     /// </summary>

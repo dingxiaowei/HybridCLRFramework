@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+
 namespace Opsive.UltimateCharacterController.Objects.CharacterAssist
 {
-    using Opsive.UltimateCharacterController.Character;
-    using UnityEngine;
-
     /// <summary>
     /// Specifies the location that the ability should use when determining where to move the limb to. This component should be attached to the target limb location.
     /// </summary>

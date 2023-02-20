@@ -4,23 +4,23 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Items;
+using Opsive.UltimateCharacterController.Items.Actions;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Objects
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Items;
-    using Opsive.UltimateCharacterController.Items.Actions.PerspectiveProperties;
-    using UnityEngine;
-
     /// <summary>
     /// Shows an object which slowly fades out with time. Can optionally attach a light to the GameObject and that light will be faded as well.
     /// </summary>
     public class MuzzleFlash : MonoBehaviour
     {
-        [Tooltip("The name of the shader tint color property.")]
-        [SerializeField] protected string m_TintColorPropertyName = "_TintColor";
+        // The name of the shader tint color property.
+        private const string TintColor = "_TintColor";
 
         [Tooltip("The alpha value to initialize the muzzle flash material to.")]
         [Range(0, 1)] [SerializeField] protected float m_StartAlpha = 0.5f;
@@ -37,7 +37,6 @@ namespace Opsive.UltimateCharacterController.Objects
         private Light m_Light;
         private ParticleSystem m_Particles;
 
-        private int m_TintColorPropertyID;
         private Color m_Color;
         private float m_StartLightIntensity;
         private float m_FadeSpeed;
@@ -60,7 +59,6 @@ namespace Opsive.UltimateCharacterController.Objects
 #if FIRST_PERSON_CONTROLLER && THIRD_PERSON_CONTROLLER
             m_Transform = transform;
 #endif
-            m_TintColorPropertyID = Shader.PropertyToID(m_TintColorPropertyName);
 
             var renderer = GetComponent<Renderer>();
             if (renderer != null) {
@@ -82,7 +80,7 @@ namespace Opsive.UltimateCharacterController.Objects
         {
             m_Color.a = 0;
             if (m_Material != null) {
-                m_Material.SetColor(m_TintColorPropertyID, m_Color);
+                m_Material.SetColor(TintColor, m_Color);
             }
             if (m_Light != null) {
                 m_Light.intensity = 0;
@@ -128,7 +126,7 @@ namespace Opsive.UltimateCharacterController.Objects
             m_Color = Color.white;
             m_Color.a = m_StartAlpha;
             if (m_Material != null) {
-                m_Material.SetColor(m_TintColorPropertyID, m_Color);
+                m_Material.SetColor(TintColor, m_Color);
             }
             m_FadeSpeed = Random.Range(m_MinFadeSpeed, m_MaxFadeSpeed);
             if (m_Light != null) {
@@ -152,7 +150,7 @@ namespace Opsive.UltimateCharacterController.Objects
             if (m_Color.a > 0) {
                 m_Color.a = Mathf.Max(m_Color.a - (m_FadeSpeed * Time.deltaTime * m_TimeScale), 0);
                 if (m_Material != null) {
-                    m_Material.SetColor(m_TintColorPropertyID, m_Color);
+                    m_Material.SetColor(TintColor, m_Color);
                 }
                 // Keep the light intensity synchronized with the alpha channel's value.
                 if (m_Light != null) {

@@ -4,16 +4,16 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Character.Identifiers;
+using Opsive.UltimateCharacterController.Character.MovementTypes;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Inventory;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Utility.Builders
 {
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Character.Identifiers;
-    using Opsive.UltimateCharacterController.Character.MovementTypes;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Inventory;
-    using System.Collections.Generic;
-    using UnityEngine;
-
     /// <summary>
     /// Allows for the Ultimate Character Controller components to be added/removed at runtime.
     /// </summary>
@@ -158,7 +158,6 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
                     var head = animator.GetBoneTransform(HumanBodyBones.Head);
                     if (head != null) {
                         positioner.SecondEndCapTarget = head;
-                        positioner.RotationBone = positioner.PositionBone = animator.GetBoneTransform(HumanBodyBones.Hips);
                     }
                 }
             }
@@ -199,6 +198,7 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
                 animator = character.AddComponent<Animator>();
             }
             animator.runtimeAnimatorController = animatorController;
+            animator.updateMode = AnimatorUpdateMode.AnimatePhysics;
             if (!aiAgent) {
                 animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
             }
@@ -327,7 +327,7 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
                     var movementTypeObj = System.Activator.CreateInstance(type) as MovementType;
                     movementTypesList.Add(movementTypeObj);
                     ultimateCharacterLocomotion.MovementTypes = movementTypesList.ToArray();
-                    ultimateCharacterLocomotion.MovementTypeData = Shared.Utility.Serialization.Serialize<MovementType>(movementTypesList);
+                    ultimateCharacterLocomotion.MovementTypeData = Serialization.Serialize(movementTypesList);
 
                     // If the character has already been initialized then the movement type should be initialized.
                     if (Application.isPlaying) {
@@ -375,6 +375,9 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
                 AbilityBuilder.AddAbility(characterLocomotion, typeof(Character.Abilities.Jump));
                 AbilityBuilder.AddAbility(characterLocomotion, typeof(Character.Abilities.Fall));
                 AbilityBuilder.AddAbility(characterLocomotion, typeof(Character.Abilities.MoveTowards));
+                if (addItems) {
+                    AbilityBuilder.AddAbility(characterLocomotion, typeof(Character.Abilities.ItemEquipVerifier));
+                }
                 AbilityBuilder.AddAbility(characterLocomotion, typeof(Character.Abilities.SpeedChange));
                 AbilityBuilder.AddAbility(characterLocomotion, typeof(Character.Abilities.HeightChange));
                 // The abilities should not use an input related start type.
@@ -443,10 +446,6 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
                     }
                     AbilityBuilder.SerializeItemAbilities(characterLocomotion);
                 }
-
-                // The ItemEquipVerifier needs to be added after the item abilities.
-                AbilityBuilder.AddAbility(characterLocomotion, typeof(Character.Abilities.ItemEquipVerifier));
-                AbilityBuilder.SerializeAbilities(characterLocomotion);
             }
         }
 
@@ -507,8 +506,8 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
         /// <param name="character">The character to add the UnityInput component to.</param>
         public static void AddUnityInput(GameObject character)
         {
-            if (character.GetComponent<UltimateCharacterController.Input.UnityInput>() == null) {
-                character.AddComponent<UltimateCharacterController.Input.UnityInput>();
+            if (character.GetComponent<Input.UnityInput>() == null) {
+                character.AddComponent<Input.UnityInput>();
             }
         }
 
@@ -518,7 +517,7 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
         /// <param name="character">The character to remove the UnityInput component from.</param>
         public static void RemoveUnityInput(GameObject character)
         {
-            var unityInput = character.GetComponent<UltimateCharacterController.Input.UnityInput>();
+            var unityInput = character.GetComponent<Input.UnityInput>();
             if (unityInput != null) {
                 GameObject.DestroyImmediate(unityInput, true);
             }
@@ -567,8 +566,8 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
             }
 
             // Items use the inventory for being equip/unequip.
-            if (character.GetComponent<Inventory>() == null) {
-                character.AddComponent<Inventory>();
+            if (character.GetComponent<Inventory.Inventory>() == null) {
+                character.AddComponent<Inventory.Inventory>();
             }
 
 #if FIRST_PERSON_CONTROLLER
@@ -621,7 +620,7 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
                 }
             }
 
-            var inventory = character.GetComponent<Inventory>();
+            var inventory = character.GetComponent<Inventory.Inventory>();
             if (inventory != null) {
                 GameObject.DestroyImmediate(inventory, true);
             }

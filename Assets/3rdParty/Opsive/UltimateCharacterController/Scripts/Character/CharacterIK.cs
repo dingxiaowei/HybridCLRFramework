@@ -4,17 +4,16 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Inventory;
+using Opsive.UltimateCharacterController.Items;
+using Opsive.UltimateCharacterController.Motion;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Character
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Inventory;
-    using Opsive.UltimateCharacterController.Items;
-    using Opsive.UltimateCharacterController.Motion;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// Allows the character to stand on uneven surfaces and rotates and positions the character's limbs to face in the look direction.
     /// </summary>
@@ -157,6 +156,7 @@ namespace Opsive.UltimateCharacterController.Character
 
         private Vector3 m_HipsPosition;
         private float m_HipsOffset;
+        private bool m_HipsUpdate;
         private float[] m_FootOffset = new float[2];
         private float[] m_FootIKWeight = new float[2];
         private float[] m_MaxLegLength = new float[2];
@@ -358,13 +358,15 @@ namespace Opsive.UltimateCharacterController.Character
         /// <param name="duration">The amount of time it takes to reach the goal.</param>
         public override void SetAbilityIKTarget(Transform target, IKGoal ikGoal, float duration)
         {
-            if (m_InterpolationTarget[(int)ikGoal] == null) {
-                var interpTarget = new GameObject("IK Interpolation " + ikGoal);
-                m_InterpolationTarget[(int)ikGoal] = interpTarget.transform;
-                m_InterpolationTarget[(int)ikGoal].SetParentOrigin(m_Transform);
+            if (duration > 0) {
+                if (m_InterpolationTarget[(int)ikGoal] == null) {
+                    var interpTarget = new GameObject("IK Interpolation " + ikGoal);
+                    m_InterpolationTarget[(int)ikGoal] = interpTarget.transform;
+                    m_InterpolationTarget[(int)ikGoal].SetParentOrigin(m_Transform);
+                }
+                m_StartInterpolation[(int)ikGoal] = Time.time;
+                m_InterpolationDuration[(int)ikGoal] = duration;
             }
-            m_StartInterpolation[(int)ikGoal] = Time.time;
-            m_InterpolationDuration[(int)ikGoal] = duration;
 
             SetAbilityIKTarget(target, ikGoal);
         }
@@ -411,7 +413,7 @@ namespace Opsive.UltimateCharacterController.Character
         /// <summary>
         /// An item has been equipped.
         /// </summary>
-        /// <param name="item">The equipped item.</param>
+        /// <param name="itemType">The equipped item.</param>
         /// <param name="slotID">The slot that the item now occupies.</param>
         private void OnEquipItem(Item item, int slotID)
         {
@@ -438,7 +440,7 @@ namespace Opsive.UltimateCharacterController.Character
             }
             Item dominantItem = null;
             for (int i = 0; i < m_Inventory.SlotCount; ++i) {
-                var item = m_Inventory.GetActiveItem(i);
+                var item = m_Inventory.GetItem(i);
                 if (item != null && item.DominantItem) {
                     dominantItem = item;
                     break;
@@ -620,7 +622,7 @@ namespace Opsive.UltimateCharacterController.Character
             }
 
             // Smoothly position the hips.
-            m_HipsOffset = m_ImmediatePosition ? hipsOffset : Mathf.Lerp(m_HipsOffset, hipsOffset, m_HipsPositionAdjustmentSpeed * Time.deltaTime);
+            m_HipsOffset = m_ImmediatePosition ? hipsOffset : Mathf.Lerp(m_HipsOffset, hipsOffset, m_HipsPositionAdjustmentSpeed * Time.fixedDeltaTime);
             m_HipsPosition = m_Transform.InverseTransformPoint(m_Hips.position);
             m_HipsPosition.y -= m_HipsOffset;
 
@@ -654,11 +656,7 @@ namespace Opsive.UltimateCharacterController.Character
                     }
                 }
 
-                if (adjustmentSpeed == 0) {
-                    m_FootIKWeight[i] = 0;
-                } else {
-                    m_FootIKWeight[i] = Mathf.Clamp01(m_ImmediatePosition ? targetWeight : Mathf.MoveTowards(m_FootIKWeight[i], targetWeight, adjustmentSpeed * Time.deltaTime));
-                }
+                m_FootIKWeight[i] = Mathf.Clamp01(m_ImmediatePosition ? targetWeight : Mathf.MoveTowards(m_FootIKWeight[i], targetWeight, adjustmentSpeed * Time.fixedDeltaTime));
 
                 // Other objects have the chance of modifying the final position and rotation value.
                 if (m_OnUpdateIKPosition != null) {
@@ -753,14 +751,14 @@ namespace Opsive.UltimateCharacterController.Character
                 }
 
                 m_HandRotationIKWeight[i] = Mathf.Clamp01(m_ImmediatePosition ? targetWeight :
-                                                Mathf.MoveTowards(m_HandRotationIKWeight[i], targetWeight, m_HandAdjustmentSpeed * Time.deltaTime));
+                                                Mathf.MoveTowards(m_HandRotationIKWeight[i], targetWeight, m_HandAdjustmentSpeed * Time.fixedDeltaTime));
 
                 // Set the IK rotation after the weight has been set. This is done after the weight is set because the rotation should be set at any time 
                 // the weight is greater than zero (such as when the hands are transitioning from aiming to no aiming).
                 var targetRotation = m_Animator.GetIKRotation(ikGoal);
                 if (m_HandRotationIKWeight[i] > 0) {
                     if (ikTarget != null) {
-                        targetRotation = m_Transform.rotation * m_IKTarget[(int)(i == 0 ? IKGoal.LeftHand : IKGoal.RightHand)].localRotation;
+                        targetRotation = m_IKTarget[(int)(i == 0 ? IKGoal.LeftHand : IKGoal.RightHand)].rotation;
                     } else {
                         // Use the distant hand so the hands are always pointing in the same direction.
                         if (distantHand == null) {
@@ -772,8 +770,7 @@ namespace Opsive.UltimateCharacterController.Character
                         }
                         var lookDirection = (m_LookSource.LookDirection(distantHand.position, false, 0, true) + m_Transform.TransformDirection(m_LookAtOffset)).normalized;
                         targetRotation = Quaternion.LookRotation(lookDirection, m_CharacterLocomotion.Up) * Quaternion.Inverse(m_Transform.rotation) * 
-                                            Quaternion.Euler(m_Transform.TransformDirection(i == 0 ? m_LeftHandRotationSpring.Value : m_RightHandRotationSpring.Value)) *
-                                            targetRotation;
+                                            Quaternion.Euler(i == 0 ? m_LeftHandRotationSpring.Value : m_RightHandRotationSpring.Value) *m_Animator.GetIKRotation(ikGoal);
                     }
                 }
                 // Other objects have the chance of modifying the final rotation value.
@@ -798,7 +795,7 @@ namespace Opsive.UltimateCharacterController.Character
             }
 
             var prevUpperArmWeight = m_DominantUpperArmWeight;
-            m_DominantUpperArmWeight = Mathf.Clamp01(m_ImmediatePosition ? targetWeight : Mathf.MoveTowards(m_DominantUpperArmWeight, targetWeight, m_UpperArmAdjustmentSpeed * Time.deltaTime));
+            m_DominantUpperArmWeight = Mathf.Clamp01(m_ImmediatePosition ? targetWeight : Mathf.MoveTowards(m_DominantUpperArmWeight, targetWeight, m_UpperArmAdjustmentSpeed * Time.fixedDeltaTime));
             if (prevUpperArmWeight > 0 && m_DominantUpperArmWeight == 0) {
                 DetermineDominantHand();
             }
@@ -874,18 +871,17 @@ namespace Opsive.UltimateCharacterController.Character
                     }
                     // If the target is not null then the transform should interpolate towards the target. If the target is null then
                     // the interpolation should move back towards the original ik position.
-                    var time = m_InterpolationDuration[i] > 0 ? Mathf.Clamp01((Time.time - m_StartInterpolation[i]) / m_InterpolationDuration[i]) : 1;
+                    var time = Mathf.Clamp01((Time.time - m_StartInterpolation[i]) / m_InterpolationDuration[i]);
                     if (m_AbilityIKTarget[i] == null) {
                         m_InterpolationTarget[i].position = Vector3.Lerp(m_InterpolationTarget[i].position, ikPosition, time);
-                        m_InterpolationTarget[i].rotation = Quaternion.Slerp(m_InterpolationTarget[i].rotation, ikRotation, time);
                         if (time == 1) {
                             m_StartInterpolation[i] = -1;
                             updateIKTargets = true;
                         }
                     } else {
                         m_InterpolationTarget[i].position = Vector3.Lerp(ikPosition, m_AbilityIKTarget[i].position, time);
-                        m_InterpolationTarget[i].rotation = Quaternion.Slerp(ikRotation, m_AbilityIKTarget[i].rotation, time);
                     }
+                    m_InterpolationTarget[i].rotation = ikRotation;
                     m_InterpolateIKTargets = true;
                 }
             }
@@ -915,7 +911,7 @@ namespace Opsive.UltimateCharacterController.Character
                 }
 
                 m_HandPositionIKWeight[i] = Mathf.Clamp01(m_ImmediatePosition ? targetWeight :
-                                                Mathf.MoveTowards(m_HandPositionIKWeight[i], targetWeight, m_HandAdjustmentSpeed * Time.deltaTime));
+                                                Mathf.MoveTowards(m_HandPositionIKWeight[i], targetWeight, m_HandAdjustmentSpeed * Time.fixedDeltaTime));
 
                 // Set the IK position after the weight has been set. This is done after the weight is set because the position should be set at any time 
                 // the weight is greater than zero (such as when the hands are transitioning from aiming to no aiming).

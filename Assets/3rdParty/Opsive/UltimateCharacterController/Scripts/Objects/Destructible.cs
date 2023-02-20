@@ -4,25 +4,23 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
+using Opsive.UltimateCharacterController.Networking;
+using Opsive.UltimateCharacterController.Networking.Game;
+using Opsive.UltimateCharacterController.Networking.Objects;
+#endif
+using Opsive.UltimateCharacterController.Objects.ItemAssist;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.SurfaceSystem;
+using Opsive.UltimateCharacterController.Traits;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Objects
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Events;
-    using Opsive.UltimateCharacterController.Game;
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-    using Opsive.UltimateCharacterController.Networking;
-    using Opsive.UltimateCharacterController.Networking.Game;
-    using Opsive.UltimateCharacterController.Networking.Objects;
-#endif
-    using Opsive.UltimateCharacterController.Objects.ItemAssist;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using Opsive.UltimateCharacterController.SurfaceSystem;
-    using Opsive.UltimateCharacterController.Traits;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// The Destructible class is an abstract class which acts as the base class for any object that destroys itself and applies a damange.
     /// Primary uses include projectiles and grenades.
@@ -89,9 +87,9 @@ namespace Opsive.UltimateCharacterController.Objects
             m_DestructibleMonitor = GetComponent<IDestructibleMonitor>();
 #endif
 
-            if (m_DestroyOnCollision && m_CollisionMode != CollisionMode.Collide) {
-                Debug.LogWarning($"Warning: The Destructible {name} will be destroyed on collision but does not have a Collision Mode set to Collide.");
-                m_CollisionMode = CollisionMode.Collide;
+            if (m_DestroyOnCollision && m_BounceMode != BounceMode.None) {
+                Debug.LogWarning("Warning: The Destructible " + name + " will be destroyed on collision but does not have a Bounce Mode set to None.");
+                m_BounceMode = BounceMode.None;
             }
         }
 
@@ -151,7 +149,7 @@ namespace Opsive.UltimateCharacterController.Objects
             }
             // The object may be reused and was previously stuck to a character.
             if (m_StickyCharacterLocomotion != null) {
-                m_StickyCharacterLocomotion.RemoveIgnoredCollider(m_Collider);
+                m_StickyCharacterLocomotion.RemoveSubCollider(m_Collider);
                 m_StickyCharacterLocomotion = null;
             }
         }
@@ -165,7 +163,7 @@ namespace Opsive.UltimateCharacterController.Objects
             base.OnCollision(hit);
 
             var forceDestruct = false;
-            if (m_CollisionMode == CollisionMode.Collide) {
+            if (m_BounceMode == BounceMode.None) {
                 // When there is a collision the object should move to the position that was hit so if it's not destroyed then it looks like it
                 // is penetrating the hit object.
                 if (hit != null && hit.HasValue && m_Collider != null) {
@@ -180,7 +178,7 @@ namespace Opsive.UltimateCharacterController.Objects
                             // If the destructible sticks to a character then the object should be added as a sub collider so collisions will be ignored.
                             m_StickyCharacterLocomotion = hit.Value.transform.gameObject.GetCachedComponent<UltimateCharacterLocomotion>();
                             if (m_StickyCharacterLocomotion != null) {
-                                m_StickyCharacterLocomotion.AddIgnoredCollider(m_Collider);
+                                m_StickyCharacterLocomotion.AddSubCollider(m_Collider);
                             }
                         } else {
                             forceDestruct = true;
@@ -214,9 +212,11 @@ namespace Opsive.UltimateCharacterController.Objects
 #endif
 
                 // Allow a custom event to be received.
-                EventHandler.ExecuteEvent<float, Vector3, Vector3, GameObject, object, Collider>(hitGameObject, "OnObjectImpact", damageAmount, hitValue.point, m_Velocity.normalized * m_ImpactForce, m_Originator, this, hitValue.collider);
+                EventHandler.ExecuteEvent(hitGameObject, "OnObjectImpact", damageAmount, hitValue.point, hitValue.normal * m_ImpactForce, m_Originator, hitValue.collider);
+                // TODO: Version 2.1.5 adds another OnObjectImpact parameter. Remove the above event later once there has been a chance to migrate over.
+                EventHandler.ExecuteEvent<float, Vector3, Vector3, GameObject, object, Collider>(hitGameObject, "OnObjectImpact", damageAmount, hitValue.point, hitValue.normal * m_ImpactForce, m_Originator, this, hitValue.collider);
                 if (m_OnImpactEvent != null) {
-                    m_OnImpactEvent.Invoke(damageAmount, hitValue.point, m_Velocity.normalized * m_ImpactForce, m_Originator);
+                    m_OnImpactEvent.Invoke(damageAmount, hitValue.point, hitValue.normal * m_ImpactForce, m_Originator);
                 }
 
                 // If the shield didn't absorb all of the damage then it should be applied to the character.
@@ -224,7 +224,7 @@ namespace Opsive.UltimateCharacterController.Objects
                     // If the Health component exists it will apply a force to the rigidbody in addition to deducting the health. Otherwise just apply the force to the rigidbody. 
                     Health hitHealth;
                     if ((hitHealth = hitGameObject.GetCachedParentComponent<Health>()) != null) {
-                        hitHealth.Damage(damageAmount, hitValue.point, -hitValue.normal, m_ImpactForce, m_ImpactForceFrames, 0, m_Originator, this, hitValue.collider);
+                        hitHealth.Damage(damageAmount, hitValue.point, -hitValue.normal, m_ImpactForce, m_ImpactForceFrames, 0, m_Originator, hitValue.collider);
                     } else if (m_ImpactForce > 0) {
                         var collisionRigidbody = hitGameObject.GetCachedParentComponent<Rigidbody>();
                         if (collisionRigidbody != null && !collisionRigidbody.isKinematic) {
@@ -314,16 +314,18 @@ namespace Opsive.UltimateCharacterController.Objects
 
             // The destructible should be destroyed.
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-            if (NetworkObjectPool.IsNetworkActive()) {
-                // The object may have already been destroyed over the network.
-                if (!m_GameObject.activeSelf) {
-                    return;
-                }
-                NetworkObjectPool.Destroy(m_GameObject);
+            // The object may have already been destroyed over the network.
+            if (!m_GameObject.activeSelf) {
                 return;
             }
+            if (NetworkObjectPool.IsNetworkActive()) {
+                NetworkObjectPool.Destroy(m_GameObject);
+            } else {
 #endif
-            ObjectPool.Destroy(m_GameObject);
+                ObjectPool.Destroy(m_GameObject);
+#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
+            }
+#endif
         }
 
         /// <summary>
@@ -342,7 +344,7 @@ namespace Opsive.UltimateCharacterController.Objects
             base.OnDisable();
 
             if (m_DestroyOnCollision && m_StickyCharacterLocomotion != null) {
-                m_StickyCharacterLocomotion.RemoveIgnoredCollider(m_Collider);
+                m_StickyCharacterLocomotion.RemoveSubCollider(m_Collider);
                 m_StickyCharacterLocomotion = null;
             }
         }

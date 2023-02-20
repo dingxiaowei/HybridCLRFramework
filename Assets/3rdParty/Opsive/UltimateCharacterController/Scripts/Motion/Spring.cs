@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Game;
+
 namespace Opsive.UltimateCharacterController.Motion
 {
-    using Opsive.Shared.Game;
-    using UnityEngine;
-
     /// <summary>
     /// Simple but powerful spring logic for transform manipulation.
     /// </summary>
@@ -55,9 +55,9 @@ namespace Opsive.UltimateCharacterController.Motion
         // Update the spring forces with the Scheduler.
         ScheduledEventBase m_ScheduledEvent;
 
-        [Opsive.Shared.Utility.NonSerialized] public Vector3 Value { get { return m_Value; } set { m_Value = value; } }
-        [Opsive.Shared.Utility.NonSerialized] public Vector3 Velocity { get { return m_Velocity; } set { m_Velocity = value; } }
-        [Opsive.Shared.Utility.NonSerialized] public Vector3 RestValue { get { return m_RestValue; }
+        [Utility.NonSerialized] public Vector3 Value { get { return m_Value; } set { m_Value = value; } }
+        [Utility.NonSerialized] public Vector3 Velocity { get { return m_Velocity; } set { m_Velocity = value; } }
+        [Utility.NonSerialized] public Vector3 RestValue { get { return m_RestValue; }
             set {
                 m_Resting = false;
                 if (m_RotationalSpring) {
@@ -254,7 +254,7 @@ namespace Opsive.UltimateCharacterController.Motion
         public void Stop(bool includeSoftForce)
         {
             m_Velocity = Vector3.zero;
-            if (includeSoftForce && m_SoftForceFrames != null) {
+            if (includeSoftForce) {
                 for (int v = 0; v < 120; v++) {
                     m_SoftForceFrames[v] = Vector3.zero;
                 }

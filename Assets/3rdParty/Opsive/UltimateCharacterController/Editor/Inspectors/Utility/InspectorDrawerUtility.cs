@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using System;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
 {
-    using System;
-    using System.Collections.Generic;
-
     /// <summary>
     /// Helper class which will get an InspectorDrawer for the specified type.
     /// </summary>
@@ -72,8 +72,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
 
                     // Create the InspectorDrawer if the type has the InspectorDrawerAttribute.
                     InspectorDrawerAttribute[] attribute;
-                    if ((attribute = assemblyTypes[j].GetCustomAttributes(typeof(InspectorDrawerAttribute), false) as InspectorDrawerAttribute[]).Length > 0 &&
-                        !s_InspectorDrawerTypeMap.ContainsKey(attribute[0].Type)) {
+                    if ((attribute = assemblyTypes[j].GetCustomAttributes(typeof(InspectorDrawerAttribute), false) as InspectorDrawerAttribute[]).Length > 0) {
                         var inspectorDrawer = Activator.CreateInstance(assemblyTypes[j]) as InspectorDrawer;
                         s_InspectorDrawerTypeMap.Add(attribute[0].Type, inspectorDrawer);
                     }

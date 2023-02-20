@@ -4,20 +4,18 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using Opsive.UltimateCharacterController.Inventory;
+using Opsive.UltimateCharacterController.Items;
+using Opsive.UltimateCharacterController.Items.Actions;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Utility;
+using Opsive.UltimateCharacterController.Utility.Builders;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+
 namespace Opsive.UltimateCharacterController.Editor.Managers
 {
-    using Opsive.Shared.Inventory;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.Editor.Utility;
-    using Opsive.UltimateCharacterController.Inventory;
-    using Opsive.UltimateCharacterController.Items;
-    using Opsive.UltimateCharacterController.Items.Actions;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using Opsive.UltimateCharacterController.Utility;
-    using Opsive.UltimateCharacterController.Utility.Builders;
-    using UnityEditor;
-    using UnityEngine;
-
     /// <summary>
     /// The ItemManager will draw any item properties
     /// </summary>
@@ -31,7 +29,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
 
         // New Item.
         [SerializeField] private string m_Name;
-        [SerializeField] private ItemDefinitionBase m_ItemDefinition;
+        [SerializeField] private ItemType m_ItemType;
         [SerializeField] private int m_AnimatorItemID;
         [SerializeField] private GameObject m_Character;
         [SerializeField] private int m_SlotID;
@@ -47,7 +45,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
         [SerializeField] private ThirdPersonHumanoidParentHand m_ThirdHumanoidParentHand = ThirdPersonHumanoidParentHand.Right;
         [SerializeField] private GameObject m_ThirdPersonParent;
         [SerializeField] private ItemBuilder.ActionType m_ActionType;
-        [SerializeField] private ItemDefinitionBase m_ActionItemDefinition;
+        [SerializeField] private ItemType m_ActionItemType;
         [SerializeField] private bool m_AddToDefaultLoadout = true;
         [SerializeField] private StateConfiguration m_AddStateConfiguration;
         [SerializeField] private int m_AddProfileIndex;
@@ -56,7 +54,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
         // Existing Item.
         [SerializeField] private Item m_Item;
         [SerializeField] private ItemBuilder.ActionType m_AddActionType;
-        [SerializeField] private ItemDefinitionBase m_ExistingAddActionItemDefinition;
+        [SerializeField] private ItemType m_ExistingAddActionItemType;
         [SerializeField] private int m_RemoveActionTypeIndex;
         [SerializeField] private GameObject m_ExistingFirstPersonObject;
         [SerializeField] private RuntimeAnimatorController m_ExistingFirstPersonObjectAnimatorController;
@@ -109,17 +107,6 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
 
             if (m_DrawNewItems) {
                 GUILayout.Label("New Item", InspectorStyles.CenterBoldLabel);
-                GUILayout.BeginHorizontal();
-                GUILayout.Label("See");
-                GUILayout.Space(-3);
-                if (GUILayout.Button("this page", InspectorStyles.LinkStyle, GUILayout.Width(55))) {
-                    Application.OpenURL("https://opsive.com/support/documentation/ultimate-character-controller/getting-started/setup/item-creation/");
-                }
-                GUILayout.Space(-1);
-                GUILayout.Label("for the steps on setting up various item configurations.");
-                GUILayout.FlexibleSpace();
-                GUILayout.EndHorizontal();
-                GUILayout.Space(10);
                 DrawNewItem();
             } else {
                 GUILayout.Label("Existing Item", InspectorStyles.CenterBoldLabel);
@@ -133,29 +120,18 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
         private void DrawNewItem()
         {
             var canBuild = true;
-            m_Name = EditorGUILayout.TextField(new GUIContent("Name", "Specifies the name of the item. It is recommended that this be a unique name though it is not required."), m_Name);
+            m_Name = EditorGUILayout.TextField("Name", m_Name);
             if (string.IsNullOrEmpty(m_Name)) {
                 canBuild = false;
                 EditorGUILayout.HelpBox("The item must have a name.", MessageType.Error);
             }
-            m_ItemDefinition = EditorGUILayout.ObjectField(new GUIContent("Item Definition", "The Item Definition that the Item should use. The Item Definition works with the Inventory to determine the properties for that item."),
-                                                                m_ItemDefinition, typeof(ItemDefinitionBase), false) as ItemDefinitionBase;
-            if (canBuild && m_ItemDefinition == null) {
+            m_ItemType = EditorGUILayout.ObjectField("Item Type", m_ItemType, typeof(ItemType), false) as ItemType;
+            if (canBuild && m_ItemType == null) {
                 canBuild = false;
-                EditorGUILayout.HelpBox("The item must specify an Item Definition.", MessageType.Error);
-            } else {
-                // Ensure the Item Definition exists within the collection set by the Item Set Manager.
-                ItemSetManager itemSetManager;
-                if (m_ItemDefinition != null && m_Character != null && (itemSetManager = m_Character.GetComponent<ItemSetManager>()) != null && itemSetManager.ItemCollection != null) {
-                    if (AssetDatabase.GetAssetPath(m_ItemDefinition) != AssetDatabase.GetAssetPath(itemSetManager.ItemCollection)) {
-                        EditorGUILayout.HelpBox("The Item Definition must exist within the Item Collection specified on the character's Item Set Manager.", MessageType.Error);
-                        canBuild = false;
-                    }
-                }
+                EditorGUILayout.HelpBox("The item must specify an ItemType.", MessageType.Error);
             }
 
-            var character = EditorGUILayout.ObjectField(new GUIContent("Character", "Specifies the character that the Item should be added to. This field should be empty if the item will be added at runtime."),
-                                                m_Character, typeof(GameObject), true) as GameObject;
+            var character = EditorGUILayout.ObjectField("Character", m_Character, typeof(GameObject), true) as GameObject;
             var characterUpdate = false;
             if (character != m_Character) {
                 m_Character = character;
@@ -164,9 +140,9 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
 #if FIRST_PERSON_CONTROLLER
                 // Try to assign the first person objects if they exist.
                 if (m_Character != null) {
-                    var firstPersonObjects = m_Character.GetComponentInChildren<FirstPersonController.Character.FirstPersonObjects>();
+                    var firstPersonObjects = m_Character.GetComponentInChildren<UltimateCharacterController.FirstPersonController.Character.FirstPersonObjects>();
                     if (firstPersonObjects != null) {
-                        var firstPersonBaseObject = firstPersonObjects.GetComponentInChildren<FirstPersonController.Character.Identifiers.FirstPersonBaseObject>();
+                        var firstPersonBaseObject = firstPersonObjects.GetComponentInChildren<UltimateCharacterController.FirstPersonController.Character.Identifiers.FirstPersonBaseObject>();
                         if (firstPersonBaseObject != null) {
                             m_FirstPersonObject = firstPersonBaseObject.gameObject;
                         }
@@ -177,9 +153,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
             }
 
             if (m_Character == null) {
-                m_SlotID = EditorGUILayout.IntField(new GUIContent("Slot ID", "The ID of the slot that the Item should occupy. " +
-                                                    "The Item will be parented to the Item Slot component for the corresponding perspective. " +
-                                                    "The Slot ID must match for both first and third person perspective."), m_SlotID);
+                m_SlotID = EditorGUILayout.IntField("Slot ID", m_SlotID);
             } else {
                 if (EditorUtility.IsPersistent(m_Character)) {
                     if (canBuild) {
@@ -194,11 +168,10 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                             canBuild = false;
                         }
                     } else {
-                        if (m_ItemDefinition != null & m_Character.GetComponent<Inventory>() != null) {
+                        if (m_ItemType != null & m_Character.GetComponent<InventoryBase>() != null) {
                             // The item can automatically be added to the default loadout if the inventory component exists.
                             EditorGUI.indentLevel++;
-                            m_AddToDefaultLoadout = EditorGUILayout.Toggle(new GUIContent("Add to Default Loadout", "If a character is specified the Item Definition can automatically be added to the Inventory's Default Loadout."),
-                                                                            m_AddToDefaultLoadout);
+                            m_AddToDefaultLoadout = EditorGUILayout.Toggle("Add to Default Loadout", m_AddToDefaultLoadout);
                             EditorGUI.indentLevel--;
                         } else {
                             m_AddToDefaultLoadout = false;
@@ -206,46 +179,33 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                     }
                 }
             }
-            m_AnimatorItemID = EditorGUILayout.IntField(new GUIContent("Animator Item ID", 
-                                                                        "The ID of the Item within the Animator Controller. " +
-                                                                        "This ID is used by the SlotXItemID parameter within the Animator Controller and it must be unique for each item."),
-                                                                        m_AnimatorItemID);
+            m_AnimatorItemID = EditorGUILayout.IntField("Animator Item ID", m_AnimatorItemID);
 
 #if FIRST_PERSON_CONTROLLER
             GUILayout.Space(5);
             GUILayout.Label("First Person", InspectorStyles.BoldLabel);
             GUI.enabled = m_FirstPersonObject == null && m_FirstPersonVisibleItem == null;
-            m_AddFirstPersonPerspective = EditorGUILayout.Toggle(new GUIContent("Add First Person Item", "Should the first person item perspective be added?"), m_AddFirstPersonPerspective);
+            m_AddFirstPersonPerspective = EditorGUILayout.Toggle("Add First Person Item", m_AddFirstPersonPerspective);
             GUI.enabled = m_AddFirstPersonPerspective;
             var firstPersonSuccess = DrawFirstPersonObject(m_Character, ref m_FirstPersonObject, ref m_FirstPersonObjectAnimatorController, ref m_FirstPersonVisibleItem, 
                                                                 ref m_FirstPersonParent, ref m_FirstPersonItemSlot, ref m_FirstPersonVisibleItemAnimatorController,
                                                                 m_ThirdPersonItemSlot != null ? m_ThirdPersonItemSlot.ID : 0, characterUpdate, canBuild && m_AddFirstPersonPerspective);
             GUI.enabled = true;
-            if (m_AddFirstPersonPerspective) {
-                if (!firstPersonSuccess) {
-                    canBuild = false;
-                } else if (m_ActionType == ItemBuilder.ActionType.MagicItem && (m_FirstPersonObject == null || m_FirstPersonVisibleItem == null)) {
-                    canBuild = false;
-                    EditorGUILayout.HelpBox("Magic items require an item GameObject (can be empty).", MessageType.Error);
-                }
+            if (m_AddFirstPersonPerspective && !firstPersonSuccess) {
+                canBuild = false;
             }
 #endif
             if (m_Character == null || (m_Character != null && m_Character.GetComponent<Animator>() != null)) {
                 GUILayout.Space(10);
                 GUILayout.Label("Third Person (including AI and multiplayer)", InspectorStyles.BoldLabel);
                 GUI.enabled = m_ThirdPersonObject == null;
-                m_AddThirdPersonPerspective = EditorGUILayout.Toggle(new GUIContent("Add Third Person Item", "Should the third person item perspective be added?"), m_AddThirdPersonPerspective);
+                m_AddThirdPersonPerspective = EditorGUILayout.Toggle("Add Third Person Item", m_AddThirdPersonPerspective);
                 GUI.enabled = m_AddThirdPersonPerspective;
                 var thirdPersonSuccess = DrawThirdPersonObject(m_Character, ref m_ThirdPersonObject, ref m_ThirdHumanoidParentHand, ref m_ThirdPersonParent, ref m_ThirdPersonItemSlot,
                                                                         ref m_ThirdPersonObjectAnimatorController, m_FirstPersonItemSlot != null ? m_FirstPersonItemSlot.ID : 0, characterUpdate, canBuild && m_AddThirdPersonPerspective);
                 GUI.enabled = true;
-                if (canBuild && m_AddThirdPersonPerspective) {
-                    if (!thirdPersonSuccess) {
-                        canBuild = false;
-                    } else if (m_ActionType == ItemBuilder.ActionType.MagicItem && m_ThirdPersonObject == null) {
-                        canBuild = false;
-                        EditorGUILayout.HelpBox("Magic items require an item GameObject (can be empty).", MessageType.Error);
-                    }
+                if (m_AddThirdPersonPerspective && !thirdPersonSuccess) {
+                    canBuild = false;
                 }
             }
 
@@ -257,9 +217,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
             }
 
             GUILayout.Space(15);
-            m_ActionType = (ItemBuilder.ActionType)EditorGUILayout.EnumPopup(new GUIContent("Action Type", 
-                                    "A drop down field which allows you to specify which Item Action should be added. More Item Actions can be added to the Item through the Existing Item tab."), 
-                                    m_ActionType);
+            m_ActionType = (ItemBuilder.ActionType)EditorGUILayout.EnumPopup("Action Type", m_ActionType);
 
 #if !ULTIMATE_CHARACTER_CONTROLLER_SHOOTER
             if (m_ActionType == ItemBuilder.ActionType.ShootableWeapon && canBuild) {
@@ -281,17 +239,15 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
             }
 #endif
 
-            if (m_ActionType == ItemBuilder.ActionType.ShootableWeapon) {
+            if (canBuild && (m_ActionType != ItemBuilder.ActionType.Shield)) {
                 EditorGUI.indentLevel++;
-                m_ActionItemDefinition = EditorGUILayout.ObjectField("Consumable Item Definition", m_ActionItemDefinition, typeof(ItemDefinitionBase), false) as ItemDefinitionBase;
+                m_ActionItemType = EditorGUILayout.ObjectField("Consumable Item Type", m_ActionItemType, typeof(ItemType), false) as ItemType;
                 EditorGUI.indentLevel--;
             }
 
             // Setup profiles.
             GUILayout.Space(5);
-            var updatedStateConfiguration = EditorGUILayout.ObjectField(new GUIContent("State Configuration", "Allows for the item to be preconfigured with already defined values. " +
-                                                    "This is useful if you have a specific type of item that has already been created and you'd like to apply the same values to the new item."), 
-                                                    m_AddStateConfiguration, typeof(StateConfiguration), false) as StateConfiguration;
+            var updatedStateConfiguration = EditorGUILayout.ObjectField("State Configuration", m_AddStateConfiguration, typeof(StateConfiguration), false) as StateConfiguration;
             if (updatedStateConfiguration != m_AddStateConfiguration) {
                 if (updatedStateConfiguration != null) {
                     EditorPrefs.SetString(ManagerUtility.LastStateConfigurationGUIDString, AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(updatedStateConfiguration)));
@@ -316,46 +272,17 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
             GUILayout.Space(5);
             GUI.enabled = canBuild;
             if (GUILayout.Button("Build Item")) {
-                var item = ItemBuilder.BuildItem(m_Name, m_ItemDefinition, m_AnimatorItemID, m_Character, m_SlotID, m_AddToDefaultLoadout, m_AddFirstPersonPerspective, m_FirstPersonObject, m_FirstPersonObjectAnimatorController,
+                var item = ItemBuilder.BuildItem(m_Name, m_ItemType, m_AnimatorItemID, m_Character, m_SlotID, m_AddToDefaultLoadout, m_AddFirstPersonPerspective, m_FirstPersonObject, m_FirstPersonObjectAnimatorController,
                     m_FirstPersonVisibleItem, m_FirstPersonItemSlot, m_FirstPersonVisibleItemAnimatorController, m_AddThirdPersonPerspective, m_ThirdPersonObject, m_ThirdPersonItemSlot, m_ThirdPersonObjectAnimatorController,
-                    m_InvisibleShadowCaster, m_ActionType, m_ActionItemDefinition);
+                    m_InvisibleShadowCaster, m_ActionType, m_ActionItemType);
                 // Setup any profiles on the item.
-                if (m_AddStateConfiguration != null && m_AddProfileIndex > 0) {
-                    m_AddStateConfiguration.AddStatesToGameObject(m_AddProfileName, item.gameObject);
-                    InspectorUtility.SetDirty(item.gameObject);
-                } else if (m_AddFirstPersonPerspective && !m_AddThirdPersonPerspective) {
-                    // First person items should not use animation events for equip/unequip.
-                    var createdItem = item.GetComponent<Item>();
-                    createdItem.EquipEvent = new AnimationEventTrigger(false, 0);
-                    createdItem.EquipCompleteEvent = new AnimationEventTrigger(false, 0.3f);
-                    createdItem.UnequipEvent = new AnimationEventTrigger(false, 0.3f);
-                    InspectorUtility.SetDirty(createdItem);
-                } else if (m_AddFirstPersonPerspective && m_AddThirdPersonPerspective) {
-                    // A first and third person item is being created. Add a new state which has the correct first person properties.
-                    var preset = Shared.Editor.Utility.InspectorUtility.LoadAsset<PersistablePreset>("50a5f74ba80091b47954d1f678ac7823");
-                    if (preset != null) {
-                        var createdItem = item.GetComponent<Item>();
-                        var states = createdItem.States;
-                        System.Array.Resize(ref states, states.Length + 1);
-                        // Default must always be at the end.
-                        states[states.Length - 1] = states[0];
-                        states[0] = new State("FirstPerson", preset, null);
-                        createdItem.States = states;
-                        InspectorUtility.SetDirty(createdItem);
+                if (m_AddStateConfiguration != null) {
+                    if (m_AddProfileIndex > 0) {
+                        m_AddStateConfiguration.AddStatesToGameObject(m_AddProfileName, item.gameObject);
+                        InspectorUtility.SetDirty(item.gameObject);
                     }
                 }
-
-                // Ensure the animators have the required parameters.
-                if (m_FirstPersonObjectAnimatorController != null) {
-                    AnimatorBuilder.AddParameters((UnityEditor.Animations.AnimatorController)m_FirstPersonObjectAnimatorController);
-                }
-                if (m_FirstPersonVisibleItemAnimatorController != null) {
-                    AnimatorBuilder.AddParameters((UnityEditor.Animations.AnimatorController)m_FirstPersonVisibleItemAnimatorController);
-                }
-                if (m_ThirdPersonObjectAnimatorController != null) {
-                    AnimatorBuilder.AddParameters((UnityEditor.Animations.AnimatorController)m_ThirdPersonObjectAnimatorController);
-                }
-
+                
                 // If the character is null then a prefab will be created.
                 if (m_Character == null) {
                     var path = EditorUtility.SaveFilePanel("Save Item", "Assets", m_Name + ".prefab", "prefab");
@@ -380,19 +307,6 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                     (m_Character == null || !m_FirstPersonObject.transform.IsChildOf(m_Character.transform))) {
                     Object.DestroyImmediate(m_FirstPersonObject, true);
                     m_FirstPersonObject = null;
-
-#if FIRST_PERSON_CONTROLLER
-                    // The base object should be updated to the new instance.
-                    if (m_Character != null) {
-                        var firstPersonObjects = m_Character.GetComponentInChildren<FirstPersonController.Character.FirstPersonObjects>();
-                        if (firstPersonObjects != null) {
-                            var firstPersonBaseObject = firstPersonObjects.GetComponentInChildren<FirstPersonController.Character.Identifiers.FirstPersonBaseObject>();
-                            if (firstPersonBaseObject != null) {
-                                m_FirstPersonObject = firstPersonBaseObject.gameObject;
-                            }
-                        }
-                    }
-#endif
                 }
                 if (m_ThirdPersonObject != null && !EditorUtility.IsPersistent(m_ThirdPersonObject) &&
                     (m_Character == null || !m_ThirdPersonObject.transform.IsChildOf(m_Character.transform))) {
@@ -426,9 +340,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                                             int defaultItemSlotIndex, bool characterUpdate, bool showError)
         {
             var success = true;
-            firstPersonObject = EditorGUILayout.ObjectField(new GUIContent("First Person Base", "A reference to the base object that should be used by the first person item. This will usually be the character’s separated arms. " +
-                                                                 "A single object can be used for multiple Items. If a First Person Visible Item is specified this object should be within the scene so the Item Slot can be specified."),
-                                                                 firstPersonObject, typeof(GameObject), true) as GameObject;
+            firstPersonObject = EditorGUILayout.ObjectField("First Person Base", firstPersonObject, typeof(GameObject), true) as GameObject;
             if (character != null && firstPersonObject == null) {
                 success = false;
                 if (showError) {
@@ -441,34 +353,15 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                         EditorGUILayout.HelpBox("Please drag your first person base object into the scene. The Item Manager cannot add components to prefabs.", MessageType.Error);
                     }
                 } else {
-                    if (firstPersonObject.GetComponent<Character.UltimateCharacterLocomotion>() != null) {
-                        if (showError) {
-                            EditorGUILayout.HelpBox("The First Person Base object cannot be a created character.", MessageType.Error);
-                        }
-                        success = false;
-                    } else {
-                        Animator animator;
-                        if ((animator = firstPersonObject.GetComponent<Animator>()) == null || animator.runtimeAnimatorController == null) {
-                            EditorGUI.indentLevel++;
-                            firstPersonObjectAnimatorController = EditorGUILayout.ObjectField(new GUIContent("Animator Controller",
-                                                                                           "A reference to the Animator Controller used by the First Person Base field. " +
-                                                                                           "This Animator Controller will only be active when the Item is equipped."),
-                                                                                           firstPersonObjectAnimatorController, typeof(RuntimeAnimatorController), false) as RuntimeAnimatorController;
-                            EditorGUI.indentLevel--;
-                        }
+                    Animator animator;
+                    if ((animator = firstPersonObject.GetComponent<Animator>()) == null || animator.runtimeAnimatorController == null) {
+                        EditorGUI.indentLevel++;
+                        firstPersonObjectAnimatorController = EditorGUILayout.ObjectField("Animator Controller", firstPersonObjectAnimatorController, typeof(RuntimeAnimatorController), false) as RuntimeAnimatorController;
+                        EditorGUI.indentLevel--;
                     }
                 }
             }
-            var visibleItem = EditorGUILayout.ObjectField(new GUIContent("First Person Visible Item", "Specifies the Item object that is actually visible and rendered to the screen, such as the assault rifle or sword. " +
-                                                                        "This field should be left blank if you are adding an item that is part of the character’s body such as a fist for punching."), 
-                                                                        firstPersonVisibleItem, typeof(GameObject), true) as GameObject;
-            // The visible item should not have the Item component.
-            if (visibleItem != null && visibleItem.GetComponent<Item>()) {
-                success = false;
-                if (showError) {
-                    EditorGUILayout.HelpBox("The visible item should not be an already created item. The visible item should be a model representing the item.", MessageType.Error);
-                }
-            }
+            var visibleItem = EditorGUILayout.ObjectField("First Person Visible Item", firstPersonVisibleItem, typeof(GameObject), true) as GameObject;
             // Preselect the parent if the first person object is not null.
             if ((visibleItem != firstPersonVisibleItem || characterUpdate) && visibleItem != null && firstPersonObject != null) {
                 var itemSlots = firstPersonObject.GetComponentsInChildren<ItemSlot>();
@@ -489,8 +382,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                 EditorGUI.indentLevel++;
                 var invalidItemSlot = false;
                 EditorGUILayout.BeginHorizontal();
-                firstPersonParent = EditorGUILayout.ObjectField(new GUIContent("Item Parent", "Specifies the object that the First Person Visible Item should be parented to. This GameObject must have the ItemSlot component."),
-                                                                firstPersonParent, typeof(GameObject), true) as GameObject;
+                firstPersonParent = EditorGUILayout.ObjectField("Item Parent", firstPersonParent, typeof(GameObject), true) as GameObject;
                 if (firstPersonParent == null) {
                     invalidItemSlot = true;
                 } else {
@@ -523,8 +415,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
             }
             if (firstPersonVisibleItem != null) {
                 EditorGUI.indentLevel++;
-                firstPersonVisibleItemAnimatorController = EditorGUILayout.ObjectField(new GUIContent("Animator Controller", "Specifies the Animator Controller that should be used by the First Person Visible Item."), 
-                                                                    firstPersonVisibleItemAnimatorController, typeof(RuntimeAnimatorController), false) as RuntimeAnimatorController;
+                firstPersonVisibleItemAnimatorController = EditorGUILayout.ObjectField("Animator Controller", firstPersonVisibleItemAnimatorController, typeof(RuntimeAnimatorController), false) as RuntimeAnimatorController;
                 EditorGUI.indentLevel--;
             }
             return success;
@@ -549,15 +440,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
         {
             var success = true;
             var prevThirdPersonObject = thirdPersonObject;
-            thirdPersonObject = EditorGUILayout.ObjectField(new GUIContent("Third Person Visible Item", "Specifies the third person item object. " + 
-                                                            "This is the object that will be visible and rendered to the screen, such as the assault rifle or sword."), 
-                                                            thirdPersonObject, typeof(GameObject), true) as GameObject;
-            if (thirdPersonObject != null && thirdPersonObject.GetComponent<Item>()) {
-                success = false;
-                if (showError) {
-                    EditorGUILayout.HelpBox("The visible item should not be an already created item. The visible item should be a model representing the item.", MessageType.Error);
-                }
-            }
+            thirdPersonObject = EditorGUILayout.ObjectField("Third Person Visible Item", thirdPersonObject, typeof(GameObject), true) as GameObject;
             if (thirdPersonObject != null && character != null) {
                 EditorGUI.indentLevel++;
                 var invalidItemSlot = false;
@@ -603,8 +486,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                         }
                     }
                 } else {
-                    thirdPersonParent = EditorGUILayout.ObjectField(new GUIContent("Item Parent", "Specifies the object that the Third Person Visible Item should be parented to. This GameObject must have the ItemSlot component."),
-                                                                            thirdPersonParent, typeof(GameObject), true) as GameObject;
+                    thirdPersonParent = EditorGUILayout.ObjectField("Item Parent", thirdPersonParent, typeof(GameObject), true) as GameObject;
                 }
                 if (thirdPersonParent == null) {
                     invalidItemSlot = true;
@@ -643,8 +525,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
             }
             if (thirdPersonObject != null) {
                 EditorGUI.indentLevel++;
-                thirdPersonObjectAnimatorController = EditorGUILayout.ObjectField(new GUIContent("Animator Controller", "Specifies the Animator Controller that should be used by the Third Person Visible Item."),
-                                                                    thirdPersonObjectAnimatorController, typeof(RuntimeAnimatorController), false) as RuntimeAnimatorController;
+                thirdPersonObjectAnimatorController = EditorGUILayout.ObjectField("Animator Controller", thirdPersonObjectAnimatorController, typeof(RuntimeAnimatorController), false) as RuntimeAnimatorController;
                 EditorGUI.indentLevel--;
             }
             return success;
@@ -704,31 +585,31 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                 if (thirdPersonVisibleItemObject != null) {
                     ItemBuilder.RemoveThirdPersonObject(thirdPersonVisibleItemObject);
                 }
-                // The ItemDefinition should also be removed from the Inventory/ItemSetManager.
-                var inventory = m_Item.GetComponentInParent<Inventory>();
+                // The ItemType should also be removed from the Inventory/ItemSetManager.
+                var inventory = m_Item.GetComponentInParent<InventoryBase>();
                 if (inventory != null) {
-                    var defaultLoadout = new System.Collections.Generic.List<ItemDefinitionAmount>(inventory.DefaultLoadout);
+                    var defaultLoadout = new System.Collections.Generic.List<ItemTypeCount>(inventory.DefaultLoadout);
                     for (int i = defaultLoadout.Count - 1; i > -1; --i) {
-                        if (defaultLoadout[i].ItemDefinition == m_Item.ItemDefinition) {
+                        if (defaultLoadout[i].ItemType == m_Item.ItemType) {
                             defaultLoadout.RemoveAt(i);
                             break;
                         }
                     }
                     inventory.DefaultLoadout = defaultLoadout.ToArray();
                     EditorUtility.SetDirty(inventory);
-                }
 
-                var itemSetManager = inventory.GetComponent<ItemSetManager>();
-                if (itemSetManager != null) {
-                    for (int i = 0; i < itemSetManager.CategoryItemSets.Length; ++i) {
-                        var category = itemSetManager.CategoryItemSets[i];
-                        for (int j = category.ItemSetList.Count - 1; j > -1; --j) {
-                            if (category.ItemSetList[j].Slots[m_Item.SlotID] == m_Item.ItemDefinition) {
-                                category.ItemSetList.RemoveAt(j);
+                    var itemSetManager = inventory.GetComponent<ItemSetManager>();
+                    if (itemSetManager != null && m_Item.ItemType.CategoryIndices != null) {
+                        for (int i = 0; i < m_Item.ItemType.CategoryIndices.Length; ++i) {
+                            var category = itemSetManager.CategoryItemSets[i];
+                            for (int j = category.ItemSetList.Count - 1; j > -1; --j) {
+                                if (category.ItemSetList[j].Slots[m_Item.SlotID] == m_Item.ItemType) {
+                                    category.ItemSetList.RemoveAt(j);
+                                }
                             }
                         }
+                        EditorUtility.SetDirty(itemSetManager);
                     }
-                    EditorUtility.SetDirty(itemSetManager);
                 }
 
                 Undo.DestroyObjectImmediate(m_Item.gameObject);
@@ -777,14 +658,14 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
             }
 #endif
 
-            if (m_AddActionType == ItemBuilder.ActionType.ShootableWeapon) {
+            if (canBuild && (m_AddActionType != ItemBuilder.ActionType.Shield)) {
                 EditorGUI.indentLevel++;
-                m_ExistingAddActionItemDefinition = EditorGUILayout.ObjectField("Consumable Item Definition", m_ExistingAddActionItemDefinition, typeof(ItemDefinitionBase), false) as ItemDefinitionBase;
+                m_ExistingAddActionItemType = EditorGUILayout.ObjectField("Consumable Item Type", m_ExistingAddActionItemType, typeof(ItemType), false) as ItemType;
                 EditorGUI.indentLevel--;
             }
 
             if (GUILayout.Button("Add", GUILayout.Width(80))) {
-                ItemBuilder.AddAction(m_Item.gameObject, m_AddActionType, m_ExistingAddActionItemDefinition);
+                ItemBuilder.AddAction(m_Item.gameObject, m_AddActionType, m_ExistingAddActionItemType);
             }
             EditorGUILayout.EndHorizontal();
             GUI.enabled = m_Item != null && canBuild;
@@ -827,14 +708,6 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                 var character = m_Item.GetComponentInParent<Character.UltimateCharacterLocomotion>();
                 ItemBuilder.AddFirstPersonObject(character.gameObject, m_Item.name, m_Item.gameObject, ref m_ExistingFirstPersonObject, m_ExistingFirstPersonObjectAnimatorController,
                                                     ref m_ExistingFirstPersonVisibleItem, m_ExistingFirstPersonItemSlot, m_ExistingFirstPersonVisibleItemAnimatorController);
-
-                // Ensure the animators have the required parameters.
-                if (m_ExistingFirstPersonObjectAnimatorController != null) {
-                    AnimatorBuilder.AddParameters((UnityEditor.Animations.AnimatorController)m_ExistingFirstPersonObjectAnimatorController);
-                }
-                if (m_ExistingFirstPersonVisibleItemAnimatorController != null) {
-                    AnimatorBuilder.AddParameters((UnityEditor.Animations.AnimatorController)m_ExistingFirstPersonVisibleItemAnimatorController);
-                }
             }
 
             GUI.enabled = m_Item != null && firstPersonVisibleItem != null;
@@ -880,10 +753,6 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
             if (GUILayout.Button("Add")) {
                 var character = m_Item.GetComponentInParent<Character.UltimateCharacterLocomotion>();
                 ItemBuilder.AddThirdPersonObject(character.gameObject, m_Item.name, m_Item.gameObject, ref m_ExistingThirdPersonObject, m_ExistingThirdPersonItemSlot, m_ExistingThirdPersonObjectAnimatorController, m_InvisibleShadowCaster, false);
-                // Ensure the animators have the required parameters.
-                if (m_ExistingThirdPersonObjectAnimatorController != null) {
-                    AnimatorBuilder.AddParameters((UnityEditor.Animations.AnimatorController)m_ExistingThirdPersonObjectAnimatorController);
-                }
             }
             GUI.enabled = m_Item != null && thirdPersonVisibleItem != null;
             if (GUILayout.Button("Remove")) {

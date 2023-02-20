@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using Opsive.UltimateCharacterController.Character;
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Items.AnimatorAudioStates
 {
-    using Opsive.UltimateCharacterController.Character;
-    using UnityEngine;
-
     /// <summary>
     /// The Random state will move from one state to another in a random order.
     /// </summary>
@@ -48,9 +48,6 @@ namespace Opsive.UltimateCharacterController.Items.AnimatorAudioStates
         {
             var count = 0;
             var size = m_States.Length;
-            if (size == 0) {
-                return false;
-            }
             do {
                 m_CurrentIndex = UnityEngine.Random.Range(0, size);
                 ++count;

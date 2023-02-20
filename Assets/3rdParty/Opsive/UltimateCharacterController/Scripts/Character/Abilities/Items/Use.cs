@@ -4,16 +4,16 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Input;
+using Opsive.UltimateCharacterController.Items;
+using Opsive.UltimateCharacterController.Items.Actions;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities.Items
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Input;
-    using Opsive.UltimateCharacterController.Items;
-    using Opsive.UltimateCharacterController.Items.Actions;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// ItemAbility which will start using the IUsableItem.
     /// </summary>
@@ -22,15 +22,13 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
     [DefaultInputName("Fire1")]
     [DefaultItemStateIndex(2)]
     [DefaultState("Use")]
-    [AllowDuplicateTypes]
+    [AllowMultipleAbilityTypes]
     public class Use : ItemAbility
     {
         [Tooltip("The slot that should be used. -1 will use all of the slots.")]
         [SerializeField] protected int m_SlotID = -1;
         [Tooltip("The ID of the ItemAction component that can be used.")]
         [SerializeField] protected int m_ActionID;
-        [Tooltip("Should the ability rotate the character to face the look source target?")]
-        [SerializeField] protected bool m_RotateTowardsLookSourceTarget = true;
 
         public int SlotID { get { return m_SlotID; }
             set
@@ -43,7 +41,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             }
         }
         public int ActionID { get { return m_ActionID; } set { m_ActionID = value; } }
-        public bool RotateTowardsLookSourceTarget { get { return m_RotateTowardsLookSourceTarget; } set { m_RotateTowardsLookSourceTarget = value; } }
 
         private ILookSource m_LookSource;
         protected IUsableItem[] m_UsableItems;
@@ -102,7 +99,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             m_LookSource = m_CharacterLocomotion.LookSource;
 
             EventHandler.RegisterEvent<ILookSource>(m_GameObject, "OnCharacterAttachLookSource", OnAttachLookSource);
-            EventHandler.RegisterEvent<bool>(m_GameObject, "OnEnableGameplayInput", OnEnableGameplayInput);
             EventHandler.RegisterEvent(m_GameObject, "OnAnimatorItemUse", OnItemUse);
             EventHandler.RegisterEvent(m_GameObject, "OnAnimatorItemUseComplete", OnItemUseComplete);
 #if ULTIMATE_CHARACTER_CONTROLLER_SHOOTER
@@ -226,7 +222,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             var canUse = false;
             if (m_SlotID == -1) {
                 for (int i = 0; i < m_UsableItems.Length; ++i) {
-                    var item = m_Inventory.GetActiveItem(i);
+                    var item = m_Inventory.GetItem(i);
                     if (item == null) {
                         continue;
                     }
@@ -251,7 +247,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
                     }
                 }
             } else {
-                var item = m_Inventory.GetActiveItem(m_SlotID);
+                var item = m_Inventory.GetItem(m_SlotID);
                 if (item != null) {
                     var itemAction = item.GetItemAction(m_ActionID);
                     if (itemAction != null) {
@@ -285,7 +281,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             // then the entire method will return true. If the SlotID is not -1 then the ability will only check against the single ItemAction.
             if (m_SlotID == -1) {
                 for (int i = 0; i < m_UsableItems.Length; ++i) {
-                    var item = m_Inventory.GetActiveItem(i);
+                    var item = m_Inventory.GetItem(i);
                     if (item == null) {
                         continue;
                     }
@@ -300,7 +296,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
                     }
                 }
             } else {
-                var item = m_Inventory.GetActiveItem(m_SlotID);
+                var item = m_Inventory.GetItem(m_SlotID);
                 if (item != null) {
                     var itemAction = item.GetItemAction(m_ActionID);
                     if (itemAction == null) {
@@ -377,15 +373,17 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
                 }
             }
 #endif
-            // Active items can block starting abilities.
-            for (int i = 0; i < m_UsableItems.Length; ++i) {
-                if (m_UsableItems[i] == null) {
-                    continue;
-                }
-                if (!m_UsableItems[i].CanStartAbility(startingAbility)) {
-                    return true;
+
+#if ULTIMATE_CHARACTER_CONTROLLER_MELEE
+            // The jump ability shouldn't start when a melee item is being used.
+            if (startingAbility is Jump) {
+                for (int i = 0; i < m_UsableItems.Length; ++i) {
+                    if (m_UsableItems[i] is MeleeWeapon) {
+                        return true;
+                    }
                 }
             }
+#endif
             return false;
         }
 
@@ -462,7 +460,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
                     continue;
                 }
 
-                m_UsableItems[i].StartItemUse(this);
+                m_UsableItems[i].StartItemUse();
                 // An Animator Audio State Set may prevent the item from being used.
                 if (!m_UsableItems[i].IsItemInUse()) {
                     m_CanStopAbility[i] = true;
@@ -619,7 +617,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
 
                     // If the InputIndex isn't -1 and the stop event isn't null then the ability is trying to be stopped. The ability must remain active for as long
                     // as the StopAbilityDelay but during this time the item should not be used.
-                    if (InputIndex != -1 && m_CanStopEvent[i] != null && m_UsableItems[i].CanStopItemUse()) {
+                    if (InputIndex != -1 && m_CanStopEvent[i] != null) {
                         continue;
                     }
 
@@ -719,12 +717,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             if (m_FaceTargetItem == null) {
                 return;
             }
-
-            // The look source may be null if a remote player is still being initialized.
-            if (m_LookSource == null || !m_RotateTowardsLookSourceTarget) {
-                return;
-            }
-
+            
             // Determine the direction that the character should be facing.
             var lookDirection = m_LookSource.LookDirection(m_LookSource.LookPosition(), true, m_CharacterLayerManager.IgnoreInvisibleCharacterLayers, false);
             var rotation = m_Transform.rotation * Quaternion.Euler(m_CharacterLocomotion.DeltaRotation);
@@ -880,34 +873,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         /// <param name="active">True if the ability was started, false if it was stopped.</param>
         private void OnItemAbilityActive(ItemAbility itemAbility, bool active)
         {
-            if (!(itemAbility is Reload)) {
-                return;
-            }
-
-            // Use currently is not active, but it may have to start if the Use ability is trying to be started.
-            if (!active && InputIndex != -1 && m_PlayerInput != null) {
-                // Change the start type so the button up won't affect if the ability can start.
-                var startType = m_StartType;
-                if (startType == AbilityStartType.ButtonDown) {
-                    m_StartType = AbilityStartType.ButtonDownContinuous;
-                }
-                if (CanInputStartAbility(m_PlayerInput)) {
-                    if (IsActive) {
-                        // The use state should be reset if the ability is currently active.
-                        for (int i = 0; i < m_UsableItems.Length; ++i) {
-                            if (m_UsableItems[i] == null) {
-                                continue;
-                            }
-                            m_UsableItems[i].StartItemUse(this);
-                            ResetCanStopEvent(i);
-                        }
-                        InputIndex = -1;
-                    } else {
-                        // The ability isn't active, but it should be.
-                        StartAbility();
-                    }
-                }
-                m_StartType = startType;
+            if (!IsActive || !(itemAbility is Reload)) {
                 return;
             }
 
@@ -927,30 +893,13 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
 
                 // If the reload ability is active the CanStop event shouldn't fire so the character can continue to fire after reloading.
                 if (active) {
-                    // If the ability index is not -1 then the item is trying to be stopped. Prevent the item from being used again when reload is complete.
-                    if (InputIndex != -1) {
-                        StopAbility(true);
-                    } else {
-                        ResetCanStopEvent(slotID);
-                    }
+                    ResetCanStopEvent(slotID);
                 } else {
                     m_CanStopEvent[slotID] = Scheduler.ScheduleFixed(m_UsableItems[slotID].StopUseAbilityDelay, AbilityCanStop, slotID);
                 }
             }
         }
 #endif
-
-        /// <summary>
-        /// Enables or disables gameplay input. An example of when it will not be enabled is when there is a fullscreen UI over the main camera.
-        /// </summary>
-        /// <param name="enable">True if the input is enabled.</param>
-        private void OnEnableGameplayInput(bool enable)
-        {
-            // Force stop the ability if the character no longer has input.
-            if (!enable && IsActive) {
-                StopAbility(true);
-            }
-        }
 
         /// <summary>
         /// Called when the character is destroyed.
@@ -960,7 +909,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
             base.OnDestroy();
 
             EventHandler.UnregisterEvent<ILookSource>(m_GameObject, "OnCharacterAttachLookSource", OnAttachLookSource);
-            EventHandler.UnregisterEvent<bool>(m_GameObject, "OnEnableGameplayInput", OnEnableGameplayInput);
             EventHandler.UnregisterEvent(m_GameObject, "OnAnimatorItemUse", OnItemUse);
             EventHandler.UnregisterEvent(m_GameObject, "OnAnimatorItemUseComplete", OnItemUseComplete);
 #if ULTIMATE_CHARACTER_CONTROLLER_SHOOTER

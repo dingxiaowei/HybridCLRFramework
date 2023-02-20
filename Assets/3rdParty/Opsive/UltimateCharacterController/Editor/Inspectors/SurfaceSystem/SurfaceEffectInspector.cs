@@ -4,13 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using Opsive.UltimateCharacterController.SurfaceSystem;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.SurfaceSystem
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.SurfaceSystem;
-    using UnityEditor;
-    using UnityEngine;
-
     /// <summary>
     /// Custom inspector for the SurfaceEffect component.
     /// </summary>
@@ -27,7 +27,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.SurfaceSystem
             if (path.Length != 0 && Application.dataPath.Length < path.Length) {
                 var surfaceType = ScriptableObject.CreateInstance<SurfaceEffect>();
 
-                // Save the surface effect.
+                // Save the collection.
                 path = string.Format("Assets/{0}", path.Substring(Application.dataPath.Length + 1));
                 AssetDatabase.DeleteAsset(path);
                 AssetDatabase.CreateAsset(surfaceType, path);

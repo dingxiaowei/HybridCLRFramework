@@ -3,12 +3,13 @@
 /// Copyright (c) Opsive. All Rights Reserved.
 /// https://www.opsive.com
 /// ---------------------------------------------
+using UnityEngine;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Traits;
+using Opsive.UltimateCharacterController.Utility;
 
 namespace Opsive.UltimateCharacterController.Demo.Objects
 {
-    using Opsive.UltimateCharacterController.Traits;
-    using UnityEngine;
-
     /// <summary>
     /// Instantly kills the character if the character moves beneath the moving platform as it is moving down.
     /// </summary>

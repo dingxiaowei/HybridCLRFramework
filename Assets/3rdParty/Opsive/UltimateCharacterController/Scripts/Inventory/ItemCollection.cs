@@ -4,16 +4,46 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Inventory
 {
-    using Opsive.Shared.Inventory;
-    using UnityEngine;
-
     /// <summary>
     /// The ItemCollection ScriptableObject is a container for the static item data.
     /// </summary>
     public class ItemCollection : ScriptableObject
     {
+        /// <summary>
+        /// A Category contains a grouping of ItemTypes.
+        /// </summary>
+        [System.Serializable]
+        public class Category
+        {
+            [Tooltip("The ID of the category.")]
+            [SerializeField] protected int m_ID;
+            [Tooltip("The name of the category.")]
+            [SerializeField] protected string m_Name;
+
+            public int ID { get { return m_ID; } set { m_ID = value; } }
+            public string Name { get { return m_Name; } set { m_Name = value; } }
+
+            /// <summary>
+            /// Default Category constructor.
+            /// </summary>
+            public Category() { }
+
+            /// <summary>
+            /// Three parameter Category constructor.
+            /// </summary>
+            /// <param name="id">The ID of the category.</param>
+            /// <param name="name">The name of the category.</param>
+            public Category(int id, string name)
+            {
+                m_ID = id;
+                m_Name = name;
+            }
+        }
+
         [Tooltip("An array of all of the possible Categories.")]
         [SerializeField] protected Category[] m_Categories;
         [Tooltip("An array of all of the possible ItemTypes.")]
@@ -21,28 +51,5 @@ namespace Opsive.UltimateCharacterController.Inventory
 
         public Category[] Categories { get { return m_Categories; } set { m_Categories = value; } }
         public ItemType[] ItemTypes { get { return m_ItemTypes; } set { m_ItemTypes = value; } }
-
-        /// <summary>
-        /// Returns the category that has the specified ID.
-        /// </summary>
-        /// <param name="id">The ID of the category.</param>
-        /// <returns>The category that has the specified ID. Returns null if no categories are found.</returns>
-        public Category GetCategory(uint id)
-        {
-            if (m_Categories == null) {
-                return null;
-            }
-
-            for (int i = 0; i < m_Categories.Length; ++i) {
-                if (m_Categories[i] == null) {
-                    Debug.LogError($"The category at index {i} doesn't exist. Ensure the new categories have been created within the Item Type Manager.");
-                    continue;
-                }
-                if (m_Categories[i].ID == id) {
-                    return m_Categories[i];
-                }
-            }
-            return null;
-        }
     }
 }

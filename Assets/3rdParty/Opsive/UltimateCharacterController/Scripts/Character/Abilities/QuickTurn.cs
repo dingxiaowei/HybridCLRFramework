@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities
 {
-    using Opsive.Shared.Events;
-    using UnityEngine;
-
     /// <summary>
     /// The Quick Turn ability allows the character to play an explicit animation when the character turns.
     /// </summary>

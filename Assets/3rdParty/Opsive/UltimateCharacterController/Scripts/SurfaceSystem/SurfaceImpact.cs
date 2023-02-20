@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.SurfaceSystem
 {
-    using UnityEngine;
-
     /// <summary>
     /// The SurfaceImpact is used to distinguish between different types of collisions for surface effects.
     /// </summary>

@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities
 {
-    using Opsive.Shared.Events;
-    using UnityEngine;
-
     /// <summary>
     /// Prevents the movement animation from playing when the character would run into a solid object. The move direction is predicted if the character is using
     /// root motion because with root motion the movement is applied after the animation plays.
@@ -23,6 +23,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
 
         public float CollisionCheckDistance { get { return m_CollisionCheckDistance; } set { m_CollisionCheckDistance = value; } }
         public float WallGlideCurveThreshold { get { return m_WallGlideCurveThreshold; } set { m_WallGlideCurveThreshold = value; } }
+        public override bool IsConcurrent { get { return true; } }
 
         private RaycastHit m_RaycastHit;
         private RestrictPosition m_RestrictPosition;
@@ -77,15 +78,8 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         /// <returns>True if the character would collide with an object based on the input vector.</returns>
         private bool PredicatedCollision()
         {
-            if (m_CharacterLocomotion.InputVector.sqrMagnitude < m_CharacterLocomotion.ColliderSpacingCubed) {
+            if (m_CharacterLocomotion.InputVector.sqrMagnitude < m_CharacterLocomotion.ColliderSpacingSquared) {
                 return false;
-            }
-
-            // Don't activate if a non-concurrent ability is running with a higher priority.
-            for (int i = 0; i < m_CharacterLocomotion.ActiveAbilityCount; ++i) {
-                if ((!m_CharacterLocomotion.ActiveAbilities[i].IsConcurrent || (m_CharacterLocomotion.ActiveAbilities[i] is MoveTowards)) && m_CharacterLocomotion.ActiveAbilities[i].Index < Index) {
-                    return false;
-                }
             }
 
             // If restrict position is stopping the move then the animation should also stop.

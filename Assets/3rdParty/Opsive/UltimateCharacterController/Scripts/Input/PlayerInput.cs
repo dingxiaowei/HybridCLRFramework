@@ -4,17 +4,16 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEngine.EventSystems;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Utility;
+using Opsive.UltimateCharacterController.StateSystem;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Input
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Events;
-    using Opsive.UltimateCharacterController.Utility;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using System.Collections.Generic;
-    using UnityEngine;
-    using UnityEngine.EventSystems;
-
     /// <summary>
     /// Abstract class to expose a common interface for any input implementation.
     /// </summary>
@@ -39,8 +38,6 @@ namespace Opsive.UltimateCharacterController.Input
         [SerializeField] protected LookVectorMode m_LookVectorMode = LookVectorMode.Smoothed;
         [Tooltip("If using look smoothing, specifies how sensitive the mouse is. The higher the value the more sensitive.")]
         [SerializeField] protected Vector2 m_LookSensitivity = new Vector2(2f, 2f);
-        [Tooltip("If using look smoothing, specifies a multiplier to apply to the LookSensitivity value.")]
-        [SerializeField] protected float m_LookSensitivityMultiplier = 1;
         [Tooltip("If using look smoothing, the amount of history to store of previous look values.")]
         [SerializeField] protected int m_SmoothLookSteps = 20;
         [Tooltip("If using look smoothing, specifies how much weight each element should have on the total smoothed value (range 0-1).")]
@@ -68,25 +65,25 @@ namespace Opsive.UltimateCharacterController.Input
             }
         }
         public Vector2 LookSensitivity { get { return m_LookSensitivity; } set { m_LookSensitivity = value; } }
-        public float LookSensitivityMultiplier { get { return m_LookSensitivityMultiplier; } set { m_LookSensitivityMultiplier = value; } }
         public int SmoothLookSteps { get { return m_SmoothLookSteps; } set { m_SmoothLookSteps = value; } }
         public float SmoothLookWeight { get { return m_SmoothLookWeight; } set { m_SmoothLookWeight = value; } }
         public float SmoothExponent { get { return m_SmoothExponent; } set { m_SmoothExponent = value; } }
         public float LookAccelerationThreshold { get { return m_LookAccelerationThreshold; } set { m_LookAccelerationThreshold = value; } }
         public float ControllerConnectedCheckRate { get { return m_ControllerConnectedCheckRate; } set { m_ControllerConnectedCheckRate = value; } }
         public string ConnectedControllerState { get { return m_ConnectedControllerState; } set { m_ConnectedControllerState = value; } }
-        public UnityBoolEvent EnableGameplayInputEvent { get { return m_EnableGamplayInputEvent; } set { m_EnableGamplayInputEvent = value; } }
 
         private Vector2[] m_SmoothLookBuffer;
         private int m_SmoothLookBufferIndex;
         private int m_SmoothLookBufferCount;
         protected Vector2 m_RawLookVector;
         protected Vector2 m_CurrentLookVector;
+        private bool m_HasFocus = true;
         private float m_TimeScale = 1;
         private bool m_ControllerConnected;
         private Dictionary<string, float> m_ButtonDownTime;
         private Dictionary<string, float> m_ButtonUpTime;
         private ScheduledEventBase m_ControllerCheckEvent;
+        private int m_UpdateFrame = -1;
         private bool m_AllowInput = true;
         private bool m_Death = false;
 
@@ -336,13 +333,32 @@ namespace Opsive.UltimateCharacterController.Input
         }
 
         /// <summary>
-        /// Updates the look smoothing buffer to the current look vector.
+        /// Updates the look vector. This is done within both Update and FixedUpdate to ensure the interested objects receive the latest info.
+        /// The actual look vector update only occurs once a frame.
         /// </summary>
         private void FixedUpdate()
         {
-            if (!Application.isFocused) {
+            UpdateLookVector();
+        }
+
+        /// <summary>
+        /// Updates the look vector. This is done within both Update and FixedUpdate to ensure the interested objects receive the latest info.
+        /// The actual look vector update only occurs once a frame.
+        /// </summary>
+        private void Update()
+        {
+            UpdateLookVector();
+        }
+
+        /// <summary>
+        /// Updates the look smoothing buffer to the current look vector.
+        /// </summary>
+        private void UpdateLookVector()
+        {
+            if (!m_HasFocus || m_UpdateFrame == Time.frameCount) {
                 return;
             }
+            m_UpdateFrame = Time.frameCount;
 
             m_RawLookVector.x = GetAxisRaw(m_HorizontalLookInputName);
             m_RawLookVector.y = GetAxisRaw(m_VerticalLookInputName);
@@ -388,8 +404,8 @@ namespace Opsive.UltimateCharacterController.Input
                 }
 
                 // Determine the final value.
-                m_CurrentLookVector.x *= ((m_LookSensitivity.x * m_LookSensitivityMultiplier) + lookAcceleration) * TimeUtility.FramerateDeltaTime;
-                m_CurrentLookVector.y *= ((m_LookSensitivity.y * m_LookSensitivityMultiplier) + lookAcceleration) * TimeUtility.FramerateDeltaTime;
+                m_CurrentLookVector.x *= (m_LookSensitivity.x + lookAcceleration) * TimeUtility.FramerateDeltaTime;
+                m_CurrentLookVector.y *= (m_LookSensitivity.y + lookAcceleration) * TimeUtility.FramerateDeltaTime;
 
                 m_CurrentLookVector.x = Mathf.Sign(m_CurrentLookVector.x) * Mathf.Pow(Mathf.Abs(m_CurrentLookVector.x), m_SmoothExponent);
                 m_CurrentLookVector.y = Mathf.Sign(m_CurrentLookVector.y) * Mathf.Pow(Mathf.Abs(m_CurrentLookVector.y), m_SmoothExponent);
@@ -443,10 +459,8 @@ namespace Opsive.UltimateCharacterController.Input
         {
             m_AllowInput = enable;
             enabled = m_AllowInput && !m_Death;
-            if (enabled && !Application.isFocused) {
+            if (enabled && !m_HasFocus) {
                 OnApplicationFocus(true);
-            } else if (!enabled) {
-                m_RawLookVector = m_CurrentLookVector = Vector3.zero;
             }
 
             if (m_EnableGamplayInputEvent != null) {
@@ -481,7 +495,8 @@ namespace Opsive.UltimateCharacterController.Input
         /// <param name="hasFocus">True if the game has focus.</param>
         protected virtual void OnApplicationFocus(bool hasFocus)
         {
-            if (Application.isFocused) {
+            m_HasFocus = hasFocus;
+            if (m_HasFocus) {
                 CheckForController();
             } else {
                 m_CurrentLookVector = Vector3.zero;

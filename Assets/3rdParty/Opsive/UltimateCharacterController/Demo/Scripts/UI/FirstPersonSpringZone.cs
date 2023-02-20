@@ -4,15 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
-using Opsive.Shared.Events;
-using Opsive.Shared.Game;
+using UnityEngine;
 using Opsive.UltimateCharacterController.Camera;
 using Opsive.UltimateCharacterController.Character;
 using Opsive.UltimateCharacterController.Character.Abilities.Items;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
 using Opsive.UltimateCharacterController.Inventory;
 using Opsive.UltimateCharacterController.StateSystem;
 using Opsive.UltimateCharacterController.Utility;
-using UnityEngine;
 
 namespace Opsive.UltimateCharacterController.Demo.UI
 {
@@ -27,10 +27,8 @@ namespace Opsive.UltimateCharacterController.Demo.UI
         [SerializeField] protected GameObject m_DrunkAstronautCharacter;
         [Tooltip("A reference to the character used for Giant.")]
         [SerializeField] protected GameObject m_GiantCharacter;
-        [Tooltip("The ItemDefinitions that the character should have before entering the room.")]
-        [UnityEngine.Serialization.FormerlySerializedAs("m_ItemTypes")]
-        [UnityEngine.Serialization.FormerlySerializedAs("m_ItemIdentifiers")]
-        [SerializeField] protected Shared.Inventory.ItemDefinitionBase[] m_ItemDefinitions;
+        [Tooltip("The ItemTypes that the character should have before entering the room.")]
+        [SerializeField] protected ItemType[] m_ItemTypes;
         [Tooltip("The index of the primary category.")]
         [SerializeField] protected int m_CategoryIndex = 0;
         [Tooltip("The ItemSet index that the character should switch to.")]
@@ -40,15 +38,11 @@ namespace Opsive.UltimateCharacterController.Demo.UI
         private CameraController m_CameraController;
 
         private SpringType m_SpringType = SpringType.None;
-        private MovementTypeSwitcher m_MovementTypeSwitcher;
-        private DemoManager m_DemoManager;
-        private DemoZoneTrigger m_DemoZoneTrigger;
 
         private Vector3 m_DrunkAstronautPosition;
         private Quaternion m_DrunkAstronautRotation;
         private Vector3 m_GiantPosition;
         private Quaternion m_GiantRotation;
-
 
         private ScheduledEventBase m_EnableStateEvent;
 
@@ -58,9 +52,6 @@ namespace Opsive.UltimateCharacterController.Demo.UI
         protected override void Awake()
         {
             base.Awake();
-            m_MovementTypeSwitcher = GameObject.FindObjectOfType<MovementTypeSwitcher>();
-            m_DemoManager = GameObject.FindObjectOfType<DemoManager>();
-            m_DemoZoneTrigger = GameObject.FindObjectOfType<DemoZoneTrigger>();
 
             // Remember the positions/rotations so they can be restored when the character leaves the zone.
             m_DrunkAstronautPosition = m_DrunkAstronautCharacter.transform.position;
@@ -95,10 +86,14 @@ namespace Opsive.UltimateCharacterController.Demo.UI
             }
 
             // Reset the button color and deactivate the previous character. The same character may be activated again depending on the spring type.
+            UnityEngine.UI.ColorBlock buttonColors;
             if (m_SpringType != SpringType.None) {
-                SetButtonColor((int)m_SpringType, m_NormalColor);
+                m_ButtonImages[(int)m_SpringType].color = m_NormalColor;
+                buttonColors = m_Buttons[(int)m_SpringType].colors;
+                buttonColors.normalColor = m_NormalColor;
+                m_Buttons[(int)m_SpringType].colors = buttonColors;
                 if (m_ActiveCharacter != null) {
-                    m_ActiveCharacter.GetCachedComponent<UltimateCharacterLocomotion>().SetActive(false);
+                    m_ActiveCharacter.SetActive(false);
                     StateManager.SetState(m_ActiveCharacter, System.Enum.GetName(typeof(SpringType), m_SpringType), false);
                 }
             }
@@ -106,7 +101,10 @@ namespace Opsive.UltimateCharacterController.Demo.UI
             // Remember the old spring type and activate the new. The button should reflect the selected spring type.
             var prevSpringType = m_SpringType;
             m_SpringType = type;
-            SetButtonColor((int)m_SpringType, m_PressedColor);
+            m_ButtonImages[(int)m_SpringType].color = m_PressedColor;
+            buttonColors = m_Buttons[(int)m_SpringType].colors;
+            buttonColors.normalColor = m_PressedColor;
+            m_Buttons[(int)m_SpringType].colors = buttonColors;
 
             // If the previous spring type isn't None then a button was pressed. Activate the new character.
             if (prevSpringType != SpringType.None) {
@@ -124,7 +122,7 @@ namespace Opsive.UltimateCharacterController.Demo.UI
                 // Activate the correct character and set the camera to the character if that character changed. This shouldn't be done if the character didn't
                 // change so the camera doesn't snap into position.
                 var characterChange = m_ActiveCharacter != prevCharacter;
-                m_ActiveCharacter.GetCachedComponent<UltimateCharacterLocomotion>().SetActive(true);
+                m_ActiveCharacter.SetActive(true);
                 if (characterChange) {
                     m_CameraController.Character = m_ActiveCharacter;
                 }
@@ -163,11 +161,11 @@ namespace Opsive.UltimateCharacterController.Demo.UI
 
             // The character must have the primary item in order for it to be equipped.
             var inventory = m_Character.GetCachedComponent<InventoryBase>();
-            for (int i = 0; i < m_ItemDefinitions.Length; ++i) {
-                if (m_ItemDefinitions[i] == null) {
+            for (int i = 0; i < m_ItemTypes.Length; ++i) {
+                if (m_ItemTypes[i] == null) {
                     continue;
                 }
-                inventory.Pickup(m_ItemDefinitions[i].CreateItemIdentifier(), 1, 0, false, true);
+                inventory.PickupItemType(m_ItemTypes[i], 1, 0, false, false);
             }
 
             // Ensure the primary weapon is equipped.
@@ -185,8 +183,6 @@ namespace Opsive.UltimateCharacterController.Demo.UI
 
             // First person perspective is required.
             m_CameraController.SetPerspective(true);
-            // With the combat movement type.
-            m_MovementTypeSwitcher.UpdateMovementType(true, (int)MovementTypesZone.MovementType.FirstPersonCombat);
         }
 
         /// <summary>
@@ -206,9 +202,6 @@ namespace Opsive.UltimateCharacterController.Demo.UI
             // Disable the states that were enabled when entering the zone.
             StateManager.SetState(m_Character, "FirstPersonSpringZone", false);
             EventHandler.ExecuteEvent(m_Character, "OnShowUI", true);
-
-            // Ensure the character exited the demo zone.
-            m_DemoManager.ExitedTriggerZone(m_DemoZoneTrigger);
 
             // Restore the other character positions/rotations.
             m_DrunkAstronautCharacter.GetComponent<UltimateCharacterLocomotion>().SetPositionAndRotation(m_DrunkAstronautPosition, m_DrunkAstronautRotation);

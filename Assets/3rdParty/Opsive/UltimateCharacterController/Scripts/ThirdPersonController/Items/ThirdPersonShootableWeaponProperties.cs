@@ -4,15 +4,14 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Items.Actions;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.ThirdPersonController.Items
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Items.Actions.PerspectiveProperties;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// Describes any third person perspective dependent properties for the ShootableWeapon.
     /// </summary>
@@ -24,7 +23,7 @@ namespace Opsive.UltimateCharacterController.ThirdPersonController.Items
         [SerializeField] protected Transform m_FirePointLocation;
         [Tooltip("The transform that the fire point should be attached to.")]
         [SerializeField] protected Transform m_FirePointAttachmentLocation;
-        [Tooltip("The ID of the transform that the fire point should be attached to. This field will be used if the value is not -1 and the attachment is null.")]
+        [Tooltip("The ID of the transform that the fire point should be attached to.. This field will be used if the value is not -1 and the attachment is null.")]
         [SerializeField] protected int m_FirePointAttachmentLocationID = -1;
         [Tooltip("The location that the muzzle flash is spawned at.")]
         [SerializeField] protected Transform m_MuzzleFlashLocation;
@@ -164,7 +163,7 @@ namespace Opsive.UltimateCharacterController.ThirdPersonController.Items
                         m_ConsistantLookSensitivityCount++;
                         if (m_ConsistantLookSensitivityCount > 10) {
                             Debug.LogWarning("Warning: The ShootableWeapon is unable to fire because of the Look Sensitivity on the ShootableWeaponProperties. See this page for more info: " +
-                                             "https://opsive.com/support/documentation/ultimate-character-controller/items/actions/usable/shootable-weapon/", this);
+                                             "https://opsive.com/support/documentation/ultimate-character-controller/items/actions/usable/shootable-weapon/");
                             m_ConsistantLookSensitivityCount = -1;
                         }
                     } else {

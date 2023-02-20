@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.SurfaceSystem
 {
-    using UnityEngine;
-
     /// <summary>
     /// The SurfaceIdentifier can be added to GameObjects and identifies the type of surface the object belongs to.
     /// </summary>

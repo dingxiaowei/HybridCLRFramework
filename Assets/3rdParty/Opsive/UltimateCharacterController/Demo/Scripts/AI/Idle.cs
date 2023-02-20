@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character.MovementTypes;
+
 namespace Opsive.UltimateCharacterController.Demo.AI
 {
-    using Opsive.UltimateCharacterController.Character.MovementTypes;
-    using UnityEngine;
-
     /// <summary>
     /// The Idle Movement Type will ensure the AI character doesn't move. A regular Movement Type could have also been used but there isn't a common Movement Type included
     /// with all of the different packages so it's easier to use the same Movement Type for demo purposes.

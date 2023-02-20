@@ -4,20 +4,20 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using UnityEditorInternal;
+using System;
+using System.Collections.Generic;
+using Opsive.UltimateCharacterController.Items.AnimatorAudioStates;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Utility;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Audio;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Items.AnimatorAudioState
 {
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Audio;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
-    using Opsive.UltimateCharacterController.Items.AnimatorAudioStates;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using System;
-    using System.Collections.Generic;
-    using UnityEditor;
-    using UnityEditorInternal;
-    using UnityEngine;
-
     /// <summary>
     /// Draws a user friendly inspector for the AnimatorAudioStateSet class.
     /// </summary>
@@ -135,7 +135,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Items.AnimatorAud
             }
 
             var animatorAudioState = animatorAudioStateSet.States[EditorPrefs.GetInt(preferencesKey, 0)];
-            reorderableAudioList = AudioClipSetInspector.DrawAudioClipSet(animatorAudioState.AudioClipSet, serializedProperty.FindPropertyRelative("m_AudioClipSet"), reorderableAudioList, drawAudioElementCallback, addAudioCallback, removeAudioCallback);
+            AudioClipSetInspector.DrawAudioClipSet(animatorAudioState.AudioClipSet, serializedProperty.FindPropertyRelative("m_AudioClipSet"), ref reorderableAudioList, drawAudioElementCallback, addAudioCallback, removeAudioCallback);
             if (InspectorUtility.Foldout(animatorAudioState, new GUIContent("States"), false)) {
                 EditorGUI.indentLevel--;
                 // The MovementType class derives from system.object at the base level and reorderable lists can only operate on Unity objects. To get around this restriction

@@ -4,20 +4,18 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Demo
 {
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// Notifies the DemoManager when the character enters a trigger.
     /// </summary>
     public class DemoZoneTrigger : MonoBehaviour
     {
-        private int m_EnterExitCount;
         private DemoManager m_DemoManager;
 
         /// <summary>
@@ -39,13 +37,6 @@ namespace Opsive.UltimateCharacterController.Demo
                 return;
             }
 
-            // AI and remote networked characters should not trigger the zone.
-            var characterLocomotion = other.gameObject.GetCachedParentComponent<UltimateCharacterLocomotion>();
-            if (characterLocomotion == null || characterLocomotion.gameObject != m_DemoManager.Character) {
-                return;
-            }
-
-            m_EnterExitCount++;
             m_DemoManager.EnteredTriggerZone(this, other.gameObject);
         }
 
@@ -60,16 +51,11 @@ namespace Opsive.UltimateCharacterController.Demo
                 return;
             }
 
-            // AI and remote networked characters should not trigger the zone.
-            var characterLocomotion = other.gameObject.GetCachedParentComponent<UltimateCharacterLocomotion>();
-            if (characterLocomotion == null || characterLocomotion.gameObject != m_DemoManager.Character) {
+            if (other.gameObject.GetCachedParentComponent<UltimateCharacterLocomotion>() == null || other.gameObject.GetCachedParentComponent<LocalLookSource>() != null) {
                 return;
             }
 
-            m_EnterExitCount--;
-            if (m_EnterExitCount == 0) {
-                m_DemoManager.ExitedTriggerZone(this);
-            }
+            m_DemoManager.ExitedTriggerZone(this);
         }
     }
 }

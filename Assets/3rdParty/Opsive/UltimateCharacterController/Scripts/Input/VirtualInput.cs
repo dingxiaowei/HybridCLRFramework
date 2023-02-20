@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Input.VirtualControls;
+
 namespace Opsive.UltimateCharacterController.Input
 {
-    using UnityEngine;
-    using Opsive.UltimateCharacterController.Input.VirtualControls;
-
     /// <summary>
     /// Uses virtual buttons to detect input related actions.
     /// </summary>

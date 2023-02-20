@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Traits;
+using Opsive.UltimateCharacterController.Audio;
+
 namespace Opsive.UltimateCharacterController.Objects.CharacterAssist
 {
-    using Opsive.UltimateCharacterController.Audio;
-    using Opsive.UltimateCharacterController.Traits;
-    using UnityEngine;
-
     /// <summary>
     /// Sets a bool parameter value when interacted with (implements IInteractableTarget).
     /// </summary>
@@ -35,7 +35,7 @@ namespace Opsive.UltimateCharacterController.Objects.CharacterAssist
         private GameObject m_GameObject;
         private Animator m_Animator;
         private AnimatedInteractable[] m_AnimatedInteractables;
-        protected bool m_HasInteracted;
+        private bool m_HasInteracted;
         private int m_BoolParameterHash;
         private int m_TriggerParameterHash;
         private int m_AudioClipIndex = -1;
@@ -46,7 +46,7 @@ namespace Opsive.UltimateCharacterController.Objects.CharacterAssist
         /// <summary>
         /// Initialize the default values.
         /// </summary>
-        protected virtual void Awake()
+        private void Awake()
         {
             m_GameObject = gameObject;
             m_Animator = GetComponent<Animator>();

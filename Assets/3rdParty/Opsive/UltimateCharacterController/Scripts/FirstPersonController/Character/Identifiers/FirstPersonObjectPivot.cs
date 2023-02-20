@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.FirstPersonController.Character.Identifiers
 {
-    using UnityEngine;
-
     /// <summary>
     /// Identifier component which specifies the first person pivot object.
     /// </summary>

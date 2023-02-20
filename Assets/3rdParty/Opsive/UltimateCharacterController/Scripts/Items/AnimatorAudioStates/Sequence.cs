@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Items.AnimatorAudioStates
 {
-    using UnityEngine;
-
     /// <summary>
     /// The Sequence state will move from one state to the in a sequence order.
     /// </summary>
@@ -54,9 +54,6 @@ namespace Opsive.UltimateCharacterController.Items.AnimatorAudioStates
         {
             var count = 0;
             var size = m_States.Length;
-            if (size == 0) {
-                return false;
-            }
             do {
                 m_CurrentIndex = (m_CurrentIndex + 1) % size;
                 count++;

@@ -4,20 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Game
 {
-    using UnityEngine;
-
     /// <summary>
     /// Interface for any kinematic object that can be moved with no parameters.
     /// </summary>
     public interface IKinematicObject
     {
-        /// <summary>
-        /// Specifies the location that the object should be updated.
-        /// </summary>
-        KinematicObjectManager.UpdateLocation UpdateLocation { get; }
-
         /// <summary>
         /// A reference to the object's transform component.
         /// </summary>

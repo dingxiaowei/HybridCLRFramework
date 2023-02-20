@@ -4,16 +4,16 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Objects;
+using Opsive.UltimateCharacterController.Objects.CharacterAssist;
+using Opsive.UltimateCharacterController.Objects.ItemAssist;
+using Opsive.UltimateCharacterController.Traits;
+
 namespace Opsive.UltimateCharacterController.Editor.Managers
 {
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Objects;
-    using Opsive.UltimateCharacterController.Objects.CharacterAssist;
-    using Opsive.UltimateCharacterController.Objects.ItemAssist;
-    using Opsive.UltimateCharacterController.Traits;
-    using UnityEditor;
-    using UnityEngine;
-
     /// <summary>
     /// The ObjectManager will draw any item properties
     /// </summary>
@@ -25,30 +25,25 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
         /// </summary>
         private enum ObjectType
         {
-            ItemPickup,         // Builds an ItemPickup with a Respawner component.
-            DroppedItem,        // Builds an ItemPickup that can be dropped from the character with the TrajectoryObject.
-            HealthPickup,       // Builds a HealthPickup with a Respawner component.
+            ItemPickup,     // Builds an ItemPickup with a Respawner component.
+            DroppedItem,    // Builds an ItemPickup that can be dropped from the character with the TrajectoryObject.
+            HealthPickup,   // Builds a HealthPickup with a Respawner component.
 #if ULTIMATE_CHARACTER_CONTROLLER_SHOOTER
-            Projectile,         // Builds a Projectile that can be fired.
-            MuzzleFlash,        // Builds an object with the MuzzleFlash component.
-            Shell,              // Builds an object with the Shell component.
-            Smoke,              // Builds an object with the Smoke component.
+            Projectile,     // Builds a Projectile that can be fired.
+            MuzzleFlash,    // Builds an object with the MuzzleFlash component.
+            Shell,          // Builds an object with the Shell component.
+            Smoke,          // Builds an object with the Smoke component.
 #endif
 #if ULTIMATE_CHARACTER_CONTROLLER_MELEE
-            MeleeTrail,         // Builds an object with the Trail component.
+            MeleeTrail,     // Builds an object with the Trail component.
 #endif
-            Grenade,            // Builds a Grenade TrajectoryObject.
-            Explosion,          // Builds an object with the Explosion and ParticleSystem components.
-            MagicProjectile,    // Builds an object with the MagicProjectile and ParticleSystem components.
-            Particle,           // Builds an object with the ParticlePooler and ParticleSystem components
+            Grenade,        // Builds a Grenade TrajectoryObject.
+            Explosion       // Builds an object with the Explosion and ParticleSystem component.
         }
 
         [SerializeField] private string m_Name;
         [SerializeField] private ObjectType m_ObjectType;
         [SerializeField] private GameObject m_Object;
-        [SerializeField] private bool m_MagicParticleCollisions;
-
-        private bool m_CanBuild;
 
         /// <summary>
         /// Draws the ObjectManager.
@@ -56,7 +51,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
         public override void OnGUI()
         {
             ManagerUtility.DrawControlBox("Object Builder", DrawObjectTypes, "Builds a new object with the specified type.",
-                                    m_Name != null && (m_Object != null || !RequiresGameObject()) && m_CanBuild,
+                                    m_Name != null && (m_Object != null || !RequiresGameObject()),
                                     "Build Object", BuildObject, string.Empty);
         }
 
@@ -65,37 +60,26 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
         /// </summary>
         private void DrawObjectTypes()
         {
-            m_CanBuild = true;
             m_Name = EditorGUILayout.TextField("Name", m_Name);
             m_ObjectType = (ObjectType)EditorGUILayout.EnumPopup("Object Type", m_ObjectType);
             if (RequiresGameObject()) {
                 m_Object = EditorGUILayout.ObjectField("GameObject", m_Object, typeof(GameObject), true) as GameObject;
-                if (m_Object != null && m_ObjectType == ObjectType.ItemPickup) {
-                    if (m_Object.GetComponent<Items.Item>() != null) {
-                        EditorGUILayout.HelpBox("The Item Pickup should not reference an already created item. This GameObject should reference the item model.", MessageType.Error);
-                        m_CanBuild = false;
-                    }
-                }
             } else {
                 m_Object = null;
-            }
-            if (m_ObjectType == ObjectType.MagicProjectile || m_ObjectType == ObjectType.Particle) {
-                m_MagicParticleCollisions = EditorGUILayout.Toggle(new GUIContent("Magic Particle Collisions", "Should the particles respond to magic collision events?"),
-                                                                    m_MagicParticleCollisions);
             }
         }
 
         /// <summary>
         /// Does the object type require the GameObject field?
         /// </summary>
-        /// <returns>True if the object type requires the GameObject field.</returns>
+        /// <returns></returns>
         private bool RequiresGameObject()
         {
             return m_ObjectType != ObjectType.Explosion
 #if ULTIMATE_CHARACTER_CONTROLLER_MELEE
                 && m_ObjectType != ObjectType.MeleeTrail
 #endif
-                && m_ObjectType != ObjectType.MagicProjectile && m_ObjectType != ObjectType.Particle;
+                ;
         }
      
         /// <summary>
@@ -174,28 +158,11 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                 case ObjectType.Grenade:
                     AddComponentIfNotAdded<Rigidbody>(createdObject);
                     AddComponentIfNotAdded<CapsuleCollider>(createdObject);
-                    var grenade = AddComponentIfNotAdded<Grenade>(createdObject);
-                    grenade.DestroyOnCollision = false;
+                    AddComponentIfNotAdded<Grenade>(createdObject);
                     break;
                 case ObjectType.Explosion:
                     AddComponentIfNotAdded<ParticleSystem>(createdObject);
                     AddComponentIfNotAdded<Explosion>(createdObject);
-                    break;
-                case ObjectType.MagicProjectile:
-                    AddComponentIfNotAdded<Rigidbody>(createdObject);
-                    AddComponentIfNotAdded<ParticleSystem>(createdObject);
-                    var magicParticle = AddComponentIfNotAdded<MagicProjectile>(createdObject);
-                    magicParticle.Collision = TrajectoryObject.CollisionMode.Ignore;
-                    if (m_MagicParticleCollisions) {
-                        AddComponentIfNotAdded<MagicParticle>(createdObject);
-                    }
-                    break;
-                case ObjectType.Particle:
-                    var particleSystem = AddComponentIfNotAdded<ParticleSystem>(createdObject);
-                    AddComponentIfNotAdded<ParticlePooler>(createdObject);
-                    if (m_MagicParticleCollisions) {
-                        AddComponentIfNotAdded<MagicParticle>(createdObject);
-                    }
                     break;
             }
 

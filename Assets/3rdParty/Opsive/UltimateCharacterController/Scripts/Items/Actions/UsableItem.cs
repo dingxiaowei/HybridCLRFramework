@@ -4,19 +4,17 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Character.Abilities.Items;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Inventory;
+using Opsive.UltimateCharacterController.Items.AnimatorAudioStates;
+using Opsive.UltimateCharacterController.Traits;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Items.Actions
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Inventory;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Character.Abilities;
-    using Opsive.UltimateCharacterController.Character.Abilities.Items;
-    using Opsive.UltimateCharacterController.Items.AnimatorAudioStates;
-    using Opsive.UltimateCharacterController.Traits;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// Base class for any item that can be used.
     /// </summary>
@@ -110,8 +108,8 @@ namespace Opsive.UltimateCharacterController.Items.Actions
         protected ILookSource m_LookSource;
         private AttributeManager m_AttributeManager;
         private AttributeManager m_CharacterUseAttributeManager;
-        protected Attribute m_UseAttribute;
-        protected Attribute m_CharacterUseAttribute;
+        private Attribute m_UseAttribute;
+        private Attribute m_CharacterUseAttribute;
         protected float m_NextAllowedUseTime;
         private bool m_InUse;
 
@@ -156,27 +154,27 @@ namespace Opsive.UltimateCharacterController.Items.Actions
         }
 
         /// <summary>
-        /// Returns the ItemIdentifier which can be used by the item.
+        /// Returns the ItemType which can be used by the item.
         /// </summary>
-        /// <returns>The ItemIdentifier which can be used by the item.</returns>
-        public virtual IItemIdentifier GetConsumableItemIdentifier() { return null; }
+        /// <returns>The ItemType which can be used by the item.</returns>
+        public virtual ItemType GetConsumableItemType() { return null; }
 
         /// <summary>
-        /// Returns the amount of UsableItemIdentifier which has been consumed by the UsableItem.
+        /// Returns the amount of UsableItemType which has been consumed by the UsableItem.
         /// </summary>
-        /// <returns>The amount consumed of the UsableItemIdentifier.</returns>
-        public virtual int GetConsumableItemIdentifierAmount() { return 0; }
+        /// <returns>The amount consumed of the UsableItemType.</returns>
+        public virtual float GetConsumableItemTypeCount() { return 0; }
 
         /// <summary>
-        /// Sets the UsableItemIdentifier amount on the UsableItem.
+        /// Sets the UsableItemType amount on the UsableItem.
         /// </summary>
-        /// <param name="amount">The amount to set the UsableItemIdentifier to.</param>
-        public virtual void SetConsumableItemIdentifierAmount(int amount) { }
+        /// <param name="count">The amount to set the UsableItemType to.</param>
+        public virtual void SetConsumableItemTypeCount(float count) { }
 
         /// <summary>
-        /// Removes the amount of UsableItemIdentifier which has been consumed by the UsableItem.
+        /// Removes the amount of UsableItemType which has been consumed by the UsableItem.
         /// </summary>
-        public virtual void RemoveConsumableItemIdentifierAmount() { }
+        public virtual void RemoveConsumableItemTypeCount() { }
 
         /// <summary>
         /// Can the item be used?
@@ -192,12 +190,8 @@ namespace Opsive.UltimateCharacterController.Items.Actions
             }
 
             // The attribute may prevent the item from being used (such as if the character doesn't have enough stamina to use the item).
-            if ((m_UseAttribute != null && !m_UseAttribute.IsValid(abilityState == UseAbilityState.Start ? 0 : -m_UseAttributeAmount)) || 
-                (m_CharacterUseAttribute != null && !m_CharacterUseAttribute.IsValid(abilityState == UseAbilityState.Start ? 0 : -m_CharacterUseAttributeAmount))) {
-                // The item can no longer be used. Stop the ability.
-                if (abilityState != UseAbilityState.Start) {
-                    itemAbility.StopAbility();
-                }
+            if ((m_UseAttribute != null && !m_UseAttribute.IsValid(-m_UseAttributeAmount)) || 
+                (m_CharacterUseAttribute != null && !m_CharacterUseAttribute.IsValid(-m_CharacterUseAttributeAmount))) {
                 return false;
             }
 
@@ -205,17 +199,9 @@ namespace Opsive.UltimateCharacterController.Items.Actions
         }
 
         /// <summary>
-        /// Can the ability be started?
-        /// </summary>
-        /// <param name="ability">The ability that is trying to start.</param>
-        /// <returns>True if the ability can be started.</returns>
-        public virtual bool CanStartAbility(Ability ability) { return true; }
-
-        /// <summary>
         /// Starts the item use.
         /// </summary>
-        /// <param name="itemAbility">The item ability that is using the item.</param>
-        public virtual void StartItemUse(ItemAbility useAbility)
+        public virtual void StartItemUse()
         {
             // The use AnimatorAudioState is starting.
             m_UseAnimatorAudioStateSet.StartStopStateSelection(true);
@@ -318,10 +304,10 @@ namespace Opsive.UltimateCharacterController.Items.Actions
                 return;
             }
 
-            // Remove the item from the inventory before dropping it. This will ensure the dropped prefab does not contain any ItemIdentifier amount so the
+            // Remove the item from the inventory before dropping it. This will ensure the dropped prefab does not contain any ItemType count so the
             // item can't be picked up again.
-            m_Inventory.RemoveItem(m_Item.ItemIdentifier, m_Item.SlotID, int.MaxValue, false);
-            m_Item.Drop(int.MaxValue, true);
+            m_Inventory.RemoveItem(m_Item.ItemType, m_Item.SlotID, false);
+            m_Item.Drop(true);
         }
 
         /// <summary>

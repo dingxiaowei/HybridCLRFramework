@@ -1,7 +1,9 @@
 fileFormatVersion: 2
 guid: 5f61f2d12008b7e49ae8e03063976338
+timeCreated: 1519503860
+licenseType: Pro
 ModelImporter:
-  serializedVersion: 23
+  serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
     100002: ExteriorBack
@@ -74,8 +76,6 @@ ModelImporter:
     100136: 2_5DArea
     100138: ExteriorOrange
     100140: ExteriorWhite
-    100142: 2.5DArea
-    100144: 2.5DPlatform
     400000: //RootNode
     400002: ExteriorBack
     400004: ExteriorDivider
@@ -147,8 +147,6 @@ ModelImporter:
     400136: 2_5DArea
     400138: ExteriorOrange
     400140: ExteriorWhite
-    400142: 2.5DArea
-    400144: 2.5DPlatform
     2300000: //RootNode
     2300002: ExteriorBack
     2300004: ExteriorDivider
@@ -220,8 +218,6 @@ ModelImporter:
     2300136: 2_5DArea
     2300138: ExteriorOrange
     2300140: ExteriorWhite
-    2300142: 2.5DArea
-    2300144: 2.5DPlatform
     3300000: //RootNode
     3300002: ExteriorBack
     3300004: ExteriorDivider
@@ -293,8 +289,6 @@ ModelImporter:
     3300136: 2_5DArea
     3300138: ExteriorOrange
     3300140: ExteriorWhite
-    3300142: 2.5DArea
-    3300144: 2.5DPlatform
     4300000: ExteriorWall
     4300002: ExteriorWall_001
     4300004: ExteriorRoofFloor
@@ -366,14 +360,10 @@ ModelImporter:
     4300136: 2_5DArea
     4300138: ExteriorOrange
     4300140: ExteriorWhite
-    4300142: 2.5DPlatform
-    4300144: 2.5DArea
-  externalObjects: {}
   materials:
     importMaterials: 0
     materialName: 0
     materialSearch: 1
-    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -386,50 +376,35 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    importAnimatedCustomProperties: 0
-    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 100
     meshCompression: 0
     addColliders: 0
-    useSRGBMaterialColor: 1
-    importVisibility: 0
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
-    preserveHierarchy: 0
-    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
-    normalCalculationMode: 0
-    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
-    blendShapeNormalImportMode: 1
-    normalSmoothingSource: 0
   importAnimation: 0
   copyAvatar: 0
   humanDescription:
@@ -444,6 +419,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

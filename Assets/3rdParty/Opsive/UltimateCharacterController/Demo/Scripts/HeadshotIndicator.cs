@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+
 namespace Opsive.UltimateCharacterController.Demo
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using UnityEngine;
-
     /// <summary>
     /// Indicates that a headshot occured by changing the color of the specified material.
     /// </summary>

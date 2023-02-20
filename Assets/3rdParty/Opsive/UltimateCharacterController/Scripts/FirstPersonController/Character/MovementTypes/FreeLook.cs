@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character.MovementTypes;
+
 namespace Opsive.UltimateCharacterController.FirstPersonController.Character.MovementTypes
 {
-    using Opsive.UltimateCharacterController.Character.MovementTypes;
-    using UnityEngine;
-
     /// <summary>
     /// Allows the character to rotate and move independently of the camera.
     /// </summary>

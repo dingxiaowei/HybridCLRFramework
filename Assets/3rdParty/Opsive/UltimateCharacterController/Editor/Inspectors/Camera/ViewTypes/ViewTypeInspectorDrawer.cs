@@ -1,15 +1,9 @@
-﻿/// ---------------------------------------------
-/// Ultimate Character Controller
-/// Copyright (c) Opsive. All Rights Reserved.
-/// https://www.opsive.com
-/// ---------------------------------------------
+﻿using UnityEngine;
+using Opsive.UltimateCharacterController.Camera.ViewTypes;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
 
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Camera
 {
-    using Opsive.UltimateCharacterController.Camera.ViewTypes;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// Draws a custom inspector for the base Ability type.
     /// </summary>

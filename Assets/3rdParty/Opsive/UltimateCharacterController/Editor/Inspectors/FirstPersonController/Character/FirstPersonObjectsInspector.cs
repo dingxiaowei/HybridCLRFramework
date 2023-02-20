@@ -4,15 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using Opsive.UltimateCharacterController.FirstPersonController.Character;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
+using System;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.FirstPersonController.Character
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
-    using Opsive.UltimateCharacterController.FirstPersonController.Character;
-    using System;
-    using UnityEngine;
-    using UnityEditor;
-
     /// <summary>
     /// Shows a custom inspector for the FirstPersonObjects.
     /// </summary>

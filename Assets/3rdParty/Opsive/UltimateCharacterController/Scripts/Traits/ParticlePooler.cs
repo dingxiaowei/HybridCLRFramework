@@ -4,14 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Game;
+
 namespace Opsive.UltimateCharacterController.Traits
 {
-    using UnityEngine;
-    using Opsive.Shared.Game;
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-    using Opsive.UltimateCharacterController.Networking.Game;
-#endif
-
     /// <summary>
     /// Pools the ParticleSystem after it is done playing.
     /// </summary>
@@ -52,21 +49,6 @@ namespace Opsive.UltimateCharacterController.Traits
         /// </summary>
         private void PoolGameObject()
         {
-            // The particle may be looping so it shouldn't be stopped yet.
-            if (m_ParticleSystem.IsAlive(true)) {
-                m_PoolEvent = Scheduler.Schedule(m_ParticleSystem.main.duration, PoolGameObject);
-                return;
-            }
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-            if (NetworkObjectPool.IsNetworkActive()) {
-                // The object may have already been destroyed over the network.
-                if (!m_GameObject.activeSelf) {
-                    return;
-                }
-                NetworkObjectPool.Destroy(m_GameObject);
-                return;
-            }
-#endif
             ObjectPool.Destroy(m_GameObject);
         }
     }

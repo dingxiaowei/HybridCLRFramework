@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities
 {
-    using Opsive.Shared.Events;
-    using UnityEngine;
-
     /// <summary>
     /// The Slide ability will apply a force to the character if the character is on a steep slope.
     /// </summary>
@@ -23,14 +23,11 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         [SerializeField] protected float m_Multiplier = 0.4f;
         [Tooltip("The maximum speed that the character can slide.")]
         [SerializeField] protected float m_MaxSlideSpeed = 1;
-        [Tooltip("Optionally specifies the up direction that should override the character's up direction.")]
-        [SerializeField] protected Vector3 m_OverrideUpDirection;
 
         public float MinSlideLimit { get { return m_MinSlideLimit; } set { m_MinSlideLimit = value; } }
         public float MaxSlideLimit { get { return m_MaxSlideLimit; } set { m_MaxSlideLimit = value; } }
         public float Multiplier { get { return m_Multiplier; } set { m_Multiplier = value; } }
         public float MaxSlideSpeed { get { return m_MaxSlideSpeed; } set { m_MaxSlideSpeed = value; } }
-        public Vector3 OverrideUpDirection { get { return m_OverrideUpDirection; } set { m_OverrideUpDirection = value; } }
 
         private float m_SlideSpeed;
 
@@ -94,23 +91,13 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         }
 
         /// <summary>
-        /// Update the controller's position values.
+        /// The ability has started.
         /// </summary>
-        public override void UpdatePosition()
+        protected override void AbilityStarted()
         {
-            base.UpdatePosition();
+            base.AbilityStarted();
 
-            // The character's motor throttle may be greater than the slide force. Negate any motor throttle force in the opposite direction.
-            var groundRaycastHitNormal = m_CharacterLocomotion.GroundRaycastHit.normal;
-            var upDirection = m_OverrideUpDirection.sqrMagnitude > 0 ? m_OverrideUpDirection : m_CharacterLocomotion.Up;
-            var direction = Vector3.Cross(Vector3.Cross(groundRaycastHitNormal, -upDirection), groundRaycastHitNormal);
-            var horizontalMotorThrottle = Vector3.ProjectOnPlane(m_CharacterLocomotion.MotorThrottle, upDirection);
-            var horizontalDirection = Vector3.ProjectOnPlane(direction, upDirection);
-            // Only update the motor throttle if the character is moving into the slope.
-            var dot = Vector3.Dot(horizontalMotorThrottle.normalized, horizontalDirection.normalized);
-            if (dot < 0) {
-                m_CharacterLocomotion.MotorThrottle *= (1 + dot);
-            }
+            m_SlideSpeed = 0;
         }
 
         /// <summary>
@@ -121,9 +108,8 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
             var groundRaycastHit = m_CharacterLocomotion.GroundRaycastHit;
             // The slide value uses the ground's physic material to get the amount of friction of the material.
             var slide = (1 - groundRaycastHit.collider.material.dynamicFriction) * m_Multiplier;
-            var upDirection = m_OverrideUpDirection.sqrMagnitude > 0 ? m_OverrideUpDirection : m_CharacterLocomotion.Up;
             // Slide at a constant speed if the slope is within the slope limit.
-            var slope = Vector3.Angle(groundRaycastHit.normal, upDirection);
+            var slope = Vector3.Angle(groundRaycastHit.normal, m_CharacterLocomotion.Up);
             if (slope < m_CharacterLocomotion.SlopeLimit) {
                 m_SlideSpeed = Mathf.Max(m_SlideSpeed, slide);
             } else { // The slope is steeper then the slope limit. Slide with an accelerating slide speed.
@@ -133,8 +119,8 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
 
             // Add a force if the character should slide.
             if (m_SlideSpeed > 0) {
-                var direction = Vector3.Cross(Vector3.Cross(groundRaycastHit.normal, -upDirection), groundRaycastHit.normal);
-                AddForce(direction.normalized * m_SlideSpeed * m_CharacterLocomotion.TimeScale * Time.timeScale * Time.deltaTime, 1, false, true);
+                var direction = Vector3.Cross(Vector3.Cross(groundRaycastHit.normal, -m_CharacterLocomotion.Up), groundRaycastHit.normal);
+                AddForce(direction.normalized * m_SlideSpeed * m_CharacterLocomotion.TimeScale * Time.timeScale * m_CharacterLocomotion.DeltaTime, 1, false, true);
             }
         }
 
@@ -153,11 +139,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         /// <param name="grounded">Is the character on the ground?</param>
         private void OnGrounded(bool grounded)
         {
-            if (grounded) {
-                if (!CanSlide()) {
-                    m_SlideSpeed = 0;
-                }
-            } else {
+            if (!grounded) {
                 StopAbility();
             }
         }

@@ -4,17 +4,16 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using UnityEditorInternal;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Utility;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem
 {
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using Opsive.UltimateCharacterController.Utility;
-    using System.Collections.Generic;
-    using UnityEditor;
-    using UnityEditorInternal;
-    using UnityEngine;
-
     /// <summary>
     /// StateInspector is a helper class which will manage the inspector for the state system.
     /// </summary>
@@ -166,7 +165,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem
                         for (int j = 0; j < states[i].BlockList.Length; ++j) {
                             if (states[i].BlockList[j] == state.Name) {
                                 if (stateProperty != null) {
-                                    statesProperty.GetArrayElementAtIndex(i).FindPropertyRelative("m_BlockList").GetArrayElementAtIndex(j).stringValue = desiredName;
+                                    stateProperty.FindPropertyRelative("m_BlockList").GetArrayElementAtIndex(j).stringValue = desiredName;
                                 } else {
                                     states[i].BlockList[j] = desiredName;
                                 }
@@ -187,14 +186,14 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem
             var desiredPreset = EditorGUI.ObjectField(new Rect(startRectX, rect.y + 1, presetWidth,
                                                         EditorGUIUtility.singleLineHeight), string.Empty, state.Preset, typeof(PersistablePreset), false) as PersistablePreset;
             if (desiredPreset != null) {
-                if (UnityEngineUtility.GetType(desiredPreset.Data.ObjectType).IsInstanceOfType(obj)) {
+                if (UnityEngineUtility.GetType(desiredPreset.Data.ObjectType).IsAssignableFrom(obj.GetType())) {
                     if (stateProperty != null) {
                         stateProperty.FindPropertyRelative("m_Preset").objectReferenceValue = desiredPreset;
                     } else {
                         state.Preset = desiredPreset;
                     }
                 } else {
-                    Debug.LogError($"Error: Unable to add preset. {desiredPreset.name} ({desiredPreset.Data.ObjectType}) doesn't use the same object type ({obj.GetType().FullName}).");
+                    Debug.LogError("Error: Unable to add preset " + desiredPreset.name + " - the preset doesn't use the same object type.");
                 }
             }
             startRectX += presetWidth + c_WidthBuffer - EditorGUI.indentLevel * InspectorUtility.IndentWidth;
@@ -289,7 +288,6 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem
 
                 // Loop through all of the properties on the object.
                 var properties = Serialization.GetSerializedProperties(obj.GetType(), MemberVisibility.Public);
-                var bitwiseHash = new System.Version(desiredPreset.Data.Version).CompareTo(new System.Version("3.1")) >= 0;
                 // Remove and add the properties that are being serialized.
                 for (int i = 0; i < properties.Length; ++i) {
                     var hash = Serialization.StringHash(properties[i].PropertyType.FullName) + Serialization.StringHash(properties[i].Name);
@@ -301,9 +299,9 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem
                         if (!typeof(Object).IsAssignableFrom(property.PropertyType)) {
                             var unityObjectIndexes = new List<int>();
                             Serialization.GetUnityObjectIndexes(ref unityObjectIndexes, property.PropertyType, property.Name, 0, valuePositionMap, desiredPreset.Data.ValueHashes, desiredPreset.Data.ValuePositions,
-                                                                desiredPreset.Data.Values, false, MemberVisibility.Public, bitwiseHash);
+                                                                desiredPreset.Data.Values, false, MemberVisibility.Public);
 
-                            Serialization.RemoveProperty(i, unityObjectIndexes, desiredPreset.Data, MemberVisibility.Public, bitwiseHash);
+                            Serialization.RemoveProperty(i, unityObjectIndexes, desiredPreset.Data, MemberVisibility.Public);
 
                             // Get the current value of the active object.
                             var getMethod = property.GetGetMethod();
@@ -373,7 +371,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem
                 path = string.Format("Assets/{0}", path.Substring(Application.dataPath.Length + 1));
                 var preset = AssetDatabase.LoadAssetAtPath<PersistablePreset>(path);
                 if (preset == null) {
-                    Debug.LogError($"Error: Unable to add preset. {System.IO.Path.GetFileName(path)} isn't located within the same project directory.");
+                    Debug.LogError("Error: Unable to add preset " + System.IO.Path.GetFileName(path) + " - the preset isn't located within the same project directory.");
                     return states;
                 }
                 // The preset object type has to belong to the same object type.
@@ -385,7 +383,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem
                     }
                     states = InsertStateElement(states, reorderableList, selectedIndexKey, name, preset);
                 } else {
-                    Debug.LogError($"Error: Unable to add preset. {preset.name} ({preset.Data.ObjectType}) doesn't use the same object type ({objType.FullName}).");
+                    Debug.LogError("Error: Unable to add preset " + preset.name + " - the preset doesn't use the same object type.");
                 }
             }
             return states;

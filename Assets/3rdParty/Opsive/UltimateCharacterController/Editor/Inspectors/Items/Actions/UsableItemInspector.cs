@@ -4,19 +4,19 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using UnityEditorInternal;
+using Opsive.UltimateCharacterController.Items;
+using Opsive.UltimateCharacterController.Items.Actions;
+using Opsive.UltimateCharacterController.Traits;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Items.AnimatorAudioState;
+using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+using System;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Items.Actions
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Items.AnimatorAudioState;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.Items;
-    using Opsive.UltimateCharacterController.Items.Actions;
-    using Opsive.UltimateCharacterController.Traits;
-    using System;
-    using UnityEditor;
-    using UnityEditorInternal;
-    using UnityEngine;
-
     /// <summary>
     /// Shows a custom inspector for the UsableItem component.
     /// </summary>
@@ -29,7 +29,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Items.Actions
 
         protected Item m_Item;
         private UsableItem m_UsableItem;
-        protected AttributeManager m_AttributeManager;
+        private AttributeManager m_AttributeManager;
         private AttributeManager m_CharacterAttributeManager;
         private ReorderableList m_ReorderableUseAnimatorAudioStateSetList;
         private ReorderableList m_ReorderableUseAnimatorAudioStateSetAudioList;
@@ -85,7 +85,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Items.Actions
                     EditorGUILayout.PropertyField(PropertyFromName("m_ForceRootMotionRotation"));
                     if (Foldout("Attributes")) {
                         EditorGUI.indentLevel++;
-                        var attributeName = InspectorUtility.DrawAttribute(m_AttributeManager, m_UsableItem.UseAttributeName, "Use Attribute");
+                        var attributeName = InspectorUtility.DrawAttribute(target, m_AttributeManager, m_UsableItem.UseAttributeName, "Use Attribute");
                         if (attributeName != m_UsableItem.UseAttributeName) {
                             m_UsableItem.UseAttributeName = attributeName;
                             InspectorUtility.SetDirty(target);
@@ -96,7 +96,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Items.Actions
                             EditorGUILayout.PropertyField(PropertyFromName("m_DropWhenUseDepleted"));
                             EditorGUI.indentLevel--;
                         }
-                        attributeName = InspectorUtility.DrawAttribute(m_CharacterAttributeManager, m_UsableItem.CharacterUseAttributeName, "Character Use Attribute");
+                        attributeName = InspectorUtility.DrawAttribute(target, m_CharacterAttributeManager, m_UsableItem.CharacterUseAttributeName, "Character Use Attribute");
                         if (attributeName != m_UsableItem.CharacterUseAttributeName) {
                             m_UsableItem.CharacterUseAttributeName = attributeName;
                             InspectorUtility.SetDirty(target);

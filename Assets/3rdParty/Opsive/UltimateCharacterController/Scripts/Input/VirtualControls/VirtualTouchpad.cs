@@ -4,13 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using Opsive.UltimateCharacterController.Game;
+
 namespace Opsive.UltimateCharacterController.Input.VirtualControls
 {
-    using Opsive.Shared.Game;
-    using UnityEngine;
-    using UnityEngine.EventSystems;
-    using UnityEngine.UI;
-
     /// <summary>
     /// A virtual touchpad that will move the axis based on the position of the press relative to the starting press position.
     /// </summary>

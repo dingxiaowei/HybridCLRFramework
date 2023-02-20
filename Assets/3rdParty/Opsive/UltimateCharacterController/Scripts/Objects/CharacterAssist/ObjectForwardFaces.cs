@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Objects
 {
-    using UnityEngine;
-
     /// <summary>
     /// Specifies the number of forward faces the object has, used by the Detect Object Ability Base ability.
     /// </summary>

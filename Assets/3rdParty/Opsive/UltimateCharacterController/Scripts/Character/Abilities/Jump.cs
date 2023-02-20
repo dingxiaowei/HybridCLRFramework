@@ -4,17 +4,16 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Audio;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Input;
+using Opsive.UltimateCharacterController.SurfaceSystem;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Audio;
-    using Opsive.UltimateCharacterController.Input;
-    using Opsive.UltimateCharacterController.SurfaceSystem;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// The Jump ability allows the character to jump into the air. Jump is only active when the character has a positive y velocity.
     /// </summary>
@@ -28,11 +27,8 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
     {
         [Tooltip("Prevents the jump ability from starting if there is an object above the character within the specified distance. Set to -1 to disable.")]
         [SerializeField] protected float m_MinCeilingJumpHeight = 0.05f;
-        [Tooltip("The amount of time after the character is airborne that the character can still jump. Also known as coyote time. " +
-                 "Set to -1 to allow for the character to jump at any time after being airborne.")]
+        [Tooltip("The amount of time after the character is airborne that the character can still jump. Also known as coyote time.")]
         [SerializeField] protected float m_GroundedGracePeriod = 0.05f;
-        [Tooltip("Should the jump be prevented when the character is on a slope greater than the slope limit?")]
-        [SerializeField] protected bool m_PrevntSlopeLimitJump = true;
         [Tooltip("The amount of force that should be applied when the character jumps.")]
         [SerializeField] protected float m_Force = 0.22f;
         [Tooltip("A multiplier applied to the force while moving sideways.")]
@@ -51,14 +47,14 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         [SerializeField] protected float m_ForceHold = 0.003f;
         [Tooltip("Determines how quickly the jump hold force wears off.")]
         [SerializeField] protected float m_ForceDampingHold = 0.5f;
-        [Tooltip("Specifies the number of times the character can perform a airborne jump (double jump, triple jump, etc). Set to -1 to allow an infinite number of airborne jumps.")]
-        [SerializeField] protected int m_MaxAirborneJumpCount;
-        [Tooltip("The amount of force that applied when the character performs an airborne jump.")]
-        [SerializeField] protected float m_AirborneJumpForce = 0.6f;
+        [Tooltip("Specifies the number of times the character can perform a repeated jump (double jump, triple jump, etc). Set to -1 to allow an infinite number of repeated jumps.")]
+        [SerializeField] protected int m_MaxRepeatedJumpCount;
+        [Tooltip("The amount of force that applied when the character performs a repeated jump.")]
+        [SerializeField] protected float m_RepeatedJumpForce = 0.6f;
         [Tooltip("The number of frames that the repeated jump force is applied in.")]
-        [SerializeField] protected int m_AirborneJumpFrames = 10;
+        [SerializeField] protected int m_RepeatedJumpFrames = 10;
         [Tooltip("Contains an array of AudioClips toat can be played when a repeated jump occurs.")]
-        [SerializeField] protected AudioClipSet m_AirborneJumpAudioClipSet = new AudioClipSet();
+        [SerializeField] protected AudioClipSet m_RepeatedJumpAudioClipSet = new AudioClipSet();
         [Tooltip("A vertical velocity value below the specified amount will stop the ability.")]
         [SerializeField] protected float m_VerticalVelocityStopThreshold = -0.001f;
         [Tooltip("The number of seconds that the jump ability has to wait after it can start again (includes repeated jumps).")]
@@ -66,7 +62,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
 
         public float MinCeilingJumpHeight { get { return m_MinCeilingJumpHeight; } set { m_MinCeilingJumpHeight = value; } }
         public float GroundedGracePeriod { get { return m_GroundedGracePeriod; } set { m_GroundedGracePeriod = value; } }
-        public bool PrevntSlopeLimitJump { get { return m_PrevntSlopeLimitJump; } set { m_PrevntSlopeLimitJump = value; } }
         public float Force { get { return m_Force; } set { m_Force = value; } }
         public float SidewaysForceMultiplier { get { return m_SidewaysForceMultiplier; } set { m_SidewaysForceMultiplier = value; } }
         public float BackwardsForceMultiplier { get { return m_BackwardsForceMultiplier; } set { m_BackwardsForceMultiplier = value; } }
@@ -76,16 +71,16 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         public SurfaceImpact JumpSurfaceImpact { get { return m_JumpSurfaceImpact; } set { m_JumpSurfaceImpact = value; } }
         public float ForceHold { get { return m_ForceHold; } set { m_ForceHold = value; } }
         public float ForceDampingHold { get { return m_ForceDampingHold; } set { m_ForceDampingHold = value; } }
-        public int MaxAirborneJumpCount { get { return m_MaxAirborneJumpCount; } set { m_MaxAirborneJumpCount = value; } }
-        public float AirborneJumpForce { get { return m_AirborneJumpForce; } set { m_AirborneJumpForce = value; } }
-        public int AirborneJumpFrames { get { return m_AirborneJumpFrames; } set { m_AirborneJumpFrames = value; } }
-        public AudioClipSet AirborneJumpAudioClipSet { get { return m_AirborneJumpAudioClipSet; } set { m_AirborneJumpAudioClipSet = value; } }
+        public int MaxRepeatedJumpCount { get { return m_MaxRepeatedJumpCount; } set { m_MaxRepeatedJumpCount = value; } }
+        public float RepeatedJumpForce { get { return m_RepeatedJumpForce; } set { m_RepeatedJumpForce = value; } }
+        public int RepeatedJumpFrames { get { return m_RepeatedJumpFrames; } set { m_RepeatedJumpFrames = value; } }
+        public AudioClipSet RepeatedJumpAudioClipSet { get { return m_RepeatedJumpAudioClipSet; } set { m_RepeatedJumpAudioClipSet = value; } }
         public float VerticalVelocityStopThreshold { get { return m_VerticalVelocityStopThreshold; } set { m_VerticalVelocityStopThreshold = value; } }
         public float RecurrenceDelay { get { return m_RecurrenceDelay; } set { m_RecurrenceDelay = value; } }
 
         private UltimateCharacterLocomotionHandler m_Handler;
         private ActiveInputEvent m_HoldInput;
-        private ActiveInputEvent m_AirborneJumpInput;
+        private ActiveInputEvent m_RepeatedJumpInput;
 
         private RaycastHit m_RaycastResult;
         private bool m_ForceImmediateJump;
@@ -93,12 +88,12 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         private bool m_Jumping;
         private bool m_ApplyHoldForce;
         private float m_HoldForce;
-        private int m_AirborneJumpCount;
-        private bool m_AirborneJumpApplied;
+        private int m_RepeatedJumpCount;
+        private bool m_RepeatedJumpApplied;
         private float m_JumpTime = -1;
         private float m_LandTime = -1;
         private float m_InAirTime = -1;
-        private bool m_AirborneJumpRegistered;
+        private bool m_RepeatedJumpRegistered;
 
         [Snapshot] protected float HoldForce { get { return m_HoldForce; } set { m_HoldForce = value; } }
         [Snapshot] protected bool JumpApplied { get { return m_JumpApplied; } set { m_JumpApplied = value; } }
@@ -106,7 +101,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         public bool ForceImmediateJump { set { m_ForceImmediateJump = value; } }
 
         public override float AbilityFloatData { get { if (m_Jumping) { return m_CharacterLocomotion.LocalLocomotionVelocity.y; } return -1; } }
-        public override int AbilityIntData { get { return (m_AirborneJumpCount > 0 ? 2 : (m_JumpApplied ? 0 : 1)); } }
+        public override int AbilityIntData { get { return (m_RepeatedJumpCount > 0 ? 2 : (m_JumpApplied ? 0 : 1)); } }
 
         /// <summary>
         /// Initialize the default values.
@@ -147,23 +142,15 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
                 }
 
                 // The character can't jump if the slope is too steep.
-                if (m_PrevntSlopeLimitJump) {
-                    var slope = Vector3.Angle(m_CharacterLocomotion.Up, m_CharacterLocomotion.GroundRaycastHit.normal);
-                    if (slope > m_CharacterLocomotion.SlopeLimit) {
-                        return false;
-                    }
+                var slope = Vector3.Angle(m_CharacterLocomotion.Up, m_CharacterLocomotion.GroundRaycastHit.normal);
+                if (slope > m_CharacterLocomotion.SlopeLimit) {
+                    return false;
                 }
             } else {
-                // The airborne jump should play if the character walks off a ledge and did not initially jump.
-                if (m_AirborneJumpCount< m_MaxAirborneJumpCount) {
-                    m_JumpApplied = true;
-                    return true;
-                }
-
                 // Allow the ability to start if the character is in the air before the grounded grace period. This allows the character to run off a ledge but still
                 // be able to jump. The character may also be able to do a repeated jump even if the character isn't grounded.
-                if ((!m_JumpApplied && m_GroundedGracePeriod != -1 && m_InAirTime + m_GroundedGracePeriod <= Time.time) || 
-                    (m_AirborneJumpCount != -1 && m_AirborneJumpCount > m_MaxAirborneJumpCount) || (m_JumpTime != -1 && m_JumpTime + m_RecurrenceDelay > Time.time)) {
+                if ((!m_JumpApplied && m_InAirTime + m_GroundedGracePeriod > Time.time) || 
+                    (m_RepeatedJumpCount != -1 && m_RepeatedJumpCount >= m_MaxRepeatedJumpCount) || m_JumpTime + m_RecurrenceDelay > Time.time) {
                     return false;
                 }
             }
@@ -195,7 +182,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
 
             // If the jump has already been applied then it is a repeated jump.
             if (m_JumpApplied) {
-                OnAirborneJump();
+                OnRepeatedJump();
             } else {
                 if (!m_JumpEvent.WaitForAnimationEvent || m_ForceImmediateJump) {
                     Scheduler.ScheduleFixed(m_ForceImmediateJump ? 0 : m_JumpEvent.Duration, ApplyJumpForce);
@@ -204,7 +191,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
 
             if (m_ForceHold > 0) {
                 if (m_Handler != null && InputIndex != -1) {
-                    m_HoldInput = GenericObjectPool.Get<ActiveInputEvent>();
+                    m_HoldInput = ObjectPool.Get<ActiveInputEvent>();
                     m_HoldInput.Initialize(ActiveInputEvent.Type.ButtonUp, InputNames[InputIndex], "OnJumpAbilityReleaseHold");
                     m_Handler.RegisterInputEvent(m_HoldInput);
                 }
@@ -212,14 +199,14 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
             }
 
             // The character can do a repeated jump after the character is already in the air.
-            if (!m_AirborneJumpRegistered) {
+            if (!m_RepeatedJumpRegistered) {
                 if (m_Handler != null && InputIndex != -1) {
-                    m_AirborneJumpInput = GenericObjectPool.Get<ActiveInputEvent>();
-                    m_AirborneJumpInput.Initialize(ActiveInputEvent.Type.ButtonDown, InputNames[InputIndex], "OnJumpAbilityAirborneJump");
-                    m_Handler.RegisterInputEvent(m_AirborneJumpInput);
+                    m_RepeatedJumpInput = ObjectPool.Get<ActiveInputEvent>();
+                    m_RepeatedJumpInput.Initialize(ActiveInputEvent.Type.ButtonDown, InputNames[InputIndex], "OnJumpAbilityRepeatedJump");
+                    m_Handler.RegisterInputEvent(m_RepeatedJumpInput);
                 }
-                EventHandler.RegisterEvent(m_GameObject, "OnJumpAbilityAirborneJump", OnAirborneJump);
-                m_AirborneJumpRegistered = true;
+                EventHandler.RegisterEvent(m_GameObject, "OnJumpAbilityRepeatedJump", OnRepeatedJump);
+                m_RepeatedJumpRegistered = true;
             }
             m_ForceImmediateJump = false;
 
@@ -236,20 +223,20 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
                 if (IsActive) {
                     StopAbility(true);
                 }
-                m_AirborneJumpCount = 0;
+                m_RepeatedJumpCount = 0;
                 m_JumpApplied = false;
                 // Remember the land time to prevent jumping more than the JumpReoccuranceDelay.
                 m_LandTime = Time.time;
                 m_InAirTime = -1;
 
                 // Unregister the jump input within OnGrounded so a repeated jump can be applied when fall is active.
-                if (m_AirborneJumpInput != null) {
-                    m_Handler.UnregisterInputEvent(m_AirborneJumpInput);
-                    GenericObjectPool.Return(m_AirborneJumpInput);
-                    m_AirborneJumpInput = null;
+                if (m_RepeatedJumpInput != null) {
+                    m_Handler.UnregisterInputEvent(m_RepeatedJumpInput);
+                    ObjectPool.Return(m_RepeatedJumpInput);
+                    m_RepeatedJumpInput = null;
                 }
-                EventHandler.UnregisterEvent(m_GameObject, "OnJumpAbilityAirborneJump", OnAirborneJump);
-                m_AirborneJumpRegistered = false;
+                EventHandler.UnregisterEvent(m_GameObject, "OnJumpAbilityRepeatedJump", OnRepeatedJump);
+                m_RepeatedJumpRegistered = false;
             } else if (!IsActive) {
                 m_InAirTime = Time.time;
             }
@@ -319,9 +306,9 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         /// <summary>
         /// The ability should perform a repeated jump.
         /// </summary>
-        private void OnAirborneJump()
+        private void OnRepeatedJump()
         {
-            if (m_MaxAirborneJumpCount != -1 && m_AirborneJumpCount >= m_MaxAirborneJumpCount) {
+            if (m_MaxRepeatedJumpCount != -1 && m_RepeatedJumpCount >= m_MaxRepeatedJumpCount) {
                 return;
             }
 
@@ -329,14 +316,12 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
                 return;
             }
 
-            // Reset the accumulated gravity to allow for a full repeated jump.
-            m_CharacterLocomotion.GravityAmount = 0;
-            AddForce(m_CharacterLocomotion.Up * m_AirborneJumpForce, m_AirborneJumpFrames, false, true);
-            m_AirborneJumpCount++;
+            AddForce(m_CharacterLocomotion.Up * m_RepeatedJumpForce, m_RepeatedJumpFrames, false, true);
+            m_RepeatedJumpCount++;
             m_JumpTime = Time.time;
             // The repeated jump may be applied just as the fall ability is about to start. Prevent the jump ability from stopping immediately after starting a repeated jump.
-            m_AirborneJumpApplied = true;
-            m_AirborneJumpAudioClipSet.PlayAudioClip(m_GameObject);
+            m_RepeatedJumpApplied = true;
+            m_RepeatedJumpAudioClipSet.PlayAudioClip(m_GameObject);
             m_CharacterLocomotion.UpdateAbilityAnimatorParameters();
         }
 
@@ -351,12 +336,12 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
                 }
                 return;
             }
-            if (m_AirborneJumpApplied) {
-                m_AirborneJumpApplied = false;
+            if (m_RepeatedJumpApplied) {
+                m_RepeatedJumpApplied = false;
             }
 
             var force = 0f;
-            var deltaTime = m_CharacterLocomotion.TimeScaleSquared * Time.timeScale * TimeUtility.FramerateDeltaTime;
+            var deltaTime = m_CharacterLocomotion.TimeScaleSquared * Time.timeScale * m_CharacterLocomotion.FramerateDeltaTime;
             // Continuously apply a damping force while in the air.
             if (m_ForceDamping > 0) {
                 var localExternalForce = m_CharacterLocomotion.LocalExternalForce;
@@ -384,7 +369,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         public override bool CanStopAbility()
         {
             // The Jump ability is done if the velocity is less than a the specified value.
-            if (m_Jumping && m_CharacterLocomotion.LocalLocomotionVelocity.y <= m_VerticalVelocityStopThreshold && !m_AirborneJumpApplied) {
+            if (m_Jumping && m_CharacterLocomotion.LocalLocomotionVelocity.y <= m_VerticalVelocityStopThreshold && !m_RepeatedJumpApplied) {
                 return true;
             }
             return false;
@@ -403,7 +388,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
             // Unregister for the ability input events.
             if (m_HoldInput != null) {
                 m_Handler.UnregisterInputEvent(m_HoldInput);
-                GenericObjectPool.Return(m_HoldInput);
+                ObjectPool.Return(m_HoldInput);
             }
             EventHandler.UnregisterEvent(m_GameObject, "OnJumpAbilityReleaseHold", OnReleaseHold);
         }

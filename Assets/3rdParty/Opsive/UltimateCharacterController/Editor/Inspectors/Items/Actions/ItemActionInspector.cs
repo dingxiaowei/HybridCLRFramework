@@ -4,13 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEditor;
+using Opsive.UltimateCharacterController.Items.Actions;
+using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
+using System;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Items.Actions
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
-    using Opsive.UltimateCharacterController.Items.Actions;
-    using System;
-    using UnityEditor;
-
     /// <summary>
     /// Shows a custom inspector for the ItemAction component.
     /// </summary>

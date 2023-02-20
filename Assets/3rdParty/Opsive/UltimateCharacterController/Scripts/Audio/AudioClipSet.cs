@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Audio
 {
-    using UnityEngine;
-
     /// <summary>
     /// The AudioClipSet contains an array of AudioClips.
     /// </summary>
@@ -26,8 +26,8 @@ namespace Opsive.UltimateCharacterController.Audio
         /// Plays the audio clip with a random set index.
         /// </summary>
         /// <param name="gameObject">The GameObject that is playing the audio clip.</param>
-        /// <returns>The AudioSource that is playing the AudioClip (can be null).</returns>
-        public AudioSource PlayAudioClip(GameObject gameObject)
+        /// <returns>The audio clip that was played.</returns>
+        public AudioClip PlayAudioClip(GameObject gameObject)
         {
             return PlayAudioClip(gameObject, -1);
         }
@@ -37,8 +37,8 @@ namespace Opsive.UltimateCharacterController.Audio
         /// </summary>
         /// <param name="gameObject">The GameObject that is playing the audio clip.</param>
         /// <param name="loop">Does the clip loop?</param>
-        /// <returns>The AudioSource that is playing the AudioClip (can be null).</returns>
-        public AudioSource PlayAudioClip(GameObject gameObject, bool loop)
+        /// <returns>The audio clip that was played.</returns>
+        public AudioClip PlayAudioClip(GameObject gameObject, bool loop)
         {
             return PlayAudioClip(gameObject, -1, loop);
         }
@@ -48,8 +48,8 @@ namespace Opsive.UltimateCharacterController.Audio
         /// </summary>
         /// <param name="reservedIndex">The index of the component that should be played. -1 indicates any component.</param>
         /// <param name="gameObject">The GameObject that is playing the audio clip.</param>
-        /// <returns>The AudioSource that is playing the AudioClip (can be null).</returns>
-        public AudioSource PlayAudioClip(GameObject gameObject, int reservedIndex)
+        /// <returns>The audio clip that was played.</returns>
+        public AudioClip PlayAudioClip(GameObject gameObject, int reservedIndex)
         {
             return PlayAudioClip(gameObject, reservedIndex, false);
         }
@@ -59,30 +59,16 @@ namespace Opsive.UltimateCharacterController.Audio
         /// </summary>
         /// <param name="reservedIndex">The index of the component that should be played. -1 indicates any component.</param>
         /// <param name="gameObject">The GameObject that is playing the audio clip.</param>
-        /// <returns>The AudioSource that is playing the AudioClip (can be null).</returns>
-        public AudioSource PlayAudioClip(GameObject gameObject, int reservedIndex, bool loop)
+        /// <returns>The audio clip that was played.</returns>
+        public AudioClip PlayAudioClip(GameObject gameObject, int reservedIndex, bool loop)
         {
             var audioClip = GetAudioClip();
             if (audioClip == null) {
                 return null;
             }
 
-            return AudioManager.Play(gameObject, audioClip, 1, loop, m_Delay, reservedIndex);
-        }
-
-        /// <summary>
-        /// Plays the audio clip at the specified position.
-        /// </summary>
-        /// <param name="position">The position that the audio clip should be played at.</param>
-        /// <returns>The AudioSource that is playing the AudioClip (can be null).</returns>
-        public AudioSource PlayAtPosition(Vector3 position)
-        {
-            var audioClip = GetAudioClip();
-            if (audioClip == null) {
-                return null;
-            }
-
-            return AudioManager.PlayAtPosition(audioClip, position);
+            AudioManager.Play(gameObject, audioClip, 1, loop, m_Delay, reservedIndex);
+            return audioClip;
         }
 
         /// <summary>

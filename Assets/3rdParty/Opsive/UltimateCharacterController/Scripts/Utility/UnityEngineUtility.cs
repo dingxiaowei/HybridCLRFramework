@@ -4,15 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using System;
+using System.Reflection;
+using System.Collections.Generic;
+using Opsive.UltimateCharacterController.Camera;
+using Opsive.UltimateCharacterController.Game;
+
 namespace Opsive.UltimateCharacterController.Utility
 {
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Camera;
-    using System;
-    using System.Reflection;
-    using System.Collections.Generic;
-    using UnityEngine;
-
     /// <summary>
     /// Contains a set of utility functions useful for interacting with the Unity Engine.
     /// </summary>
@@ -46,7 +46,7 @@ namespace Opsive.UltimateCharacterController.Utility
             type = Type.GetType(name);
             // Look in the loaded assemblies.
             if (type == null) {
-                if (s_LoadedAssemblies == null || s_LoadedAssemblies.Count == 0) {
+                if (s_LoadedAssemblies == null) {
 #if NETFX_CORE && !UNITY_EDITOR
                     s_LoadedAssemblies = GetStorageFileAssemblies(typeName).Result;
 #else
@@ -303,18 +303,20 @@ namespace Opsive.UltimateCharacterController.Utility
         /// <summary>
         /// Clears the Unity Engine Utility cache.
         /// </summary>
-        /// 
-#if UNITY_2019_3_OR_NEWER
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-#endif
         public static void ClearCache()
         {
-            if (s_TypeLookup != null) { s_TypeLookup.Clear(); }
-            if (s_GameObjectCameraMap != null) { s_GameObjectCameraMap.Clear(); }
-            if (s_ObjectUpdated != null) { s_ObjectUpdated.Clear(); }
-            if (s_LoadedAssemblies != null) { s_LoadedAssemblies.Clear(); }
-            if (s_FieldAttributeMap != null) { s_FieldAttributeMap.Clear(); }
-            if (s_PropertyAttributeMap != null) { s_PropertyAttributeMap.Clear(); }
+            s_TypeLookup.Clear();
+            s_GameObjectCameraMap.Clear();
+            s_ObjectUpdated.Clear();
+            if (s_LoadedAssemblies != null) {
+                s_LoadedAssemblies.Clear();
+            }
+            if (s_FieldAttributeMap != null) {
+                s_FieldAttributeMap.Clear();
+            }
+            if (s_PropertyAttributeMap != null) {
+                s_PropertyAttributeMap.Clear();
+            }
         }
 
         /// <summary>
@@ -543,75 +545,6 @@ namespace Opsive.UltimateCharacterController.Utility
     }
 
     /// <summary>
-    /// Struct which stores the material values to revert back to after the material has been faded.
-    /// </summary>
-    public struct OriginalMaterialValue
-    {
-        [Tooltip("The color of the material.")]
-        private Color m_Color;
-        [Tooltip("Does the material have a mode property?")]
-        private bool m_ContainsMode;
-        [Tooltip("The render mode of the material.")]
-        private float m_Mode;
-        [Tooltip("The SourceBlend BlendMode of the material.")]
-        private int m_SrcBlend;
-        [Tooltip("The DestinationBlend BlendMode of the material.")]
-        private int m_DstBlend;
-        [Tooltip("Is alpha blend enabled?")]
-        private bool m_AlphaBlend;
-        [Tooltip("The render queue of the material.")]
-        private int m_RenderQueue;
-
-        public Color Color { get { return m_Color; } set { m_Color = value; } }
-        public bool ContainsMode { get { return m_ContainsMode; } set { m_ContainsMode = value; } }
-        public float Mode { get { return m_Mode; } set { m_Mode = value; } }
-        public int SrcBlend { get { return m_SrcBlend; } set { m_SrcBlend = value; } }
-        public int DstBlend { get { return m_DstBlend; } set { m_DstBlend = value; } }
-        public bool AlphaBlend { get { return m_AlphaBlend; } set { m_AlphaBlend = value; } }
-        public int RenderQueue { get { return m_RenderQueue; } set { m_RenderQueue = value; } }
-
-        private static int s_ModeID;
-        private static int s_SrcBlendID;
-        private static int s_DstBlendID;
-        private static string s_AlphaBlendString = "_ALPHABLEND_ON";
-
-        public static int ModeID { get { return s_ModeID; } }
-        public static int SrcBlendID { get { return s_SrcBlendID; } }
-        public static int DstBlendID { get { return s_DstBlendID; } }
-        public static string AlphaBlendString { get { return s_AlphaBlendString; } }
-
-        /// <summary>
-        /// Initializes the OriginalMaterialValue.
-        /// </summary>
-        [RuntimeInitializeOnLoadMethod]
-        private static void Initialize()
-        {
-            s_ModeID = Shader.PropertyToID("_Mode");
-            s_SrcBlendID = Shader.PropertyToID("_SrcBlend");
-            s_DstBlendID = Shader.PropertyToID("_DstBlend");
-        }
-
-        /// <summary>
-        /// Initializes the OriginalMaterialValue to the material values.
-        /// </summary>
-        /// <param name="color">The material to initialize.</param>
-        /// <param name="colorID">The id of the color property.</param>
-        /// <param name="mode">Does the material have a Mode property?</param>
-        public void Initialize(Material material, int colorID, bool containsMode)
-        {
-            m_Color = material.GetColor(colorID);
-            m_AlphaBlend = material.IsKeywordEnabled(s_AlphaBlendString);
-            m_RenderQueue = material.renderQueue;
-            m_ContainsMode = containsMode;
-            if (containsMode) {
-                m_Mode = material.GetFloat(s_ModeID);
-                m_SrcBlend = material.GetInt(s_SrcBlendID);
-                m_DstBlend = material.GetInt(s_DstBlendID);
-            }
-        }
-    }
-
-    /// <summary>
     /// Storage class for determining if an event is triggered based on an animation event or time.
     /// </summary>
     [System.Serializable]
@@ -654,14 +587,5 @@ namespace Opsive.UltimateCharacterController.Utility
         {
             m_Title = title;
         }
-    }
-
-    /// <summary>
-    /// Attribute which allows the same type to be added multiple times.
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
-    public class AllowDuplicateTypes : Attribute
-    {
-        // Intentionally left blank.
     }
 }

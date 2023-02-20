@@ -4,15 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using Opsive.UltimateCharacterController.FirstPersonController.Items;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Items;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+using System;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.FirstPersonController.Items
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Items;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.FirstPersonController.Items;
-    using System;
-    using UnityEditor;
-    using UnityEngine;
-
     /// <summary>
     /// Shows a custom inspector for the FirstPersonPerspectiveItem.
     /// </summary>
@@ -49,25 +49,14 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.FirstPersonContro
         protected override void DrawRenderProperties()
         {
             EditorGUILayout.PropertyField(PropertyFromName("m_VisibleItem"));
-            var firstPersonObject = PropertyFromName("m_Object").objectReferenceValue as GameObject;
-            if (firstPersonObject == null) {
+            if (PropertyFromName("m_Object").objectReferenceValue == null) {
                 EditorGUILayout.PropertyField(PropertyFromName("m_LocalSpawnPosition"));
                 EditorGUILayout.PropertyField(PropertyFromName("m_LocalSpawnRotation"));
-            } else {
-                // The first person object must have a FirstPersonObjectBase component.
-                if (firstPersonObject.GetComponent<UltimateCharacterController.FirstPersonController.Character.Identifiers.FirstPersonBaseObject>() == null &&
-                    firstPersonObject.GetComponentInParent<UltimateCharacterController.Items.ItemSlot>() == null) {
-                    EditorGUILayout.HelpBox("The incorrect object is assigned. The Object must have a FirstPersonBaseObject component attached or be a child of an ItemSlot.", MessageType.Error);
-                }
             }
 #if ULTIMATE_CHARACTER_CONTROLLER_VR
             EditorGUILayout.PropertyField(PropertyFromName("m_VRHandParent"));
 #endif
-            if (firstPersonObject == null || firstPersonObject.transform.IsChildOf((target as FirstPersonPerspectiveItem).transform)) {
-                EditorGUILayout.PropertyField(PropertyFromName("m_AdditionalControlObjectBaseIDs"), true);
-            } else {
-                EditorGUILayout.PropertyField(PropertyFromName("m_AdditionalControlObjects"), true);
-            }
+            EditorGUILayout.PropertyField(PropertyFromName("m_AdditionalControlObjects"), true);
         }
 
         /// <summary>

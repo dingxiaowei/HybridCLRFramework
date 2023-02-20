@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+
 namespace Opsive.UltimateCharacterController.Character
 {
-    using Opsive.Shared.Events;
-    using UnityEngine;
-
     /// <summary>
     /// Acts as a LookSource for any character that does not have a camera (or network) attached.
     /// </summary>

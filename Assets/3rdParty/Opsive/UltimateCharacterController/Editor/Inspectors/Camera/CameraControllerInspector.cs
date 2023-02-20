@@ -4,21 +4,21 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using UnityEditorInternal;
+using Opsive.UltimateCharacterController.Camera;
+using Opsive.UltimateCharacterController.Camera.ViewTypes;
+using Opsive.UltimateCharacterController.Utility;
+using Opsive.UltimateCharacterController.Utility.Builders;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+using System;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Camera
 {
-    using Opsive.UltimateCharacterController.Camera;
-    using Opsive.UltimateCharacterController.Camera.ViewTypes;
-    using Opsive.UltimateCharacterController.Utility;
-    using Opsive.UltimateCharacterController.Utility.Builders;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using System;
-    using System.Collections.Generic;
-    using UnityEngine;
-    using UnityEditor;
-    using UnityEditorInternal;
-
     /// <summary>
     /// Shows a custom inspector for the CameraController.
     /// </summary>
@@ -111,7 +111,6 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Camera
                 }
 
                 if (Foldout("View Types")) {
-                    EditorGUILayout.BeginVertical("Box");
                     EditorGUI.indentLevel++;
                     // Only show the first/third person view type popup if that view type is available.
                     if (!string.IsNullOrEmpty(m_CameraController.FirstPersonViewTypeFullName) && !string.IsNullOrEmpty(m_CameraController.ThirdPersonViewTypeFullName)) {
@@ -148,11 +147,10 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Camera
                         }
                         EditorGUILayout.PropertyField(PropertyFromName("m_CanChangePerspectives"));
                     }
+                    EditorGUI.indentLevel--;
                     ReorderableListSerializationHelper.DrawReorderableList(ref m_ReorderableViewTypeList, this, m_CameraController.ViewTypes, "m_ViewTypeData", 
                                                                     OnViewTypeListDrawHeader, OnViewTypeListDraw, OnViewTypeListReorder, OnViewTypeListAdd, 
                                                                     OnViewTypeListRemove, OnViewTypeListSelect, DrawSelectedViewType, SelectedViewTypeIndexKey, true, true);
-                    EditorGUI.indentLevel--;
-                    EditorGUILayout.EndVertical();
                 }
                 if (Foldout("Zoom")) {
                     EditorGUI.indentLevel++;
@@ -161,9 +159,9 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Camera
                     EditorGUILayout.PropertyField(PropertyFromName("m_ZoomState"));
                     GUILayout.Space(-5);
                     GUI.enabled = !string.IsNullOrEmpty(PropertyFromName("m_ZoomState").stringValue);
-                    var appendItemIdentifierNameProperty = PropertyFromName("m_StateAppendItemIdentifierName");
-                    appendItemIdentifierNameProperty.boolValue = EditorGUILayout.ToggleLeft(new GUIContent("Append Item", "Should the ItemIdentifier name be appened to the state name?"),
-                                                            appendItemIdentifierNameProperty.boolValue, GUILayout.Width(110));
+                    var appendItemTypeNameProperty = PropertyFromName("m_StateAppendItemTypeName");
+                    appendItemTypeNameProperty.boolValue = EditorGUILayout.ToggleLeft(new GUIContent("Append Item", "Should the ItemType name be appened to the state name?"),
+                                                            appendItemTypeNameProperty.boolValue, GUILayout.Width(110));
                     GUI.enabled = true;
                     EditorGUILayout.EndHorizontal();
 

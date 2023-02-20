@@ -4,16 +4,16 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities
 {
-    using Opsive.Shared.Events;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// The HeightChange ability allows the character pose to toggle between height changes. 
     /// </summary>
-    [AllowDuplicateTypes]
+    [AllowMultipleAbilityTypes]
     [DefaultInputName("Crouch")]
     [DefaultState("Crouch")]
     [DefaultStartType(AbilityStartType.ButtonDown)]
@@ -28,12 +28,9 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         [SerializeField] protected int m_Height = 1;
         [Tooltip("The amount to adjust the height of the CapsuleCollider by when active. This is only used if the character does not have an animator.")]
         [SerializeField] protected float m_CapsuleColliderHeightAdjustment = -0.4f;
-        [Tooltip("Can the SpeedChange ability run while the HeightChange ability is active?")]
-        [SerializeField] protected bool m_AllowSpeedChange;
 
         public bool ConcurrentAbility { get { return m_ConcurrentAbility; } set { m_ConcurrentAbility = value; } }
         public float CapsuleColliderHeightAdjustment { get { return m_CapsuleColliderHeightAdjustment; } set { m_CapsuleColliderHeightAdjustment = value; } }
-        public bool AllowSpeedChange { get { return m_AllowSpeedChange; } set { m_AllowSpeedChange = value; } }
 
         public override bool IsConcurrent { get { return m_ConcurrentAbility; } }
 
@@ -128,10 +125,10 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
                     var radiusMultiplier = MathUtility.ColliderRadiusMultiplier(capsuleCollider);
                     Vector3 startEndCap, endEndCap;
                     MathUtility.CapsuleColliderEndCaps(m_CapsuleColliderHeight[capsuleColliderCount] * MathUtility.CapsuleColliderHeightMultiplier(capsuleCollider), 
-                                                                (capsuleCollider.radius - m_CharacterLocomotion.ColliderSpacing) * radiusMultiplier, Vector3.Scale(m_StartColliderCenter[i], capsuleCollider.transform.lossyScale), MathUtility.CapsuleColliderDirection(capsuleCollider), 
+                                                                capsuleCollider.radius * radiusMultiplier, Vector3.Scale(m_StartColliderCenter[i], capsuleCollider.transform.lossyScale), MathUtility.CapsuleColliderDirection(capsuleCollider), 
                                                                 capsuleCollider.transform.position, capsuleCollider.transform.rotation, out startEndCap, out endEndCap);
                     // If there is overlap then the ability can't stop.
-                    if (Physics.OverlapCapsuleNonAlloc(startEndCap, endEndCap, (capsuleCollider.radius - m_CharacterLocomotion.ColliderSpacing) * radiusMultiplier, m_OverlapColliders, m_CharacterLayerManager.SolidObjectLayers, QueryTriggerInteraction.Ignore) > 0) {
+                    if (Physics.OverlapCapsuleNonAlloc(startEndCap, endEndCap, capsuleCollider.radius * radiusMultiplier, m_OverlapColliders, m_CharacterLayerManager.SolidObjectLayers, QueryTriggerInteraction.Ignore) > 0) {
                         keepActive = true;
                         break;
                     }
@@ -139,7 +136,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
                 } else { // SphereCollider.
                     var sphereCollider = m_CharacterLocomotion.Colliders[i] as SphereCollider;
                     // If there is overlap then the ability can't stop.
-                    if (Physics.OverlapSphereNonAlloc(sphereCollider.transform.TransformPoint(sphereCollider.center), (sphereCollider.radius - m_CharacterLocomotion.ColliderSpacing) * MathUtility.ColliderRadiusMultiplier(sphereCollider),
+                    if (Physics.OverlapSphereNonAlloc(sphereCollider.transform.TransformPoint(sphereCollider.center), sphereCollider.radius * MathUtility.ColliderRadiusMultiplier(sphereCollider),
                                                                     m_OverlapColliders, m_CharacterLayerManager.SolidObjectLayers, QueryTriggerInteraction.Ignore) > 0) {
                         keepActive = true;
                         break;
@@ -163,7 +160,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         /// <returns>True if the ability should be blocked.</returns>
         public override bool ShouldBlockAbilityStart(Ability startingAbility)
         {
-            return (!m_AllowSpeedChange && startingAbility is SpeedChange) || startingAbility is StoredInputAbilityBase; 
+            return ((startingAbility is SpeedChange) && startingAbility.Index > Index) || startingAbility is StoredInputAbilityBase; 
         }
 
         /// <summary>
@@ -173,7 +170,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         /// <param name="activeAbility">The ability that is currently active.</param>
         public override bool ShouldStopActiveAbility(Ability activeAbility)
         {
-            return (!m_AllowSpeedChange && activeAbility is SpeedChange);
+            return ((activeAbility is SpeedChange) && activeAbility.Index > Index);
         }
 
         /// <summary>

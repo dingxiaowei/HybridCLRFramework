@@ -4,20 +4,19 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Inventory;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Utility;
+#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
+using Opsive.UltimateCharacterController.Networking;
+using Opsive.UltimateCharacterController.Networking.Character;
+#endif
+
 namespace Opsive.UltimateCharacterController.Items.Actions
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Inventory;
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-    using Opsive.UltimateCharacterController.Networking;
-    using Opsive.UltimateCharacterController.Networking.Character;
-#endif
-    using Opsive.UltimateCharacterController.StateSystem;
-    using UnityEngine;
-
     /// <summary>
     /// An ItemAction is any item that can be interacted with by the character.
     /// </summary>

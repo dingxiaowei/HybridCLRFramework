@@ -4,14 +4,14 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using UnityEditor.IMGUI.Controls;
+using System;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Editor.Controls
 {
-    using System;
-    using System.Collections.Generic;
-    using UnityEditor;
-    using UnityEditor.IMGUI.Controls;
-    using UnityEngine;
-
     /// <summary>
     /// Uses Unity's TreeView class to create a single column tree view that does not have any children. The elements can be reordered and searched.
     /// </summary>

@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character.Effects;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Character
 {
-    using Opsive.UltimateCharacterController.Character.Effects;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// Draws a custom inspector for the base Effect type.
     /// </summary>

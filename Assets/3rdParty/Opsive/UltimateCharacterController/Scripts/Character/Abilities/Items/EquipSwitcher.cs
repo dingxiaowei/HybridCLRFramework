@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities.Items
 {
-    using Opsive.Shared.Events;
-    using UnityEngine;
-
     /// <summary>
     /// The EquipSwitcher is an abstract class implemented by the abilities which change the item set.
     /// </summary>
@@ -23,27 +23,15 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
 
             // The EquipUnequip must exist in order for the itemset to be able to be changed.
             if (m_EquipUnequipItemAbility == null) {
-                Debug.LogError($"Error: The EquipUnequip ItemAbility with the category ID {m_ItemSetCategoryID} must be added to the character.");
+                Debug.LogError("Error: The EquipUnequip ItemAbility must be added to the character.");
                 Enabled = false;
                 return;
             }
 
-            EventHandler.RegisterEvent<int>(m_EquipUnequipItemAbility, "OnEquipUnequipItemSetIndexChange", OnItemSetIndexChange);
-            EventHandler.RegisterEvent<int, int>(m_GameObject, "OnItemSetIndexChange", OnItemSetIndexChange);
-            EventHandler.RegisterEvent<Vector3, Vector3, GameObject>(m_GameObject, "OnDeath", OnDeath);
-        }
-
-        /// <summary>
-        /// The ItemSetManager has changed the active ItemSet.
-        /// </summary>
-        /// <param name="categoryIndex">The index of the category that changed.</param>
-        /// <param name="itemSetIndex">The updated active ItemSet index value.</param>
-        protected void OnItemSetIndexChange(int categoryIndex, int itemSetIndex)
-        { 
-            if (m_ItemSetCategoryIndex != categoryIndex) {
-                return;
+            if (m_EquipUnequipItemAbility != null) {
+                EventHandler.RegisterEvent<int>(m_EquipUnequipItemAbility, "OnEquipUnequipItemSetIndexChange", OnItemSetIndexChange);
+                EventHandler.RegisterEvent<Vector3, Vector3, GameObject>(m_GameObject, "OnDeath", OnDeath);
             }
-            OnItemSetIndexChange(itemSetIndex);
         }
 
         /// <summary>
@@ -69,7 +57,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
 
             if (m_EquipUnequipItemAbility != null) {
                 EventHandler.UnregisterEvent<int>(m_EquipUnequipItemAbility, "OnEquipUnequipItemSetIndexChange", OnItemSetIndexChange);
-                EventHandler.UnregisterEvent<int, int>(m_GameObject, "OnItemSetIndexChange", OnItemSetIndexChange);
                 EventHandler.UnregisterEvent<Vector3, Vector3, GameObject>(m_GameObject, "OnDeath", OnDeath);
             }
         }

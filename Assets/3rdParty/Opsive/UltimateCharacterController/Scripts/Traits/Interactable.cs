@@ -4,18 +4,16 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Objects.CharacterAssist;
+#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
+using Opsive.UltimateCharacterController.Networking;
+using Opsive.UltimateCharacterController.Networking.Traits;
+#endif
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Traits
 {
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-    using Opsive.Shared.Game;
-#endif
-    using Opsive.UltimateCharacterController.Objects.CharacterAssist;
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-    using Opsive.UltimateCharacterController.Networking;
-    using Opsive.UltimateCharacterController.Networking.Traits;
-#endif
-    using UnityEngine;
-
     /// <summary>
     /// Represents any object that can be interacted with by the character. Acts as a link between the character and IInteractableTarget.
     /// </summary>
@@ -32,6 +30,7 @@ namespace Opsive.UltimateCharacterController.Traits
         private IInteractableTarget[] m_InteractableTargets;
         private AbilityIKTarget[] m_IKTargets;
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
+        private INetworkInfo m_NetworkInfo;
         private INetworkInteractableMonitor m_NetworkInteractable;
 #endif
 
@@ -57,7 +56,11 @@ namespace Opsive.UltimateCharacterController.Traits
             }
 
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
+            m_NetworkInfo = gameObject.GetCachedComponent<INetworkInfo>();
             m_NetworkInteractable = gameObject.GetCachedComponent<INetworkInteractableMonitor>();
+            if (m_NetworkInfo != null && m_NetworkInteractable == null) {
+                Debug.LogError("Error: The object " + gameObject.name + " must have a NetworkInteractableMonitor component.");
+            }
 #endif
 
             m_IKTargets = GetComponentsInChildren<AbilityIKTarget>();
@@ -68,7 +71,7 @@ namespace Opsive.UltimateCharacterController.Traits
         /// </summary>
         /// <param name="character">The character that wants to interactact with the target.</param>
         /// <returns>True if the character can interact with the InteractableTarget</returns>
-        public virtual bool CanInteract(GameObject character)
+        public bool CanInteract(GameObject character)
         {
             for (int i = 0; i < m_InteractableTargets.Length; ++i) {
                 if (m_InteractableTargets[i] == null || !m_InteractableTargets[i].CanInteract(character)) {
@@ -83,17 +86,18 @@ namespace Opsive.UltimateCharacterController.Traits
         /// Performs the interaction.
         /// </summary>
         /// <param name="character">The character that wants to interactact with the target.</param>
-        public virtual void Interact(GameObject character)
+        public void Interact(GameObject character)
         {
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-            var characterNetworkInfo = character.GetCachedComponent<INetworkInfo>();
-            if (characterNetworkInfo != null && characterNetworkInfo.IsLocalPlayer()) {
-#if UNITY_EDITOR
-                if (m_NetworkInteractable == null) {
-                    Debug.LogError("Error: The object " + gameObject.name + " must have a NetworkInteractable component.");
+            if (m_NetworkInfo != null) {
+                if (m_NetworkInfo.IsLocalPlayer()) {
+                    m_NetworkInteractable.Interact(character);
+                } else {
+                    // The event may have been sent multiple times for remoate players. Ensure the object is only interacted with once.
+                    if (!CanInteract(character)) {
+                        return;
+                    }
                 }
-#endif
-                m_NetworkInteractable.Interact(character);
             }
 #endif
 

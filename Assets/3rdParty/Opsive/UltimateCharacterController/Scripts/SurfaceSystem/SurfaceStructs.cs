@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.SurfaceSystem
 {
-    using UnityEngine;
-
     /// <summary>
     /// A ImpactEffect pairs the SurfaceImpact with a SurfaceEffect.
     /// </summary>

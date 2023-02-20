@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Networking.Traits
 {
-    using UnityEngine;
-
     /// <summary>
     /// Allows the object to be interacted with on the network.
     /// </summary>

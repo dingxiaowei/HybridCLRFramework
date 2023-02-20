@@ -4,16 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Utility;
+#if ULTIMATE_CHARACTER_CONTROLLER_VR
+using Opsive.UltimateCharacterController.VR;
+#endif
+
 namespace Opsive.UltimateCharacterController.Character
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Utility;
-#if ULTIMATE_CHARACTER_CONTROLLER_VR
-    using Opsive.UltimateCharacterController.VR;
-#endif
-    using UnityEngine;
-
     /// <summary>
     /// The ChildAnimatorMonitor acts as an interface for the parameters on the character's child Animator components.
     /// </summary>
@@ -37,7 +36,7 @@ namespace Opsive.UltimateCharacterController.Character
         private static int[] s_ItemSlotStateIndexHash;
         private static int[] s_ItemSlotStateIndexChangeHash;
         private static int[] s_ItemSlotSubstateIndexHash;
-#if ULTIMATE_CHARACTER_CONTROLLER_VR && FIRST_PERSON_CONTROLLER
+#if ULTIMATE_CHARACTER_CONTROLLER_VR
         private static int s_HandStateIndexHash;
         private static int s_HandGripStrengthHash;
 #endif
@@ -99,7 +98,7 @@ namespace Opsive.UltimateCharacterController.Character
                 m_ItemSlotStateIndex = new int[slotCount];
                 m_ItemSlotSubstateIndex = new int[slotCount];
 
-                if (s_ItemSlotIDHash == null || s_ItemSlotIDHash.Length < slotCount) {
+                if (s_ItemSlotSubstateIndexHash == null) {
                     s_ItemSlotIDHash = new int[slotCount];
                     s_ItemSlotStateIndexHash = new int[slotCount];
                     s_ItemSlotStateIndexChangeHash = new int[slotCount];
@@ -112,28 +111,21 @@ namespace Opsive.UltimateCharacterController.Character
                     }
                 }
             }
-#if ULTIMATE_CHARACTER_CONTROLLER_VR
-#if FIRST_PERSON_CONTROLLER
+#if ULTIMATE_CHARACTER_CONTROLLER_VR && FIRST_PERSON_CONTROLLER
             var handHandler = m_CharacterAnimatorMonitor.GetComponent<IVRHandHandler>();
             m_HasVRParameters = handHandler != null && m_GameObject.GetComponent<FirstPersonController.Character.Identifiers.FirstPersonBaseObject>() != null;
             if (m_HasVRParameters) {
                 s_HandStateIndexHash = Animator.StringToHash("HandStateIndex");
                 s_HandGripStrengthHash = Animator.StringToHash("HandGripStrength");
             }
-#else
-            m_HasVRParameters = false;
-#endif
 #endif
 
+            m_Animator.updateMode = AnimatorUpdateMode.AnimatePhysics;
             m_Animator.applyRootMotion = false;
-            OnChangeUpdateLocation(m_CharacterLocomotion.UpdateLocation == Game.KinematicObjectManager.UpdateLocation.FixedUpdate);
-            OnChangeTimeScale(m_CharacterLocomotion.TimeScale);
             enabled = m_CharacterAnimatorMonitor != null;
             if (enabled) {
                 EventHandler.RegisterEvent<bool>(m_Character, "OnCharacterImmediateTransformChange", OnImmediateTransformChange);
                 EventHandler.RegisterEvent(m_Character, "OnCharacterSnapAnimator", SnapAnimator);
-                EventHandler.RegisterEvent<bool>(m_Character, "OnCharacterChangeUpdateLocation", OnChangeUpdateLocation);
-                EventHandler.RegisterEvent<float>(m_Character, "OnCharacterChangeTimeScale", OnChangeTimeScale);
             }
         }
 
@@ -243,8 +235,9 @@ namespace Opsive.UltimateCharacterController.Character
         /// <param name="dampingTime">The time allowed for the parameter to reach the value.</param>
         public void SetHorizontalMovementParameter(float value, float timeScale, float dampingTime)
         {
-            if (m_HorizontalMovement != value && m_Animator.isActiveAndEnabled) {
-                m_Animator.SetFloat(s_HorizontalMovementHash, value, dampingTime, TimeUtility.DeltaTimeScaled / timeScale);
+            if (m_HorizontalMovement != value) {
+                m_Animator.SetFloat(s_HorizontalMovementHash, value, dampingTime,
+                    (m_Animator.updateMode == AnimatorUpdateMode.AnimatePhysics ? TimeUtility.FixedDeltaTimeScaled : TimeUtility.DeltaTimeScaled) / timeScale);
                 m_HorizontalMovement = m_Animator.GetFloat(s_HorizontalMovementHash);
             }
         }
@@ -257,8 +250,9 @@ namespace Opsive.UltimateCharacterController.Character
         /// <param name="dampingTime">The time allowed for the parameter to reach the value.</param>
         public void SetForwardMovementParameter(float value, float timeScale, float dampingTime)
         {
-            if (m_ForwardMovement != value && m_Animator.isActiveAndEnabled) {
-                m_Animator.SetFloat(s_ForwardMovementHash, value, dampingTime, TimeUtility.DeltaTimeScaled / timeScale);
+            if (m_ForwardMovement != value) {
+                m_Animator.SetFloat(s_ForwardMovementHash, value, dampingTime,
+                    (m_Animator.updateMode == AnimatorUpdateMode.AnimatePhysics ? TimeUtility.FixedDeltaTimeScaled : TimeUtility.DeltaTimeScaled) / timeScale);
                 m_ForwardMovement = m_Animator.GetFloat(s_ForwardMovementHash);
             }
         }
@@ -271,8 +265,9 @@ namespace Opsive.UltimateCharacterController.Character
         /// <param name="dampingTime">The time allowed for the parameter to reach the value.</param>
         public void SetPitchParameter(float value, float timeScale, float dampingTime)
         {
-            if (m_Pitch != value && m_Animator.isActiveAndEnabled) {
-                m_Animator.SetFloat(s_PitchHash, value, dampingTime, TimeUtility.DeltaTimeScaled / timeScale);
+            if (m_Pitch != value) {
+                m_Animator.SetFloat(s_PitchHash, value, dampingTime,
+                    (m_Animator.updateMode == AnimatorUpdateMode.AnimatePhysics ? TimeUtility.FixedDeltaTimeScaled : TimeUtility.DeltaTimeScaled) / timeScale);
                 m_Pitch = m_Animator.GetFloat(s_PitchHash);
             }
         }
@@ -285,8 +280,9 @@ namespace Opsive.UltimateCharacterController.Character
         /// <param name="dampingTime">The time allowed for the parameter to reach the value.</param>
         public void SetYawParameter(float value, float timeScale, float dampingTime)
         {
-            if (m_Yaw != value && m_Animator.isActiveAndEnabled) {
-                m_Animator.SetFloat(s_YawHash, value, dampingTime, TimeUtility.DeltaTimeScaled / timeScale);
+            if (m_Yaw != value) {
+                m_Animator.SetFloat(s_YawHash, value, dampingTime,
+                    (m_Animator.updateMode == AnimatorUpdateMode.AnimatePhysics ? TimeUtility.FixedDeltaTimeScaled : TimeUtility.DeltaTimeScaled) / timeScale);
                 m_Yaw = m_Animator.GetFloat(s_YawHash);
             }
         }
@@ -299,8 +295,9 @@ namespace Opsive.UltimateCharacterController.Character
         /// <param name="dampingTime">The time allowed for the parameter to reach the value.</param>
         public void SetSpeedParameter(float value, float timeScale, float dampingTime)
         {
-            if (m_Speed != value && m_Animator.isActiveAndEnabled) {
-                m_Animator.SetFloat(s_SpeedHash, value, dampingTime, TimeUtility.DeltaTimeScaled / timeScale);
+            if (m_Speed != value) {
+                m_Animator.SetFloat(s_SpeedHash, value, dampingTime,
+                    (m_Animator.updateMode == AnimatorUpdateMode.AnimatePhysics ? TimeUtility.FixedDeltaTimeScaled : TimeUtility.DeltaTimeScaled) / timeScale);
                 m_Speed = m_Animator.GetFloat(s_SpeedHash);
             }
         }
@@ -311,7 +308,7 @@ namespace Opsive.UltimateCharacterController.Character
         /// <param name="value">The new value.</param>
         public void SetHeightParameter(int value)
         {
-            if (m_Height != value && m_Animator.isActiveAndEnabled) {
+            if (m_Height != value) {
                 m_Animator.SetFloat(s_HeightHash, value, 0, 0);
                 m_Height = (int)m_Animator.GetFloat(s_HeightHash);
             }
@@ -323,7 +320,7 @@ namespace Opsive.UltimateCharacterController.Character
         /// <param name="value">The new value.</param>
         public void SetMovingParameter(bool value)
         {
-            if (m_Moving != value && m_Animator.isActiveAndEnabled) {
+            if (m_Moving != value) {
                 m_Animator.SetBool(s_MovingHash, value);
                 m_Moving = value;
             }
@@ -335,7 +332,7 @@ namespace Opsive.UltimateCharacterController.Character
         /// <param name="value">The new value.</param>
         public void SetAimingParameter(bool value)
         {
-            if (m_Aiming != value && m_Animator.isActiveAndEnabled) {
+            if (m_Aiming != value) {
                 m_Animator.SetBool(s_AimingHash, value);
                 m_Aiming = value;
             }
@@ -347,7 +344,7 @@ namespace Opsive.UltimateCharacterController.Character
         /// <param name="value">The new value.</param>
         public void SetMovementSetIDParameter(int value)
         {
-            if (m_MovementSetID != value && m_Animator.isActiveAndEnabled) {
+            if (m_MovementSetID != value) {
                 m_Animator.SetInteger(s_MovementSetIDHash, value);
                 m_MovementSetID = value;
             }
@@ -359,7 +356,7 @@ namespace Opsive.UltimateCharacterController.Character
         /// <param name="value">The new value.</param>
         public void SetAbilityIndexParameter(int value)
         {
-            if (m_AbilityIndex != value && m_Animator.isActiveAndEnabled) {
+            if (m_AbilityIndex != value) {
                 m_Animator.SetInteger(s_AbilityIndexHash, value);
                 m_AbilityIndex = value;
                 SetAbilityChangeParameter(true);
@@ -372,7 +369,7 @@ namespace Opsive.UltimateCharacterController.Character
         /// <param name="value">The new value.</param>
         public void SetAbilityChangeParameter(bool value)
         {
-            if (m_Animator.GetBool(s_AbilityChangeHash) != value && m_Animator.isActiveAndEnabled) {
+            if (m_Animator.GetBool(s_AbilityChangeHash) != value) {
                 if (value) {
                     m_Animator.SetTrigger(s_AbilityChangeHash);
                 } else {
@@ -403,7 +400,8 @@ namespace Opsive.UltimateCharacterController.Character
         public void SetAbilityFloatDataParameter(float value, float timeScale, float dampingTime)
         {
             if (m_AbilityFloatData != value) {
-                m_Animator.SetFloat(s_AbilityFloatDataHash, value, dampingTime, TimeUtility.DeltaTimeScaled / timeScale);
+                m_Animator.SetFloat(s_AbilityFloatDataHash, value, dampingTime,
+                    (m_Animator.updateMode == AnimatorUpdateMode.AnimatePhysics ? TimeUtility.FixedDeltaTimeScaled : TimeUtility.DeltaTimeScaled) / timeScale);
                 m_AbilityFloatData = MathUtility.Round(m_Animator.GetFloat(s_AbilityFloatDataHash), 1000000);
             }
         }
@@ -478,11 +476,9 @@ namespace Opsive.UltimateCharacterController.Character
             }
 
             if (m_HandStateIndex != value) {
-#if ULTIMATE_CHARACTER_CONTROLLER_VR && FIRST_PERSON_CONTROLLER
                 if (m_Animator.isActiveAndEnabled) {
                     m_Animator.SetInteger(s_HandStateIndexHash, value);
                 }
-#endif
                 m_HandStateIndex = value;
             }
         }
@@ -496,10 +492,9 @@ namespace Opsive.UltimateCharacterController.Character
         {
             if (m_HandGripStrength != value) {
                 if (m_Animator.isActiveAndEnabled) {
-#if FIRST_PERSON_CONTROLLER
-                    m_Animator.SetFloat(s_HandGripStrengthHash, value, 0, TimeUtility.DeltaTimeScaled / timeScale);
+                    m_Animator.SetFloat(s_HandGripStrengthHash, value, 0,
+                        (m_Animator.updateMode == AnimatorUpdateMode.AnimatePhysics ? TimeUtility.FixedDeltaTimeScaled : TimeUtility.DeltaTimeScaled) / timeScale);
                     m_HandGripStrength = m_Animator.GetFloat(s_HandGripStrengthHash);
-#endif
                 } else {
                     m_HandGripStrength = value;
                 }
@@ -515,10 +510,8 @@ namespace Opsive.UltimateCharacterController.Character
                 return;
             }
 
-#if FIRST_PERSON_CONTROLLER
             m_Animator.SetInteger(s_HandStateIndexHash, m_HandStateIndex);
             m_Animator.SetFloat(s_HandGripStrengthHash, m_HandGripStrength, 0, 0);
-#endif
 
             // Snap the animator to the new parameter values.
             m_Animator.Update(0);
@@ -562,24 +555,6 @@ namespace Opsive.UltimateCharacterController.Character
         }
 
         /// <summary>
-        /// The character has changed between Update and FixedUpdate location.
-        /// </summary>
-        /// <param name="fixedUpdate">Should the Animator update within the FixedUpdate loop?</param>
-        private void OnChangeUpdateLocation(bool fixedUpdate)
-        {
-            m_Animator.updateMode = fixedUpdate ? AnimatorUpdateMode.AnimatePhysics : AnimatorUpdateMode.Normal;
-        }
-
-        /// <summary>
-        /// The character's local timescale has changed.
-        /// </summary>
-        /// <param name="timeScale">The new timescale.</param>
-        private void OnChangeTimeScale(float timeScale)
-        {
-            m_Animator.speed = timeScale;
-        }
-
-        /// <summary>
         /// The object has been destroyed.
         /// </summary>
         private void OnDestroy()
@@ -587,23 +562,7 @@ namespace Opsive.UltimateCharacterController.Character
             if (m_CharacterAnimatorMonitor != null) {
                 EventHandler.UnregisterEvent<bool>(m_Character, "OnCharacterImmediateTransformChange", OnImmediateTransformChange);
                 EventHandler.UnregisterEvent(m_Character, "OnCharacterSnapAnimator", SnapAnimator);
-                EventHandler.UnregisterEvent<bool>(m_Character, "OnCharacterChangeUpdateLocation", OnChangeUpdateLocation);
-                EventHandler.UnregisterEvent<float>(m_Character, "OnCharacterChangeTimeScale", OnChangeTimeScale);
             }
         }
-
-#if UNITY_2019_3_OR_NEWER
-        /// <summary>
-        /// Reset the static variables for domain reloading.
-        /// </summary>
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        private static void DomainReset()
-        {
-            s_ItemSlotIDHash = null;
-            s_ItemSlotStateIndexHash = null;
-            s_ItemSlotStateIndexChangeHash = null;
-            s_ItemSlotSubstateIndexHash = null;
-        }
-#endif
     }
 }

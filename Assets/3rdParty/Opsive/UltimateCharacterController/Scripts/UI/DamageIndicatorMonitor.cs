@@ -4,16 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEngine.UI;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.UI
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-    using UnityEngine.UI;
-
     /// <summary>
     /// The DamageIndicatorMonitor will show a directional arrow of the direction that the character was damaged from.
     /// </summary>
@@ -185,7 +184,7 @@ namespace Opsive.UltimateCharacterController.UI
             }
 
             // Add the indicator to the active hit indicators list and enable the component.
-            damageIndicator = GenericObjectPool.Get<DamageIndicator>();
+            damageIndicator = ObjectPool.Get<DamageIndicator>();
             damageIndicator.Initialize(attacker.transform, position, angle, m_StoredIndicators[m_DamageIndicatorIndex]);
             m_ActiveDamageIndicators[m_ActiveDamageIndicatorCount] = damageIndicator;
             m_ActiveDamageIndicatorCount++;
@@ -205,7 +204,7 @@ namespace Opsive.UltimateCharacterController.UI
                 var alpha = (m_IndicatorFadeTime - (Time.time - (m_ActiveDamageIndicators[i].DisplayTime + m_IndicatorVisiblityTime))) / m_IndicatorFadeTime;
                 if (alpha <= 0) {
                     m_ActiveDamageIndicators[i].GameObject.SetActive(false);
-                    GenericObjectPool.Return(m_ActiveDamageIndicators[i]);
+                    ObjectPool.Return(m_ActiveDamageIndicators[i]);
                     m_ActiveDamageIndicatorCount--;
                     // Sort the array so the complete indicators are at the end.
                     for (int j = i; j < m_ActiveDamageIndicatorCount; ++j) {
@@ -253,7 +252,7 @@ namespace Opsive.UltimateCharacterController.UI
             // No indicators should be shown when the character respawns.
             for (int i = m_ActiveDamageIndicatorCount - 1; i > -1; --i) {
                 m_ActiveDamageIndicators[i].GameObject.SetActive(false);
-                GenericObjectPool.Return(m_ActiveDamageIndicators[i]);
+                ObjectPool.Return(m_ActiveDamageIndicators[i]);
             }
             m_ActiveDamageIndicatorCount = 0;
             m_GameObject.SetActive(false);
@@ -265,7 +264,7 @@ namespace Opsive.UltimateCharacterController.UI
         /// <returns>True if the UI can be shown.</returns>
         protected override bool CanShowUI()
         {
-            return base.CanShowUI() && m_ActiveDamageIndicatorCount > 0;
+            return m_ActiveDamageIndicatorCount > 0;
         }
     }
 }

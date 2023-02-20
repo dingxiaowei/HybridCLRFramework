@@ -4,18 +4,17 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEditor;
+using UnityEditorInternal;
+using UnityEngine;
+using Opsive.UltimateCharacterController.Items;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Items.AnimatorAudioState;
+using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+using System;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Items
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Items.AnimatorAudioState;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.Items;
-    using Opsive.UltimateCharacterController.Inventory;
-    using System;
-    using UnityEditor;
-    using UnityEditorInternal;
-    using UnityEngine;
-
     /// <summary>
     /// Shows a custom inspector for the Item component.
     /// </summary>
@@ -69,40 +68,18 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Items
 
             baseCallback += () =>
             {
-                var itemDefinition = PropertyFromName("m_ItemDefinition");
-                EditorGUILayout.PropertyField(itemDefinition);
-                if (itemDefinition == null) {
-                    EditorGUILayout.HelpBox("An Item Definition is required.", MessageType.Error);
-                } else {
-                    // Ensure the Item Definition exists within the collection set by the Item Set Manager.
-                    var itemSetManager = (target as Item).GetComponentInParent<ItemSetManager>();
-                    if (itemSetManager != null && itemSetManager.ItemCollection != null) {
-                        if (AssetDatabase.GetAssetPath(itemDefinition.objectReferenceValue) != AssetDatabase.GetAssetPath(itemSetManager.ItemCollection)) {
-                            EditorGUILayout.HelpBox("The Item Definition must exist within the Item Collection specified on the character's Item Set Manager.", MessageType.Error);
-                        }
-                    }
-                }
-                if (Application.isPlaying) {
-                    EditorGUI.indentLevel++;
-                    EditorGUILayout.LabelField("Item Identifier", m_Item.ItemIdentifier == null ? "(none)" : m_Item.ItemIdentifier.ToString());
-                    EditorGUI.indentLevel--;
-                }
+                EditorGUILayout.PropertyField(PropertyFromName("m_ItemType"));
                 EditorGUILayout.PropertyField(PropertyFromName("m_SlotID"));
                 EditorGUILayout.PropertyField(PropertyFromName("m_AnimatorItemID"));
                 EditorGUILayout.PropertyField(PropertyFromName("m_AnimatorMovementSetID"));
                 EditorGUILayout.PropertyField(PropertyFromName("m_DominantItem"));
-                EditorGUILayout.PropertyField(PropertyFromName("m_UniqueItemSet"));
                 EditorGUILayout.PropertyField(PropertyFromName("m_AllowCameraZoom"));
                 EditorGUILayout.PropertyField(PropertyFromName("m_DropPrefab"));
-                if (PropertyFromName("m_DropPrefab").objectReferenceValue != null) {
-                    EditorGUI.indentLevel++;
 #if ULTIMATE_CHARACTER_CONTROLLER_VR
+                if (PropertyFromName("m_DropPrefab").objectReferenceValue != null) {
                     EditorGUILayout.PropertyField(PropertyFromName("m_DropVelocityMultiplier"));
-#endif
-                    EditorGUI.indentLevel--;
                 }
-                EditorGUILayout.PropertyField(PropertyFromName("m_FullInventoryDrop"));
-                EditorGUILayout.PropertyField(PropertyFromName("m_DropConsumableItems"));
+#endif
                 if (Foldout("Equip")) {
                     EditorGUI.indentLevel++;
                     InspectorUtility.DrawAnimationEventTrigger(target, "Equip Event", PropertyFromName("m_EquipEvent"));

@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Input;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities.Starters
 {
-    using Opsive.UltimateCharacterController.Input;
-    using UnityEngine;
-
     /// <summary>
     /// The ComboTimeout is an AbilityStarter that will start the ability when a combo has been performed. If the next combo input isn't performed within the timeout value
     /// then the combo will need to be reset from the beginning.

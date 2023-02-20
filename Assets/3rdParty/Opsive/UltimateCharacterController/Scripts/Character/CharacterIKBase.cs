@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.StateSystem;
+using System;
+
 namespace Opsive.UltimateCharacterController.Character
 {
-    using Opsive.UltimateCharacterController.StateSystem;
-    using System;
-    using UnityEngine;
-
     /// <summary>
     /// Base class for applying IK on the character. Allows other IK solutions to easily be used instead of Unity's IK system.
     /// </summary>

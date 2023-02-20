@@ -4,16 +4,14 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Objects;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Items.Actions
 {
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Events;
-    using Opsive.UltimateCharacterController.Character.Abilities.Items;
-    using Opsive.UltimateCharacterController.Items.Actions.PerspectiveProperties;
-    using Opsive.UltimateCharacterController.Objects;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// Extends the ThrowableItem to allow a pin to be removed.
     /// </summary>
@@ -32,10 +30,9 @@ namespace Opsive.UltimateCharacterController.Items.Actions
         /// <summary>
         /// Starts the item use.
         /// </summary>
-        /// <param name="itemAbility">The item ability that is using the item.</param>
-        public override void StartItemUse(ItemAbility itemAbility)
+        public override void StartItemUse()
         {
-            base.StartItemUse(itemAbility);
+            base.StartItemUse();
 
             // An Animator Audio State Set may prevent the item from being used.
             if (!IsItemInUse()) {

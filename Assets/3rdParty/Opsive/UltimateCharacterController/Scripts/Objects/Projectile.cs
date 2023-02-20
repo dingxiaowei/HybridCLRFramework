@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.SurfaceSystem;
+
 namespace Opsive.UltimateCharacterController.Objects
 {
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.SurfaceSystem;
-    using UnityEngine;
-
     /// <summary>
     /// The Projectile component moves a Destructible object along the specified path. Can apply damage at the collision point.
     /// </summary>

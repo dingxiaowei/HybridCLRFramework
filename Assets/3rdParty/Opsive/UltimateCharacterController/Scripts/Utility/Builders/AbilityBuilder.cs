@@ -4,16 +4,16 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Character.Abilities;
+using Opsive.UltimateCharacterController.Character.Abilities.Items;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.StateSystem;
+using System;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Utility.Builders
 {
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Character.Abilities;
-    using Opsive.UltimateCharacterController.Character.Abilities.Items;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using System;
-    using System.Collections.Generic;
-
     /// <summary>
     /// Adds and serializes UltimateCharacterLocomotion abilities.
     /// </summary>
@@ -144,7 +144,7 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
         public static void SerializeAbilities(UltimateCharacterLocomotion characterLocomotion)
         {
             var abilities = characterLocomotion.Abilities == null ? new List<Ability>() : new List<Ability>(characterLocomotion.Abilities);
-            characterLocomotion.AbilityData = Shared.Utility.Serialization.Serialize<Ability>(abilities);
+            characterLocomotion.AbilityData = Serialization.Serialize<Ability>(abilities);
             characterLocomotion.Abilities = abilities.ToArray();
 #if UNITY_EDITOR
             UnityEditor.PrefabUtility.RecordPrefabInstancePropertyModifications(characterLocomotion);
@@ -158,7 +158,7 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
         public static void SerializeItemAbilities(UltimateCharacterLocomotion characterLocomotion)
         {
             var itemAbilities = characterLocomotion.ItemAbilities == null ? new List<ItemAbility>() : new List<ItemAbility>(characterLocomotion.ItemAbilities);
-            characterLocomotion.ItemAbilityData = Shared.Utility.Serialization.Serialize<ItemAbility>(itemAbilities);
+            characterLocomotion.ItemAbilityData = Serialization.Serialize<ItemAbility>(itemAbilities);
             characterLocomotion.ItemAbilities = itemAbilities.ToArray();
 #if UNITY_EDITOR
             UnityEditor.PrefabUtility.RecordPrefabInstancePropertyModifications(characterLocomotion);

@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Utility
 {
-    using UnityEditor;
-    using UnityEngine;
-
     /// <summary>
     /// Contains the styles for the inspector buttons.
     /// </summary>

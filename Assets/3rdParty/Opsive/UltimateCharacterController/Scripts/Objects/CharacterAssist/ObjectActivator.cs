@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.StateSystem;
+
 namespace Opsive.UltimateCharacterController.Objects
 {
-    using Opsive.UltimateCharacterController.StateSystem;
-    using UnityEngine;
-
     /// <summary>
     /// Activates or deactivates the GameObject based on the state.
     /// </summary>

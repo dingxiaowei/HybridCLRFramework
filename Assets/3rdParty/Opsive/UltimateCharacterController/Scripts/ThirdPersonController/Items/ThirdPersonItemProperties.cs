@@ -4,10 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Items;
+
 namespace Opsive.UltimateCharacterController.ThirdPersonController.Items
 {
-    using Opsive.UltimateCharacterController.Items;
-
     /// <summary>
     /// Describes any third person perspective dependent properties for the item.
     /// </summary>

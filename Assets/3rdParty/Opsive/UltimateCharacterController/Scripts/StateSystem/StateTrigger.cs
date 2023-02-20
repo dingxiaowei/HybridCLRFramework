@@ -4,16 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Audio;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Utility;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.StateSystem
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Audio;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Utility;
-    using System.Collections.Generic;
-    using UnityEngine;
-
     /// <summary>
     /// Activates the specified state when the object enters the state, and deactivates the sate when the object leaves.
     /// </summary>
@@ -29,8 +28,6 @@ namespace Opsive.UltimateCharacterController.StateSystem
         [SerializeField] protected LayerMask m_LayerMask = 1 << LayerManager.Character;
         [Tooltip("Should the state change only be applied to the character?")]
         [SerializeField] protected bool m_RequireCharacter = true;
-        [Tooltip("Does the state require the character changing transforms?")]
-        [SerializeField] protected bool m_CharacterTransformChange;
         [Tooltip("A set of AudioClips that can be played when the state is activated.")]
         [SerializeField] protected AudioClipSet m_ActivateAudioClipSet = new AudioClipSet();
 
@@ -76,9 +73,6 @@ namespace Opsive.UltimateCharacterController.StateSystem
         private void ChangeState(GameObject gameObject, bool activate)
         {
             StateManager.SetState(gameObject, m_StateName, activate);
-            if (m_CharacterTransformChange) {
-                EventHandler.ExecuteEvent(gameObject, "OnCharacterImmediateTransformChange", true);
-            }
             m_ActivateStateEvent = null;
             int index;
             if (m_DeathDeactivations != null && (index = m_DeathDeactivations.IndexOf(gameObject)) > 0) {
@@ -125,9 +119,6 @@ namespace Opsive.UltimateCharacterController.StateSystem
                     }
 
                     StateManager.SetState(stateBehavior.gameObject, m_StateName, false);
-                    if (m_CharacterTransformChange) {
-                        EventHandler.ExecuteEvent(stateBehavior.gameObject, "OnCharacterImmediateTransformChange", true);
-                    }
                 }
             }
         }

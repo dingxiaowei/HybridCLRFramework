@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Networking.Traits
 {
-    using UnityEngine;
-
     /// <summary>
     /// Defines an object that can take damage over the network using the Health component.
     /// </summary>

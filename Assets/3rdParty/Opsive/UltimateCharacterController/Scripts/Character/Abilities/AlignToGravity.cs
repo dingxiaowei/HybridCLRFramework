@@ -4,11 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities
 {
-    using Opsive.Shared.Game;
-    using UnityEngine;
-
     /// <summary>
     /// The AlignToGravity ability provides a base class for any abilities that want to change the character's up rotation.
     /// </summary>
@@ -29,7 +28,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         protected bool m_Stopping;
         private bool m_StoppingFromUpdate;
         private float m_Epsilon = 1f - Mathf.Epsilon;
-        private ScheduledEventBase m_AlignToGravityReset;
 
         /// <summary>
         /// The ability has started.
@@ -38,9 +36,6 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
         {
             base.AbilityStarted();
 
-            if (m_AlignToGravityReset != null) {
-                Scheduler.Cancel(m_AlignToGravityReset);
-            }
             m_CharacterLocomotion.AlignToGravity = true;
             m_Stopping = false;
             m_StoppingFromUpdate = false;
@@ -58,13 +53,13 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
             if (proj.sqrMagnitude > 0.0001f) {
                 Quaternion targetRotation;
                 if (m_CharacterLocomotion.Platform == null && !m_Stopping) {
-                    var alignToGroundSpeed = m_RotationSpeed * m_CharacterLocomotion.TimeScale * Time.timeScale * Time.deltaTime;
+                    var alignToGroundSpeed = m_RotationSpeed * m_CharacterLocomotion.TimeScale * Time.timeScale * m_CharacterLocomotion.DeltaTime;
                     targetRotation = Quaternion.Slerp(rotation, Quaternion.LookRotation(proj, targetNormal), alignToGroundSpeed);
                 } else {
                     targetRotation = Quaternion.LookRotation(proj, targetNormal);
                 }
-                deltaRotation = deltaRotation * (Quaternion.Inverse(rotation) * targetRotation);
-                m_CharacterLocomotion.DeltaRotation = deltaRotation.eulerAngles;
+                var rotationDelta = deltaRotation * (Quaternion.Inverse(rotation) * targetRotation);
+                m_CharacterLocomotion.DeltaRotation = rotationDelta.eulerAngles;
             }
         }
 
@@ -119,17 +114,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
             if (m_StopGravityDirection.sqrMagnitude > 0) {
                 m_CharacterLocomotion.GravityDirection = m_StopGravityDirection.normalized;
             }
-            // Wait a frame to allow the camera to reset its rotation. This is useful if the ability is stopped in a single frame.
-            m_AlignToGravityReset = Scheduler.Schedule(Time.deltaTime * 2, DoAlignToGravityReset);
-        }
-
-        /// <summary>
-        /// Resets the AlignToGravity parameter.
-        /// </summary>
-        private void DoAlignToGravityReset()
-        {
             m_CharacterLocomotion.AlignToGravity = false;
-            m_AlignToGravityReset = null;
         }
 
         /// <summary>

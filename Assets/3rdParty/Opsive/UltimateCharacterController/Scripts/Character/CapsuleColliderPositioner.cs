@@ -4,15 +4,14 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Character
 {
-    using Opsive.Shared.Utility;
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// Rotates and sets the CapsuleCollider height so it always matches the same relative location/size of the character.
     /// </summary>
@@ -20,24 +19,12 @@ namespace Opsive.UltimateCharacterController.Character
     {
         [Tooltip("Should the positioner rotate the collider to match the targets?")]
         [SerializeField] protected bool m_RotateCollider;
-        [Tooltip("If Rotate Collider is enabled, should the collider be rotated based on the end caps? If false the collider will be rotated based on the specified bone.")]
-        [SerializeField] protected bool m_EndCapRotation = true;
-        [Tooltip("Specifies the bone that the collider should rotate with if not using End Cap Rotation.")]
-        [SerializeField] protected Transform m_RotationBone;
-        [Tooltip("An offset to apply to the rotation bone.")]
-        [SerializeField] protected Vector3 m_RotationBoneOffset;
-        [Tooltip("Should the positioner adjust the height of the collider?")]
-        [SerializeField] protected bool m_AdjustHeight = true;
         [Tooltip("A reference to the target that is near the first end cap.")]
         [SerializeField] protected Transform m_FirstEndCapTarget;
         [Tooltip("A reference to the target that is near the second end cap.")]
         [SerializeField] protected Transform m_SecondEndCapTarget;
         [Tooltip("The padding on top of the second end cap target.")]
         [SerializeField] protected float m_SecondEndCapPadding;
-        [Tooltip("Specifies the bone that the collider should positioned to if not using Adjust Height.")]
-        [SerializeField] protected Transform m_PositionBone;
-        [Tooltip("The overridden height if the height is not being adjusted. Set to -1 to disable.")]
-        [SerializeField] protected float m_HeightOverride = -1;
         [Tooltip("The offset to apply to the collider's center position.")]
         [SerializeField] protected Vector3 m_CenterOffset;
 
@@ -47,7 +34,6 @@ namespace Opsive.UltimateCharacterController.Character
                     // Remember the original rotation so the value can be restored if the collider is no longer being rotated.
                     if (value) {
                         m_PrevLocalRotation = m_Transform.localRotation;
-                        UpdateRotationHeight();
                     } else {
                         m_Transform.localRotation = m_PrevLocalRotation;
                     }
@@ -55,32 +41,14 @@ namespace Opsive.UltimateCharacterController.Character
                 }
             }
         }
-        public bool EndCapRotation { get { return m_EndCapRotation; } set { m_EndCapRotation = value; } }
-        [NonSerialized] public Transform RotationBone { get { return m_RotationBone; } set { m_RotationBone = value; } }
-        public Vector3 RotationBoneOffset { get { return m_RotationBoneOffset; } set { m_RotationBoneOffset = value; } }
-        public bool AdjustHeight { get { return m_AdjustHeight; } 
-            set {
-                if (m_AdjustHeight != value) {
-                    m_AdjustHeight = value;
-                    if (m_AdjustHeight) {
-                        m_Transform.localPosition = Vector3.zero;
-                        UpdateRotationHeight();
-                    }
-                }
-            }
-        }
         [NonSerialized] public Transform FirstEndCapTarget { get { return m_FirstEndCapTarget; } set { m_FirstEndCapTarget = value; } }
         [NonSerialized] public Transform SecondEndCapTarget { get { return m_SecondEndCapTarget; } set { m_SecondEndCapTarget = value; Initialize(); } }
         [NonSerialized] public float SecondEndCapPadding { get { return m_SecondEndCapPadding; } set { m_SecondEndCapPadding = value; } }
-        [NonSerialized] public Transform PositionBone { get { return m_PositionBone; } set { m_PositionBone = value; } }
-        public float HeightOverride { get { return m_HeightOverride; } set { m_HeightOverride = value; } }
-        public Vector3 CenterOffset { get { return m_CenterOffset; }
-            set {
-                if (m_ColliderOffsetEvent != null) {
-                    Scheduler.Cancel(m_ColliderOffsetEvent);
-                    m_ColliderOffsetEvent = null;
-                }
-                AdjustCenterOffset(value);
+        public Vector3 CenterOffset { get { return m_CenterOffset; } set
+            {
+                Scheduler.Cancel(m_ColliderOffsetEvent);
+                AdjustCenterOffset(value - m_CenterOffset);
+                m_CenterOffset = value;
             }
         }
 
@@ -208,49 +176,35 @@ namespace Opsive.UltimateCharacterController.Character
 
             Vector3 localDirection;
             if (m_RotateCollider) {
-                if (m_EndCapRotation) {
-                    // Update the rotation of the CapsuleCollider so it is rotated in the same direction as the end cap targets.
-                    var direction = m_SecondEndCapTarget.position - m_FirstEndCapTarget.position;
-                    m_Transform.rotation = Quaternion.LookRotation(Vector3.Cross(m_CharacterTransform.forward, direction.normalized), direction.normalized);
-                } else {
-                    m_Transform.rotation = m_RotationBone.rotation * Quaternion.Euler(m_RotationBoneOffset);
-                }
+                // Update the rotation of the CapsuleCollider so it is rotated in the same direction as the end cap targets.
+                var direction = m_SecondEndCapTarget.position - m_FirstEndCapTarget.position;
+                localDirection = MathUtility.InverseTransformDirection(direction, m_CharacterTransform.rotation);
+                var targetRotation = m_Transform.localRotation * Quaternion.FromToRotation(m_Transform.localRotation * Vector3.up, localDirection.normalized);
+                m_Transform.rotation = MathUtility.TransformQuaternion(m_CharacterTransform.rotation, targetRotation);
             }
 
-            if (m_AdjustHeight) {
-                // After the CapsuleCollider has rotated determine the new height of the CapsuleCollider. This can be done by determining the current
-                // end cap locations and then getting the offset from the start end cap offsets.
-                Vector3 firstEndCap, secondEndCap;
-                MathUtility.CapsuleColliderEndCaps(m_CapsuleCollider, m_Transform.position, m_Transform.rotation, out firstEndCap, out secondEndCap);
-                var firstEndCapOffset = m_Transform.InverseTransformDirection(m_FirstEndCapTarget.position - firstEndCap);
-                var secondEndCapOffset = m_Transform.InverseTransformDirection(m_SecondEndCapTarget.position - secondEndCap);
-                var offset = m_SecondEndCapOffset - m_FirstEndCapOffset;
-                localDirection = ((secondEndCapOffset - firstEndCapOffset) - offset);
+            // After the CapsuleCollider has rotated determine the new height of the CapsuleCollider. This can be done by determining the current
+            // end cap locations and then getting the offset from the start end cap offsets.
+            Vector3 firstEndCap, secondEndCap;
+            MathUtility.CapsuleColliderEndCaps(m_CapsuleCollider, m_Transform.position, m_Transform.rotation, out firstEndCap, out secondEndCap);
+            var firstEndCapOffset = m_Transform.InverseTransformDirection(m_FirstEndCapTarget.position - firstEndCap);
+            var secondEndCapOffset = m_Transform.InverseTransformDirection(m_SecondEndCapTarget.position - secondEndCap);
+            var offset = m_SecondEndCapOffset - m_FirstEndCapOffset;
+            localDirection = ((secondEndCapOffset - firstEndCapOffset) - offset);
 
-                // Determine if the new height would cause any collisions. If it does not then apply the height changes. A negative height change will never cause any
-                // collisions so the OverlapCapsule does not need to be checked. A valid capsule collider height is always greater than 2 times the radius of the collider.
-                var heightMultiplier = MathUtility.CapsuleColliderHeightMultiplier(m_CapsuleCollider);
-                var targetHeight = m_CapsuleCollider.height + localDirection.y / heightMultiplier;
-                if (targetHeight >= m_CapsuleCollider.radius * 2 && (localDirection.y < 0 || !m_CharacterLocomotion.UsingVerticalCollisionDetection ||
-                            Physics.OverlapCapsuleNonAlloc(firstEndCap, secondEndCap + m_CharacterLocomotion.Up * localDirection.y,
-                                        m_CapsuleCollider.radius * MathUtility.ColliderRadiusMultiplier(m_CapsuleCollider), m_OverlapColliders, m_CharacterLayerManager.SolidObjectLayers,
-                                        QueryTriggerInteraction.Ignore) == 0)) {
-                    // Adjust the CapsuleCollider height and center to account for the new offset.
-                    m_CapsuleCollider.height = targetHeight;
-                    var center = m_CapsuleCollider.center;
-                    center.y += localDirection.y / (heightMultiplier * 2);
-                    m_CapsuleCollider.center = center;
-                }
-            } else {
-                if (m_PositionBone != null) {
-                    m_Transform.position = MathUtility.TransformPoint(m_PositionBone.position, m_Transform.rotation, -m_CapsuleCollider.center);
-                }
-                if (m_HeightOverride != -1) {
-                    m_CapsuleCollider.height = m_HeightOverride;
-                    var center = m_CapsuleCollider.center;
-                    center.y = m_CapsuleCollider.height / 2 + m_CenterOffset.y;
-                    m_CapsuleCollider.center = center;
-                }
+            // Determine if the new height would cause any collisions. If it does not then apply the height changes. A negative height change will never cause any
+            // collisions so the OverlapCapsule does not need to be checked. A valid capsule collider height is always greater than 2 times the radius of the collider.
+            var heightMultiplier = MathUtility.CapsuleColliderHeightMultiplier(m_CapsuleCollider);
+            var targetHeight = m_CapsuleCollider.height + localDirection.y / heightMultiplier;
+            if (targetHeight >= m_CapsuleCollider.radius * 2 && (localDirection.y < 0 || !m_CharacterLocomotion.UsingVerticalCollisionDetection ||
+                        Physics.OverlapCapsuleNonAlloc(firstEndCap, secondEndCap + m_CharacterLocomotion.Up * localDirection.y,
+                                    m_CapsuleCollider.radius * MathUtility.ColliderRadiusMultiplier(m_CapsuleCollider), m_OverlapColliders, m_CharacterLayerManager.SolidObjectLayers,
+                                    QueryTriggerInteraction.Ignore) == 0)) {
+                // Adjust the CapsuleCollider height and center to account for the new offset.
+                m_CapsuleCollider.height = targetHeight;
+                var center = m_CapsuleCollider.center;
+                center.y += localDirection.y / (heightMultiplier * 2);
+                m_CapsuleCollider.center = center;
             }
             m_CharacterLocomotion.EnableColliderCollisionLayer(true);
         }
@@ -267,17 +221,16 @@ namespace Opsive.UltimateCharacterController.Character
         }
 
         /// <summary>
-        /// Adjusts the collider's center position to the specified value.
+        /// Adjusts the collider's center position by the specified amount.
         /// </summary>
-        /// <param name="targetOffset">The desired offset value.</param>
-        private void AdjustCenterOffset(Vector3 targetOffset)
+        /// <param name="offset">The amont to adjust the center position by.</param>
+        private void AdjustCenterOffset(Vector3 offset)
         {
-            var delta = targetOffset - m_CenterOffset;
-            m_CapsuleCollider.center += delta;
-            m_CapsuleCollider.height += delta.y / 2;
+            var originalCenter = m_CapsuleCollider.center;
+            m_CapsuleCollider.center += offset;
+            m_CapsuleCollider.height += offset.y / 2;
 
             if (!m_CharacterLocomotion.UsingHorizontalCollisionDetection) {
-                m_CenterOffset = targetOffset;
                 return;
             }
 
@@ -288,11 +241,9 @@ namespace Opsive.UltimateCharacterController.Character
             MathUtility.CapsuleColliderEndCaps(m_CapsuleCollider, m_Transform.position, m_Transform.rotation, out firstEndCap, out secondEndCap);
             if (Physics.OverlapCapsuleNonAlloc(firstEndCap, secondEndCap, m_CapsuleCollider.radius * MathUtility.ColliderRadiusMultiplier(m_CapsuleCollider), 
                                     m_OverlapColliders, m_CharacterLayerManager.SolidObjectLayers, QueryTriggerInteraction.Ignore) > 0) {
-                m_CapsuleCollider.center -= delta;
-                m_CapsuleCollider.height -= delta.y / 2;
-                m_ColliderOffsetEvent = Scheduler.Schedule(Time.fixedDeltaTime, AdjustCenterOffset, targetOffset);
-            } else {
-                m_CenterOffset = targetOffset;
+                m_CapsuleCollider.center -= offset;
+                m_CapsuleCollider.height -= offset.y / 2;
+                m_ColliderOffsetEvent = Scheduler.Schedule(Time.fixedDeltaTime, AdjustCenterOffset, offset);
             }
             m_CharacterLocomotion.EnableColliderCollisionLayer(collisionEnabled);
         }

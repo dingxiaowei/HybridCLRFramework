@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using System.Collections.Generic;
+using Opsive.UltimateCharacterController.Input.VirtualControls;
+
 namespace Opsive.UltimateCharacterController.Input
 {
-    using Opsive.UltimateCharacterController.Input.VirtualControls;
-    using System.Collections.Generic;
-    using UnityEngine;
-
     /// <summary>
     /// Acts as a common base class for any type of Unity input. Works with keyboard/mouse, controller, and mobile input.
     /// </summary>
@@ -65,9 +65,10 @@ namespace Opsive.UltimateCharacterController.Input
             base.Awake();
 
             m_UseVirtualInput = m_ForceInput == ForceInputType.Virtual;
-#if !UNITY_EDITOR && (UNITY_IPHONE || UNITY_ANDROID || UNITY_WP_8_1 || UNITY_BLACKBERRY)
+#if !UNITYEDITOR && (UNITY_IPHONE || UNITY_ANDROID || UNITY_WP_8_1 || UNITY_BLACKBERRY)
             if (m_ForceInput != ForceInputType.Standalone) {
-                m_UseVirtualInput = true;
+                var virtualControlsManager = FindObjectOfType<VirtualControlsManager>();
+                m_UseVirtualInput = virtualControlsManager != null;
             }
 #endif
             if (m_UseVirtualInput) {
@@ -120,57 +121,56 @@ namespace Opsive.UltimateCharacterController.Input
         /// </summary>
         private void LateUpdate()
         {
-            if (m_UseVirtualInput) {
-                return;
-            }
-            // The joystick is no longer down after the axis is 0.
-            if (IsControllerConnected()) {
-                // GetButtonUp/Down doesn't immediately add the button name to the set to prevent the GetButtonUp/Down from returning false
-                // if it is called twice within the same frame. Add it after the frame has ended.
-                if (m_JoystickDownSet != null) {
-                    foreach (var item in m_JoystickDownSet) {
-                        if (Mathf.Abs(m_Input.GetAxisRaw(item)) < m_JoystickUpThreshold) {
-                            m_ToRemoveJoystickDownSet.Add(item);
+            if (!m_UseVirtualInput) {
+                // The joystick is no longer down after the axis is 0.
+                if (IsControllerConnected()) {
+                    // GetButtonUp/Down doesn't immediately add the button name to the set to prevent the GetButtonUp/Down from returning false
+                    // if it is called twice within the same frame. Add it after the frame has ended.
+                    if (m_JoystickDownSet != null) {
+                        foreach (var item in m_JoystickDownSet) {
+                            if (Mathf.Abs(m_Input.GetAxisRaw(item)) < m_JoystickUpThreshold) {
+                                m_ToRemoveJoystickDownSet.Add(item);
+                            }
                         }
+                        foreach (var item in m_ToRemoveJoystickDownSet) {
+                            m_JoystickDownSet.Remove(item);
+                        }
+                        m_ToRemoveJoystickDownSet.Clear();
                     }
-                    foreach (var item in m_ToRemoveJoystickDownSet) {
-                        m_JoystickDownSet.Remove(item);
+                    if (m_ToAddJoystickDownSet != null && m_ToAddJoystickDownSet.Count > 0) {
+                        if (m_JoystickDownSet == null) {
+                            m_JoystickDownSet = new HashSet<string>();
+                            m_ToRemoveJoystickDownSet = new HashSet<string>();
+                        }
+                        foreach (var item in m_ToAddJoystickDownSet) {
+                            m_JoystickDownSet.Add(item);
+                        }
+                        m_ToAddJoystickDownSet.Clear();
                     }
-                    m_ToRemoveJoystickDownSet.Clear();
                 }
-                if (m_ToAddJoystickDownSet != null && m_ToAddJoystickDownSet.Count > 0) {
-                    if (m_JoystickDownSet == null) {
-                        m_JoystickDownSet = new HashSet<string>();
-                        m_ToRemoveJoystickDownSet = new HashSet<string>();
-                    }
-                    foreach (var item in m_ToAddJoystickDownSet) {
-                        m_JoystickDownSet.Add(item);
-                    }
-                    m_ToAddJoystickDownSet.Clear();
-                }
-            }
 
-            // Enable the cursor if the escape key is pressed. Disable the cursor if it is visbile but should be disabled upon press.
-            if (m_EnableCursorWithEscape && UnityEngine.Input.GetKeyDown(KeyCode.Escape)) {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                if (m_PreventLookVectorChanges) {
-                    OnApplicationFocus(false);
+                // Enable the cursor if the escape key is pressed. Disable the cursor if it is visbile but should be disabled upon press.
+                if (m_EnableCursorWithEscape && UnityEngine.Input.GetKeyDown(KeyCode.Escape)) {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    if (m_PreventLookVectorChanges) {
+                        OnApplicationFocus(false);
+                    }
+                } else if (Cursor.visible && m_DisableCursor && !IsPointerOverUI() && (UnityEngine.Input.GetKeyDown(KeyCode.Mouse0) || UnityEngine.Input.GetKeyDown(KeyCode.Mouse1))) {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                    if (m_PreventLookVectorChanges) {
+                        OnApplicationFocus(true);
+                    }
                 }
-            } else if (Cursor.visible && m_DisableCursor && !IsPointerOverUI() && (UnityEngine.Input.GetKeyDown(KeyCode.Mouse0) || UnityEngine.Input.GetKeyDown(KeyCode.Mouse1))) {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                if (m_PreventLookVectorChanges) {
-                    OnApplicationFocus(true);
-                }
-            }
 #if UNITY_EDITOR
-            // The cursor should be visible when the game is paused.
-            if (!Cursor.visible && Time.deltaTime == 0 && !m_DisableCursor) {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
+                // The cursor should be visible when the game is paused.
+                if (!Cursor.visible && Time.deltaTime == 0) {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
 #endif
+            }
         }
 
         /// <summary>
@@ -296,7 +296,7 @@ namespace Opsive.UltimateCharacterController.Input
         {
             base.OnApplicationFocus(hasFocus);
 
-            if (enabled && hasFocus && m_DisableCursor) {
+            if (hasFocus && m_DisableCursor) {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }

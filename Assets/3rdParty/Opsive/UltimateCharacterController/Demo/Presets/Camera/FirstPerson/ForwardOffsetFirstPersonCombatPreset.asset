@@ -3,9 +3,8 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -16,6 +15,6 @@ MonoBehaviour:
     m_ObjectType: Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTypes.Combat
     m_ValueHashes: 4b547f57
     m_ValuePositions: 00000000
-    m_Values: 00000000cdcc4c3e7b14ae3e
+    m_Values: 00000000000000007b14ae3e
     m_UnityObjects: []
     m_Version: 2.0

@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character.Abilities;
+using Opsive.UltimateCharacterController.Events;
+
 namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTypes
 {
-    using Opsive.Shared.Events;
-    using Opsive.UltimateCharacterController.Character.Abilities;
-    using UnityEngine;
-
     /// <summary>
     /// The Combat ViewType a first person prespective that allows the camera and character to rotate together.
     /// </summary>
@@ -47,7 +47,7 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTy
         public override Quaternion Rotate(float horizontalMovement, float verticalMovement, bool immediatePosition)
         {
             // The character may be controlling the rotation rather than the camera.
-            if (m_RotateWithCharacter || m_CharacterLocomotion.UsingRootMotionRotation) {
+            if (m_RotateWithCharacter) {
                 m_CharacterRotation = m_CharacterTransform.rotation;
             } else {
                 if (m_Pitch > 90 || m_Pitch < -90) {

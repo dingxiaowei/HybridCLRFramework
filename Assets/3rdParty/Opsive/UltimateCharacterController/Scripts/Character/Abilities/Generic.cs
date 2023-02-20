@@ -4,18 +4,18 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// The Generic ability allows for new animations without having to explicitly code a new ability. The ability will end after a specified duration or 
     /// the OnAnimatorGenericAbilityComplete event is sent.
     /// </summary>
-    [AllowDuplicateTypes]
+    [AllowMultipleAbilityTypes]
     [DefaultAbilityIndex(10000)]
     [DefaultStartType(AbilityStartType.ButtonDown)]
     [DefaultInputName("Action")]

@@ -4,12 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEditor;
+using Opsive.UltimateCharacterController.Utility;
 
-namespace Opsive.UltimateCharacterController.Editor.Utility
+namespace Opsive.UltimateCharacterController.Networking.Editor.Utility
 {
-    using Opsive.Shared.Utility;
-    using UnityEditor;
-
     /// <summary>
     /// Editor script which will define or remove the Ultimate Character Controller compiler symbols so the components are aware of the asset import status.
     /// </summary>
@@ -24,10 +23,8 @@ namespace Opsive.UltimateCharacterController.Editor.Utility
         private static string s_FirstPersonMeleeSymbol = "FIRST_PERSON_MELEE";
         private static string s_MultiplayerSymbol = "ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER";
         private static string s_VRSymbol = "ULTIMATE_CHARACTER_CONTROLLER_VR";
-#if UNITY_2019_2
-        private static string s_LWRPSymbol = "ULTIMATE_CHARACTER_CONTROLLER_LWRP";
-#elif UNITY_2019_3_OR_NEWER
-        private static string s_UniversalRPSymbol = "ULTIMATE_CHARACTER_CONTROLLER_UNIVERSALRP";
+#if ULTIMATE_CHARACTER_CONTROLLER_CINEMACHINE
+        private static string s_CinemachineSymbol = "ULTIMATE_CHARACTER_CONTROLLER_CINEMACHINE";
 #endif
 
         /// <summary>
@@ -36,7 +33,7 @@ namespace Opsive.UltimateCharacterController.Editor.Utility
         static DefineCompilerSymbols()
         {
             // The First Person Controller Combat MovementType will exist when the First Person Controller asset is imported.
-            var firstPersonControllerExists = TypeUtility.GetType("Opsive.UltimateCharacterController.FirstPersonController.Character.MovementTypes.Combat") != null;
+            var firstPersonControllerExists = UnityEngineUtility.GetType("Opsive.UltimateCharacterController.FirstPersonController.Character.MovementTypes.Combat") != null;
 #if FIRST_PERSON_CONTROLLER
             if (!firstPersonControllerExists) {
                 RemoveSymbol(s_FirstPersonControllerSymbol);
@@ -48,7 +45,7 @@ namespace Opsive.UltimateCharacterController.Editor.Utility
 #endif
 
             // The Third Person Controller Combat MovementType will exist when the Third Person Controller asset is imported.
-            var thirdPersonControllerExists = TypeUtility.GetType("Opsive.UltimateCharacterController.ThirdPersonController.Character.MovementTypes.Combat") != null;
+            var thirdPersonControllerExists = UnityEngineUtility.GetType("Opsive.UltimateCharacterController.ThirdPersonController.Character.MovementTypes.Combat") != null;
 #if THIRD_PERSON_CONTROLLER
             if (!thirdPersonControllerExists) {
                 RemoveSymbol(s_ThirdPersonControllerSymbol);
@@ -60,7 +57,7 @@ namespace Opsive.UltimateCharacterController.Editor.Utility
 #endif
 
             // Shootable Weapon will exist if the shooter controller is imported.
-            var shootableWeaponExists = TypeUtility.GetType("Opsive.UltimateCharacterController.Items.Actions.ShootableWeapon") != null;
+            var shootableWeaponExists = UnityEngineUtility.GetType("Opsive.UltimateCharacterController.Items.Actions.ShootableWeapon") != null;
 #if ULTIMATE_CHARACTER_CONTROLLER_SHOOTER
             if (!shootableWeaponExists) {
                 RemoveSymbol(s_ShooterSymbol);
@@ -72,7 +69,7 @@ namespace Opsive.UltimateCharacterController.Editor.Utility
 #endif
 
             // First Person Shootable Weapon Properties will exist if the first person shootable controller is imported.
-            var firstPersonShootableWeaponExists = TypeUtility.GetType("Opsive.UltimateCharacterController.FirstPersonController.Items.FirstPersonShootableWeaponProperties") != null;
+            var firstPersonShootableWeaponExists = UnityEngineUtility.GetType("Opsive.UltimateCharacterController.FirstPersonController.Items.FirstPersonShootableWeaponProperties") != null;
 #if FIRST_PERSON_SHOOTER
             if (!firstPersonShootableWeaponExists) {
                 RemoveSymbol(s_FirstPersonShooterSymbol);
@@ -84,7 +81,7 @@ namespace Opsive.UltimateCharacterController.Editor.Utility
 #endif
 
             // Melee Weapon will exist if the melee controller is imported.
-            var meleeWeaponExists = TypeUtility.GetType("Opsive.UltimateCharacterController.Items.Actions.MeleeWeapon") != null;
+            var meleeWeaponExists = UnityEngineUtility.GetType("Opsive.UltimateCharacterController.Items.Actions.MeleeWeapon") != null;
 #if ULTIMATE_CHARACTER_CONTROLLER_MELEE
             if (!meleeWeaponExists) {
                 RemoveSymbol(s_MeleeSymbol);
@@ -96,7 +93,7 @@ namespace Opsive.UltimateCharacterController.Editor.Utility
 #endif
 
             // First Person Melee Weapon Properties will exist if the first person melee controller is imported.
-            var firstPersonMeleeWeaponExists = TypeUtility.GetType("Opsive.UltimateCharacterController.FirstPersonController.Items.FirstPersonMeleeWeaponProperties") != null;
+            var firstPersonMeleeWeaponExists = UnityEngineUtility.GetType("Opsive.UltimateCharacterController.FirstPersonController.Items.FirstPersonMeleeWeaponProperties") != null;
 #if FIRST_PERSON_MELEE
             if (!firstPersonMeleeWeaponExists) {
                 RemoveSymbol(s_FirstPersonMeleeSymbol);
@@ -108,7 +105,7 @@ namespace Opsive.UltimateCharacterController.Editor.Utility
 #endif
 
             // INetworkCharacter will exist if the multiplayer add-on is imported.
-            var multiplayerExists = TypeUtility.GetType("Opsive.UltimateCharacterController.AddOns.Multiplayer.Character.NetworkCharacterLocomotionHandler") != null;
+            var multiplayerExists = UnityEngineUtility.GetType("Opsive.UltimateCharacterController.AddOns.Multiplayer.Character.NetworkCharacterLocomotionHandler") != null;
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
             if (!multiplayerExists) {
                 RemoveSymbol(s_MultiplayerSymbol);
@@ -120,40 +117,23 @@ namespace Opsive.UltimateCharacterController.Editor.Utility
 #endif
 
             // VRViewType will exist if the VR add-on is imported.
-            var vrExists = TypeUtility.GetType("Opsive.UltimateCharacterController.AddOns.VR.Editor.VRAddOnInspector") != null;
+            var VRExists = UnityEngineUtility.GetType("Opsive.UltimateCharacterController.AddOns.VR.Editor.VRAddOnInspector") != null;
 #if ULTIMATE_CHARACTER_CONTROLLER_VR
-            if (!vrExists) {
+            if (!VRExists) {
                 RemoveSymbol(s_VRSymbol);
             }
 #else
-            if (vrExists) {
+            if (VRExists) {
                 AddSymbol(s_VRSymbol);
             }
 #endif
 
-            // The LWRP/URP data will exists when the LWRP or URP is imported. This assembly definition must be added to the Opsive.UltimateCaracterController.Editor assembly definition.
-#if UNITY_2019_2
-            var lwrpExists = TypeUtility.GetType("UnityEngine.Rendering.LWRP.ForwardRendererData") != null;
-#if ULTIMATE_CHARACTER_CONTROLLER_LWRP
-            if (!lwrpExists) {
-                RemoveSymbol(s_LWRPSymbol);
+#if ULTIMATE_CHARACTER_CONTROLLER_CINEMACHINE
+            // TODO: CinemachineBrain will exist if Cinemachine is imported. As of 2.1.2 Cinemachine is a separate integration so this can be removed later.
+            var cinemachineExists = UnityEngineUtility.GetType("Cinemachine.CinemachineBrain") != null;
+            if (!cinemachineExists) {
+                RemoveSymbol(s_CinemachineSymbol);
             }
-#else
-            if (lwrpExists) {
-                AddSymbol(s_LWRPSymbol);
-            }
-#endif
-#elif UNITY_2019_3_OR_NEWER
-            var universalrpExists = TypeUtility.GetType("UnityEngine.Rendering.Universal.ForwardRendererData") != null;
-#if ULTIMATE_CHARACTER_CONTROLLER_UNIVERSALRP
-            if (!universalrpExists) {
-                RemoveSymbol(s_UniversalRPSymbol);
-            }
-#else
-            if (universalrpExists) {
-                AddSymbol(s_UniversalRPSymbol);
-            }
-#endif
 #endif
         }
 

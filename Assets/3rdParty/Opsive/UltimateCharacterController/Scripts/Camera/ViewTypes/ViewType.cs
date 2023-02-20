@@ -4,19 +4,17 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Utility;
+using System;
+
 namespace Opsive.UltimateCharacterController.Camera.ViewTypes
 {
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using Opsive.UltimateCharacterController.Utility;
-    using System;
-    using UnityEngine;
-
     /// <summary>
     /// Base class for the objects which describe how the camera moves.
     /// </summary>
-    [UnityEngine.Scripting.Preserve]
     public abstract class ViewType : StateObject
     {
         protected CameraController m_CameraController;
@@ -208,7 +206,7 @@ namespace Opsive.UltimateCharacterController.Camera.ViewTypes
     /// <summary>
     /// Attribute which specifies the recommended movement type for the view type.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class RecommendedMovementType : Attribute
     {
         private Type m_Type;

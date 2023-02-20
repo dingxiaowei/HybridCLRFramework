@@ -4,16 +4,16 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using UnityEditorInternal;
+using Opsive.UltimateCharacterController.Audio;
+using System;
+using System.Collections.Generic;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Audio
 {
-    using UnityEngine;
-    using UnityEditor;
-    using UnityEditorInternal;
-    using Opsive.UltimateCharacterController.Audio;
-    using System;
-    using System.Collections.Generic;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-
     /// <summary>
     /// Draws a user friendly inspector for the AudioClipSet class.
     /// </summary>
@@ -22,7 +22,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Audio
         /// <summary>
         /// Draws the AudioClipSet.
         /// </summary>
-        public static ReorderableList DrawAudioClipSet(AudioClipSet audioClipSet, SerializedProperty serializedProperty, ReorderableList reorderableList, ReorderableList.ElementCallbackDelegate drawElementCallback,
+        public static void DrawAudioClipSet(AudioClipSet audioClipSet, SerializedProperty serializedProperty, ref ReorderableList reorderableList, ReorderableList.ElementCallbackDelegate drawElementCallback,
                                                 ReorderableList.AddCallbackDelegate addCallback, ReorderableList.RemoveCallbackDelegate removeCallback)
         {
             if (serializedProperty != null) {
@@ -60,7 +60,6 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Audio
                 EditorGUI.indentLevel++;
             }
             GUILayout.Space(5);
-            return reorderableList;
         }
 
         /// <summary>
@@ -79,12 +78,10 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Audio
             EditorGUI.BeginChangeCheck();
             rect.y += 2;
             rect.height -= 5;
-            try {
-                audioClipSet.AudioClips[index] = (AudioClip)EditorGUI.ObjectField(rect, audioClipSet.AudioClips[index], typeof(AudioClip), false);
-                if (EditorGUI.EndChangeCheck() && target != null) {
-                    InspectorUtility.RecordUndoDirtyObject(target, "Change Value");
-                }
-            } catch (Exception /*e*/) { }
+            audioClipSet.AudioClips[index] = (AudioClip)EditorGUI.ObjectField(rect, audioClipSet.AudioClips[index], typeof(AudioClip), false);
+            if (EditorGUI.EndChangeCheck() && target != null) {
+                InspectorUtility.RecordUndoDirtyObject(target, "Change Value");
+            }
         }
 
         /// <summary>

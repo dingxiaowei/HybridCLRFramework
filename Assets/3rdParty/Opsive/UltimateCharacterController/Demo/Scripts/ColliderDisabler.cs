@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+
 namespace Opsive.UltimateCharacterController.Demo
 {
-    using Opsive.UltimateCharacterController.Character;
-    using UnityEngine;
-
     /// <summary>
     /// Disables the specified Collider when the character enters the trigger.
     /// </summary>

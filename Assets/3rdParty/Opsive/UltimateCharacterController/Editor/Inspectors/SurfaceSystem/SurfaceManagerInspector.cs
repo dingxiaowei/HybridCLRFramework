@@ -4,15 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using UnityEditorInternal;
+using Opsive.UltimateCharacterController.SurfaceSystem;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.SurfaceSystem
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.SurfaceSystem;
-    using System.Collections.Generic;
-    using UnityEditor;
-    using UnityEditorInternal;
-    using UnityEngine;
-
     /// <summary>
     /// Shows a custom inspector for the Surface Manager.
     /// </summary>
@@ -120,8 +120,6 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.SurfaceSystem
                 EditorGUILayout.EndVertical();
                 EditorGUILayout.EndHorizontal();
             }
-
-            EditorGUILayout.PropertyField(PropertyFromName("m_DetectTerrainTreeTextures"), true);
 
             if (Foldout("Fallbacks")) {
                 EditorGUI.indentLevel++;

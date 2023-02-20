@@ -1,7 +1,9 @@
 fileFormatVersion: 2
 guid: da7f3e0f6f45ecf4d90c4298fe130122
+timeCreated: 1524101296
+licenseType: Pro
 ModelImporter:
-  serializedVersion: 23
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     100002: CollisionMesh_DoorLeft
@@ -76,78 +78,6 @@ ModelImporter:
     100140: CollisionMesh_BoxingJoe
     100142: CollisionMesh_Stair1Slope
     100144: CollisionMesh_Stair2Slope
-    100146: CeilingCenterRectangle
-    100148: CeilingCenterRectangleSmall
-    100150: CeilingCenterSquare
-    100152: CeilingLightRectangle
-    100154: CeilingLightRectangle_Old
-    100156: CeilingLightSquare
-    100158: CeilingLightSquare.002
-    100160: CollisionMesh_RoomMovementPlatformsOld
-    100162: CollisionMesh_Track
-    100164: DoorLeft
-    100166: DoorLeftHalfCircle
-    100168: DoorRight
-    100170: DoorRightHalfCircle
-    100172: Doors_substance
-    100174: Doorway
-    100176: Doorway_substance2
-    100178: Gate
-    100180: GateDoorBottom
-    100182: GateDoorBottomHalfCircle
-    100184: GateDoorTop
-    100186: GateDoorTopHalfCircle
-    100188: Hall
-    100190: Hall_Label1
-    100192: Hall_Label2
-    100194: Hall_substance
-    100196: HallDivider
-    100198: HallDoubleRoom
-    100200: HallEnd
-    100202: HallEnd_Label1
-    100204: HallEnd_Label2
-    100206: HallFloorEnd
-    100208: HallFloorIntersection
-    100210: HallFloorT
-    100212: HallFloorT2
-    100214: HallFloorT_ThirdFloor
-    100216: HallT
-    100218: HallT_Label1
-    100220: HallT_Label2
-    100222: HallT_Label3
-    100224: HallWindow
-    100226: HallWindow_Label1
-    100228: HallWindow_Label2
-    100230: Room_Ceiling
-    100232: Room_Ceiling_exploded
-    100234: Room_Ceiling_high
-    100236: Room_Ceiling_high_MeshPart0
-    100238: Room_Ceiling_high_MeshPart1
-    100240: Room_Ceiling_high_MeshPart2
-    100242: Room_Ceiling_substance
-    100244: Room_Movement_Platforms.002
-    100246: RoomLabel_Aiming
-    100248: RoomLabel_Death
-    100250: RoomLabel_Effects
-    100252: RoomLabel_FirstPersonSprings
-    100254: RoomLabel_Gravity
-    100256: RoomLabel_Interact
-    100258: RoomLabel_Magic
-    100260: RoomLabel_Melee
-    100262: RoomLabel_Shootable
-    100264: RoomLabel_SurfaceEffects
-    100266: RoomWall
-    100268: RoomWall1
-    100270: RoomWall2
-    100272: RoomWall3
-    100274: RoomWallMenu
-    100276: RoomWalls_exploded
-    100278: RoomWalls_exploded2
-    100280: Stair1
-    100282: Stair2
-    100284: StairwaySlopeFloor
-    100286: StairwayStairFloor
-    100288: CollisionMesh_Terrain
     400000: //RootNode
     400002: CollisionMesh_DoorLeft
     400004: CollisionMesh_DoorRight
@@ -221,78 +151,6 @@ ModelImporter:
     400140: CollisionMesh_BoxingJoe
     400142: CollisionMesh_Stair1Slope
     400144: CollisionMesh_Stair2Slope
-    400146: CeilingCenterRectangle
-    400148: CeilingCenterRectangleSmall
-    400150: CeilingCenterSquare
-    400152: CeilingLightRectangle
-    400154: CeilingLightRectangle_Old
-    400156: CeilingLightSquare
-    400158: CeilingLightSquare.002
-    400160: CollisionMesh_RoomMovementPlatformsOld
-    400162: CollisionMesh_Track
-    400164: DoorLeft
-    400166: DoorLeftHalfCircle
-    400168: DoorRight
-    400170: DoorRightHalfCircle
-    400172: Doors_substance
-    400174: Doorway
-    400176: Doorway_substance2
-    400178: Gate
-    400180: GateDoorBottom
-    400182: GateDoorBottomHalfCircle
-    400184: GateDoorTop
-    400186: GateDoorTopHalfCircle
-    400188: Hall
-    400190: Hall_Label1
-    400192: Hall_Label2
-    400194: Hall_substance
-    400196: HallDivider
-    400198: HallDoubleRoom
-    400200: HallEnd
-    400202: HallEnd_Label1
-    400204: HallEnd_Label2
-    400206: HallFloorEnd
-    400208: HallFloorIntersection
-    400210: HallFloorT
-    400212: HallFloorT2
-    400214: HallFloorT_ThirdFloor
-    400216: HallT
-    400218: HallT_Label1
-    400220: HallT_Label2
-    400222: HallT_Label3
-    400224: HallWindow
-    400226: HallWindow_Label1
-    400228: HallWindow_Label2
-    400230: Room_Ceiling
-    400232: Room_Ceiling_exploded
-    400234: Room_Ceiling_high
-    400236: Room_Ceiling_high_MeshPart0
-    400238: Room_Ceiling_high_MeshPart1
-    400240: Room_Ceiling_high_MeshPart2
-    400242: Room_Ceiling_substance
-    400244: Room_Movement_Platforms.002
-    400246: RoomLabel_Aiming
-    400248: RoomLabel_Death
-    400250: RoomLabel_Effects
-    400252: RoomLabel_FirstPersonSprings
-    400254: RoomLabel_Gravity
-    400256: RoomLabel_Interact
-    400258: RoomLabel_Magic
-    400260: RoomLabel_Melee
-    400262: RoomLabel_Shootable
-    400264: RoomLabel_SurfaceEffects
-    400266: RoomWall
-    400268: RoomWall1
-    400270: RoomWall2
-    400272: RoomWall3
-    400274: RoomWallMenu
-    400276: RoomWalls_exploded
-    400278: RoomWalls_exploded2
-    400280: Stair1
-    400282: Stair2
-    400284: StairwaySlopeFloor
-    400286: StairwayStairFloor
-    400288: CollisionMesh_Terrain
     2300000: CollisionMesh_DoorLeft
     2300002: CollisionMesh_DoorRight
     2300004: CollisionMesh_Doorway
@@ -365,77 +223,6 @@ ModelImporter:
     2300138: CollisionMesh_BoxingJoe
     2300140: CollisionMesh_Stair1Slope
     2300142: CollisionMesh_Stair2Slope
-    2300144: CeilingCenterRectangle
-    2300146: CeilingCenterRectangleSmall
-    2300148: CeilingCenterSquare
-    2300150: CeilingLightRectangle
-    2300152: CeilingLightRectangle_Old
-    2300154: CeilingLightSquare
-    2300156: CeilingLightSquare.002
-    2300158: CollisionMesh_RoomMovementPlatformsOld
-    2300160: CollisionMesh_Track
-    2300162: DoorLeft
-    2300164: DoorLeftHalfCircle
-    2300166: DoorRight
-    2300168: DoorRightHalfCircle
-    2300170: Doors_substance
-    2300172: Doorway
-    2300174: Doorway_substance2
-    2300176: Gate
-    2300178: GateDoorBottom
-    2300180: GateDoorBottomHalfCircle
-    2300182: GateDoorTop
-    2300184: GateDoorTopHalfCircle
-    2300186: Hall
-    2300188: Hall_Label1
-    2300190: Hall_Label2
-    2300192: Hall_substance
-    2300194: HallDivider
-    2300196: HallDoubleRoom
-    2300198: HallEnd
-    2300200: HallEnd_Label1
-    2300202: HallEnd_Label2
-    2300204: HallFloorEnd
-    2300206: HallFloorIntersection
-    2300208: HallFloorT
-    2300210: HallFloorT2
-    2300212: HallFloorT_ThirdFloor
-    2300214: HallT
-    2300216: HallT_Label1
-    2300218: HallT_Label2
-    2300220: HallT_Label3
-    2300222: HallWindow
-    2300224: HallWindow_Label1
-    2300226: HallWindow_Label2
-    2300228: Room_Ceiling
-    2300230: Room_Ceiling_exploded
-    2300232: Room_Ceiling_high_MeshPart0
-    2300234: Room_Ceiling_high_MeshPart1
-    2300236: Room_Ceiling_high_MeshPart2
-    2300238: Room_Ceiling_substance
-    2300240: Room_Movement_Platforms.002
-    2300242: RoomLabel_Aiming
-    2300244: RoomLabel_Death
-    2300246: RoomLabel_Effects
-    2300248: RoomLabel_FirstPersonSprings
-    2300250: RoomLabel_Gravity
-    2300252: RoomLabel_Interact
-    2300254: RoomLabel_Magic
-    2300256: RoomLabel_Melee
-    2300258: RoomLabel_Shootable
-    2300260: RoomLabel_SurfaceEffects
-    2300262: RoomWall
-    2300264: RoomWall1
-    2300266: RoomWall2
-    2300268: RoomWall3
-    2300270: RoomWallMenu
-    2300272: RoomWalls_exploded
-    2300274: RoomWalls_exploded2
-    2300276: Stair1
-    2300278: Stair2
-    2300280: StairwaySlopeFloor
-    2300282: StairwayStairFloor
-    2300284: CollisionMesh_Terrain
     3300000: CollisionMesh_DoorLeft
     3300002: CollisionMesh_DoorRight
     3300004: CollisionMesh_Doorway
@@ -508,77 +295,6 @@ ModelImporter:
     3300138: CollisionMesh_BoxingJoe
     3300140: CollisionMesh_Stair1Slope
     3300142: CollisionMesh_Stair2Slope
-    3300144: CeilingCenterRectangle
-    3300146: CeilingCenterRectangleSmall
-    3300148: CeilingCenterSquare
-    3300150: CeilingLightRectangle
-    3300152: CeilingLightRectangle_Old
-    3300154: CeilingLightSquare
-    3300156: CeilingLightSquare.002
-    3300158: CollisionMesh_RoomMovementPlatformsOld
-    3300160: CollisionMesh_Track
-    3300162: DoorLeft
-    3300164: DoorLeftHalfCircle
-    3300166: DoorRight
-    3300168: DoorRightHalfCircle
-    3300170: Doors_substance
-    3300172: Doorway
-    3300174: Doorway_substance2
-    3300176: Gate
-    3300178: GateDoorBottom
-    3300180: GateDoorBottomHalfCircle
-    3300182: GateDoorTop
-    3300184: GateDoorTopHalfCircle
-    3300186: Hall
-    3300188: Hall_Label1
-    3300190: Hall_Label2
-    3300192: Hall_substance
-    3300194: HallDivider
-    3300196: HallDoubleRoom
-    3300198: HallEnd
-    3300200: HallEnd_Label1
-    3300202: HallEnd_Label2
-    3300204: HallFloorEnd
-    3300206: HallFloorIntersection
-    3300208: HallFloorT
-    3300210: HallFloorT2
-    3300212: HallFloorT_ThirdFloor
-    3300214: HallT
-    3300216: HallT_Label1
-    3300218: HallT_Label2
-    3300220: HallT_Label3
-    3300222: HallWindow
-    3300224: HallWindow_Label1
-    3300226: HallWindow_Label2
-    3300228: Room_Ceiling
-    3300230: Room_Ceiling_exploded
-    3300232: Room_Ceiling_high_MeshPart0
-    3300234: Room_Ceiling_high_MeshPart1
-    3300236: Room_Ceiling_high_MeshPart2
-    3300238: Room_Ceiling_substance
-    3300240: Room_Movement_Platforms.002
-    3300242: RoomLabel_Aiming
-    3300244: RoomLabel_Death
-    3300246: RoomLabel_Effects
-    3300248: RoomLabel_FirstPersonSprings
-    3300250: RoomLabel_Gravity
-    3300252: RoomLabel_Interact
-    3300254: RoomLabel_Magic
-    3300256: RoomLabel_Melee
-    3300258: RoomLabel_Shootable
-    3300260: RoomLabel_SurfaceEffects
-    3300262: RoomWall
-    3300264: RoomWall1
-    3300266: RoomWall2
-    3300268: RoomWall3
-    3300270: RoomWallMenu
-    3300272: RoomWalls_exploded
-    3300274: RoomWalls_exploded2
-    3300276: Stair1
-    3300278: Stair2
-    3300280: StairwaySlopeFloor
-    3300282: StairwayStairFloor
-    3300284: CollisionMesh_Terrain
     4300000: CollisionMesh_Stairs
     4300002: CollisionMesh_StairwaySlopeFloor
     4300004: CollisionMesh_StairwayFloor
@@ -651,78 +367,6 @@ ModelImporter:
     4300138: CollisionMesh_BoxingJoe
     4300140: CollisionMesh_Stair2Slope
     4300142: CollisionMesh_Stair1Slope
-    4300144: RoomWallMenu
-    4300146: RoomWalls_exploded2
-    4300148: Stair2
-    4300150: Stair1
-    4300152: Doorway_substance2
-    4300154: RoomLabel_FirstPersonSprings
-    4300156: RoomLabel_Aiming
-    4300158: RoomLabel_Death
-    4300160: RoomLabel_Effects
-    4300162: RoomLabel_SurfaceEffects
-    4300164: RoomLabel_Interact
-    4300166: RoomLabel_Gravity
-    4300168: RoomLabel_Melee
-    4300170: RoomLabel_Shootable
-    4300172: HallFloorT_ThirdFloor
-    4300174: HallFloorT2
-    4300176: CeilingLightSquare
-    4300178: CeilingLightRectangle
-    4300180: CeilingLightSquare.002
-    4300182: HallEnd_Label1
-    4300184: HallEnd_Label2
-    4300186: HallT_Label3
-    4300188: HallT_Label2
-    4300190: HallT_Label1
-    4300192: HallWindow_Label1
-    4300194: HallWindow_Label2
-    4300196: Hall_Label2
-    4300198: Hall_Label1
-    4300200: RoomWall3
-    4300202: HallFloorIntersection
-    4300204: CeilingLightRectangle_Old
-    4300206: Room_Ceiling_substance
-    4300208: CeilingCenterSquare
-    4300210: CeilingCenterRectangle
-    4300212: Room_Ceiling
-    4300214: Room_Ceiling_high_MeshPart0
-    4300216: Room_Ceiling_high_MeshPart1
-    4300218: Room_Ceiling_high_MeshPart2
-    4300220: Room_Ceiling_exploded
-    4300222: CeilingCenterRectangleSmall
-    4300224: RoomWall2
-    4300226: RoomWall1
-    4300228: StairwaySlopeFloor
-    4300230: HallFloorT
-    4300232: RoomWalls_exploded
-    4300234: RoomWall
-    4300236: Doors_substance
-    4300238: DoorRightHalfCircle
-    4300240: DoorRight
-    4300242: Doorway
-    4300244: HallDivider
-    4300246: GateDoorTopHalfCircle
-    4300248: GateDoorBottom
-    4300250: GateDoorBottomHalfCircle
-    4300252: GateDoorTop
-    4300254: DoorLeftHalfCircle
-    4300256: DoorLeft
-    4300258: Gate
-    4300260: HallDoubleRoom
-    4300262: HallEnd
-    4300264: HallT
-    4300266: HallWindow
-    4300268: Hall
-    4300270: Hall_substance
-    4300272: StairwayStairFloor
-    4300274: HallFloorEnd
-    4300276: Room_Movement_Platforms.002
-    4300278: RoomLabel_Magic
-    4300280: CollisionMesh_RoomMovementPlatformsOld
-    4300282: CollisionMesh_Track
-    4300284: CollisionMesh_Terrain
-    2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 0
@@ -742,7 +386,6 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
-    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -754,10 +397,9 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 100
     meshCompression: 0
     addColliders: 0
-    useSRGBMaterialColor: 1
     importVisibility: 0
     importBlendShapes: 1
     importCameras: 0
@@ -775,16 +417,11 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 0
-    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
-    blendShapeNormalImportMode: 1
-    normalSmoothingSource: 0
   importAnimation: 0
   copyAvatar: 0
   humanDescription:
@@ -799,6 +436,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

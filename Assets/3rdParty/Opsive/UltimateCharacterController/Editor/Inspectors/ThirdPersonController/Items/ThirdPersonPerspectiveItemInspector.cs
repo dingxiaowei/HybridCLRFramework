@@ -4,13 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEditor;
+using Opsive.UltimateCharacterController.ThirdPersonController.Items;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Items;
+using System;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.ThirdPersonController.Items
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Items;
-    using Opsive.UltimateCharacterController.ThirdPersonController.Items;
-    using System;
-    using UnityEditor;
-
     /// <summary>
     /// Shows a custom inspector for the ThirdPersonPerspectiveItem.
     /// </summary>

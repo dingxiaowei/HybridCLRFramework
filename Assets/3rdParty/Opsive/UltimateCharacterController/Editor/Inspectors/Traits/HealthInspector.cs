@@ -4,17 +4,17 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using UnityEditorInternal;
+using Opsive.UltimateCharacterController.Traits;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Audio;
+using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+using System;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Traits
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Audio;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.Traits;
-    using System;
-    using UnityEditor;
-    using UnityEditorInternal;
-    using UnityEngine;
-
     /// <summary>
     /// Shows a custom inspector for the Health component.
     /// </summary>
@@ -112,17 +112,17 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Traits
                     EditorGUI.indentLevel++;
                     if (InspectorUtility.Foldout(target, "Take Damage")) {
                         EditorGUI.indentLevel++;
-                        m_ReorderableTakeDamageAudioClipsList = AudioClipSetInspector.DrawAudioClipSet(m_Health.TakeDamageAudioClipSet, PropertyFromName("m_TakeDamageAudioClipSet"), m_ReorderableTakeDamageAudioClipsList, OnTakeDamageAudioClipDraw, OnTakeDamageAudioClipListAdd, OnTakeDamageAudioClipListRemove);
+                        AudioClipSetInspector.DrawAudioClipSet(m_Health.TakeDamageAudioClipSet, PropertyFromName("m_TakeDamageAudioClipSet"), ref m_ReorderableTakeDamageAudioClipsList, OnTakeDamageAudioClipDraw, OnTakeDamageAudioClipListAdd, OnTakeDamageAudioClipListRemove);
                         EditorGUI.indentLevel--;
                     }
                     if (InspectorUtility.Foldout(target, "Heal")) {
                         EditorGUI.indentLevel++;
-                        m_ReorderableHealAudioClipsList = AudioClipSetInspector.DrawAudioClipSet(m_Health.HealAudioClipSet, PropertyFromName("m_HealAudioClipSet"), m_ReorderableHealAudioClipsList, OnHealAudioClipDraw, OnHealAudioClipListAdd, OnHealAudioClipListRemove);
+                        AudioClipSetInspector.DrawAudioClipSet(m_Health.HealAudioClipSet, PropertyFromName("m_HealAudioClipSet"), ref m_ReorderableHealAudioClipsList, OnHealAudioClipDraw, OnHealAudioClipListAdd, OnHealAudioClipListRemove);
                         EditorGUI.indentLevel--;
                     }
                     if (InspectorUtility.Foldout(target, "Death")) {
                         EditorGUI.indentLevel++;
-                        m_ReorderableDeathAudioClipsList = AudioClipSetInspector.DrawAudioClipSet(m_Health.DeathAudioClipSet, PropertyFromName("m_DeathAudioClipSet"), m_ReorderableDeathAudioClipsList, OnDeathAudioClipDraw, OnDeathAudioClipListAdd, OnDeathAudioClipListRemove);
+                        AudioClipSetInspector.DrawAudioClipSet(m_Health.DeathAudioClipSet, PropertyFromName("m_DeathAudioClipSet"), ref m_ReorderableDeathAudioClipsList, OnDeathAudioClipDraw, OnDeathAudioClipListAdd, OnDeathAudioClipListRemove);
                         EditorGUI.indentLevel--;
                     }
                     EditorGUI.indentLevel--;

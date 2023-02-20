@@ -4,14 +4,14 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.StateSystem
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using System.Collections.Generic;
-    using UnityEngine;
-    using UnityEngine.SceneManagement;
-
     /// <summary>
     /// Handles the activation and deactivation of states.
     /// </summary>
@@ -93,14 +93,14 @@ namespace Opsive.UltimateCharacterController.StateSystem
             if (characterLocomotion != null) {
                 characterGameObject = characterLocomotion.gameObject;
             } else {
-                var cameraController = gameObject.GetCachedParentComponent<UltimateCharacterController.Camera.CameraController>();
+                var cameraController = gameObject.GetCachedParentComponent<Camera.CameraController>();
                 if (cameraController != null) {
                     characterGameObject = cameraController.Character;
                 }
             }
             for (int i = 0; i < states.Length; ++i) {
                 if (states[i].Preset == null) {
-                    Debug.LogError(string.Format("Error: The state {0} on {1} does not have a preset. Ensure each non-default state contains a preset.", states[i].Name, owner), owner as Object);
+                    Debug.LogError(string.Format("Error: The state {0} on {1} does not have a preset. Ensure each non-default state contains a preset.", states[i].Name, owner));
                 }
                 nameStateMap.Add(states[i].Name, states[i]);
 
@@ -309,7 +309,7 @@ namespace Opsive.UltimateCharacterController.StateSystem
             // An event can be sent when the active status changes. This is useful for multiplayer in that it allows the networking implementation
             // to send the state changes across the network.
             if (m_SendStateChangeEvent) {
-                EventHandler.ExecuteEvent("OnStateChange", gameObject, stateName, active);
+                Events.EventHandler.ExecuteEvent("OnStateChange", gameObject, stateName, active);
             }
 
             // The states have been found, activate or deactivate the states.
@@ -496,17 +496,5 @@ namespace Opsive.UltimateCharacterController.StateSystem
         {
             SceneManager.sceneUnloaded += SceneUnloaded;
         }
-
-#if UNITY_2019_3_OR_NEWER
-        /// <summary>
-        /// Reset the static variables for domain reloading.
-        /// </summary>
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        private static void DomainReset()
-        {
-            s_Initialized = false;
-            s_Instance = null;
-        }
-#endif
     }
 }

@@ -4,17 +4,16 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using UnityEditorInternal;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+using System;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem
 {
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using System;
-    using System.Collections.Generic;
-    using UnityEditor;
-    using UnityEditorInternal;
-    using UnityEngine;
-
     /// <summary>
     /// Custom inspector for the StateConfiguration component.
     /// </summary>
@@ -326,7 +325,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem
 
             if (m_CopyType == CopyType.All || m_CopyType == CopyType.Default) {
                 // The default state has to be persisted.
-                var preset = PersistablePreset.CreatePreset(obj, MemberVisibility.AllPublic);
+                var preset = PersistablePreset.CreatePreset(obj, UltimateCharacterController.Utility.MemberVisibility.AllPublic);
                 preset.name = obj.GetType().Name;
                 AssetDatabase.AddObjectToAsset(preset, m_StateConfiguration);
                 stateList.Add(new UltimateCharacterController.StateSystem.State("Default" + preset.name, preset, null));

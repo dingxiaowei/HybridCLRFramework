@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Traits
 {
-    using UnityEngine;
-
     /// <summary>
     /// Interface for an object that can be interacted with (such as a platform or door).
     /// </summary>

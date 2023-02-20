@@ -4,13 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using System;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.StateSystem
 {
-    using Opsive.Shared.Utility;
-    using System;
-    using System.Collections.Generic;
-    using UnityEngine;
-
     /// <summary>
     /// The StateConfiguration class contains an array of profiles with prespecified states that can be added to an object.
     /// </summary>
@@ -152,13 +151,11 @@ namespace Opsive.UltimateCharacterController.StateSystem
             var profileNames = new List<string>();
             if (gameObject == null) {
                 // All of the profiles for the specfied type should be shown if the GameObject is null.
-                if (m_Profiles != null) {
-                    for (int i = 0; i < m_Profiles.Length; ++i) {
-                        if (type != m_Profiles[i].Type) {
-                            continue;
-                        }
-                        profileNames.Add(m_Profiles[i].Name);
+                for (int i = 0; i < m_Profiles.Length; ++i) {
+                    if (type != m_Profiles[i].Type) {
+                        continue;
                     }
+                    profileNames.Add(m_Profiles[i].Name);
                 }
                 return profileNames;
             }
@@ -199,12 +196,12 @@ namespace Opsive.UltimateCharacterController.StateSystem
                 }
 
                 // The GameObject may contain the CameraController component where the view types also need to be searched.
-                if (stateBehaviors[i] is UltimateCharacterController.Camera.CameraController) {
-                    var cameraController = stateBehaviors[i] as UltimateCharacterController.Camera.CameraController;
+                if (stateBehaviors[i] is Camera.CameraController) {
+                    var cameraController = stateBehaviors[i] as Camera.CameraController;
 
                     cameraController.DeserializeViewTypes();
                     for (int j = 0; j < cameraController.ViewTypes.Length; ++j) {
-                        GetProfilesForType(cameraController.ViewTypes[j].GetType(), type, profileNames);
+                        GetProfilesForType(cameraController.ViewTypes[i].GetType(), type, profileNames);
                     }
                 }
             }
@@ -260,7 +257,7 @@ namespace Opsive.UltimateCharacterController.StateSystem
                             AddStatesToObject(profileName, characterLocomotion.MovementTypes[j]);
                         }
                         var movementTypes = new List<Character.MovementTypes.MovementType>(characterLocomotion.MovementTypes);
-                        characterLocomotion.MovementTypeData = Shared.Utility.Serialization.Serialize<Character.MovementTypes.MovementType>(movementTypes);
+                        characterLocomotion.MovementTypeData = Utility.Serialization.Serialize<Character.MovementTypes.MovementType>(movementTypes);
                         characterLocomotion.MovementTypes = movementTypes.ToArray();
                     }
 
@@ -286,14 +283,14 @@ namespace Opsive.UltimateCharacterController.StateSystem
                             AddStatesToObject(profileName, characterLocomotion.Effects[j]);
                         }
                         var effects = new List<Character.Effects.Effect>(characterLocomotion.Effects);
-                        characterLocomotion.EffectData = Shared.Utility.Serialization.Serialize<Character.Effects.Effect>(effects);
+                        characterLocomotion.EffectData = Utility.Serialization.Serialize<Character.Effects.Effect>(effects);
                         characterLocomotion.Effects = effects.ToArray();
                     }
                 }
 
                 // The GameObject may contain the CameraController component where the view types also need to be searched.
-                if (stateBehaviors[i] is UltimateCharacterController.Camera.CameraController) {
-                    var cameraController = stateBehaviors[i] as UltimateCharacterController.Camera.CameraController;
+                if (stateBehaviors[i] is Camera.CameraController) {
+                    var cameraController = stateBehaviors[i] as Camera.CameraController;
 
                     cameraController.DeserializeViewTypes();
                     if (cameraController.ViewTypes != null) {
@@ -326,7 +323,7 @@ namespace Opsive.UltimateCharacterController.StateSystem
             var defaultIndex = -1;
             for (int i = 0; i < stateElements.Length; ++i) {
                 if (stateElements[i].Default) {
-                    stateElements[i].Preset.Initialize(obj, MemberVisibility.Public);
+                    stateElements[i].Preset.Initialize(obj, Utility.MemberVisibility.Public);
                     stateElements[i].Preset.ApplyValues();
                     defaultIndex = i;
                     break;

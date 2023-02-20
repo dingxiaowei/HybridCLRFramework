@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEditor;
+using Opsive.UltimateCharacterController.Objects.ItemAssist;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Objects.ItemAssist
 {
-    using Opsive.UltimateCharacterController.Objects.ItemAssist;
-    using UnityEditor;
-
     /// <summary>
     /// Custom inspector for the Shell component.
     /// </summary>

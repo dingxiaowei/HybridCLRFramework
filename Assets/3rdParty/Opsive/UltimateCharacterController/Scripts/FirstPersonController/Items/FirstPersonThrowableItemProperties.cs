@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Items.Actions;
+
 namespace Opsive.UltimateCharacterController.FirstPersonController.Items
 {
-    using Opsive.UltimateCharacterController.Items.Actions.PerspectiveProperties;
-    using UnityEngine;
-
     /// <summary>
     /// Describes any first person perspective dependent properties for the ThrowableItem.
     /// </summary>
@@ -19,7 +19,7 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Items
         [Tooltip("The location of the trajectory curve.")]
         [SerializeField] protected Transform m_TrajectoryLocation;
 
-        [Opsive.Shared.Utility.NonSerialized] public Transform ThrowLocation { get { return m_ThrowLocation; } set { m_ThrowLocation = value; } }
-        [Opsive.Shared.Utility.NonSerialized] public Transform TrajectoryLocation { get { return m_TrajectoryLocation; } set { m_TrajectoryLocation = value; } }
+        [Utility.NonSerialized] public Transform ThrowLocation { get { return m_ThrowLocation; } set { m_ThrowLocation = value; } }
+        [Utility.NonSerialized] public Transform TrajectoryLocation { get { return m_TrajectoryLocation; } set { m_TrajectoryLocation = value; } }
     }
 }

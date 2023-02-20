@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.SurfaceSystem
 {
-    using UnityEngine;
-
     /// <summary>
     /// The SurfaceType is the main surface concept used for spawning objects based on impact.
     /// </summary>

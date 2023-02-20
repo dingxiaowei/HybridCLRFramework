@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Items
 {
-    using UnityEngine;
-
     /// <summary>
     /// Identifier class used to determine where the item GameObjects are located.
     /// </summary>

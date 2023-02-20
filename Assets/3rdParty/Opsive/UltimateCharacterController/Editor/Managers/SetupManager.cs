@@ -4,20 +4,19 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using Opsive.UltimateCharacterController.Camera;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Utility;
+using Opsive.UltimateCharacterController.Utility.Builders;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+using System;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Editor.Managers
 {
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Camera;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using Opsive.UltimateCharacterController.Utility;
-    using Opsive.UltimateCharacterController.Utility.Builders;
-    using System;
-    using System.Collections.Generic;
-    using UnityEditor;
-    using UnityEngine;
-
     /// <summary>
     /// The SetupManager shows any project or scene related setup options.
     /// </summary>
@@ -78,7 +77,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                 var assemblyTypes = assemblies[i].GetTypes();
                 for (int j = 0; j < assemblyTypes.Length; ++j) {
                     // Must derive from ViewType.
-                    if (!typeof(UltimateCharacterController.Camera.ViewTypes.ViewType).IsAssignableFrom(assemblyTypes[j])) {
+                    if (!typeof(Camera.ViewTypes.ViewType).IsAssignableFrom(assemblyTypes[j])) {
                         continue;
                     }
 
@@ -254,17 +253,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                 // If the main camera can't be found then use the first available camera.
                 var cameras = UnityEngine.Camera.allCameras;
                 if (cameras != null && cameras.Length > 0) {
-                    // Prefer cameras that are at the root level.
-                    for (int i = 0; i < cameras.Length; ++i) {
-                        if (cameras[i].transform.parent == null) {
-                            camera = cameras[i];
-                            break;
-                        }
-                    }
-                    // No cameras are at the root level. Set the first available camera.
-                    if (camera == null) {
-                        camera = cameras[0];
-                    }
+                    camera = cameras[0];
                 }
 
                 // A new camera should be created if there isn't a valid camera.
@@ -284,7 +273,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
             if (cameraGameObject.GetComponent<CameraController>() == null) {
                 var cameraController = cameraGameObject.AddComponent<CameraController>();
                 if (m_Perspective == Perspective.Both) {
-                    ViewTypeBuilder.AddViewType(cameraController, typeof(UltimateCharacterController.Camera.ViewTypes.Transition));
+                    ViewTypeBuilder.AddViewType(cameraController, typeof(Camera.ViewTypes.Transition));
                 }
                 if (m_StartFirstPersonPerspective) {
                     if (!string.IsNullOrEmpty(m_ThirdPersonViewType)) {
@@ -311,10 +300,10 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                 }
 
                 // Setup the components which help the Camera Controller.
-                Shared.Editor.Utility.InspectorUtility.AddComponent<CameraControllerHandler>(cameraGameObject);
+                InspectorUtility.AddComponent<CameraControllerHandler>(cameraGameObject);
 #if THIRD_PERSON_CONTROLLER
                 if (m_Perspective != Perspective.First) {
-                    Shared.Editor.Utility.InspectorUtility.AddComponent<ThirdPersonController.Camera.ObjectFader>(cameraGameObject);
+                    InspectorUtility.AddComponent<ThirdPersonController.Camera.ObjectFader>(cameraGameObject);
                 }
 #endif
                 addedCameraController = true;
@@ -349,16 +338,16 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
             }
 
             // Add the Singletons.
-            Shared.Editor.Utility.InspectorUtility.AddComponent<SurfaceSystem.SurfaceManager>(gameGameObject);
-            Shared.Editor.Utility.InspectorUtility.AddComponent<SurfaceSystem.DecalManager>(gameGameObject);
-            Shared.Editor.Utility.InspectorUtility.AddComponent<KinematicObjectManager>(gameGameObject);
-            Shared.Editor.Utility.InspectorUtility.AddComponent<ObjectPool>(gameGameObject);
-            Shared.Editor.Utility.InspectorUtility.AddComponent<Scheduler>(gameGameObject);
-            Shared.Editor.Utility.InspectorUtility.AddComponent<Audio.AudioManager>(gameGameObject);
-            Shared.Editor.Utility.InspectorUtility.AddComponent<SpawnPointManager>(gameGameObject);
-            Shared.Editor.Utility.InspectorUtility.AddComponent<StateManager>(gameGameObject);
-            Shared.Editor.Utility.InspectorUtility.AddComponent<LayerManager>(gameGameObject);
-            Debug.Log("The managers have been added.");
+            InspectorUtility.AddComponent<SurfaceSystem.SurfaceManager>(gameGameObject);
+            InspectorUtility.AddComponent<SurfaceSystem.DecalManager>(gameGameObject);
+            InspectorUtility.AddComponent<KinematicObjectManager>(gameGameObject);
+            InspectorUtility.AddComponent<ObjectPool>(gameGameObject);
+            InspectorUtility.AddComponent<Scheduler>(gameGameObject);
+            InspectorUtility.AddComponent<Audio.AudioManager>(gameGameObject);
+            InspectorUtility.AddComponent<SpawnPointManager>(gameGameObject);
+            InspectorUtility.AddComponent<StateManager>(gameGameObject);
+            InspectorUtility.AddComponent<LayerManager>(gameGameObject);
+            Debug.Log("The managers have has been added.");
         }
 
         /// <summary>

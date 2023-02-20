@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Utility
 {
-    using UnityEngine;
-
     /// <summary>
     /// Extension methods for the UnityEngine.Transform class.
     /// </summary>

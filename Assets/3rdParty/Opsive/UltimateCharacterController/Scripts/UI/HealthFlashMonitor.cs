@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEngine.UI;
+using Opsive.UltimateCharacterController.Events;
+
 namespace Opsive.UltimateCharacterController.UI
 {
-    using Opsive.Shared.Events;
-    using UnityEngine;
-    using UnityEngine.UI;
-
     /// <summary>
     /// The HealthFlashMonitor will show a full screen flash when the character takes damage or is healed.
     /// </summary>

@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Game;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities
 {
-    using Opsive.Shared.Game;
-    using UnityEngine;
-
     /// <summary>
     /// Plays a random idle animation based off of the AbilityFloatData animator parameter.
     /// </summary>

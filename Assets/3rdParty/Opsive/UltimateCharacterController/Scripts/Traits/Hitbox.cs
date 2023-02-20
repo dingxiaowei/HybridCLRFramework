@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Traits
 {
-    using UnityEngine;
-
     /// <summary>
     /// A hitbox maps a collider to a multiplier. It is also used for collision detection by the MeleeWeapon.
     /// </summary>

@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Objects
 {
-    using UnityEngine;
-
     /// <summary>
     /// Interface for any object that is kinematic and can have forces applied to it.
     /// </summary>

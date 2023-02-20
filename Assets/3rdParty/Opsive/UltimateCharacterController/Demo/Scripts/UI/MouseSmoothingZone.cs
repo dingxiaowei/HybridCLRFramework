@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.StateSystem;
+
 namespace Opsive.UltimateCharacterController.Demo.UI
 {
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using UnityEngine;
-
     /// <summary>
     /// Manages the mouse smoothing zone. Allows switching betweening mouse input types.
     /// </summary>
@@ -35,12 +35,18 @@ namespace Opsive.UltimateCharacterController.Demo.UI
         private void ChangeInputType(SmoothingType type)
         {
             // Revert the old.
-            SetButtonColor((int)m_SmoothingType, m_NormalColor);
+            m_ButtonImages[(int)m_SmoothingType].color = m_NormalColor;
+            var buttonColors = m_Buttons[(int)m_SmoothingType].colors;
+            buttonColors.normalColor = m_NormalColor;
+            m_Buttons[(int)m_SmoothingType].colors = buttonColors;
             StateManager.SetState(m_ActiveCharacter, System.Enum.GetName(typeof(SmoothingType), m_SmoothingType), false);
 
             // Set the new smoothing type.
             m_SmoothingType = type;
-            SetButtonColor((int)m_SmoothingType, m_PressedColor);
+            m_ButtonImages[(int)m_SmoothingType].color = m_PressedColor;
+            buttonColors = m_Buttons[(int)m_SmoothingType].colors;
+            buttonColors.normalColor = m_PressedColor;
+            m_Buttons[(int)m_SmoothingType].colors = buttonColors;
             StateManager.SetState(m_ActiveCharacter, System.Enum.GetName(typeof(SmoothingType), type), true);
 
             EnableInput();

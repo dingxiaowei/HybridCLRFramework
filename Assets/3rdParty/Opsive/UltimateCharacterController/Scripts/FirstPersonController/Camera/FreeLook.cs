@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Utility;
+using Opsive.UltimateCharacterController.FirstPersonController.Character;
+
 namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTypes
 {
-    using Opsive.UltimateCharacterController.Utility;
-    using Opsive.UltimateCharacterController.FirstPersonController.Character;
-    using UnityEngine;
-
     /// <summary>
     /// The FreeLook ViewType is a first person view type that allows the camera to rotate independently of the character's direction.
     /// </summary>
@@ -30,6 +30,7 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTy
 
         private Transform m_FirstPersonObjectsTransform;
         private Vector3 m_LookDirection;
+        private int m_DeactivateFrame;
 
         /// <summary>
         /// Attaches the camera to the specified character.
@@ -51,6 +52,28 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Camera.ViewTy
                 if (firstPersonObjects != null) {
                     m_FirstPersonObjectsTransform = firstPersonObjects.transform;
                 }
+            }
+        }
+
+        /// <summary>
+        /// The view type has changed.
+        /// </summary>
+        /// <param name="activate">Should the current view type be activated?</param>
+        /// <param name="pitch">The pitch of the camera (in degrees).</param>
+        /// <param name="yaw">The yaw of the camera (in degrees).</param>
+        /// <param name="characterRotation">The rotation of the character.</param>
+        public override void ChangeViewType(bool activate, float pitch, float yaw, Quaternion characterRotation)
+        {
+            base.ChangeViewType(activate, pitch, yaw, characterRotation);
+
+            if (activate) {
+                // The state system may be activating many view types in a single frame. Only reset the variables if the view type is newly activated.
+                if (Time.frameCount != m_DeactivateFrame) {
+                    m_CharacterRotation = m_CharacterTransform.rotation;
+                    m_Yaw = 0;
+                }
+            } else {
+                m_DeactivateFrame = Time.frameCount;
             }
         }
 

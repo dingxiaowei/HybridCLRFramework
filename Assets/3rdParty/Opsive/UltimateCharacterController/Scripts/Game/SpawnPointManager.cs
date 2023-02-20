@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Game
 {
-    using UnityEngine;
-    using UnityEngine.SceneManagement;
-    using System.Collections.Generic;
-
     /// <summary>
     /// Determines which SpawnPoint to use in order to determine where the object should spawn.
     /// </summary>
@@ -32,8 +32,8 @@ namespace Opsive.UltimateCharacterController.Game
         [Tooltip("Checks the first spawn point before checking the other spawn points.")]
         [SerializeField] protected bool m_FirstSpawnPreferred;
 
+        private List<SpawnPoint> m_SpawnPoints = new List<SpawnPoint>();
         private Dictionary<int, List<SpawnPoint>> m_SpawnPointGroupings = new Dictionary<int, List<SpawnPoint>>();
-        private Dictionary<int, SpawnPoint> m_FirstSpawnPoint = new Dictionary<int, SpawnPoint>();
 
         /// <summary>
         /// The object has been enabled.
@@ -63,7 +63,10 @@ namespace Opsive.UltimateCharacterController.Game
         /// <param name="spawnPoint">The spawn point to add.</param>
         private void AddSpawnPointInternal(SpawnPoint spawnPoint)
         {
-            AddSpawnPointGrouping(spawnPoint, spawnPoint.Grouping);
+            m_SpawnPoints.Add(spawnPoint);
+            if (spawnPoint.Grouping != -1) {
+                AddSpawnPointGrouping(spawnPoint, spawnPoint.Grouping);
+            }
         }
 
         /// <summary>
@@ -79,10 +82,6 @@ namespace Opsive.UltimateCharacterController.Game
                 m_SpawnPointGroupings.Add(groupingIndex, spawnPoints);
             }
             spawnPoints.Add(spawnPoint);
-
-            if (!m_FirstSpawnPoint.ContainsKey(groupingIndex)) {
-                m_FirstSpawnPoint.Add(groupingIndex, spawnPoint);
-            }
         }
 
         /// <summary>
@@ -92,11 +91,6 @@ namespace Opsive.UltimateCharacterController.Game
         /// <param name="newGroupingIndex">The new grouping index of the SpawnPoint.</param>
         public static void UpdateSpawnPointGrouping(SpawnPoint spawnPoint, int newGroupingIndex)
         {
-            // If the manager isn't initialized yet then the grouping will be updated when the spawn point is added to the manager.
-            if (!s_Initialized) {
-                return;
-            }
-
             Instance.UpdateSpawnPointGroupingInternal(spawnPoint, newGroupingIndex);
         }
 
@@ -108,10 +102,22 @@ namespace Opsive.UltimateCharacterController.Game
         private void UpdateSpawnPointGroupingInternal(SpawnPoint spawnPoint, int newGroupingIndex)
         {
             // Remove from the old grouping map.
-            RemoveSpawnPoint(spawnPoint);
+            if (spawnPoint.Grouping != -1) {
+                List<SpawnPoint> spawnPoints;
+                if (m_SpawnPointGroupings.TryGetValue(spawnPoint.Grouping, out spawnPoints)) {
+                    for (int i = 0; i < spawnPoints.Count; ++i) {
+                        if (spawnPoints[i] == spawnPoint) {
+                            spawnPoints.RemoveAt(i);
+                            break;
+                        }
+                    }
+                }
+            }
 
             // Add to the updated grouping map.
-            AddSpawnPointGrouping(spawnPoint, newGroupingIndex);
+            if (newGroupingIndex != -1) {
+                AddSpawnPointGrouping(spawnPoint, newGroupingIndex);
+            }
         }
 
         /// <summary>
@@ -140,69 +146,35 @@ namespace Opsive.UltimateCharacterController.Game
         protected virtual bool GetPlacementInternal(GameObject spawningObject, int grouping, ref Vector3 position, ref Quaternion rotation)
         {
             List<SpawnPoint> spawnPoints;
-            if (!m_SpawnPointGroupings.TryGetValue(grouping, out spawnPoints)) {
-                Debug.LogError("Error: Unable to find a spawn point with the grouping index " + grouping);
-                return false;
+            if (grouping != -1) {
+                if (!m_SpawnPointGroupings.TryGetValue(grouping, out spawnPoints)) {
+                    Debug.LogError("Error: Unable to find a spawn point with the grouping index " + grouping);
+                    return false;
+                }
+            } else {
+                spawnPoints = m_SpawnPoints;
             }
 
             // Optionally try to spawn in the first spawn point.
-            SpawnPoint firstSpawnPoint;
-            if (m_FirstSpawnPreferred && m_FirstSpawnPoint.TryGetValue(grouping, out firstSpawnPoint)) {
-                if (firstSpawnPoint.GetPlacement(spawningObject, ref position, ref rotation)) {
+            var firstSpawnIndex = 0;
+            if (m_FirstSpawnPreferred && spawnPoints.Count > 1) {
+                if (spawnPoints[0].GetPlacement(spawningObject, ref position, ref rotation)) {
                     return true;
                 }
+
+                firstSpawnIndex = 1;
             }
 
             // Choose a random spawn point and get the spawn placement.
-            ShuffleSpawnPoints(spawnPoints);
             var attempt = 0;
             while (attempt < spawnPoints.Count) {
-                if (spawnPoints[attempt].GetPlacement(spawningObject, ref position, ref rotation)) {
+                var spawnPoint = spawnPoints[Random.Range(firstSpawnIndex, spawnPoints.Count - 1)];
+                if (spawnPoint.GetPlacement(spawningObject, ref position, ref rotation)) {
                     return true;
                 }
                 attempt++;
             }
             return false;
-        }
-
-        /// <summary>
-        /// Shuffles the spawn points list.
-        /// </summary>
-        /// <param name="spawnPoints">The list that should be shuffled.</param>
-        private void ShuffleSpawnPoints(List<SpawnPoint> spawnPoints)
-        {
-            var n = spawnPoints.Count - 1;
-            while (n > 1) {
-                var k = Random.Range(0, n);
-                var temp = spawnPoints[n];
-                spawnPoints[n] = spawnPoints[k];
-                spawnPoints[k] = temp;
-                n--;
-            }
-        }
-
-        /// <summary>
-        /// Returns the list of spawn points that belong to the specified grouping.
-        /// </summary>
-        /// <param name="grouping">The grouping of spawn points that should be retrieved.</param>
-        /// <returns>The list of spawn points that belong to the specifeid grouping.</returns>
-        public static List<SpawnPoint> GetSpawnPoints(int grouping)
-        {
-            return Instance.GetSpawnPointsInternal(grouping);
-        }
-
-        /// <summary>
-        /// Internal method which returns the list of spawn points that belong to the specified grouping.
-        /// </summary>
-        /// <param name="grouping">The grouping of spawn points that should be retrieved.</param>
-        /// <returns>The list of spawn points that belong to the specifeid grouping.</returns>
-        private List<SpawnPoint> GetSpawnPointsInternal(int grouping)
-        {
-            List<SpawnPoint> spawnPoints;
-            if (!m_SpawnPointGroupings.TryGetValue(grouping, out spawnPoints)) {
-                Debug.LogError("Error: Unable to find a spawn point with the grouping index " + grouping);
-            }
-            return spawnPoints;
         }
 
         /// <summary>
@@ -220,18 +192,11 @@ namespace Opsive.UltimateCharacterController.Game
         /// <param name="spawnPoint">The spawn point to remove.</param>
         private void RemoveSpawnPointInternal(SpawnPoint spawnPoint)
         {
-            List<SpawnPoint> spawnPoints;
-            if (m_SpawnPointGroupings.TryGetValue(spawnPoint.Grouping, out spawnPoints)) {
-                spawnPoints.Remove(spawnPoint);
-
-                SpawnPoint firstSpawnPoint;
-                if (m_FirstSpawnPoint.TryGetValue(spawnPoint.Grouping, out firstSpawnPoint)) {
-                    // Update the first spawn point with the new first spawn point element.
-                    if (spawnPoints.Count > 0) {
-                        m_FirstSpawnPoint[spawnPoint.Grouping] = spawnPoints[0];
-                    } else {
-                        m_FirstSpawnPoint.Remove(spawnPoint.Grouping);
-                    }
+            m_SpawnPoints.Remove(spawnPoint);
+            if (spawnPoint.Grouping != -1) {
+                List<SpawnPoint> spawnPoints;
+                if (m_SpawnPointGroupings.TryGetValue(spawnPoint.Grouping, out spawnPoints)) {
+                    spawnPoints.Remove(spawnPoint);
                 }
             }
         }
@@ -254,17 +219,5 @@ namespace Opsive.UltimateCharacterController.Game
             s_Instance = null;
             SceneManager.sceneUnloaded -= SceneUnloaded;
         }
-
-#if UNITY_2019_3_OR_NEWER
-        /// <summary>
-        /// Reset the static variables for domain reloading.
-        /// </summary>
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        private static void DomainReset()
-        {
-            s_Initialized = false;
-            s_Instance = null;
-        }
-#endif
     }
 }

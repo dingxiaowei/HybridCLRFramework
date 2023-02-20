@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Demo
 {
-    using UnityEngine;
-
     /// <summary>
     /// Destroys the GameObject when the game starts.
     /// </summary>

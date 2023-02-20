@@ -4,26 +4,23 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Character.MovementTypes;
+using Opsive.UltimateCharacterController.Character.Abilities;
+using Opsive.UltimateCharacterController.Character.Abilities.Items;
+using Opsive.UltimateCharacterController.Character.Effects;
+#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
+using Opsive.UltimateCharacterController.Networking;
+using Opsive.UltimateCharacterController.Networking.Character;
+#endif
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Utility;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Character
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Events;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Character.MovementTypes;
-    using Opsive.UltimateCharacterController.Character.Abilities;
-    using Opsive.UltimateCharacterController.Character.Abilities.Items;
-    using Opsive.UltimateCharacterController.Character.Effects;
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-    using Opsive.UltimateCharacterController.Networking;
-    using Opsive.UltimateCharacterController.Networking.Character;
-#endif
-    using Opsive.UltimateCharacterController.StateSystem;
-    using Opsive.UltimateCharacterController.Utility;
-    using System.Collections.Generic;
-    using UnityEngine;
-
     /// <summary>
     /// The UltimateCharacterLocomotion component extends the CharacterLocomotion functionality by handling the following features:
     /// - Movement Types
@@ -33,8 +30,6 @@ namespace Opsive.UltimateCharacterController.Character
     /// </summary>
     public class UltimateCharacterLocomotion : CharacterLocomotion
     {
-        [Tooltip("Specifies the location that the object should be updated.")]
-        [SerializeField] protected KinematicObjectManager.UpdateLocation m_UpdateLocation = KinematicObjectManager.UpdateLocation.FixedUpdate;
         [Tooltip("The name of the state that should be activated when the character is in a first person perspective.")]
         [SerializeField] protected string m_FirstPersonStateName = "FirstPerson";
         [Tooltip("The name of the state that should be activated when the character is in a third person perspective.")]
@@ -84,8 +79,8 @@ namespace Opsive.UltimateCharacterController.Character
             get { return m_FirstPersonMovementTypeFullName; }
             set
             {
-                if (m_FirstPersonMovementTypeFullName != value) {
-                    if (!string.IsNullOrEmpty(value) && Application.isPlaying && m_FirstPersonPerspective) {
+                if (!string.IsNullOrEmpty(value) && m_FirstPersonMovementTypeFullName != value) {
+                    if (Application.isPlaying && m_FirstPersonPerspective) {
                         SetMovementType(value);
                     } else {
                         m_FirstPersonMovementTypeFullName = value;
@@ -98,8 +93,8 @@ namespace Opsive.UltimateCharacterController.Character
             get { return m_ThirdPersonMovementTypeFullName; }
             set
             {
-                if (m_ThirdPersonMovementTypeFullName != value) {
-                    if (!string.IsNullOrEmpty(value) && Application.isPlaying && !m_FirstPersonPerspective) {
+                if (!string.IsNullOrEmpty(value) && m_ThirdPersonMovementTypeFullName != value) {
+                    if (Application.isPlaying && !m_FirstPersonPerspective) {
                         SetMovementType(value);
                     } else {
                         m_ThirdPersonMovementTypeFullName = value;
@@ -129,6 +124,7 @@ namespace Opsive.UltimateCharacterController.Character
         private float m_MaxHeight;
         private Vector3 m_MaxHeightPosition;
         private float m_YawAngle;
+        private float m_PrevPlatformYawOffset;
         private Vector2 m_RawInputVector;
         private bool m_Moving;
         private bool m_MovingParameter;
@@ -158,13 +154,6 @@ namespace Opsive.UltimateCharacterController.Character
         private int[] m_ItemSlotSubstateIndex;
 
         [NonSerialized] public int KinematicObjectIndex { get { return m_KinematicObjectIndex; } set { m_KinematicObjectIndex = value; } }
-        public KinematicObjectManager.UpdateLocation UpdateLocation { get { return m_UpdateLocation; } 
-            set { 
-                if (m_UpdateLocation == value) { return; } 
-                m_UpdateLocation = value;
-                EventHandler.ExecuteEvent<bool>(m_GameObject, "OnCharacterChangeUpdateLocation", m_UpdateLocation == KinematicObjectManager.UpdateLocation.FixedUpdate);
-            }
-        }
         public ILookSource LookSource { get { return m_LookSource; } }
         public MovementType[] MovementTypes { get { return m_MovementTypes; }
             set
@@ -263,6 +252,8 @@ namespace Opsive.UltimateCharacterController.Character
         [NonSerialized] public Vector3 AbilityMotor { get { return m_AbilityMotor; } set { m_AbilityMotor = value; } }
         [NonSerialized] public bool FirstPersonPerspective { get { return m_FirstPersonPerspective; } set { m_FirstPersonPerspective = value; } }
         public bool Alive { get { return m_Alive; } }
+        public float DeltaTime { get { return m_DeltaTime; } }
+        public float FramerateDeltaTime { get { return m_FramerateDeltaTime; } }
 
         /// <summary>
         /// Cache the component references and initialize the default values.
@@ -277,10 +268,10 @@ namespace Opsive.UltimateCharacterController.Character
 #endif
 
             // Create any movement types, abilities, and effects from the serialized data.
-            DeserializeMovementTypes(true);
-            DeserializeAbilities(true);
-            DeserializeItemAbilities(true);
-            DeserializeEffects(true);
+            DeserializeMovementTypes();
+            DeserializeAbilities();
+            DeserializeItemAbilities();
+            DeserializeEffects();
 
             base.Awake();
 
@@ -556,7 +547,7 @@ namespace Opsive.UltimateCharacterController.Character
 
             int index;
             if (!m_MovementTypeNameMap.TryGetValue(type.FullName, out index)) {
-                Debug.LogError($"Error: Unable to find the movement type with name {type.FullName}.", this);
+                Debug.LogError("Error: Unable to find the movement type with name " + type.FullName);
                 return;
             }
 
@@ -607,7 +598,7 @@ namespace Opsive.UltimateCharacterController.Character
             // If the character doesn't have the PerspectiveMonitor then the perspective depends on the look source.
             if (!hasPerspectiveMonitor) {
                 if (lookSource != null) {
-                    var cameraController = lookSource as UltimateCharacterController.Camera.CameraController;
+                    var cameraController = lookSource as Camera.CameraController;
                     if (cameraController != null) {
                         m_FirstPersonPerspective = cameraController.ActiveViewType.FirstPersonPerspective;
                     } else {
@@ -671,9 +662,7 @@ namespace Opsive.UltimateCharacterController.Character
             UpdateAbilities(m_Abilities);
             UpdateAbilities(m_ItemAbilities);
             UpdateDirtyAbilityAnimatorParameters();
-            // The abilities may have updated the animator.
-            EventHandler.ExecuteEvent(m_GameObject, "OnCharacterSnapAnimator");
-
+            
             // The character isn't moving at the start.
             EventHandler.ExecuteEvent(m_GameObject, "OnCharacterMoving", false);
             // Notify those interested in the time scale isn't set to 1 at the start. The TimeScale property will notify those interested of the change during runtime.
@@ -767,8 +756,7 @@ namespace Opsive.UltimateCharacterController.Character
                     if (!abilities[i].IsActive) {
                         if (abilities[i].StartType == Ability.AbilityStartType.Automatic) {
                             TryStartAbility(abilities[i]);
-                        } else if (!(abilities[i] is ItemAbility) && abilities[i].StartType != Ability.AbilityStartType.Manual && abilities[i].CheckForAbilityMessage && 
-                                    (m_MoveTowardsAbility == null || !m_MoveTowardsAbility.IsActive)) {
+                        } else if (!(abilities[i] is ItemAbility) && abilities[i].StartType != Ability.AbilityStartType.Manual && abilities[i].CheckForAbilityMessage) {
                             // The ability message can show if the non-automatic/manual ability can start.
                             abilities[i].AbilityMessageCanStart = abilities[i].Enabled && abilities[i].CanStartAbility();
                         }
@@ -913,25 +901,30 @@ namespace Opsive.UltimateCharacterController.Character
                     m_YawAngle = MathUtility.ClampInnerAngle(m_Torque.eulerAngles.y);
                 }
             } else {
-                var delta = m_Torque * Quaternion.Inverse(m_PlatformTorque);
-                if (Mathf.Abs(delta.eulerAngles.y) > 0.1f) {
-                    m_YawAngle = MathUtility.ClampInnerAngle(delta.eulerAngles.y);
+                var platformYawOffset = MathUtility.InverseTransformQuaternion(m_Transform.rotation, m_Platform.rotation).eulerAngles.y;
+                if (Mathf.Abs(platformYawOffset - m_PrevPlatformYawOffset) > 0.1f) {
+                    m_YawAngle = MathUtility.ClampInnerAngle(platformYawOffset - m_PrevPlatformYawOffset);
                 }
+                m_PrevPlatformYawOffset = platformYawOffset;
             }
 
             base.ApplyRotation();
         }
 
         /// <summary>
-        /// Sets the moving platform to the specified transform.
+        /// When the character changes grounded state the moving platform should also be updated. This
+        /// allows the character to always reference the correct moving platform (if one exists at all).
         /// </summary>
-        /// <param name="platform">The platform transform that should be set. Can be null.</param>
-        /// <param name="platformOverride">Is the default moving platform logic being overridden?</param>
-        /// <returns>True if the platform was changed.</returns>
-        protected override bool SetPlatform(Transform platform, bool platformOverride)
+        /// <param name="hitTransform">The name of the possible moving platform transform.</param>
+        /// <param name="groundUpdate">Is the moving platform update being called from a grounded check?</param>
+        /// <returns>True if the platform changed.</returns>
+        protected override bool UpdateMovingPlatformTransform(Transform hitTransform, bool groundUpdate)
         {
-            var movingPlatformChanged = base.SetPlatform(platform, platformOverride);
+            var movingPlatformChanged = base.UpdateMovingPlatformTransform(hitTransform, groundUpdate);
             if (movingPlatformChanged) {
+                if (m_Platform != null) {
+                    m_PrevPlatformYawOffset = MathUtility.InverseTransformQuaternion(m_Transform.rotation, m_Platform.rotation).eulerAngles.y;
+                }
                 // Notify interested objects of the platform change.
                 EventHandler.ExecuteEvent(m_GameObject, "OnCharacterChangeMovingPlatforms", m_Platform);
                 if (m_OnChangeMovingPlatformsEvent != null) {
@@ -1117,19 +1110,21 @@ namespace Opsive.UltimateCharacterController.Character
                         }
                     }
 
-                    // Give the ability one more chance to initialize any variables or stop from starting. This is important for abilities that are being started
-                    // after a period of time such as from the Move Towards ability or the Item Equip Verifier.
-                    if (!ability.AbilityWillStart()) {
-                        return false;
+                    // Notify the ability that it will start before the Move Towards or Item Equip Verifier is started. ignoreCanStartCheck will only be
+                    // true when the Move Towards or Item Equip Verifier abilities start the original ability.
+                    if (!ignoreCanStartCheck && (m_MoveTowardsAbility == null || !m_MoveTowardsAbility.IsActive) &&
+                                                (m_ItemEquipVerifierAbility == null || !m_ItemEquipVerifierAbility.IsActive)) {
+                        if (!ability.AbilityWillStart()) {
+                            return false;
+                        }
                     }
 
-                    var moveEquipStarted = false;
                     // The ability may require the character to first move to a specific location before it can start.
                     if (!(ability is MoveTowards) && m_MoveTowardsAbility != null) {
                         // If StartMoving returns true then the MoveTowards ability has started and it will start the original
                         // ability after the character has arrived at the destination.
-                        if (m_MoveTowardsAbility.StartMoving(ability.GetMoveTowardsLocations(), ability)) {
-                            moveEquipStarted = true;
+                        if (m_MoveTowardsAbility.StartMoving(ability.GetStartLocations(), ability)) {
+                            return true;
                         }
                     }
 
@@ -1138,13 +1133,8 @@ namespace Opsive.UltimateCharacterController.Character
                         // If TryToggleItem returns true then the ItemEquipVerifier ability has started and it will start the original ability after
                         // the character has finished unequipping the equipped items.
                         if (m_ItemEquipVerifierAbility.TryToggleItem(ability, true) && !ability.ImmediateStartItemVerifier) {
-                            moveEquipStarted = true;
+                            return true;
                         }
-                    }
-
-                    // Wait for the MoveTowards and ItemEquipVerifier abilities to end before starting the new ability.
-                    if (moveEquipStarted) {
-                        return true;
                     }
 
                     // Insert in the active abilities array according to priority.
@@ -1480,7 +1470,7 @@ namespace Opsive.UltimateCharacterController.Character
             var allAbilities = (typeof(ItemAbility).IsAssignableFrom(type) ? m_ItemAbilities : m_Abilities);
             if (allAbilities != null) {
                 for (int i = 0; i < allAbilities.Length; ++i) {
-                    if (type.IsInstanceOfType(allAbilities[i]) && (index == -1 || index == allAbilities[i].Index)) {
+                    if (type == allAbilities[i].GetType() && (index == -1 || index == allAbilities[i].Index)) {
                         return allAbilities[i] as T;
                     }
                 }
@@ -1566,7 +1556,7 @@ namespace Opsive.UltimateCharacterController.Character
             if (allAbilities != null) {
                 // Determine the total number of abilities first so only one allocation is made.
                 for (int i = 0; i < allAbilities.Length; ++i) {
-                    if (type.IsInstanceOfType(allAbilities[i]) && (index == -1 || index == allAbilities[i].Index)) {
+                    if (allAbilities[i].GetType().IsAssignableFrom(type) && (index == -1 || index == allAbilities[i].Index)) {
                         count++;
                     }
                 }
@@ -1575,7 +1565,7 @@ namespace Opsive.UltimateCharacterController.Character
                     var abilities = new Ability[count];
                     count = 0;
                     for (int i = 0; i < allAbilities.Length; ++i) {
-                        if (type.IsInstanceOfType(allAbilities[i]) && (index == -1 || index == allAbilities[i].Index)) {
+                        if (allAbilities[i].GetType().IsAssignableFrom(type) && (index == -1 || index == allAbilities[i].Index)) {
                             abilities[count] = allAbilities[i];
                             count++;
                             if (count == abilities.Length) {
@@ -1602,7 +1592,7 @@ namespace Opsive.UltimateCharacterController.Character
             var count = isItemAbility ? m_ActiveItemAbilityCount : m_ActiveAbilityCount;
             if (activeAbilities != null) {
                 for (int i = 0; i < count; ++i) {
-                    if (typeof(T).IsInstanceOfType(activeAbilities[i])) {
+                    if (typeof(T).IsAssignableFrom(activeAbilities[i].GetType())) {
                         return true;
                     }
                 }
@@ -1623,9 +1613,9 @@ namespace Opsive.UltimateCharacterController.Character
                 return false;
             }
 
+            effect.StartEffect(m_ActiveEffectCount);
             m_ActiveEffects[m_ActiveEffectCount] = effect;
             m_ActiveEffectCount++;
-            effect.StartEffect(m_ActiveEffectCount);
             return true;
         }
 
@@ -1678,7 +1668,7 @@ namespace Opsive.UltimateCharacterController.Character
             if (m_Effects != null) {
                 var type = typeof(T);
                 for (int i = 0; i < m_Effects.Length; ++i) {
-                    if (type.IsInstanceOfType(m_Effects[i]) && (index == -1 || index == m_Effects[i].Index)) {
+                    if (type == m_Effects[i].GetType() && (index == -1 || index == m_Effects[i].Index)) {
                         return m_Effects[i] as T;
                     }
                 }
@@ -1710,7 +1700,7 @@ namespace Opsive.UltimateCharacterController.Character
 
             if (m_Effects != null) {
                 for (int i = 0; i < m_Effects.Length; ++i) {
-                    if (type.IsInstanceOfType(m_Effects[i]) && (index == -1 || index == m_Effects[i].Index)) {
+                    if (type == m_Effects[i].GetType() && (index == -1 || index == m_Effects[i].Index)) {
                         return m_Effects[i];
                     }
                 }
@@ -1800,7 +1790,7 @@ namespace Opsive.UltimateCharacterController.Character
         {
             var pushed = base.PushRigidbody(targetRigidbody, moveDirection, point, radius);
             if (pushed && m_NetworkInfo != null) {
-                m_NetworkCharacter.PushRigidbody(targetRigidbody, (moveDirection / Time.deltaTime) * (m_Mass / targetRigidbody.mass) * 0.01f, point);
+                m_NetworkCharacter.PushRigidbody(targetRigidbody, (moveDirection / m_DeltaTime) * (m_Mass / targetRigidbody.mass) * 0.01f, point);
             }
             return pushed;
         }
@@ -1837,9 +1827,9 @@ namespace Opsive.UltimateCharacterController.Character
             // If the index is -1 then the character isn't registered with the Kinematic Object Manager.
             if (m_KinematicObjectIndex != -1) {
                 KinematicObjectManager.SetCharacterRotation(m_KinematicObjectIndex, rotation);
-
-                EventHandler.ExecuteEvent(m_GameObject, "OnCharacterImmediateTransformChange", snapAnimator);
             }
+
+            EventHandler.ExecuteEvent(m_GameObject, "OnCharacterImmediateTransformChange", snapAnimator);
 
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
             if (m_NetworkInfo != null && m_NetworkInfo.IsLocalPlayer()) {
@@ -1880,9 +1870,9 @@ namespace Opsive.UltimateCharacterController.Character
             // If the index is -1 then the character isn't registered with the Kinematic Object Manager.
             if (m_KinematicObjectIndex != -1) {
                 KinematicObjectManager.SetCharacterPosition(m_KinematicObjectIndex, position);
-
-                EventHandler.ExecuteEvent(m_GameObject, "OnCharacterImmediateTransformChange", snapAnimator);
             }
+
+            EventHandler.ExecuteEvent(m_GameObject, "OnCharacterImmediateTransformChange", snapAnimator);
 
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
             if (m_NetworkInfo != null && m_NetworkInfo.IsLocalPlayer()) {
@@ -1900,13 +1890,8 @@ namespace Opsive.UltimateCharacterController.Character
                 return;
             }
 
-            base.ResetRotationPosition();
-
             Moving = false;
-            m_MaxHeight = float.NegativeInfinity;
-            m_MaxHeightPosition = m_Transform.position;
-            m_AnimatorDeltaPosition = Vector3.zero;
-            m_AnimatorDeltaRotation = Quaternion.identity;
+            base.ResetRotationPosition();
 
             // If the index is -1 then the character isn't registered with the Kinematic Object Manager.
             if (m_KinematicObjectIndex == -1) {
@@ -1930,7 +1915,7 @@ namespace Opsive.UltimateCharacterController.Character
         /// <param name="rotation">The rotation to set.</param>
         public void SetPositionAndRotation(Vector3 position, Quaternion rotation)
         {
-            SetPositionAndRotation(position, rotation, true, true);
+            SetPositionAndRotation(position, rotation, true);
         }
 
         /// <summary>
@@ -1941,40 +1926,26 @@ namespace Opsive.UltimateCharacterController.Character
         /// <param name="snapAnimator">Should the animator be snapped into position?</param>
         public void SetPositionAndRotation(Vector3 position, Quaternion rotation, bool snapAnimator)
         {
-            SetPositionAndRotation(position, rotation, snapAnimator, true);
-        }
-
-        /// <summary>
-        /// Sets the position and rotation of the character.
-        /// </summary>
-        /// <param name="position">The position to set.</param>
-        /// <param name="rotation">The rotation to set.</param>
-        /// <param name="snapAnimator">Should the animator be snapped into position?</param>
-        /// <param name="stopAllAbilities">Should all abilities be stopped?</param>
-        public void SetPositionAndRotation(Vector3 position, Quaternion rotation, bool snapAnimator, bool stopAllAbilities)
-        {
             if (m_GameObject == null) {
                 return;
             }
 
-            if (stopAllAbilities) {
-                StopAllAbilities(false);
-            }
-
             m_MaxHeight = float.NegativeInfinity;
             m_MaxHeightPosition = position;
-            m_AnimatorDeltaPosition = Vector3.zero;
-            m_AnimatorDeltaRotation = Quaternion.identity;
             base.SetRotation(rotation);
             base.SetPosition(position);
+
+            if (snapAnimator) {
+                StopAllAbilities(false);
+            }
 
             // If the index is -1 then the character isn't registered with the Kinematic Object Manager.
             if (m_KinematicObjectIndex != -1) {
                 KinematicObjectManager.SetCharacterRotation(m_KinematicObjectIndex, rotation);
                 KinematicObjectManager.SetCharacterPosition(m_KinematicObjectIndex, position);
-
-                EventHandler.ExecuteEvent(m_GameObject, "OnCharacterImmediateTransformChange", snapAnimator);
             }
+
+            EventHandler.ExecuteEvent(m_GameObject, "OnCharacterImmediateTransformChange", snapAnimator);
 
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
             if (m_NetworkInfo != null && m_NetworkInfo.IsLocalPlayer()) {
@@ -1999,10 +1970,6 @@ namespace Opsive.UltimateCharacterController.Character
         /// <param name="uiEvent">Should the OnShowUI event be executed?</param>
         public void SetActive(bool active, bool uiEvent)
         {
-            if (m_GameObject == null) {
-                m_GameObject = gameObject;
-            }
-
             EventHandler.ExecuteEvent(m_GameObject, "OnCharacterActivate", active);
             m_GameObject.SetActive(active);
 
@@ -2260,9 +2227,7 @@ namespace Opsive.UltimateCharacterController.Character
             UpdateAbilities(m_Abilities);
             UpdateAbilities(m_ItemAbilities);
             if (m_AnimatorMonitor != null) {
-                if (m_LookSource != null) {
-                    m_AnimatorMonitor.SetPitchParameter(m_LookSource.Pitch, 1, 0);
-                }
+                m_AnimatorMonitor.SetPitchParameter(m_LookSource.Pitch, 1, 0);
                 m_AnimatorMonitor.SetYawParameter(m_YawAngle, 1, 0);
                 m_AnimatorMonitor.SetHorizontalMovementParameter(m_InputVector.x, 1, 0);
                 m_AnimatorMonitor.SetForwardMovementParameter(m_InputVector.y, 1, 0);
@@ -2277,9 +2242,6 @@ namespace Opsive.UltimateCharacterController.Character
         /// <param name="snapAnimator">Should the animator be snapped?</param>
         private void OnImmediateTransformChange(bool snapAnimator)
         {
-            // Do a pass on trying to start any abilities and items to ensure they are in sync.
-            UpdateAbilities(m_Abilities);
-            UpdateAbilities(m_ItemAbilities);
             UpdateAbilityAnimatorParameters(true);
             UpdateItemAbilityAnimatorParameters(true);
             // Snap the animator after the abilities have updated.
@@ -2328,11 +2290,6 @@ namespace Opsive.UltimateCharacterController.Character
             if (m_Abilities != null) {
                 for (int i = 0; i < m_Abilities.Length; ++i) {
                     m_Abilities[i].OnDestroy();
-                }
-            }
-            if (m_ItemAbilities != null) {
-                for (int i = 0; i < m_ItemAbilities.Length; ++i) {
-                    m_ItemAbilities[i].OnDestroy();
                 }
             }
             if (m_Effects != null) {

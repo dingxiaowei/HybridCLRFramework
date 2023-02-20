@@ -4,14 +4,14 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.StateSystem;
+#if THIRD_PERSON_CONTROLLER
+using Opsive.UltimateCharacterController.ThirdPersonController.Character;
+#endif
+
 namespace Opsive.UltimateCharacterController.Character.Identifiers
 {
-    using Opsive.UltimateCharacterController.StateSystem;
-#if THIRD_PERSON_CONTROLLER
-    using Opsive.UltimateCharacterController.ThirdPersonController.Character;
-#endif
-    using UnityEngine;
-
     /// <summary>
     /// Identifying component which specifies the object should be hidden while in first person view.
     /// </summary>
@@ -24,7 +24,7 @@ namespace Opsive.UltimateCharacterController.Character.Identifiers
 
         public bool ForceVisible { get { return m_ForceVisible; }
 #if THIRD_PERSON_CONTROLLER
-            set { if (m_ForceVisible != value) { m_ForceVisible = value; m_PerspectiveMonitor?.UpdateThirdPersonMaterials(false); } }
+            set { if (m_ForceVisible != value) { m_ForceVisible = value; m_PerspectiveMonitor.UpdateThirdPersonMaterials(); } }
 #endif
         }
         public bool FirstPersonVisibleOnDeath { get { return m_FirstPersonVisibleOnDeath; } }

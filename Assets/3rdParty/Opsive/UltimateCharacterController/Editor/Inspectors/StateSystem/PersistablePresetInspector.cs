@@ -4,19 +4,18 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using System;
+using System.Reflection;
+using System.Collections;
+using System.Collections.Generic;
+using Opsive.UltimateCharacterController.Utility;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem
 {
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.Utility;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using System;
-    using System.Reflection;
-    using System.Collections;
-    using System.Collections.Generic;
-    using UnityEditor;
-    using UnityEngine;
-
     /// <summary>
     /// Contains all of the editor logic for presets. A preset is a set of presaved values that can be applied at runtime.
     /// </summary>
@@ -201,8 +200,7 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.StateSystem
         /// <param name="unityObjectIndexes">The list of indexes that correspond to the Unity objects which are being removed.</param>
         private void RemoveElement(int index, List<int> unityObjectIndexes)
         {
-            var bitwiseHash = new Version((target as PersistablePreset).Data.Version).CompareTo(new Version("3.1")) >= 0;
-            Serialization.RemoveProperty(index, unityObjectIndexes, (target as PersistablePreset).Data, m_Visiblity, bitwiseHash);
+            Serialization.RemoveProperty(index, unityObjectIndexes, (target as PersistablePreset).Data, m_Visiblity);
             InitializeAvailablePropertyArray();
         }
     }

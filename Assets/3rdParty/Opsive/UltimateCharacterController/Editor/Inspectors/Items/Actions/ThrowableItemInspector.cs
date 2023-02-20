@@ -4,14 +4,14 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using Opsive.UltimateCharacterController.Items.Actions;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+using System;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Items.Actions
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.Items.Actions;
-    using System;
-    using UnityEditor;
-    using UnityEngine;
-
     /// <summary>
     /// Shows a custom inspector for the ThrowableItem component.
     /// </summary>
@@ -30,11 +30,8 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Items.Actions
             {
                 if (Foldout("Throw")) {
                     EditorGUI.indentLevel++;
-                    var thrownObjectProperty = PropertyFromName("m_ThrownObject");
-                    EditorGUILayout.PropertyField(thrownObjectProperty);
-                    if (thrownObjectProperty.objectReferenceValue == null) {
-                        EditorGUILayout.HelpBox("A ThrownObject must be specified.", MessageType.Error);
-                    }
+                    EditorGUILayout.PropertyField(PropertyFromName("m_ThrownObject"));
+                    EditorGUILayout.PropertyField(PropertyFromName("m_ConsumableItemType"));
                     EditorGUILayout.PropertyField(PropertyFromName("m_DisableVisibleObject"));
                     InspectorUtility.DrawAnimationEventTrigger(target, "Activate Throwable Object Event", PropertyFromName("m_ActivateThrowableObjectEvent"));
                     EditorGUILayout.PropertyField(PropertyFromName("m_ThrowOnStopUse"));
@@ -70,10 +67,6 @@ namespace Opsive.UltimateCharacterController.Editor.Inspectors.Items.Actions
                     var showTrajectoryProperty = PropertyFromName("m_ShowTrajectoryOnAim");
                     EditorGUILayout.PropertyField(showTrajectoryProperty);
                     if (showTrajectoryProperty.boolValue) {
-                        var trajectoryObject = (target as ThrowableItem).GetComponent<Opsive.UltimateCharacterController.Objects.TrajectoryObject>();
-                        if (trajectoryObject == null) {
-                            EditorGUILayout.HelpBox("A TrajectoryObject must be added to the item.", MessageType.Error);
-                        }
                         EditorGUILayout.PropertyField(PropertyFromName("m_TrajectoryOffset"));
                     }
                     EditorGUI.indentLevel--;

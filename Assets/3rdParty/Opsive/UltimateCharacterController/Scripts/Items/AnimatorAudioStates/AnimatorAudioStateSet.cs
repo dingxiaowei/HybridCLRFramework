@@ -4,13 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Audio;
+using Opsive.UltimateCharacterController.Utility;
+using Opsive.UltimateCharacterController.StateSystem;
+
 namespace Opsive.UltimateCharacterController.Items.AnimatorAudioStates
 {
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Audio;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using UnityEngine;
-
     /// <summary>
     /// The AnimatorAudioStateSet represets a set of animation parameters and audio clips that should be played together.
     /// </summary>
@@ -108,11 +108,9 @@ namespace Opsive.UltimateCharacterController.Items.AnimatorAudioStates
         /// Constructor with one parameter.
         /// </summary>
         /// <param name="itemSubstateIndex">The value of the animator's Item Substate Index parameter.</param>
-        public AnimatorAudioStateSet(int itemSubstateParameter) : this()
+        public AnimatorAudioStateSet(int itemSubstateParameter)
         {
-            if (m_States == null) {
-                m_States = new AnimatorAudioState[] { new AnimatorAudioState(itemSubstateParameter) };
-            }
+            m_States = new AnimatorAudioState[] { new AnimatorAudioState(itemSubstateParameter) };
         }
 
         /// <summary>

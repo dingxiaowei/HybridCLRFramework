@@ -4,13 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Audio;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.SurfaceSystem
 {
-    using Opsive.UltimateCharacterController.Audio;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// Specifies a recipe for effects that can be spawned in response to a certain type of collision. This collision might occur when
     /// bullets hit a wall, a character places a footprint, or the character falls to the ground.

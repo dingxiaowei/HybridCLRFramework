@@ -4,17 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Items;
+using Opsive.UltimateCharacterController.Inventory;
+using Opsive.UltimateCharacterController.Utility;
+using Opsive.UltimateCharacterController.StateSystem;
+
 namespace Opsive.UltimateCharacterController.Character
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Items;
-    using Opsive.UltimateCharacterController.Inventory;
-    using Opsive.UltimateCharacterController.Utility;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using UnityEngine;
-
     /// <summary>
     /// The AnimatorMonitor acts as a bridge for the parameters on the Animator component.
     /// If an Animator component is not attached to the character (such as for first person view) then the updates will be forwarded to the item's Animator.
@@ -65,7 +63,6 @@ namespace Opsive.UltimateCharacterController.Character
         private static int[] s_ItemSlotSubstateIndexHash;
 
         protected GameObject m_GameObject;
-        protected Transform m_Transform;
         protected Animator m_Animator;
 
         private float m_HorizontalMovement;
@@ -117,17 +114,17 @@ namespace Opsive.UltimateCharacterController.Character
             base.Awake();
 
             m_GameObject = gameObject;
-            m_Transform = transform;
             m_Animator = m_GameObject.GetCachedComponent<Animator>();
 
 #if UNITY_EDITOR
             // If the animator doesn't have the required parameters then it's not a valid animator.
             if (m_Animator != null) {
                 if (!HasParameter(s_HorizontalMovementHash) || !HasParameter(s_ForwardMovementHash) || !HasParameter(s_AbilityChangeHash)) {
-                    Debug.LogError($"Error: The animator {m_Animator.name} is not designed to work with the Ultimate Character Controller. " +
+                    Debug.LogError("Error: The animator " + m_Animator.name + " is not designed to work with the Ultimate Character Controller. " +
                                    "Ensure the animator has all of the required parameters.");
                     return;
                 }
+                m_Animator.updateMode = AnimatorUpdateMode.AnimatePhysics;
             }
 #endif
             InitializeItemParameters();
@@ -137,7 +134,6 @@ namespace Opsive.UltimateCharacterController.Character
             EventHandler.RegisterEvent<Item, int>(m_GameObject, "OnInventoryRemoveItem", OnUnequipItem);
             if (m_Animator != null) {
                 EventHandler.RegisterEvent(m_GameObject, "OnCharacterSnapAnimator", SnapAnimator);
-                EventHandler.RegisterEvent<bool>(m_GameObject, "OnCharacterChangeUpdateLocation", OnChangeUpdateLocation);
                 EventHandler.RegisterEvent<float>(m_GameObject, "OnCharacterChangeTimeScale", OnChangeTimeScale);
             }
         }
@@ -201,12 +197,6 @@ namespace Opsive.UltimateCharacterController.Character
         protected virtual void Start()
         {
             SnapAnimator();
-
-            if (m_Animator != null) {
-                var characterLocomotion = m_GameObject.GetCachedComponent<UltimateCharacterLocomotion>();
-                OnChangeUpdateLocation(characterLocomotion.UpdateLocation == Game.KinematicObjectManager.UpdateLocation.FixedUpdate);
-                OnChangeTimeScale(characterLocomotion.TimeScale);
-            }
         }
 
         /// <summary>
@@ -242,11 +232,6 @@ namespace Opsive.UltimateCharacterController.Character
                 }
 
                 EventHandler.ExecuteEvent(m_GameObject, "OnAnimatorWillSnap");
-
-                // Root motion should not move the character when snapping.
-                var position = m_Transform.position;
-                var rotation = m_Transform.rotation;
-
                 // Update 0 will force the changes.
                 m_Animator.Update(0);
                 // Keep updating the Animator until it is no longer in a transition. This will snap the animator to the correct state immediately.
@@ -261,9 +246,6 @@ namespace Opsive.UltimateCharacterController.Character
                 m_Animator.Update(Time.fixedDeltaTime);
                 // Prevent the change parameters from staying triggered when the animator is on the idle state.
                 SetAbilityChangeParameter(false);
-
-                m_Transform.position = position;
-                m_Transform.rotation = rotation;
             }
 
             // The item animators should also snap.
@@ -328,11 +310,9 @@ namespace Opsive.UltimateCharacterController.Character
             var change = m_HorizontalMovement != value;
             if (change) {
                 if (m_Animator != null) {
-                    m_Animator.SetFloat(s_HorizontalMovementHash, value, dampingTime, TimeUtility.DeltaTimeScaled / timeScale);
+                    m_Animator.SetFloat(s_HorizontalMovementHash, value, dampingTime, 
+                        (m_Animator.updateMode == AnimatorUpdateMode.AnimatePhysics ? TimeUtility.FixedDeltaTimeScaled : TimeUtility.DeltaTimeScaled) / timeScale);
                     m_HorizontalMovement = m_Animator.GetFloat(s_HorizontalMovementHash);
-                    if (Mathf.Abs(m_HorizontalMovement) < 0.001f) {
-                        m_HorizontalMovement = 0;
-                    }
                 } else {
                     m_HorizontalMovement = value;
                 }
@@ -372,11 +352,9 @@ namespace Opsive.UltimateCharacterController.Character
             var change = m_ForwardMovement != value;
             if (change) {
                 if (m_Animator != null) {
-                    m_Animator.SetFloat(s_ForwardMovementHash, value, dampingTime, TimeUtility.DeltaTimeScaled / timeScale);
+                    m_Animator.SetFloat(s_ForwardMovementHash, value, dampingTime,
+                        (m_Animator.updateMode == AnimatorUpdateMode.AnimatePhysics ? TimeUtility.FixedDeltaTimeScaled : TimeUtility.DeltaTimeScaled) / timeScale);
                     m_ForwardMovement = m_Animator.GetFloat(s_ForwardMovementHash);
-                    if (Mathf.Abs(m_ForwardMovement) < 0.001f) {
-                        m_ForwardMovement = 0;
-                    }
                 } else {
                     m_ForwardMovement = value;
                 }
@@ -416,11 +394,9 @@ namespace Opsive.UltimateCharacterController.Character
             var change = m_Pitch != value;
             if (change) {
                 if (m_Animator != null) {
-                    m_Animator.SetFloat(s_PitchHash, value, dampingTime, TimeUtility.DeltaTimeScaled / timeScale);
+                    m_Animator.SetFloat(s_PitchHash, value, dampingTime,
+                        (m_Animator.updateMode == AnimatorUpdateMode.AnimatePhysics ? TimeUtility.FixedDeltaTimeScaled : TimeUtility.DeltaTimeScaled) / timeScale);
                     m_Pitch = m_Animator.GetFloat(s_PitchHash);
-                    if (Mathf.Abs(m_Pitch) < 0.001f) {
-                        m_Pitch = 0;
-                    }
                 } else {
                     m_Pitch = value;
                 }
@@ -461,11 +437,9 @@ namespace Opsive.UltimateCharacterController.Character
             var change = m_Yaw != value;
             if (change) {
                 if (m_Animator != null) {
-                    m_Animator.SetFloat(s_YawHash, value, dampingTime, TimeUtility.DeltaTimeScaled / timeScale);
+                    m_Animator.SetFloat(s_YawHash, value, dampingTime,
+                        (m_Animator.updateMode == AnimatorUpdateMode.AnimatePhysics ? TimeUtility.FixedDeltaTimeScaled : TimeUtility.DeltaTimeScaled) / timeScale);
                     m_Yaw = m_Animator.GetFloat(s_YawHash);
-                    if (Mathf.Abs(m_Yaw) < 0.001f) {
-                        m_Yaw = 0;
-                    }
                 } else {
                     m_Yaw = value;
                 }
@@ -505,11 +479,9 @@ namespace Opsive.UltimateCharacterController.Character
             var change = m_Speed != value;
             if (change) {
                 if (m_Animator != null) {
-                    m_Animator.SetFloat(s_SpeedHash, value, dampingTime, TimeUtility.DeltaTimeScaled / timeScale);
+                    m_Animator.SetFloat(s_SpeedHash, value, dampingTime,
+                        (m_Animator.updateMode == AnimatorUpdateMode.AnimatePhysics ? TimeUtility.FixedDeltaTimeScaled : TimeUtility.DeltaTimeScaled) / timeScale);
                     m_Speed = m_Animator.GetFloat(s_SpeedHash);
-                    if (Mathf.Abs(m_Speed) < 0.001f) {
-                        m_Speed = 0;
-                    }
                 } else {
                     m_Speed = value;
                 }
@@ -539,9 +511,6 @@ namespace Opsive.UltimateCharacterController.Character
                 if (m_Animator != null) {
                     m_Animator.SetFloat(s_HeightHash, value, 0, 0);
                     m_Height = (int)m_Animator.GetFloat(s_HeightHash);
-                    if (Mathf.Abs(m_Height) < 0.001f) {
-                        m_Height = 0;
-                    }
                 } else {
                     m_Height = value;
                 }
@@ -745,7 +714,8 @@ namespace Opsive.UltimateCharacterController.Character
             var change = m_AbilityFloatData != value;
             if (change) {
                 if (m_Animator != null) {
-                    m_Animator.SetFloat(s_AbilityFloatDataHash, value, dampingTime, TimeUtility.DeltaTimeScaled / timeScale);
+                    m_Animator.SetFloat(s_AbilityFloatDataHash, value, dampingTime,
+                        (m_Animator.updateMode == AnimatorUpdateMode.AnimatePhysics ? TimeUtility.FixedDeltaTimeScaled : TimeUtility.DeltaTimeScaled) / timeScale);
                     m_AbilityFloatData = m_Animator.GetFloat(s_AbilityFloatDataHash);
                 } else {
                     m_AbilityFloatData = value;
@@ -948,15 +918,6 @@ namespace Opsive.UltimateCharacterController.Character
         }
 
         /// <summary>
-        /// The character has changed between Update and FixedUpdate location.
-        /// </summary>
-        /// <param name="fixedUpdate">Should the Animator update within the FixedUpdate loop?</param>
-        private void OnChangeUpdateLocation(bool fixedUpdate)
-        {
-            m_Animator.updateMode = fixedUpdate ? AnimatorUpdateMode.AnimatePhysics : AnimatorUpdateMode.Normal;
-        }
-
-        /// <summary>
         /// The character's local timescale has changed.
         /// </summary>
         /// <param name="timeScale">The new timescale.</param>
@@ -984,23 +945,8 @@ namespace Opsive.UltimateCharacterController.Character
             EventHandler.UnregisterEvent<Item, int>(m_GameObject, "OnInventoryRemoveItem", OnUnequipItem);
             if (m_Animator != null) {
                 EventHandler.UnregisterEvent(m_GameObject, "OnCharacterSnapAnimator", SnapAnimator);
-                EventHandler.UnregisterEvent<bool>(m_GameObject, "OnCharacterChangeUpdateLocation", OnChangeUpdateLocation);
                 EventHandler.UnregisterEvent<float>(m_GameObject, "OnCharacterChangeTimeScale", OnChangeTimeScale);
             }
         }
-
-#if UNITY_2019_3_OR_NEWER
-        /// <summary>
-        /// Reset the static variables for domain reloading.
-        /// </summary>
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        private static void DomainReset()
-        {
-            s_ItemSlotIDHash = null;
-            s_ItemSlotStateIndexHash = null;
-            s_ItemSlotStateIndexChangeHash = null;
-            s_ItemSlotSubstateIndexHash = null;
-        }
-#endif
     }
 }

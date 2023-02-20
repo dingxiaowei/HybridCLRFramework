@@ -4,13 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Demo
 {
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// Switch the camera to a first or third person perspective.
     /// </summary>
@@ -34,7 +34,7 @@ namespace Opsive.UltimateCharacterController.Demo
                 return;
             }
 
-            var cameraController = UnityEngineUtility.FindCamera(characterLocomotion.gameObject).GetComponent<UltimateCharacterController.Camera.CameraController>();
+            var cameraController = UnityEngineUtility.FindCamera(characterLocomotion.gameObject).GetComponent<Camera.CameraController>();
             cameraController.SetPerspective(m_FirstPersonPerspective);
         }
     }

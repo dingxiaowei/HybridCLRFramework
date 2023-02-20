@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Networking.Objects
 {
-    using UnityEngine;
-
     /// <summary>
     /// Defines an object that can take destruct over the network using the Destructible component.
     /// </summary>

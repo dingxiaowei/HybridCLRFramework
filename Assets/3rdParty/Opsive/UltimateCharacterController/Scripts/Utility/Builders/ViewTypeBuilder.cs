@@ -4,14 +4,14 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using Opsive.UltimateCharacterController.Camera;
+using Opsive.UltimateCharacterController.Camera.ViewTypes;
+using Opsive.UltimateCharacterController.StateSystem;
+using System;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Utility.Builders
 {
-    using Opsive.UltimateCharacterController.Camera;
-    using Opsive.UltimateCharacterController.Camera.ViewTypes;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using System;
-    using System.Collections.Generic;
-
     /// <summary>
     /// Adds and serializes CameraController view types.
     /// </summary>
@@ -40,7 +40,37 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
 
 #if FIRST_PERSON_CONTROLLER
             if (viewTypeObj is FirstPersonController.Camera.ViewTypes.FirstPerson) {
-                AddFirstPersonCamera(cameraController, viewTypeObj as FirstPersonController.Camera.ViewTypes.FirstPerson);
+                // A first person camera must be added to the first peron view types.
+                UnityEngine.Camera firstPersonCamera = null;
+                FirstPersonController.Camera.ViewTypes.FirstPerson firstPersonViewType;
+                for (int i = 0; i < viewTypes.Length; ++i) {
+                    if ((firstPersonViewType = viewTypes[i] as FirstPersonController.Camera.ViewTypes.FirstPerson) != null &&
+                        firstPersonViewType.FirstPersonCamera != null) {
+                        firstPersonCamera = firstPersonViewType.FirstPersonCamera;
+                        break;
+                    }
+                }
+
+                // If the camera is null then a new first person camera should be created.
+                if (firstPersonCamera == null) {
+                    UnityEngine.Transform firstPersonCameraTransform;
+                    if ((firstPersonCameraTransform = cameraController.transform.Find("First Person Camera")) != null) {
+                        firstPersonCamera = firstPersonCameraTransform.GetComponent<UnityEngine.Camera>();
+                    }
+
+                    if (firstPersonCamera == null) {
+                        var cameraGameObject = new UnityEngine.GameObject("First Person Camera");
+                        cameraGameObject.transform.SetParentOrigin(cameraController.transform);
+                        firstPersonCamera = cameraGameObject.AddComponent<UnityEngine.Camera>();
+                        firstPersonCamera.clearFlags = UnityEngine.CameraClearFlags.Depth;
+                        firstPersonCamera.fieldOfView = 60f;
+                        firstPersonCamera.nearClipPlane = 0.01f;
+                        firstPersonCamera.depth = 0;
+                        firstPersonCamera.renderingPath = cameraController.GetComponent<UnityEngine.Camera>().renderingPath;
+                    }
+                }
+
+                (viewTypeObj as FirstPersonController.Camera.ViewTypes.FirstPerson).FirstPersonCamera = firstPersonCamera;
             }
 #endif
 
@@ -77,50 +107,6 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
             return viewTypeObj;
         }
 
-#if FIRST_PERSON_CONTROLLER
-        /// <summary>
-        /// Adds a first person camera to the view type.
-        /// </summary>
-        /// <param name="cameraController">The camera controller that contains the view type.</param>
-        /// <param name="viewType">The first person view type.</param>
-        public static void AddFirstPersonCamera(CameraController cameraController, FirstPersonController.Camera.ViewTypes.FirstPerson viewType)
-        {
-            // A first person camera must be added to the first peron view types.
-            cameraController.DeserializeViewTypes();
-            var viewTypes = cameraController.ViewTypes;
-            UnityEngine.Camera firstPersonCamera = null;
-            FirstPersonController.Camera.ViewTypes.FirstPerson firstPersonViewType;
-            for (int i = 0; i < viewTypes.Length; ++i) {
-                if ((firstPersonViewType = viewTypes[i] as FirstPersonController.Camera.ViewTypes.FirstPerson) != null &&
-                    firstPersonViewType.FirstPersonCamera != null) {
-                    firstPersonCamera = firstPersonViewType.FirstPersonCamera;
-                    break;
-                }
-            }
-
-            // If the camera is null then a new first person camera should be created.
-            if (firstPersonCamera == null) {
-                UnityEngine.Transform firstPersonCameraTransform;
-                if ((firstPersonCameraTransform = cameraController.transform.Find("First Person Camera")) != null) {
-                    firstPersonCamera = firstPersonCameraTransform.GetComponent<UnityEngine.Camera>();
-                }
-
-                if (firstPersonCamera == null) {
-                    var cameraGameObject = new UnityEngine.GameObject("First Person Camera");
-                    cameraGameObject.transform.SetParentOrigin(cameraController.transform);
-                    firstPersonCamera = cameraGameObject.AddComponent<UnityEngine.Camera>();
-                    firstPersonCamera.clearFlags = UnityEngine.CameraClearFlags.Depth;
-                    firstPersonCamera.fieldOfView = 60f;
-                    firstPersonCamera.nearClipPlane = 0.01f;
-                    firstPersonCamera.depth = 0;
-                    firstPersonCamera.renderingPath = cameraController.GetComponent<UnityEngine.Camera>().renderingPath;
-                }
-            }
-
-            viewType.FirstPersonCamera = firstPersonCamera;
-        }
-#endif
-
         /// <summary>
         /// Serialize all of the view types to the ViewTypeData array.
         /// </summary>
@@ -128,7 +114,7 @@ namespace Opsive.UltimateCharacterController.Utility.Builders
         public static void SerializeViewTypes(CameraController cameraController)
         {
             var viewTypes = new List<ViewType>(cameraController.ViewTypes);
-            cameraController.ViewTypeData = Shared.Utility.Serialization.Serialize<ViewType>(viewTypes);
+            cameraController.ViewTypeData = Serialization.Serialize<ViewType>(viewTypes);
 #if UNITY_EDITOR
             UnityEditor.PrefabUtility.RecordPrefabInstancePropertyModifications(cameraController);
 #endif

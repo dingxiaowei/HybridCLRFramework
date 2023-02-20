@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Game;
+
 namespace Opsive.UltimateCharacterController.Traits
 {
-    using Opsive.UltimateCharacterController.Game;
-    using UnityEngine;
-
     /// <summary>
     /// Updates the Animator component at a fixed delta time.
     /// </summary>
@@ -20,11 +20,6 @@ namespace Opsive.UltimateCharacterController.Traits
         private int m_KinematicObjectIndex;
 
         public int KinematicObjectIndex { set { m_KinematicObjectIndex = value; } }
-        public KinematicObjectManager.UpdateLocation UpdateLocation { 
-            get { 
-                return m_Animator.updateMode == AnimatorUpdateMode.AnimatePhysics ? KinematicObjectManager.UpdateLocation.FixedUpdate : KinematicObjectManager.UpdateLocation.Update; 
-            } 
-        }
 
         /// <summary>
         /// Cache the componetn references.

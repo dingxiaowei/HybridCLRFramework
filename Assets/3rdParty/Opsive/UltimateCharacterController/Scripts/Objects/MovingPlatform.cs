@@ -4,17 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Traits;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Objects
 {
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using Opsive.UltimateCharacterController.Traits;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// The MovingPlatform component will move an object from one point to another. GameObjects with the Moving Platform component should be on the MovingPlatform layer.
     /// </summary>
@@ -93,8 +91,6 @@ namespace Opsive.UltimateCharacterController.Objects
             CustomRotate    // Rotates according to the rotation speed.
         }
 
-        [Tooltip("Specifies the location that the object should be updated.")]
-        [SerializeField] protected KinematicObjectManager.UpdateLocation m_UpdateLocation = KinematicObjectManager.UpdateLocation.FixedUpdate;
         [Tooltip("The waypoints to traverse.")]
         [SerializeField] protected Waypoint[] m_Waypoints;
         [Tooltip("Specifies the direction that the platform should traverse.")]
@@ -128,7 +124,6 @@ namespace Opsive.UltimateCharacterController.Objects
         [SerializeField] protected bool m_DrawDebugLabels;
 #endif
 
-        public KinematicObjectManager.UpdateLocation UpdateLocation { get { return m_UpdateLocation; } }
         [NonSerialized] public Waypoint[] Waypoints { get { return m_Waypoints; } set { m_Waypoints = value; } }
         [NonSerialized] public PathDirection Direction { get { return m_Direction; } set { m_Direction = value; } }
         public PathMovementType MovementType { get { return m_MovementType; } set { m_MovementType = value; } } 
@@ -327,7 +322,7 @@ namespace Opsive.UltimateCharacterController.Objects
         /// Returns the distance to the next waypoint.
         /// </summary>
         /// <returns>The distance to the next waypoint.</returns>
-        protected float GetRemainingDistance()
+        private float GetRemainingDistance()
         {
             if (m_Waypoints.Length == 0) {
                 return float.MaxValue;
@@ -442,7 +437,7 @@ namespace Opsive.UltimateCharacterController.Objects
             m_Transform.position = m_MovePosition;
 
             // Progress the move time and also store the updated metrics.
-            m_MoveTime += m_MovementSpeed * 0.01f * Time.deltaTime;
+            m_MoveTime += m_MovementSpeed * 0.01f * Time.fixedDeltaTime;
         }
 
         /// <summary>

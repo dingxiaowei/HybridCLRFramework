@@ -4,16 +4,16 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using UnityEditor.Animations;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
+
 namespace Opsive.UltimateCharacterController.Editor.Utility
 {
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Text;
-    using System.Text.RegularExpressions;
-    using UnityEditor;
-    using UnityEditor.Animations;
-    using UnityEngine;
-
     /// <summary>
     /// Generates the code to create the states and transitions of a particular state machine.
     /// </summary>
@@ -85,14 +85,13 @@ namespace Opsive.UltimateCharacterController.Editor.Utility
                         }
                     } else {
                         // Start a new file.
+                        fileString.AppendLine("using UnityEngine;");
+                        fileString.AppendLine("using UnityEditor;");
+                        fileString.AppendLine("using UnityEditor.Animations;");
+                        fileString.AppendLine("using Opsive.UltimateCharacterController.Editor.Utility;");
                         fileString.AppendLine();
                         fileString.AppendLine("namespace Opsive.UltimateCharacterController.Editor.Inspectors.Character.Abilities");
                         fileString.AppendLine("{");
-                        fileString.AppendLine("\tusing Opsive.UltimateCharacterController.Editor.Utility;");
-                        fileString.AppendLine("\tusing UnityEditor;");
-                        fileString.AppendLine("\tusing UnityEditor.Animations;");
-                        fileString.AppendLine("\tusing UnityEngine;");
-                        fileString.AppendLine();
                         fileString.AppendLine("\t/// <summary>");
                         fileString.AppendLine("\t/// Draws a custom inspector for the " + parentName + " Ability.");
                         fileString.AppendLine("\t/// </summary>");
@@ -145,10 +144,6 @@ namespace Opsive.UltimateCharacterController.Editor.Utility
         /// <returns>Was the animator code generated?</returns>
         private static bool GenerateAnimatorCode(AnimatorController animatorController, string animatorVariableName, string parameterName, float parameterValue, StringBuilder generatedCode)
         {
-            if (animatorController == null) {
-                return false;
-            }
-
             var generateAnimatorCode = false;
             var motionSet = new HashSet<UnityEngine.Motion>();
             for (int i = 0; i < animatorController.layers.Length; ++i) {
@@ -165,9 +160,6 @@ namespace Opsive.UltimateCharacterController.Editor.Utility
                 var stateMachines = new List<ChildAnimatorStateMachine>();
                 for (int j = 0; j < transitions.Count; ++j) {
                     for (int k = 0; k < stateMachine.stateMachines.Length; ++k) {
-                        if (stateMachines.Contains(stateMachine.stateMachines[k])) {
-                            continue;
-                        }
                         if (HasState(stateMachine.stateMachines[k].stateMachine, transitions[j].Transition.destinationState)) {
                             stateMachines.Add(stateMachine.stateMachines[k]);
                         }
@@ -181,47 +173,36 @@ namespace Opsive.UltimateCharacterController.Editor.Utility
                         generatedCode.AppendLine();
                     }
 
-                    for (int j = 0; j < stateMachines.Count; ++j) {
-                        var baseStateMachine = stateMachines[j];
-                        // The state machine should start fresh.
-                        var baseStateMachineName = "baseStateMachine" + Mathf.Abs(baseStateMachine.GetHashCode());
-                        generatedCode.AppendLine("\t\t\tvar " + baseStateMachineName + " = " + animatorVariableName + ".layers[" + i + "].stateMachine;");
-                        generatedCode.AppendLine();
-                        generatedCode.AppendLine("\t\t\t// The state machine should start fresh.");
-                        generatedCode.AppendLine("\t\t\tfor (int i = 0; i < " + animatorVariableName + ".layers.Length; ++i) {");
-                        generatedCode.AppendLine("\t\t\t\tfor (int j = 0; j < " + baseStateMachineName + ".stateMachines.Length; ++j) {");
-                        generatedCode.AppendLine("\t\t\t\t\tif (" + baseStateMachineName + ".stateMachines[j].stateMachine.name == \"" + baseStateMachine.stateMachine.name + "\") {");
-                        generatedCode.AppendLine("\t\t\t\t\t\t" + baseStateMachineName + ".RemoveStateMachine(" + baseStateMachineName + ".stateMachines[j].stateMachine);");
-                        generatedCode.AppendLine("\t\t\t\t\t\tbreak;");
-                        generatedCode.AppendLine("\t\t\t\t\t}");
-                        generatedCode.AppendLine("\t\t\t\t}");
-                        generatedCode.AppendLine("\t\t\t}");
-                        generatedCode.AppendLine();
+                    // The state machine should start fresh.
+                    var baseStateMachine = stateMachines[0];
+                    var baseStateMachineName = "baseStateMachine" + i;
+                    generatedCode.AppendLine("\t\t\tvar " + baseStateMachineName + " = " + animatorVariableName + ".layers[" + i + "].stateMachine;");
+                    generatedCode.AppendLine();
+                    generatedCode.AppendLine("\t\t\t// The state machine should start fresh.");
+                    generatedCode.AppendLine("\t\t\tfor (int i = 0; i < " + animatorVariableName + ".layers.Length; ++i) {");
+                    generatedCode.AppendLine("\t\t\t\tfor (int j = 0; j < " + baseStateMachineName + ".stateMachines.Length; ++j) {");
+                    generatedCode.AppendLine("\t\t\t\t\tif (" + baseStateMachineName + ".stateMachines[j].stateMachine.name == \"" + baseStateMachine.stateMachine.name + "\") {");
+                    generatedCode.AppendLine("\t\t\t\t\t\t" + baseStateMachineName + ".RemoveStateMachine(" + baseStateMachineName + ".stateMachines[j].stateMachine);");
+                    generatedCode.AppendLine("\t\t\t\t\t\tbreak;");
+                    generatedCode.AppendLine("\t\t\t\t\t}");
+                    generatedCode.AppendLine("\t\t\t\t}");
+                    generatedCode.AppendLine("\t\t\t}");
+                    generatedCode.AppendLine();
 
-                        // Generate the AnimationClips first so they can be later referenced by the states.
-                        generatedCode.AppendLine("\t\t\t// AnimationClip references.");
-                        GenerateMotions(baseStateMachine, motionSet, generatedCode);
-                        generatedCode.AppendLine();
+                    // Generate the AnimationClips first so they can be later referenced by the states.
+                    generatedCode.AppendLine("\t\t\t// AnimationClip references.");
+                    GenerateMotions(baseStateMachine, motionSet, generatedCode);
+                    generatedCode.AppendLine();
 
-                        // Generate the states and transition within each substate machine.
-                        GenerateStateMachine(baseStateMachineName, baseStateMachine, generatedCode);
-                    }
+                    // Generate the states and transition within each substate machine.
+                    GenerateStateMachine(baseStateMachineName, baseStateMachine, generatedCode);
 
-                    for (int j = 0; j < stateMachines.Count; ++j) {
-                        var baseStateMachineName = "baseStateMachine" + Mathf.Abs(stateMachines[j].GetHashCode());
-
-                        // Add the any state and entry transitions.
-                        generatedCode.AppendLine();
-                        generatedCode.AppendLine("\t\t\t// State Machine Transitions.");
-                        for (int k = 0; k < transitions.Count; ++k) {
-                            if (!HasState(stateMachines[j].stateMachine, transitions[k].Transition.destinationState)) {
-                                continue;
-                            }
-
-                            GenerateTransition(baseStateMachineName, transitions[k].Transition, false, transitions[j].AnyStateTransition, generatedCode);
-                            if (k != transitions.Count - 1) {
-                                generatedCode.AppendLine();
-                            }
+                    // Add the any state and entry transitions.
+                    generatedCode.AppendLine("\t\t\t// State Machine Transitions.");
+                    for (int j = 0; j < transitions.Count; ++j) {
+                        GenerateTransition(baseStateMachineName, transitions[j].Transition, false, transitions[j].AnyStateTransition, generatedCode);
+                        if (j != transitions.Count - 1) {
+                            generatedCode.AppendLine();
                         }
                     }
                 }
@@ -498,9 +479,9 @@ namespace Opsive.UltimateCharacterController.Editor.Utility
                     var name = UniqueName(blendTree.children[j].motion);
                     if (blendTree.children[j].motion is BlendTree) {
                         name = blendTreeName + name;
-                        GenerateBlendTree(name, blendTree.children[j].motion as BlendTree, generatedCode, indentLevel);
+                        GenerateBlendTree(name, blendTree.children[j].motion as BlendTree, generatedCode, indentLevel + 1);
                     }
-                    generatedCode.AppendLine(indentation + "var " + childName + " =  new ChildMotion();");
+                    generatedCode.AppendLine(indentation + "var " + childName + "=  new ChildMotion();");
                     generatedCode.AppendLine(indentation + childName + ".motion = " + name + ";");
                 }
                 generatedCode.AppendLine(indentation + childName + ".cycleOffset = " + blendTree.children[j].cycleOffset + "f;");
@@ -510,7 +491,7 @@ namespace Opsive.UltimateCharacterController.Editor.Utility
                 generatedCode.AppendLine(indentation + childName + ".threshold = " + blendTree.children[j].threshold + "f;");
                 generatedCode.AppendLine(indentation + childName + ".timeScale = " + blendTree.children[j].timeScale + "f;");
             }
-            // The children are only updated when assigned initially. Assign a new array so the children references will be correct.
+            // The children are only updated when assigned initially. Ass a new array so the children references will be correct.
             generatedCode.AppendLine(indentation + blendTreeName + ".children = new ChildMotion[] {");
             for (int j = 0; j < blendTree.children.Length; ++j) {
                 var childName = blendTreeName + "Child" + j;
@@ -558,7 +539,7 @@ namespace Opsive.UltimateCharacterController.Editor.Utility
             generatedCode.AppendLine("\t\t\t" + transitionName + ".mute = " + BoolString(transition.mute) + ";");
             generatedCode.AppendLine("\t\t\t" + transitionName + ".solo = " + BoolString(transition.solo) + ";");
             for (int i = 0; i < transition.conditions.Length; ++i) {
-                generatedCode.AppendLine("\t\t\t" + transitionName + ".AddCondition(AnimatorConditionMode." + transition.conditions[i].mode.ToString() + ", " +
+                generatedCode.AppendLine("\t\t\t" + transitionName + ".AddCondition(AnimatorConditionMode." + transition.conditions[i].mode.ToString() + ", " + 
                                                     transition.conditions[i].threshold + "f, \"" + transition.conditions[i].parameter + "\");");
             }
         }
@@ -654,8 +635,7 @@ namespace Opsive.UltimateCharacterController.Editor.Utility
         /// <returns>The unique name for the specified object.</returns>
         private static string UniqueName(Object unityObject)
         {
-            var name = AlphanumericString(unityObject.name + unityObject.GetType().Name + unityObject.GetHashCode());
-            return char.ToLower(name[0]) + name.Substring(1);
+            return "m_" + AlphanumericString(unityObject.name + unityObject.GetType().Name + unityObject.GetHashCode());
         }
 
         /// <summary>
@@ -697,7 +677,7 @@ namespace Opsive.UltimateCharacterController.Editor.Utility
         {
             return Regex.Replace(value, "[^a-zA-Z0-9]+", "");
         }
-
+        
         /// <summary>
         /// Returns the AnimationClip at the specified path with the specified name.
         /// </summary>

@@ -4,14 +4,14 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using Opsive.UltimateCharacterController.Inventory;
+using Opsive.UltimateCharacterController.Editor.Managers;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+
 namespace Opsive.UltimateCharacterController.Editor.Inspectors.Inventory
 {
-    using Opsive.UltimateCharacterController.Editor.Managers;
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using Opsive.UltimateCharacterController.Inventory;
-    using UnityEditor;
-    using UnityEngine;
-
     /// <summary>
     /// Custom inspector for the ItemType ScriptableObject.
     /// </summary>

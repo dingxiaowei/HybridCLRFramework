@@ -4,13 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Utility;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Input.VirtualControls
 {
-    using Opsive.Shared.Events;
-    using Opsive.UltimateCharacterController.Utility;
-    using System.Collections.Generic;
-    using UnityEngine;
-
     /// <summary>
     /// Coordinates all of the virtual controls. All of the virtual controls must be a child of the VirtualControlsManager GameObject.
     /// </summary>
@@ -28,7 +28,7 @@ namespace Opsive.UltimateCharacterController.Input.VirtualControls
         /// <summary>
         /// Initialize the default values.
         /// </summary>
-        protected virtual void Awake()
+        private void Awake()
         {
             m_GameObject = gameObject;
             if (m_Character == null) {
@@ -42,6 +42,8 @@ namespace Opsive.UltimateCharacterController.Input.VirtualControls
                 m_Character = null; // Set the character to null so the assignment will occur.
                 OnAttachCharacter(character);
             }
+
+            m_GameObject.SetActive(false);
         }
 
         /// <summary>
@@ -57,7 +59,6 @@ namespace Opsive.UltimateCharacterController.Input.VirtualControls
             if (m_Character != null) {
                 var unityInput = m_Character.GetComponent<UnityInput>();
                 if (unityInput == null) {
-                    m_GameObject.SetActive(false);
                     return;
                 }
 
@@ -70,8 +71,7 @@ namespace Opsive.UltimateCharacterController.Input.VirtualControls
             if (character != null) {
                 var unityInput = m_Character.GetComponent<UnityInput>();
                 if (unityInput == null) {
-                    Debug.LogError($"Error: The character {m_Character.name} has no UnityInput component.");
-                    m_GameObject.SetActive(false);
+                    Debug.LogError("Error: The character " + m_Character.name + " has no UnityInput component.");
                     return;
                 }
 
@@ -137,7 +137,7 @@ namespace Opsive.UltimateCharacterController.Input.VirtualControls
         /// <summary>
         /// The object has been destroyed.
         /// </summary>
-        protected virtual void OnDestroy()
+        private void OnDestroy()
         {
             if (m_CameraGameObject != null) {
                 EventHandler.UnregisterEvent<GameObject>(m_CameraGameObject, "OnCameraAttachCharacter", OnAttachCharacter);

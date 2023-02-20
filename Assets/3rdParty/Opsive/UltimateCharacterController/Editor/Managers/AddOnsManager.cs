@@ -4,14 +4,14 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEditor;
+using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
+using System;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Editor.Managers
 {
-    using Opsive.UltimateCharacterController.Editor.Inspectors.Utility;
-    using System;
-    using System.Collections.Generic;
-    using UnityEditor;
-    using UnityEngine;
-
     /// <summary>
     /// Draws the inspector for an add-on that has been installed.
     /// </summary>
@@ -33,8 +33,7 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
     public class AddOnsManager : Manager
     {
         private string[] m_ToolbarStrings = { "Installed Add-Ons", "Available Add-Ons" };
-        [SerializeField] private bool m_DrawInstalledAddOns;
-        [SerializeField] private bool m_Initialized;
+        [SerializeField] private bool m_DrawInstalledAddOns = true;
 
         private AddOnInspector[] m_AddOnInspectors;
         private string[] m_AddOnNames;
@@ -164,11 +163,46 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
             base.Initialize(mainManagerWindow);
 
             BuildInstalledAddOns();
+        }
 
-            if (!m_Initialized) {
-                m_DrawInstalledAddOns = m_AvailableAddOns != null && m_AvailableAddOns.Length > 0;
-                m_Initialized = true;
+        /// <summary>
+        /// Draws the Manager.
+        /// </summary>
+        public override void OnGUI()
+        {
+            var toolbarSelection = GUILayout.Toolbar(m_DrawInstalledAddOns ? 0 : 1, m_ToolbarStrings, EditorStyles.toolbarButton);
+            m_DrawInstalledAddOns = toolbarSelection == 0;
+            GUILayout.Space(10);
+
+            if (m_DrawInstalledAddOns) {
+                DrawInstalledAddOns();
+            } else {
+                DrawAvailableAddOns();
             }
+        }
+
+        /// <summary>
+        /// Draws the inspector for all installed add-ons.
+        /// </summary>
+        private void DrawInstalledAddOns()
+        {
+            if (m_AddOnInspectors == null || m_AddOnInspectors.Length == 0) {
+                GUILayout.Label("No add-ons are currently installed.\n\nSelect the \"Available Add-Ons\" tab to see a list of all of the available add-ons.");
+                return;
+            }
+
+            m_InstalledScrollPosition = EditorGUILayout.BeginScrollView(m_InstalledScrollPosition);
+            for (int i = 0; i < m_AddOnInspectors.Length; ++i) {
+                EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+                GUILayout.Label(m_AddOnNames[i], InspectorStyles.LargeBoldLabel);
+                GUILayout.Space(4);
+                m_AddOnInspectors[i].DrawInspector();
+                EditorGUILayout.EndVertical();
+                if (i != m_AddOnInspectors.Length - 1) {
+                    GUILayout.Space(20);
+                }
+            }
+            EditorGUILayout.EndScrollView();
         }
 
         /// <summary>
@@ -227,46 +261,6 @@ namespace Opsive.UltimateCharacterController.Editor.Managers
                 }
                 m_AddOnNames[i] = name;
             }
-        }
-
-        /// <summary>
-        /// Draws the Manager.
-        /// </summary>
-        public override void OnGUI()
-        {
-            var toolbarSelection = GUILayout.Toolbar(m_DrawInstalledAddOns ? 0 : 1, m_ToolbarStrings, EditorStyles.toolbarButton);
-            m_DrawInstalledAddOns = toolbarSelection == 0;
-            GUILayout.Space(10);
-
-            if (m_DrawInstalledAddOns) {
-                DrawInstalledAddOns();
-            } else {
-                DrawAvailableAddOns();
-            }
-        }
-
-        /// <summary>
-        /// Draws the inspector for all installed add-ons.
-        /// </summary>
-        private void DrawInstalledAddOns()
-        {
-            if (m_AddOnInspectors == null || m_AddOnInspectors.Length == 0) {
-                GUILayout.Label("No add-ons are currently installed.\n\nSelect the \"Available Add-Ons\" tab to see a list of all of the available add-ons.");
-                return;
-            }
-
-            m_InstalledScrollPosition = EditorGUILayout.BeginScrollView(m_InstalledScrollPosition);
-            for (int i = 0; i < m_AddOnInspectors.Length; ++i) {
-                EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-                GUILayout.Label(m_AddOnNames[i], InspectorStyles.LargeBoldLabel);
-                GUILayout.Space(4);
-                m_AddOnInspectors[i].DrawInspector();
-                EditorGUILayout.EndVertical();
-                if (i != m_AddOnInspectors.Length - 1) {
-                    GUILayout.Space(20);
-                }
-            }
-            EditorGUILayout.EndScrollView();
         }
 
         /// <summary>

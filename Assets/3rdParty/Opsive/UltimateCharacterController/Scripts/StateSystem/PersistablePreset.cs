@@ -4,13 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using System;
+using System.Collections.Generic;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.StateSystem
 {
-    using Opsive.Shared.Utility;
-    using System;
-    using System.Collections.Generic;
-    using UnityEngine;
-
     /// <summary>
     /// Allows the Preset component to serialized the property value.
     /// </summary>

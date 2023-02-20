@@ -1,7 +1,9 @@
 fileFormatVersion: 2
 guid: 3b07b39ebb5f8c44c89fd416f004a8bc
+timeCreated: 1514562710
+licenseType: Pro
 ModelImporter:
-  serializedVersion: 23
+  serializedVersion: 19
   fileIDToRecycleName:
     100000: Armor
     100002: Body
@@ -375,44 +377,6 @@ ModelImporter:
     100738: Weapon
     100740: WeaponRig
     100742: Arms
-    100744: ORG-f_index.01.L
-    100746: ORG-f_index.01.R
-    100748: ORG-f_index.02.L
-    100750: ORG-f_index.02.R
-    100752: ORG-f_index.03.L
-    100754: ORG-f_index.03.R
-    100756: ORG-f_middle.01.L
-    100758: ORG-f_middle.01.R
-    100760: ORG-f_middle.02.L
-    100762: ORG-f_middle.02.R
-    100764: ORG-f_middle.03.L
-    100766: ORG-f_middle.03.R
-    100768: ORG-f_pinky.01.L
-    100770: ORG-f_pinky.01.R
-    100772: ORG-f_pinky.02.L
-    100774: ORG-f_pinky.02.R
-    100776: ORG-f_pinky.03.L
-    100778: ORG-f_pinky.03.R
-    100780: ORG-f_ring.01.L
-    100782: ORG-f_ring.01.R
-    100784: ORG-f_ring.02.L
-    100786: ORG-f_ring.02.R
-    100788: ORG-f_ring.03.L
-    100790: ORG-f_ring.03.R
-    100792: ORG-forearm.L
-    100794: ORG-forearm.R
-    100796: ORG-hand.L
-    100798: ORG-hand.R
-    100800: ORG-shoulder.L
-    100802: ORG-shoulder.R
-    100804: ORG-thumb.01.L
-    100806: ORG-thumb.01.R
-    100808: ORG-thumb.02.L
-    100810: ORG-thumb.02.R
-    100812: ORG-thumb.03.L
-    100814: ORG-thumb.03.R
-    100816: ORG-upper_arm.L
-    100818: ORG-upper_arm.R
     400000: Armor
     400002: Body
     400004: Hand
@@ -785,52 +749,6 @@ ModelImporter:
     400738: Weapon
     400740: WeaponRig
     400742: Arms
-    400744: ORG-f_index.01.L
-    400746: ORG-f_index.01.R
-    400748: ORG-f_index.02.L
-    400750: ORG-f_index.02.R
-    400752: ORG-f_index.03.L
-    400754: ORG-f_index.03.R
-    400756: ORG-f_middle.01.L
-    400758: ORG-f_middle.01.R
-    400760: ORG-f_middle.02.L
-    400762: ORG-f_middle.02.R
-    400764: ORG-f_middle.03.L
-    400766: ORG-f_middle.03.R
-    400768: ORG-f_pinky.01.L
-    400770: ORG-f_pinky.01.R
-    400772: ORG-f_pinky.02.L
-    400774: ORG-f_pinky.02.R
-    400776: ORG-f_pinky.03.L
-    400778: ORG-f_pinky.03.R
-    400780: ORG-f_ring.01.L
-    400782: ORG-f_ring.01.R
-    400784: ORG-f_ring.02.L
-    400786: ORG-f_ring.02.R
-    400788: ORG-f_ring.03.L
-    400790: ORG-f_ring.03.R
-    400792: ORG-forearm.L
-    400794: ORG-forearm.R
-    400796: ORG-hand.L
-    400798: ORG-hand.R
-    400800: ORG-shoulder.L
-    400802: ORG-shoulder.R
-    400804: ORG-thumb.01.L
-    400806: ORG-thumb.01.R
-    400808: ORG-thumb.02.L
-    400810: ORG-thumb.02.R
-    400812: ORG-thumb.03.L
-    400814: ORG-thumb.03.R
-    400816: ORG-upper_arm.L
-    400818: ORG-upper_arm.R
-    2300000: LeftArm
-    2300002: LeftArmor
-    2300004: RightArm
-    2300006: RightArmor
-    3300000: LeftArm
-    3300002: LeftArmor
-    3300004: RightArm
-    3300006: RightArmor
     4300000: Hand
     4300002: Armor
     4300004: Body
@@ -868,12 +786,10 @@ ModelImporter:
     13700030: Sword
     13700032: Trigger
     13700034: Arms
-  externalObjects: {}
   materials:
     importMaterials: 0
     materialName: 0
     materialSearch: 1
-    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -886,50 +802,35 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    importAnimatedCustomProperties: 0
-    importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 100
     meshCompression: 0
     addColliders: 0
-    useSRGBMaterialColor: 1
-    importVisibility: 0
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
-    preserveHierarchy: 0
-    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
-    normalCalculationMode: 0
-    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
-    blendShapeNormalImportMode: 1
-    normalSmoothingSource: 0
   importAnimation: 0
   copyAvatar: 0
   humanDescription:
@@ -944,8 +845,9 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2

@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Game;
+
 namespace Opsive.UltimateCharacterController.Character
 {
-    using Opsive.UltimateCharacterController.Game;
-    using UnityEngine;
-
     /// <summary>
     /// Sets up custom layers for the character.
     /// </summary>

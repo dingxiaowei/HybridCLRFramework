@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Input.VirtualControls
 {
-    using UnityEngine;
-
     /// <summary>
     /// An abstract class which represents a virtual control on the screen.
     /// </summary>

@@ -4,16 +4,15 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Items;
+using Opsive.UltimateCharacterController.Items.Actions;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.FirstPersonController.Items
 {
-    using UnityEngine;
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Items;
-    using Opsive.UltimateCharacterController.Items.Actions.PerspectiveProperties;
-    using Opsive.UltimateCharacterController.Utility;
-
     /// <summary>
     /// Describes any first person perspective dependent properties for the ShootableWeapon.
     /// </summary>
@@ -25,7 +24,7 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Items
         [SerializeField] protected Transform m_FirePointLocation;
         [Tooltip("The transform that the fire point should be attached to.")]
         [SerializeField] protected Transform m_FirePointAttachmentLocation;
-        [Tooltip("The ID of the transform that the fire point should be attached to. This field will be used if the value is not -1 and the attachment is null.")]
+        [Tooltip("The ID of the transform that the fire point should be attached to.. This field will be used if the value is not -1 and the attachment is null.")]
         [SerializeField] protected int m_FirePointAttachmentLocationID = -1;
         [Tooltip("The location that the muzzle flash is spawned at.")]
         [SerializeField] protected Transform m_MuzzleFlashLocation;
@@ -62,11 +61,6 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Items
 
         private Transform m_VisibleTransform;
         private ILookSource m_LookSource;
-
-#if UNITY_EDITOR
-        private float m_LastLookSensitivity;
-        private int m_ConsistantLookSensitivityCount;
-#endif
 
         /// <summary>
         /// Initialize the default values.
@@ -151,33 +145,10 @@ namespace Opsive.UltimateCharacterController.FirstPersonController.Items
         /// <returns>True if the item can be fired.</returns>
         public bool CanFire(bool abilityActive, bool fireInLookSourceDirection)
         {
-#if UNITY_EDITOR
-            if (!abilityActive) {
-                m_LastLookSensitivity = -1;
-                m_ConsistantLookSensitivityCount = 0;
-            }
-#endif
             // The object has to be facing in the same general direction as the character. When the ability is not active the direction shouldn't prevent
             // the ability from starting. This will allow the weapon to move to the correct direction while the ability is active.
             if (abilityActive && fireInLookSourceDirection) {
-                var lookSensitivity = Vector3.Dot(m_VisibleTransform.forward, m_LookSource.LookDirection(false));
-#if UNITY_EDITOR
-                // A common cause for the weapon not being able to fire is because of the look sensitivity. Add a check to display a warning if the look sensitivity is blocking the firing.
-                if (lookSensitivity <= m_LookSensitivity && m_ConsistantLookSensitivityCount != -1) {
-                    if (Mathf.Abs(m_LastLookSensitivity - lookSensitivity) < 0.05f) {
-                        m_ConsistantLookSensitivityCount++;
-                        if (m_ConsistantLookSensitivityCount > 10) {
-                            Debug.LogWarning("Warning: The ShootableWeapon is unable to fire because of the Look Sensitivity on the ShootableWeaponProperties. See this page for more info: " +
-                                             "https://opsive.com/support/documentation/ultimate-character-controller/items/actions/usable/shootable-weapon/", this);
-                            m_ConsistantLookSensitivityCount = -1;
-                        }
-                    } else {
-                        m_ConsistantLookSensitivityCount = 0;
-                    }
-                    m_LastLookSensitivity = lookSensitivity;
-                }
-#endif
-                return lookSensitivity > m_LookSensitivity;
+                return Vector3.Dot(m_VisibleTransform.forward, m_LookSource.LookDirection(false)) > m_LookSensitivity;
             }
             return true;
         }

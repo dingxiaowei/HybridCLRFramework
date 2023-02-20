@@ -4,14 +4,13 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.UI
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// The CameraMonitor component allows for UI elements to mapped to a specific character (allowing for split screen and coop).
     /// </summary>
@@ -19,11 +18,8 @@ namespace Opsive.UltimateCharacterController.UI
     {
         [Tooltip("The character that uses the UI represents. Can be null.")]
         [SerializeField] protected GameObject m_Character;
-        [Tooltip("Is the UI visible?")]
-        [SerializeField] protected bool m_Visible = true;
 
         public GameObject Character { get { return m_Character; } set { OnAttachCharacter(value); } }
-        public bool Visible { get { return m_Visible; } set { m_Visible = value; ShowUI(m_ShowUI); } }
 
         protected bool m_ShowUI = true;
         protected GameObject m_CameraGameObject;
@@ -39,7 +35,7 @@ namespace Opsive.UltimateCharacterController.UI
             if (camera != null) {
                 m_CameraGameObject = camera.gameObject;
                 if (m_Character == null) {
-                    m_Character = m_CameraGameObject.GetCachedComponent<UltimateCharacterController.Camera.CameraController>().Character;
+                    m_Character = m_CameraGameObject.GetCachedComponent<Camera.CameraController>().Character;
                 }
                 EventHandler.RegisterEvent<GameObject>(m_CameraGameObject, "OnCameraAttachCharacter", OnAttachCharacter);
             }
@@ -81,23 +77,13 @@ namespace Opsive.UltimateCharacterController.UI
         }
 
         /// <summary>
-        /// Hides the UI if it's not visible.
-        /// </summary>
-        public void Start()
-        {
-            if (!CanShowUI()) {
-                gameObject.SetActive(false);
-            }
-        }
-
-        /// <summary>
         /// Shows or hides the UI.
         /// </summary>
         /// <param name="show">Should the UI be shown?</param>
         private void ShowUI(bool show)
         {
             m_ShowUI = show;
-            gameObject.SetActive(CanShowUI());
+            gameObject.SetActive(show && CanShowUI());
         }
 
         /// <summary>
@@ -106,7 +92,7 @@ namespace Opsive.UltimateCharacterController.UI
         /// <returns>True if the UI can be shown.</returns>
         protected virtual bool CanShowUI()
         {
-            return m_ShowUI && m_Visible;
+            return true;
         }
 
         /// <summary>

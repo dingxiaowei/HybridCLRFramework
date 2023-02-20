@@ -4,10 +4,10 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+
 namespace Opsive.UltimateCharacterController.Character
 {
-    using UnityEngine;
-
     /// <summary>
     /// Interface which specifies an object which can be used for determine the character's look direction.
     /// </summary>

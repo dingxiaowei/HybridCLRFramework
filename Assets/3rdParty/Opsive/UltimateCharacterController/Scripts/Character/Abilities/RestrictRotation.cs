@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Utility;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities
 {
-    using Opsive.Shared.Events;
-    using Opsive.UltimateCharacterController.Utility;
-    using UnityEngine;
-
     /// <summary>
     /// The RestrictPosition ability restricts the character to the specified rotation.
     /// </summary>
@@ -79,7 +79,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities
 
             // Rotate towards the restricted angle.
             targetRotation = MathUtility.TransformQuaternion(Quaternion.LookRotation(Vector3.forward, m_CharacterLocomotion.Up), Quaternion.Euler(localEulerRotation));
-            targetRotation = Quaternion.Slerp(m_Transform.rotation, targetRotation, m_CharacterLocomotion.MotorRotationSpeed * Time.deltaTime);
+            targetRotation = Quaternion.Slerp(m_Transform.rotation, targetRotation, m_CharacterLocomotion.MotorRotationSpeed * Time.fixedDeltaTime);
             m_CharacterLocomotion.Torque = targetRotation * Quaternion.Inverse(m_Transform.rotation);
         }
 

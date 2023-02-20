@@ -4,23 +4,20 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Camera.ViewTypes;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Character.Abilities;
+using Opsive.UltimateCharacterController.Character.Abilities.Items;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Inventory;
+using Opsive.UltimateCharacterController.StateSystem;
+using Opsive.UltimateCharacterController.Utility;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Camera
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.Shared.Utility;
-    using Opsive.UltimateCharacterController.Camera.ViewTypes;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Character.Abilities;
-    using Opsive.UltimateCharacterController.Character.Abilities.Items;
-    using Opsive.UltimateCharacterController.Events;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Inventory;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using Opsive.UltimateCharacterController.Utility;
-    using System.Collections.Generic;
-    using UnityEngine;
-
     /// <summary>
     /// Base class for the first and third person camera controllers. 
     /// </summary>
@@ -52,9 +49,8 @@ namespace Opsive.UltimateCharacterController.Camera
         [SerializeField] protected bool m_CanZoom = true;
         [Tooltip("The state that should be activated when zoomed.")]
         [SerializeField] protected string m_ZoomState = "Zoom";
-        [Tooltip("Should the ItemIdentifier name be appened to the name of the state name?")]
-        [UnityEngine.Serialization.FormerlySerializedAs("m_StateAppendItemIdentifierName")] // 2.2.
-        [HideInInspector] [SerializeField] protected bool m_StateAppendItemIdentifierName;
+        [Tooltip("Should the ItemType name be appened to the name of the state name?")]
+        [HideInInspector] [SerializeField] protected bool m_StateAppendItemTypeName;
         [Tooltip("Unity event invoked when an view type has been started or stopped.")]
         [SerializeField] protected UnityViewTypeBoolEvent m_OnChangeViewTypesEvent;
         [Tooltip("Unity event invoked when the camera changes perspectives.")]
@@ -164,10 +160,9 @@ namespace Opsive.UltimateCharacterController.Camera
 
             m_GameObject = gameObject;
             m_Transform = transform;
-            m_ViewType = null; // The ViewType may have been assigned during fast enter playmode.
 
             // Create the view types from the serialized data.
-            DeserializeViewTypes(true);
+            DeserializeViewTypes();
 
             // Initialize the first and third person view types if they haven't been initialized yet.
             if (m_FirstPersonViewType == null && !string.IsNullOrEmpty(m_FirstPersonViewTypeFullName)) {
@@ -363,16 +358,6 @@ namespace Opsive.UltimateCharacterController.Camera
         }
 
         /// <summary>
-        /// Returns an array of serialized view types.
-        /// </summary>
-        /// <returns>An array of serialized abilities.</returns>
-        public ViewType[] GetSerializedViewTypes()
-        {
-            if (m_ViewTypeData != null && m_ViewTypeData.Length > 0 && (m_ViewTypes == null || m_ViewTypes.Length == 0)) { DeserializeViewTypes(); }
-            return m_ViewTypes;
-        }
-
-        /// <summary>
         /// The camera has been enabled.
         /// </summary>
         private void OnEnable()
@@ -435,7 +420,10 @@ namespace Opsive.UltimateCharacterController.Camera
             }
 
             // Set the character values.
-            if (enabled = (character != null)) {
+            if ((enabled = (character != null))) {
+                if (m_Character != character) {
+                    m_Anchor = null;
+                }
                 m_Character = character;
                 m_CharacterTransform = m_Character.transform;
                 m_CharacterLocomotion = character.GetCachedComponent<UltimateCharacterLocomotion>();
@@ -447,6 +435,7 @@ namespace Opsive.UltimateCharacterController.Camera
                 m_CharacterTransform = null;
                 m_CharacterLocomotion = null;
                 m_CharacterInventory = null;
+                m_Anchor = null;
             }
 
             // Notify the view types of the character that is being attached.
@@ -492,19 +481,11 @@ namespace Opsive.UltimateCharacterController.Camera
                 var recommendedMovementTypes = m_ViewType.GetType().GetCustomAttributes(typeof(RecommendedMovementType), true);
                 if (recommendedMovementTypes != null && recommendedMovementTypes.Length > 0) {
                     var movementType = m_CharacterLocomotion.ActiveMovementType;
-                    var isRecommendedMovementType = false;
-                    for (int i = 0; i < recommendedMovementTypes.Length; ++i) {
-                        var recommendedMovementType = recommendedMovementTypes[0] as RecommendedMovementType;
-                        if (recommendedMovementType.Type.IsInstanceOfType(movementType)) {
-                            isRecommendedMovementType = true;
-                            break;
-                        }
+                    var recommendedMovementType = recommendedMovementTypes[0] as RecommendedMovementType;
+                    if (!recommendedMovementType.Type.IsAssignableFrom(movementType.GetType())) {
+                        Debug.LogWarning("Warning: The " + UnityEngineUtility.GetFriendlyName(movementType.GetType()) + " MovementType is active while the ViewType " +
+                                         "recommends using " + UnityEngineUtility.GetFriendlyName(recommendedMovementType.Type) + ".");
                     }
-                    if (!isRecommendedMovementType) {
-                        Debug.LogWarning($"Warning: The {UnityEngineUtility.GetFriendlyName(movementType.GetType())} MovementType is active while the ViewType " +
-                                         $"recommends using {UnityEngineUtility.GetFriendlyName((recommendedMovementTypes[0] as RecommendedMovementType).Type)}.");
-                    }
-
                 }
 #endif
             } else {
@@ -522,8 +503,6 @@ namespace Opsive.UltimateCharacterController.Camera
             Transform anchor = null;
             if (m_AutoAnchor && (anchor = m_Character.GetComponent<Animator>().GetBoneTransform(m_AutoAnchorBone)) != null) {
                 m_Anchor = anchor;
-            } else if (m_Anchor != null && !m_Anchor.IsChildOf(m_Character.transform)) {
-                m_Anchor = null;
             }
 
             if (m_Anchor == null) {
@@ -666,7 +645,7 @@ namespace Opsive.UltimateCharacterController.Camera
                 // The item may not allow zooming.
                 if (m_CharacterInventory != null) {
                     for (int i = 0; i < m_CharacterInventory.SlotCount; ++i) {
-                        var item = m_CharacterInventory.GetActiveItem(i);
+                        var item = m_CharacterInventory.GetItem(i);
                         if (item != null && !item.CanCameraZoom()) {
                             SetZoom(false);
                             return;
@@ -712,11 +691,11 @@ namespace Opsive.UltimateCharacterController.Camera
                 StateManager.SetState(m_GameObject, m_ZoomState, m_Zoom);
                 StateManager.SetState(m_Character, m_ZoomState, m_Zoom);
 
-                if (m_CharacterInventory != null && m_StateAppendItemIdentifierName) {
+                if (m_CharacterInventory != null && m_StateAppendItemTypeName) {
                     for (int i = 0; i < m_CharacterInventory.SlotCount; ++i) {
-                        var item = m_CharacterInventory.GetActiveItem(i);
+                        var item = m_CharacterInventory.GetItem(i);
                         if (item != null && item.IsActive()) {
-                            var itemStateName = m_ZoomState + item.ItemDefinition.name;
+                            var itemStateName = m_ZoomState + item.ItemType.name;
                             StateManager.SetState(m_GameObject, itemStateName, m_Zoom);
                             StateManager.SetState(m_Character, itemStateName, m_Zoom);
                         }
@@ -931,7 +910,6 @@ namespace Opsive.UltimateCharacterController.Camera
         private void OnDisable()
         {
             KinematicObjectManager.UnregisterCamera(m_KinematicObjectIndex);
-            m_KinematicObjectIndex = -1;
         }
 
         /// <summary>

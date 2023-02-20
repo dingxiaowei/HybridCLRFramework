@@ -4,20 +4,20 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using UnityEngine.UI;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Demo.Objects;
+using Opsive.UltimateCharacterController.Demo.UI;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Game;
+using Opsive.UltimateCharacterController.Inventory;
+using Opsive.UltimateCharacterController.Traits;
+using Opsive.UltimateCharacterController.Utility;
+using System.Collections.Generic;
+
 namespace Opsive.UltimateCharacterController.Demo
 {
-    using Opsive.Shared.Events;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Demo.Objects;
-    using Opsive.UltimateCharacterController.Demo.UI;
-    using Opsive.UltimateCharacterController.Game;
-    using Opsive.UltimateCharacterController.Inventory;
-    using Opsive.UltimateCharacterController.Traits;
-    using Opsive.UltimateCharacterController.Utility;
-    using System.Collections.Generic;
-    using UnityEngine;
-    using UnityEngine.UI;
-
     /// <summary>
     /// The DemoManager will control the objects in the demo scene as well as the text shown.
     /// </summary>
@@ -93,12 +93,10 @@ namespace Opsive.UltimateCharacterController.Demo
         [SerializeField] protected GameObject m_PreviousZoneArrow;
         [Tooltip("A list of all of the zones within the scene.")]
         [SerializeField] protected DemoZone[] m_DemoZones;
-        [Tooltip("Should the ItemIdentifiers be picked up when the character spawns within free roam mode?")]
-        [SerializeField] protected bool m_FreeRoamPickupItemDefinitions = true;
-        [Tooltip("An array of ItemIdentifiers to be picked up when free roaming.")]
-        [UnityEngine.Serialization.FormerlySerializedAs("m_FreeRoamItemTypeCounts")]
-        [UnityEngine.Serialization.FormerlySerializedAs("m_FreeRoamItemIdentifierAmounts")]
-        [SerializeField] protected ItemDefinitionAmount[] m_FreeRoamItemDefinitionAmounts;
+        [Tooltip("Should the ItemTypes be picked up when the character spawns within free roam mode?")]
+        [SerializeField] protected bool m_FreeRoamPickupItemTypes = true;
+        [Tooltip("An array of ItemTypes to be picked up when free roaming.")]
+        [SerializeField] protected ItemTypeCount[] m_FreeRoamItemTypeCounts;
         [Tooltip("The title that should be displayed when the character is not in a zone.")]
         [SerializeField] protected string m_NoZoneTitle;
         [Tooltip("The description that should be displayed when the character is not in a zone.")]
@@ -163,9 +161,6 @@ namespace Opsive.UltimateCharacterController.Demo
             if (m_Action != null) {
                 m_Action.enabled = false;
             }
-
-            // The controller updates within Update. Limit the update rate.
-            Application.targetFrameRate = 60;
         }
 
         /// <summary>
@@ -221,19 +216,19 @@ namespace Opsive.UltimateCharacterController.Demo
 
                 // The character needs to be assigned to the camera.
                 var camera = UnityEngineUtility.FindCamera(null);
-                var cameraController = camera.GetComponent<UltimateCharacterController.Camera.CameraController>();
+                var cameraController = camera.GetComponent<Camera.CameraController>();
                 cameraController.SetPerspective(m_CharacterLocomotion.FirstPersonPerspective, true);
                 cameraController.Character = m_Character;
 
                 // The character doesn't start out with any items.
-                if (m_FreeRoamItemDefinitionAmounts != null && m_FreeRoamPickupItemDefinitions) {
+                if (m_FreeRoamItemTypeCounts != null && m_FreeRoamPickupItemTypes) {
                     var inventory = m_Character.GetComponent<InventoryBase>();
                     if (inventory != null) {
-                        for (int i = 0; i < m_FreeRoamItemDefinitionAmounts.Length; ++i) {
-                            if (m_FreeRoamItemDefinitionAmounts[i].ItemDefinition == null) {
+                        for (int i = 0; i < m_FreeRoamItemTypeCounts.Length; ++i) {
+                            if (m_FreeRoamItemTypeCounts[i].ItemType == null) {
                                 continue;
                             }
-                            inventory.Pickup(m_FreeRoamItemDefinitionAmounts[i].ItemIdentifier, m_FreeRoamItemDefinitionAmounts[i].Amount, -1, true, false);
+                            inventory.PickupItemType(m_FreeRoamItemTypeCounts[i].ItemType, m_FreeRoamItemTypeCounts[i].Count, -1, true, false);
                         }
                     }
                 }
@@ -308,7 +303,7 @@ namespace Opsive.UltimateCharacterController.Demo
                 return;
             }
 
-            ActivateDemoZone(demoZone, false);
+            ActiveDemoZone(demoZone, false);
         }
 
         /// <summary>
@@ -316,8 +311,13 @@ namespace Opsive.UltimateCharacterController.Demo
         /// </summary>
         /// <param name="demoZone">The demo zone to active.</param>
         /// <param name="teleport">Should the character be teleported to the demo zone?</param>
-        private void ActivateDemoZone(DemoZone demoZone, bool teleport)
+        private void ActiveDemoZone(DemoZone demoZone, bool teleport)
         {
+            // The ride ability should be force stopped.
+            var ride = m_CharacterLocomotion.GetAbility<UltimateCharacterController.Character.Abilities.Ride>();
+            if (ride != null && ride.IsActive) {
+                m_CharacterLocomotion.TryStopAbility(ride, true);
+            }
             if (m_ActiveZoneIndices.Count == 0 || m_ActiveZoneIndices[m_ActiveZoneIndices.Count - 1] != demoZone.Index) {
                 m_ActiveZoneIndices.Add(demoZone.Index);
             }
@@ -376,7 +376,7 @@ namespace Opsive.UltimateCharacterController.Demo
             if (m_ActiveZoneIndices.Count == 0 && (m_AddOnDemoManager || demoZone.Index != m_DemoZones.Length - 1) && m_EnterFrame != Time.frameCount) {
                 ShowText(m_NoZoneTitle.Replace("{AssetName}", AssetInfo.Name), m_NoZoneDescription, string.Empty);
             } else if (m_ActiveZoneIndices.Count > 0 && m_LastZoneIndex != m_ActiveZoneIndices[m_ActiveZoneIndices.Count - 1]) {
-                ActivateDemoZone(m_DemoZones[m_ActiveZoneIndices[m_ActiveZoneIndices.Count - 1]], false);
+                ActiveDemoZone(m_DemoZones[m_ActiveZoneIndices[m_ActiveZoneIndices.Count - 1]], false);
             }
         }
 
@@ -391,7 +391,7 @@ namespace Opsive.UltimateCharacterController.Demo
                 return;
             }
 
-            ActivateDemoZone(m_DemoZones[targetIndex], true);
+            ActiveDemoZone(m_DemoZones[targetIndex], true);
         }
 
         /// <summary>
@@ -410,15 +410,15 @@ namespace Opsive.UltimateCharacterController.Demo
         /// <param name="teleport">Should the character be teleported to the demo zone?</param>
         protected void SelectStartingPerspective(bool firstPersonPerspective, bool teleport)
         {
+            m_CharacterLocomotion.SetActive(true, true);
+
             // Set the starting position.
             m_LastZoneIndex = -1;
-            ActivateDemoZone(m_DemoZones[0], teleport);
-            // The character should be activated after positioned so the fall surface impacts don't play.
-            m_CharacterLocomotion.SetActive(true, true);
+            ActiveDemoZone(m_DemoZones[0], teleport);
 
             // Set the perspective on the camera.
             var camera = UnityEngineUtility.FindCamera(null);
-            var cameraController = camera.GetComponent<UltimateCharacterController.Camera.CameraController>();
+            var cameraController = camera.GetComponent<Camera.CameraController>();
             // Ensure the camera starts with the correct view type.
             cameraController.FirstPersonViewTypeFullName = GetViewTypeFullName(true);
             cameraController.ThirdPersonViewTypeFullName = GetViewTypeFullName(false);

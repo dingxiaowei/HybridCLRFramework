@@ -4,14 +4,14 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
+using Opsive.UltimateCharacterController.Utility;
+using Opsive.UltimateCharacterController.Networking.Character;
+#endif
+
 namespace Opsive.UltimateCharacterController.Character.Abilities.Items
 {
-#if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Networking.Character;
-#endif
-    using UnityEngine;
-
     /// <summary>
     /// Abstract ability class which implements item specific logic for the ability system.
     /// </summary>
@@ -20,7 +20,7 @@ namespace Opsive.UltimateCharacterController.Character.Abilities.Items
         [Tooltip("Specifies the index of the item state within the animator.")]
         [SerializeField] protected int m_ItemStateIndex = -1;
 
-        public virtual int ItemStateIndex { get { return m_ItemStateIndex; } set { m_ItemStateIndex = value; } }
+        public virtual int ItemStateIndex { set { m_ItemStateIndex = value; } }
 
 #if ULTIMATE_CHARACTER_CONTROLLER_MULTIPLAYER
         protected INetworkCharacter m_NetworkCharacter;

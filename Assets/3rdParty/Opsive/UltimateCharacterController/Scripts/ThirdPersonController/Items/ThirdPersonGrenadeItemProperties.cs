@@ -4,12 +4,12 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Items.Actions;
+
 namespace Opsive.UltimateCharacterController.ThirdPersonController.Items
 {
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.Items.Actions.PerspectiveProperties;
-    using UnityEngine;
-
     /// <summary>
     /// Describes any third person perspective dependent properties for the GrenadeItem.
     /// </summary>
@@ -20,8 +20,8 @@ namespace Opsive.UltimateCharacterController.ThirdPersonController.Items
         [Tooltip("The ID of the pin attachment transform. This field will be used if the value is not -1 and the location is null.")]
         [SerializeField] protected int m_PinAttachmentLocationID = -1;
 
-        [Opsive.Shared.Utility.NonSerialized] public Transform PinAttachmentLocation { get { return m_PinAttachmentLocation; } set { m_PinAttachmentLocation = value; } }
-        [Opsive.Shared.Utility.NonSerialized] public int PinAttachmentLocationID { get { return m_PinAttachmentLocationID; } set { m_PinAttachmentLocationID = value; } }
+        [Utility.NonSerialized] public Transform PinAttachmentLocation { get { return m_PinAttachmentLocation; } set { m_PinAttachmentLocation = value; } }
+        [Utility.NonSerialized] public int PinAttachmentLocationID { get { return m_PinAttachmentLocationID; } set { m_PinAttachmentLocationID = value; } }
 
         /// <summary>
         /// Initialize the default values.

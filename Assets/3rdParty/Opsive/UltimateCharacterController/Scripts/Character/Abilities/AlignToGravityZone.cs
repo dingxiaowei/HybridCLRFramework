@@ -4,11 +4,11 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Objects.CharacterAssist;
+
 namespace Opsive.UltimateCharacterController.Character.Abilities
 {
-    using Opsive.UltimateCharacterController.Objects.CharacterAssist;
-    using UnityEngine;
-
     /// <summary>
     /// The AlignToGravityZone ability will orient the character to the direction of the gravity zones.
     /// </summary>

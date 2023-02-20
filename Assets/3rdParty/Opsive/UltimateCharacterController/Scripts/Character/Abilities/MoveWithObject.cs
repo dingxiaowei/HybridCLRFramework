@@ -1,13 +1,7 @@
-﻿/// ---------------------------------------------
-/// Ultimate Character Controller
-/// Copyright (c) Opsive. All Rights Reserved.
-/// https://www.opsive.com
-/// ---------------------------------------------
+﻿using UnityEngine;
 
 namespace Opsive.UltimateCharacterController.Character.Abilities
 {
-    using UnityEngine;
-
     /// <summary>
     /// Moves with the specified object. See this page for more info on the setup required:
     /// https://opsive.com/support/documentation/ultimate-character-controller/character/abilities/included-abilities/move-with-object/

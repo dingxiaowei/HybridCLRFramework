@@ -4,14 +4,14 @@
 /// https://www.opsive.com
 /// ---------------------------------------------
 
+using UnityEngine;
+using Opsive.UltimateCharacterController.Character;
+using Opsive.UltimateCharacterController.Events;
+using Opsive.UltimateCharacterController.Utility;
+using Opsive.UltimateCharacterController.StateSystem;
+
 namespace Opsive.UltimateCharacterController.Camera
 {
-    using Opsive.Shared.Events;
-    using Opsive.Shared.Game;
-    using Opsive.UltimateCharacterController.Character;
-    using Opsive.UltimateCharacterController.StateSystem;
-    using UnityEngine;
-
     /// <summary>
     /// The AimAssist component allows for the camera and character to automatically to face the specified target.
     /// </summary>
@@ -156,7 +156,6 @@ namespace Opsive.UltimateCharacterController.Camera
         {
             if (force > m_BreakForce) {
                 m_Target = null;
-                m_SwitchingTargets = false;
             }
         }
 
