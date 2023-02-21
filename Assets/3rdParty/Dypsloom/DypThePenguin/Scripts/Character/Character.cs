@@ -20,7 +20,7 @@ namespace Dypsloom.DypThePenguin.Scripts.Character
     public class Character : MonoBehaviour
     {
         public event Action OnDie;
-        
+
         [Tooltip("The character speed in units/second.")]
         [SerializeField] protected float m_Speed = 1f;
         [Tooltip("The gravity.")]
@@ -71,9 +71,9 @@ namespace Dypsloom.DypThePenguin.Scripts.Character
         public Rigidbody Rigidbody => m_Rigidbody;
         public Animator Animator => m_Animator;
         public CharacterController CharacterController => m_CharacterController;
-        
+
         public ICharacterInput CharacterInput => m_CharacterInput;
-        public IDamageable  CharacterDamageable => m_CharacterDamageable;
+        public IDamageable CharacterDamageable => m_CharacterDamageable;
         public ICharacterMover CharacterMover => m_CharacterMover;
         public ICharacterAnimator CharacterAnimator => m_CharacterAnimator;
         public Inventory Inventory => m_Inventory;
@@ -99,7 +99,7 @@ namespace Dypsloom.DypThePenguin.Scripts.Character
 
             AssignCharacterControllers();
         }
-        
+
         /// <summary>
         /// Assign the controllers for your character.
         /// </summary>
@@ -110,22 +110,25 @@ namespace Dypsloom.DypThePenguin.Scripts.Character
             m_CharacterAnimator = new CharacterAnimator(this);
             m_CharacterInput = new CharacterInput(this);
         }
-        
+
         /// <summary>
         /// Tick all the properties which needs to update every frame.
         /// </summary>
         protected virtual void Update()
         {
-            if (m_CharacterController.isGrounded ) {
+            if (m_CharacterController.isGrounded)
+            {
                 IsGrounded = true;
-            } else if (
-                Physics.Raycast(transform.position + transform.up*0.5f, -1f*transform.up, out var hit,
-                    m_GroundRaycastLength+0.5f, int.MaxValue , QueryTriggerInteraction.Ignore)) {
-                if (m_CharacterMover.IsJumping == false) {
+            }
+            else if (Physics.Raycast(transform.position + transform.up * 0.5f, -1f * transform.up, out var hit, m_GroundRaycastLength + 0.5f, int.MaxValue, QueryTriggerInteraction.Ignore))
+            {
+                if (m_CharacterMover.IsJumping == false)
+                {
                     IsGrounded = true;
-                } else {
                 }
-               
+                else
+                {
+                }
             }
 
             m_CharacterMover.Tick();
@@ -137,32 +140,35 @@ namespace Dypsloom.DypThePenguin.Scripts.Character
         /// Move objects when the character controller hits a collider.
         /// </summary>
         /// <param name="hit">The controller collider hit object.</param>
-        protected virtual void  OnControllerColliderHit (ControllerColliderHit hit)
+        protected virtual void OnControllerColliderHit(ControllerColliderHit hit)
         {
             var body = hit.collider.attachedRigidbody;
- 
+
             // no rigidbody
             if (body == null || body.isKinematic) { return; }
- 
+
             Vector3 force;
             // We use gravity and weight to push things down, we use
             // our velocity and push power to push things other directions
-            if (hit.moveDirection.y < -0.3) {
-                force = (new Vector3 (0.1f, -0.5f, 0.1f) + hit.controller.velocity) * m_Rigidbody.mass;
-            } else {
+            if (hit.moveDirection.y < -0.3)
+            {
+                force = (new Vector3(0.1f, -0.5f, 0.1f) + hit.controller.velocity) * m_Rigidbody.mass;
+            }
+            else
+            {
                 force = m_CharacterMover.CharacterInputMovement * m_PushPower;
             }
- 
+
             // Apply the push
             body.AddForceAtPosition(force, hit.point);
         }
-        
+
         /// <summary>
         /// Make the character die.
         /// </summary>
         public virtual void Die()
         {
-            if(m_IsDead || m_DeathTask != null){return;}
+            if (m_IsDead || m_DeathTask != null) { return; }
             m_DeathTask = ScheduleDeathRespawn();
         }
 
@@ -174,11 +180,11 @@ namespace Dypsloom.DypThePenguin.Scripts.Character
         {
             CharacterAnimator.Die(true);
             m_IsDead = true;
-            
+
             await Task.Delay(1100);
             m_DeathEffects?.SetActive(true);
 
-            await Task.Delay((int)(m_RespawnDelay*1000f)-1600);
+            await Task.Delay((int)(m_RespawnDelay * 1000f) - 1600);
             gameObject.SetActive(false);
             OnDie?.Invoke();
 
@@ -195,7 +201,7 @@ namespace Dypsloom.DypThePenguin.Scripts.Character
             m_DeathEffects?.SetActive(false);
             CharacterAnimator.Die(false);
             m_CharacterDamageable.Heal(int.MaxValue);
-            transform.position = m_SpawnTransform != null ? m_SpawnTransform.position : new Vector3(0,1,0);
+            transform.position = m_SpawnTransform != null ? m_SpawnTransform.position : new Vector3(0, 1, 0);
             gameObject.SetActive(true);
             m_IsDead = false;
         }

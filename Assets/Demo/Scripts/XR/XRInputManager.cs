@@ -3,8 +3,10 @@ using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class XRInputManager : MonoSingleton<XRInputManager>
+public class XRInputManager : MonoBehaviour
 {
+    public static XRInputManager Instance;
+
     //◊Û”““°∏À
     public XRController LeftController;
     public XRController RightController;
@@ -35,6 +37,11 @@ public class XRInputManager : MonoSingleton<XRInputManager>
     private float normalXPressTime = 0;
     private bool normalYDownState = false;
     private float normalYPressTime = 0;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {

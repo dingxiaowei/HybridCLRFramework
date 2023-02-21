@@ -14,17 +14,17 @@ public class RpgLitLoader : MonoBehaviour
 
     void OnMoveStart()
     {
-        Debug.Log("OnMoveStart");
+        //Debug.Log("OnMoveStart");
     }
 
     void OnMoving(Vector2 vector2Move)
     {
-        Debug.Log($"OnMoving  x:{vector2Move.x} y:{vector2Move.y}");
+        //Debug.Log($"OnMoving  x:{vector2Move.x} y:{vector2Move.y}");
     }
 
     void OnMoveEnd()
     {
-        Debug.Log("OnMoveEnd");
+        //Debug.Log("OnMoveEnd");
     }
 
     private void OnDestroy()

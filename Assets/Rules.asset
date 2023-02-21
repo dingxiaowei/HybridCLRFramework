@@ -360,6 +360,31 @@ MonoBehaviour:
     bundle: 
     id: 0
     groupBy: 3
+  - name: TestPrefabs.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: TestHybridCLR.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: Assets/Prefabs/ActDemoLoader.prefab
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/ActDemo/Prefabs/ActDemoLoader.prefab
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/ActDemo/Prefabs/Penguin.prefab
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 2
   patches:
   - name: Splash
     assets:
@@ -378,6 +403,8 @@ MonoBehaviour:
     - Assets/Demo/TestPrefabs/Cube1.prefab
     - Assets/Demo/UI/Sprites/Async2Sync.png
     - Assets/Prefabs/TestHybridCLR.prefab
+    - Assets/Prefabs/ActDemoLoader.prefab
+    - Assets/Demo/ActDemo/Prefabs/ActDemoLoader.prefab
   - name: Additive2
     assets:
     - Assets/Demo/Scenes/Additive2.unity
@@ -409,7 +436,9 @@ MonoBehaviour:
   - name: scenario
     assets: []
   - name: ActDemo
-    assets: []
+    assets:
+    - Assets/Demo/ActDemo/Prefabs/Penguin.prefab
+    - Assets/Demo/ActDemo/Prefabs/ActDemoLoader.prefab
   bundles:
   - assetBundleName: assets_demo_ui_prefabs_levelscreen.ab
     assetNames:
