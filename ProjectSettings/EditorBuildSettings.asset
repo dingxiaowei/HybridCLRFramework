@@ -51,13 +51,6 @@ EditorBuildSettings:
     path: Assets/3rdParty/AVProVideo/Demos/Scenes/15_Demo_Skybox.unity
     guid: 3ea1c09f37cfb714ea4496419f7a3050
   - enabled: 1
-    path: Assets/3rdParty/CombatDesigner/Examples/2.5D Platform Starter/2.5D Platform
-      Starter.unity
-    guid: c119b5fbcf3ffe849aa70141a301e877
-  - enabled: 1
-    path: Assets/3rdParty/CombatDesigner/Examples/3rd Person Starter/3rd Person Starter.unity
-    guid: 05d5e8d62c46f2446a665f569c67bb2c
-  - enabled: 1
     path: Assets/3rdParty/Dotween/DOTweenPro Examples/DOTweenAnimation_Advanced.unity
     guid: a5f7a56d339da84449899ecf95fbe33d
   - enabled: 1
@@ -66,6 +59,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/3rdParty/Dotween/DOTweenPro Examples/DOTweenPath.unity
     guid: a351b59ca54a0bc4083c35844da13a61
+  - enabled: 1
+    path: Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Demo.unity
+    guid: 4819567f1d7824848ae3977a278d7384
   - enabled: 1
     path: Assets/3rdParty/Feel/FeelDemos/Barbarians/FeelBarbarians.unity
     guid: 1b75a629da2b33344afddc7868b6b810
@@ -208,8 +204,8 @@ EditorBuildSettings:
     path: Assets/3rdParty/JoyStick/JoyStick.unity
     guid: 001501a279f8efd44af652668fdf846f
   - enabled: 1
-    path: Assets/3rdParty/Opsive/UltimateCharacterController/Demo/UFPSDemo.unity
-    guid: 149c5e3c4c8027a42ab7284fc6b73151
+    path: Assets/3rdParty/Opsive/UltimateCharacterController/Demo/Demo.unity
+    guid: 31d1eaee4ded80943a71f8a940d5f2cd
   - enabled: 1
     path: Assets/ActionRPGKit/ExampleScene/BeakVillage.unity
     guid: 44179f95b77711743b11dd2ea60ab3fc
@@ -280,16 +276,6 @@ EditorBuildSettings:
     path: Assets/HotUpdate/UnityWebSocket/Demo/WebSocketDemo.unity
     guid: 2bd214e0b50d1bb41a119a24fecefce9
   - enabled: 1
-    path: Assets/Plugins/Sirenix/Demos/Attributes Overview/Attributes Overview.unity
-    guid: 49a7e079b4a0c494d86c5da91a0f8385
-  - enabled: 1
-    path: Assets/Plugins/Sirenix/Demos/Custom Attribute Processors/Custom Attribute
-      Processors.unity
-    guid: 2883f4df2ebd29444b8ed69b6ebcd8dd
-  - enabled: 1
-    path: Assets/Plugins/Sirenix/Demos/Custom Drawers/Custom Drawers.unity
-    guid: eff1fe28f11c1fa43a4019748a284cb0
-  - enabled: 1
     path: Assets/Scenes/ActDemo.unity
     guid: ab58cd6113e3d29489d85125c65ca63a
   - enabled: 1
@@ -310,6 +296,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/TestCase/TestObjectPool.unity
     guid: 3603f4c12956bfc4d8f60d20f8496ec9
-  m_configObjects:
-    Unity.XR.PXR.Settings: {fileID: 11400000, guid: 24ea628e29437a549ab81866034be097, type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 6c1d1b9db0a19e842b762274c6cfca1a, type: 2}
+  m_configObjects: {}

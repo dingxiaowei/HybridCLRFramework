@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80df9db708850fa40b2240c550fe1245, type: 3}
+  m_Name: PickAxe
+  m_EditorClassIdentifier: 
+  m_Icon: {fileID: 21300000, guid: e4b199298be7a0843bc394c7c006002c, type: 3}
+  m_Unique: 1
+  m_ItemPrefab: {fileID: 4356798978997016347, guid: 4308d1772f84bef41896a70d9e7bf185,
+    type: 3}
+  m_Description: Dyp's trusty pickaxe. It may be used to break metalic objects
