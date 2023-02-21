@@ -18,11 +18,19 @@ public class XRInputManager : MonoBehaviour
     public Action<float> OnLeftTriggerEvent;
     public Action<float> OnRightTriggerEvent;
     public Action OnAButtonClick;
+    public Action OnAButtonDown;
+    public Action OnAButtonUp;
     public Action OnAButtonLongClick;
+    public Action OnBButtonDown;
+    public Action OnBButtonUp;
     public Action OnBButtonClick;
     public Action OnBButtonLongClick;
+    public Action OnXButtonDown;
+    public Action OnXButtonUp;
     public Action OnXButtonClick;
     public Action OnXButtonLongClick;
+    public Action OnYButtonDown;
+    public Action OnYButtonUp;
     public Action OnYButtonClick;
     public Action OnYButtonLongClick;
     //设置长按按钮的检测时间
@@ -88,6 +96,7 @@ public class XRInputManager : MonoBehaviour
             {
                 Debug.Log("按键按下了主键A");
                 OnAButtonClick?.Invoke();
+                OnAButtonDown?.Invoke();
                 normalAPressTime = Time.realtimeSinceStartup;
             }
             if (normalAPressTime != 0 && (Time.realtimeSinceStartup - normalAPressTime) > LongPressTime)
@@ -99,6 +108,10 @@ public class XRInputManager : MonoBehaviour
         }
         else
         {
+            if (normalADownState)
+            {
+                OnAButtonUp?.Invoke();
+            }
             normalADownState = false;
             normalAPressTime = 0;
         }
@@ -110,6 +123,7 @@ public class XRInputManager : MonoBehaviour
             {
                 Debug.Log("按键按下了主键B");
                 OnBButtonClick?.Invoke();
+                OnBButtonDown?.Invoke();
                 normalBPressTime = Time.realtimeSinceStartup;
             }
             if (normalBPressTime != 0 && (Time.realtimeSinceStartup - normalBPressTime) > LongPressTime)
@@ -121,6 +135,10 @@ public class XRInputManager : MonoBehaviour
         }
         else
         {
+            if (normalBDownState)
+            {
+                OnBButtonUp?.Invoke();
+            }
             normalBDownState = false;
             normalBPressTime = 0;
         }
@@ -131,6 +149,7 @@ public class XRInputManager : MonoBehaviour
             {
                 Debug.Log("按键按下了主键X");
                 OnXButtonClick?.Invoke();
+                OnXButtonDown?.Invoke();
                 normalXPressTime = Time.realtimeSinceStartup;
             }
             if (normalXPressTime != 0 && (Time.realtimeSinceStartup - normalXPressTime) > LongPressTime)
@@ -142,6 +161,10 @@ public class XRInputManager : MonoBehaviour
         }
         else
         {
+            if (normalXDownState)
+            {
+                OnXButtonUp?.Invoke();
+            }
             normalXDownState = false;
             normalXPressTime = 0;
         }
@@ -152,6 +175,7 @@ public class XRInputManager : MonoBehaviour
             {
                 Debug.Log("按键按下了主键Y");
                 OnYButtonClick?.Invoke();
+                OnYButtonDown?.Invoke();
                 normalYPressTime = Time.realtimeSinceStartup;
             }
             if (normalYPressTime != 0 && (Time.realtimeSinceStartup - normalYPressTime) > LongPressTime)
@@ -163,6 +187,10 @@ public class XRInputManager : MonoBehaviour
         }
         else
         {
+            if (normalYDownState)
+            {
+                OnYButtonUp?.Invoke();
+            }
             normalYDownState = false;
             normalYPressTime = 0;
         }

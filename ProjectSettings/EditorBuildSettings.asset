@@ -204,9 +204,6 @@ EditorBuildSettings:
     path: Assets/3rdParty/JoyStick/JoyStick.unity
     guid: 001501a279f8efd44af652668fdf846f
   - enabled: 1
-    path: Assets/3rdParty/Opsive/UltimateCharacterController/Demo/Demo.unity
-    guid: 31d1eaee4ded80943a71f8a940d5f2cd
-  - enabled: 1
     path: Assets/ActionRPGKit/ExampleScene/BeakVillage.unity
     guid: 44179f95b77711743b11dd2ea60ab3fc
   - enabled: 1
@@ -296,4 +293,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/TestCase/TestObjectPool.unity
     guid: 3603f4c12956bfc4d8f60d20f8496ec9
-  m_configObjects: {}
+  m_configObjects:
+    Unity.XR.PXR.Settings: {fileID: 11400000, guid: 24ea628e29437a549ab81866034be097,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 6c1d1b9db0a19e842b762274c6cfca1a,
+      type: 2}

@@ -54,44 +54,47 @@ namespace Dypsloom.DypThePenguin.Scripts.Character
         /// </summary>
         public void Tick()
         {
-            if (m_Character.IsGrounded) {
-                
-                if (m_IsJumping) {
+            if (m_Character.IsGrounded)
+            {
+                if (m_IsJumping)
+                {
                     RemoveExternalMover(m_JumpForceMover);
                     m_IsJumping = false;
                 }
 
-                if (m_Character.CharacterInput.Jump) {
+                if (m_Character.CharacterInput.Jump)
+                {
                     m_Character.IsGrounded = false;
                     m_IsJumping = true;
                     m_JumpForceMover.StartJump(m_Character.JumpForce, m_Character.JumpFallOff);
                     AddExternalMover(m_JumpForceMover);
                 }
 
-                if (m_Movement.y > c_NoVerticalMovementOffset) { m_GravityMovement = new Vector3(0, 0f, 0); } else {
+                if (m_Movement.y > c_NoVerticalMovementOffset) { m_GravityMovement = new Vector3(0, 0f, 0); }
+                else
+                {
                     m_GravityMovement = new Vector3(0, c_StickyGravity, 0);
                 }
 
                 m_WasGrounded = true;
-            } else {
+            }
+            else
+            {
                 if (m_WasGrounded) { m_GravityMovement = new Vector3(0, c_StartFallGravity, 0); }
 
                 m_GravityMovement.y -= m_Character.Gravity * Time.deltaTime;
                 m_WasGrounded = false;
             }
 
-
-            var movementInput = m_Character.IsDead
-                ? Vector3.zero
-                : new Vector3(m_Character.CharacterInput.Horizontal, 0, m_Character.CharacterInput.Vertical);
-
+            var movementInput = m_Character.IsDead ? Vector3.zero : new Vector3(m_Character.CharacterInput.Horizontal, 0, m_Character.CharacterInput.Vertical);
             var movementRelativeCamera = m_Character.CharacterCamera.transform.TransformDirection(movementInput);
             movementRelativeCamera = new Vector3(movementRelativeCamera.x, 0, movementRelativeCamera.z).normalized;
 
             m_CharacterInputMovement = m_Character.Speed * movementRelativeCamera;
 
             Vector3 externalMovement = Vector3.zero;
-            for (int i = m_ExternalMovers.Count - 1; i >= 0; i--) {
+            for (int i = m_ExternalMovers.Count - 1; i >= 0; i--)
+            {
                 externalMovement += m_ExternalMovers[i].Movement;
                 m_ExternalMovers[i].Tick();
             }

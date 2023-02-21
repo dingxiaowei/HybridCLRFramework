@@ -15,7 +15,7 @@ namespace Dypsloom.DypThePenguin.Scripts.Character
     public class CharacterInput : ICharacterInput
     {
         protected Character m_Character;
-        
+
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -24,11 +24,43 @@ namespace Dypsloom.DypThePenguin.Scripts.Character
         {
             m_Character = character;
         }
+        public float FirstHorizontal = 0f;
+        public float Horizontal
+        {
+            get
+            {
+                if (FirstHorizontal != 0)
+                {
+                    return FirstHorizontal;
+                }
+                return Input.GetAxisRaw("Horizontal");
+            }
+        }
+        public float FristVertical = 0f;
+        public float Vertical
+        {
+            get
+            {
+                if (FristVertical != 0)
+                {
+                    return FristVertical;
+                }
+                return Input.GetAxisRaw("Vertical");
+            }
+        }
+        public bool FirstJump = false;
 
-        public float Horizontal => Input.GetAxisRaw("Horizontal");
-        public float Vertical => Input.GetAxisRaw("Vertical");
-        public bool Jump => Input.GetButtonDown("Jump");
-        public bool Interact => (Input.GetKeyDown(KeyCode.E) ||Input.GetButtonDown("Fire2"));
+        public bool Jump
+        {
+            get
+            {
+                if (FirstJump)
+                    return FirstJump;
+                return Input.GetButtonDown("Jump");
+            }
+        }
+
+        public bool Interact => (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Fire2"));
 
         /// <summary>
         /// The input to use an item action.
@@ -40,7 +72,8 @@ namespace Dypsloom.DypThePenguin.Scripts.Character
         {
             if (usableItemObject == null || usableItemObject.Item == null) { return false; }
 
-            if (actionIndex == 0) {
+            if (actionIndex == 0)
+            {
                 return Input.GetButtonDown("Fire1");
             }
 

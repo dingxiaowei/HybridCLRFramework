@@ -108,7 +108,7 @@ namespace Dypsloom.DypThePenguin.Scripts.Character
             m_CharacterMover = new CharacterMover(this);
             m_CharacterRotator = new CharacterRotator(this);
             m_CharacterAnimator = new CharacterAnimator(this);
-            m_CharacterInput = new CharacterInput(this);
+            m_CharacterInput = new CharacterInputs(this);
         }
 
         /// <summary>
