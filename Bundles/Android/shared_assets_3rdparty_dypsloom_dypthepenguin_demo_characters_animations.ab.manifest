@@ -1,0 +1,32 @@
+ManifestFileVersion: 0
+CRC: 3336364279
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 28f1894c974db92d63cb38e0a5e67a08
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: c834f84159016542e4c4af5cdd547ba4
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_idle.fbx
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/Dyp_walk_01.anim
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_slashAttack.fbx
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_hit.fbx
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_death.fbx
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_jump.fbx
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/Character Animator.controller
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_interact.fbx
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_throw.fbx
+Dependencies:
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_models.ab

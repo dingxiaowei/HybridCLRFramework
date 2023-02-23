@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 407322777
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: db5212f347168a9af55b99b207380bfe
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: bb1c98fd3fd2df8fe937870a85fedf92
+HashAppended: 0
+ClassTypes:
+- Class: 850595691
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/Scenes/SplashSettings.lighting
+- Assets/Demo/Scenes/LevelSettings.lighting
+Dependencies: []

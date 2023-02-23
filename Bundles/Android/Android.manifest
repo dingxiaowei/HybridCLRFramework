@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 3103049802
+CRC: 1891707263
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -143,12 +143,14 @@ AssetBundleManifest:
         Dependency_0: shared_assets_demo_material.ab
     Info_35:
       Name: assets_demo_scenes_level.ab
-      Dependencies: {}
+      Dependencies:
+        Dependency_0: assets_demo_scenes.ab
     Info_36:
       Name: assets_demo_scenes_splash.ab
       Dependencies:
         Dependency_0: assets_demo_ui_animations_splashscreen.ab
-        Dependency_1: shared_assets_demo.ab
+        Dependency_1: assets_demo_scenes.ab
+        Dependency_2: shared_assets_demo.ab
     Info_37:
       Name: assets_demo_scenes_async2sync.ab
       Dependencies: {}
@@ -201,11 +203,90 @@ AssetBundleManifest:
       Name: assets_prefabs_testhybridclr.ab
       Dependencies: {}
     Info_51:
+      Name: assets_demo_ui_atlas_messagebox.ab
+      Dependencies:
+        Dependency_0: assets_demo_ui_sprites_messagebox_tips.ab
+        Dependency_1: assets_demo_ui_sprites_messagebox_btn_button04_yellow.ab
+        Dependency_2: assets_demo_ui_sprites_messagebox_titleline_left.ab
+        Dependency_3: assets_demo_ui_sprites_messagebox_titleline_right.ab
+        Dependency_4: assets_demo_ui_sprites_messagebox_btn_button04_n.ab
+    Info_52:
+      Name: assets_demo_ui_atlas_title.ab
+      Dependencies:
+        Dependency_0: assets_demo_ui_sprites_title_title2_bg.ab
+        Dependency_1: assets_demo_ui_sprites_title_btn_user_n.ab
+        Dependency_2: assets_demo_ui_sprites_title_btn_user_h.ab
+        Dependency_3: assets_demo_ui_sprites_title_progress1.ab
+        Dependency_4: assets_demo_ui_sprites_title_bg_progress.ab
+        Dependency_5: assets_demo_ui_sprites_title_progress2.ab
+    Info_53:
+      Name: assets_demo_ui_atlas_game.ab
+      Dependencies:
+        Dependency_0: assets_demo_ui_sprites_game_dropdown_btn_n.ab
+        Dependency_1: assets_demo_ui_sprites_game_slider2_bg.ab
+        Dependency_2: assets_demo_ui_sprites_game_dropdown_menu_bg.ab
+        Dependency_3: assets_demo_ui_sprites_game_slider2.ab
+        Dependency_4: assets_demo_ui_sprites_game_dropdown_bg_n.ab
+        Dependency_5: assets_demo_ui_sprites_game_checkbox_select.ab
+        Dependency_6: assets_demo_ui_sprites_game_btn_tab1_n.ab
+        Dependency_7: assets_demo_ui_sprites_game_bg_itemintrudction.ab
+        Dependency_8: assets_demo_ui_sprites_game_dropdown_menu.ab
+    Info_54:
+      Name: assets_prefabs_tv.ab
+      Dependencies:
+        Dependency_0: children_assets_prefabs_tv.ab
+    Info_55:
+      Name: assets_demo_scenes.ab
+      Dependencies: {}
+    Info_56:
+      Name: assets_demo_actdemo_prefabs_actdemoloader.ab
+      Dependencies: {}
+    Info_57:
+      Name: assets_demo_actdemo_prefabs_penguin.ab
+      Dependencies:
+        Dependency_0: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_animations.ab
+        Dependency_1: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_effects.ab
+        Dependency_2: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_material.ab
+        Dependency_3: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_models.ab
+    Info_58:
       Name: children_assets_scenes_testhybridclr.ab
       Dependencies: {}
-    Info_52:
+    Info_59:
+      Name: children_assets_prefabs_tv.ab
+      Dependencies:
+        Dependency_0: shaders.ab
+    Info_60:
       Name: shared_assets_demo_material.ab
       Dependencies: {}
-    Info_53:
+    Info_61:
       Name: shared_assets_demo.ab
+      Dependencies: {}
+    Info_62:
+      Name: assets_scenes_actdemo.ab
+      Dependencies:
+        Dependency_0: assets_demo_actdemo_prefabs_penguin.ab
+        Dependency_1: children_assets_scenes_actdemo.ab
+    Info_63:
+      Name: children_assets_scenes_actdemo.ab
+      Dependencies: {}
+    Info_64:
+      Name: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_animations.ab
+      Dependencies:
+        Dependency_0: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_models.ab
+    Info_65:
+      Name: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_textures.ab
+      Dependencies: {}
+    Info_66:
+      Name: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_effects.ab
+      Dependencies: {}
+    Info_67:
+      Name: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_material.ab
+      Dependencies:
+        Dependency_0: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_textures.ab
+        Dependency_1: shared_shaders.ab
+    Info_68:
+      Name: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_models.ab
+      Dependencies: {}
+    Info_69:
+      Name: shared_shaders.ab
       Dependencies: {}

@@ -37,3 +37,13 @@ Build-Mac
 /HybridCLRData
 /Packages/com.focus-creative-games.hybridclr_unity
 /exe
+/Server/src/Samples/ConsoleApp/obj
+/Server/src/Samples/ConsoleApp/bin
+/Server/src/Fleck/obj
+/Server/src/Fleck/bin
+/Server/src/Fleck.Tests/obj
+/Server/src/.vs/Fleck
+/*.log
+/Server/src/Fleck.Tests/bin
+/Assets/StreamingAssets/build_info
+/Server/src/.vs/ProjectEvaluation

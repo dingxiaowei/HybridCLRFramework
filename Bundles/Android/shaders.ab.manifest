@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1573267859
+CRC: 513317147
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 263c95c28e6dabc39d15f8ffe0b35f3d
+    Hash: ad911f83210a4a7d931efe31d91de2b7
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 10a6a558690295dadb3dd990eda0821a
+    Hash: 5651999fa58938ac55fc849c3d2539bc
 HashAppended: 0
 ClassTypes:
 - Class: 21
@@ -15,6 +15,7 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Demo/Shaders/UIBlur.mat
+- Assets/3rdParty/AVProVideo/Resources/Shaders/AVProVideo-Lit-Diffuse.shader
 - Assets/Demo/Shaders/SimpleGrabPassBlur.shader
+- Assets/Demo/Shaders/UIBlur.mat
 Dependencies: []

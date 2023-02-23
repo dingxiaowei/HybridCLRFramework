@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 935272293
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c21bbc4ac3d1a20bf66b7d5185a74fc8
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 68c985bf88fecc38b460cdb825182138
+HashAppended: 0
+ClassTypes:
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Shaders/Shader_Cloud.shader
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Shaders/Shader_Outline.shader
+Dependencies: []

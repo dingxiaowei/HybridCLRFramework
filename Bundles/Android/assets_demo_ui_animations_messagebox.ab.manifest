@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2808955596
+CRC: 3672784941
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: d1fd431232e4f709e245b93ffe79c207
+    Hash: 6642c9a9416b9f1d59ecf383bdcac619
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 31a8e35008e8aab720d0136425be6fad
+    Hash: 976262f0cce69b6c33d86a53dfc198ce
 HashAppended: 0
 ClassTypes:
 - Class: 74
@@ -17,6 +17,6 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Demo/UI/Animations/MessageBox.controller
 - Assets/Demo/UI/Animations/MessageBox.anim
+- Assets/Demo/UI/Animations/MessageBox.controller
 Dependencies: []

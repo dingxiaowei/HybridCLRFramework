@@ -1,24 +1,24 @@
 ManifestFileVersion: 0
-CRC: 3057471580
+CRC: 3179454730
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: ee0c17b3f4c3b27e6ffc2a46a982df77
+    Hash: 17299c8e36eaabdd8f1039857ea7de69
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 5853c542594233471e3f6be849378d9a
+    Hash: b93285178733bf573e5369f26adb6d2b
 HashAppended: 0
 ClassTypes:
 - Class: 1
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 136483278323b684baff43aeed8f8064, type: 3}
+  Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  Script: {fileID: 11500000, guid: 136483278323b684baff43aeed8f8064, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 128
@@ -29,9 +29,15 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 224
   Script: {instanceID: 0}
-SerializeReferenceClassIdentifiers: []
+SerializeReferenceClassIdentifiers:
+- AssemblyName: UnityEngine.CoreModule
+  ClassName: UnityEngine.Events.PersistentCallGroup
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.FontData
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
 Assets:
 - Assets/Demo/UI/Prefabs/Children.prefab
 Dependencies:
-- E:/test/HybridCLRFramework/Bundles/Android/assets_demo_ui_fonts_fzxzzb.ab
-- E:/test/HybridCLRFramework/Bundles/Android/assets_demo_ui_prefabs_children2.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_fonts_fzxzzb.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_prefabs_children2.ab

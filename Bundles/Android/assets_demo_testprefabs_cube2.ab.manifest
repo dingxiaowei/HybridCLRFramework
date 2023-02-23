@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 740017114
+CRC: 679554793
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 3ca7d7c3f5de3889257c3032bd62eb7e
+    Hash: ef574fa3d1a436e11cda6ecb64edc8ad
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 7652f69dff3dcd0741269161f69220a7
+    Hash: 7d1e0093d0592ca7550333bbf0c8f406
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -27,4 +27,4 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/TestPrefabs/Cube2.prefab
 Dependencies:
-- E:/test/HybridCLRFramework/Bundles/Android/shared_assets_demo_material.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/shared_assets_demo_material.ab

@@ -1,0 +1,73 @@
+ManifestFileVersion: 0
+CRC: 3039410417
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 5e245f1d82f8527feee905fbde4af4cd
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 87561d46e1d1d3d10dc34a6ee51a2a6a
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 96
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: d94070f293f44aa698560678c976cbb5, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d0bc7b21e5604533b4caa37724e9ecf8, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_idle.fbx
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Textures/T_bag.png
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Mat_Cloud.mat
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/Trail.mat
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/Dyp_walk_01.anim
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Mat_bag.mat
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/DizzyEffect.prefab
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Models/Dyp.fbx
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Mat_penguin.mat
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_slashAttack.fbx
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_hit.fbx
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_death.fbx
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/Star_white.png
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_jump.fbx
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/HealEffect.prefab
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/StarWithTrail.prefab
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Textures/T_Dyp.png
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/Character Animator.controller
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_interact.fbx
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_throw.fbx
+Dependencies:
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/shaders.ab

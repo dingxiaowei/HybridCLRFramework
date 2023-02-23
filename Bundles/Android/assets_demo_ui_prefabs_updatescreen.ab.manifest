@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 117389559
+CRC: 761369626
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 64c0537e0ded6c96627a78d9615e9b6b
+    Hash: f4f5305c112fd1a7822896b8ef9ecdfe
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 365263f653171a9a043efc4513df13d7
+    Hash: f8185823cc44f08b884fc2676990131b
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -22,21 +22,21 @@ ClassTypes:
 - Class: 95
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 362f8f015b082d44d88a66d10ad9c029, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 4bb38db1beff8c84c8a4abc0aacfb2d1, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4bb38db1beff8c84c8a4abc0aacfb2d1, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 362f8f015b082d44d88a66d10ad9c029, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 128
@@ -49,14 +49,36 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 224
   Script: {instanceID: 0}
-SerializeReferenceClassIdentifiers: []
+SerializeReferenceClassIdentifiers:
+- AssemblyName: UnityEngine.CoreModule
+  ClassName: UnityEngine.Events.ArgumentCache
+- AssemblyName: UnityEngine.CoreModule
+  ClassName: UnityEngine.Events.PersistentCallGroup
+- AssemblyName: UnityEngine.CoreModule
+  ClassName: UnityEngine.Events.PersistentListenerMode
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.AnimationTriggers
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.Button/ButtonClickedEvent
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.ColorBlock
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.FontData
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.Navigation
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.Slider/SliderEvent
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.SpriteState
 Assets:
 - Assets/Demo/UI/Prefabs/UpdateScreen.prefab
 Dependencies:
-- E:/test/HybridCLRFramework/Bundles/Android/assets_demo_ui_animations_start.ab
-- E:/test/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_backgrounds_bg_loadingpage.ab
-- E:/test/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_bg_progress.ab
-- E:/test/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_btn_user_n.ab
-- E:/test/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_progress1.ab
-- E:/test/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_progress2.ab
-- E:/test/HybridCLRFramework/Bundles/Android/shared_assets_demo.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_animations_start.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_backgrounds_bg_loadingpage.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_bg_progress.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_btn_user_n.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_progress1.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_progress2.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/shared_assets_demo.ab
