@@ -25,3 +25,20 @@ message UnitInfo
 	float Y = 3;
 	float Z = 4;
 }
+
+message Vec3Data
+{
+	float X = 1;
+	float Y = 2;
+	float Z = 3;
+}
+
+message CMoveData
+{
+    string UserId = 1;
+	Vec3Data Pos = 2;
+	Vec3Data Rotate = 3;
+	float MoveSpeed = 4;
+	float SyncDeltaTime = 5;
+	int32 ActionType = 6;
+}

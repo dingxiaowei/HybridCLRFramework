@@ -5,6 +5,16 @@ using UnityEngine;
 
 public static class ToolUtility
 {
+    public static string BytesToString(byte[] bytes)
+    {
+        return System.Text.Encoding.Default.GetString(bytes);
+    }
+
+    public static byte[] StringToBytes(string str)
+    {
+        return System.Text.Encoding.Default.GetBytes(str);
+    }
+
     /// <summary>
     /// 获取真正大小的录音
     /// </summary>

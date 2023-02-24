@@ -300,7 +300,6 @@ message QuitCommand{
 }
 
 message ClientMoveData{
-
   string userID=1;
   Vector3Data pos=2;
   Vector3Data rotate=3;
@@ -309,7 +308,6 @@ message ClientMoveData{
   Vector3Data global=6;
   float deltaTime=7;
   float realtimeSinceStartup=8;
-
 }
 
 
