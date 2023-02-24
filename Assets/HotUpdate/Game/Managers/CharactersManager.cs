@@ -43,7 +43,9 @@ namespace ActDemo
         {
             mainChar = character;
             //如果pico的事件改变  则改变输入的值
-            XRInputManager.Instance.OnRightPrimary2DAxisValueEvent += OnRight2DAxisValueChange;
+            XRInputManager.Instance.OnRightPrimary2DAxisValueEvent += On2DAxisValueChange;
+            JoyStickMove.Instance.onMoving += On2DAxisValueChange;
+            JoyStickMove.Instance.onMoveEnd += On2DAxisValueStop;
             XRInputManager.Instance.OnAButtonDown += OnJump;
             XRInputManager.Instance.OnAButtonUp += OnJumpReset;
 
@@ -59,12 +61,21 @@ namespace ActDemo
             };
         }
 
-        void OnRight2DAxisValueChange(Vector2 value)
+        void On2DAxisValueChange(Vector2 value)
         {
             if (mainChar)
             {
                 (mainChar.CharacterInput as CharacterInputs).keyCodeCharacterInput.FirstHorizontal = value.x;
                 (mainChar.CharacterInput as CharacterInputs).keyCodeCharacterInput.FristVertical = value.y;
+            }
+        }
+
+        void On2DAxisValueStop()
+        {
+            if (mainChar)
+            {
+                (mainChar.CharacterInput as CharacterInputs).keyCodeCharacterInput.FirstHorizontal = 0;
+                (mainChar.CharacterInput as CharacterInputs).keyCodeCharacterInput.FristVertical = 0;
             }
         }
 
@@ -88,6 +99,9 @@ namespace ActDemo
         {
             base.OnDestroy();
             OnMainPlayerLoadedEvent -= OnMainPlayerLoaded;
+            JoyStickMove.Instance.onMoving -= On2DAxisValueChange;
+            XRInputManager.Instance.OnRightPrimary2DAxisValueEvent -= On2DAxisValueChange;
+            JoyStickMove.Instance.onMoveEnd -= On2DAxisValueStop;
         }
     }
 }

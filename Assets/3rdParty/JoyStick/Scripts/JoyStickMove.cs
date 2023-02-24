@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 
 public class JoyStickMove : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    public static JoyStickMove Instance;
     public float maxRadius = 150;
     private RectTransform upperSprite;
     private Vector2 originAnchoredPosition;
@@ -20,6 +21,11 @@ public class JoyStickMove : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     public event OnRotat onRotat;
 
     private bool onMoveEndCanTrigger = false;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
