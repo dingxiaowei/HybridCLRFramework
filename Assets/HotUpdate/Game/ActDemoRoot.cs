@@ -67,19 +67,19 @@ public class ActDemoRoot : MonoBehaviour
             msg.Voice = VoiceManager.Instance.AudioClipByteString;
             NetworkManager.Instance.SendMsg((int)OuterOpcode.S2C_EnterMapResponse, msg);
         }
-        if (GUI.Button(new Rect(10, 280, 150, 50), "开始录音"))
+        if (GUI.Button(new Rect(210, 10, 150, 50), "开始录音"))
         {
             VoiceManager.Instance.BeginRecord();
         }
-        if (GUI.Button(new Rect(10, 370, 150, 50), "停止录音"))
+        if (GUI.Button(new Rect(210, 100, 150, 50), "停止录音"))
         {
             VoiceManager.Instance.StopRecord();
         }
-        if (GUI.Button(new Rect(10, 460, 150, 50), "播放录音"))
+        if (GUI.Button(new Rect(210, 190, 150, 50), "播放录音"))
         {
             VoiceManager.Instance.PlayRecord();
         }
-        if (GUI.Button(new Rect(10, 550, 150, 50), "发送录音"))
+        if (GUI.Button(new Rect(210, 270, 150, 50), "发送录音"))
         {
             var msg = new BroadCastVoice();
             msg.Voice = VoiceManager.Instance.AudioClipByteString;

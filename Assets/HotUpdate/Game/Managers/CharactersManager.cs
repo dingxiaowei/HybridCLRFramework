@@ -46,6 +46,17 @@ namespace ActDemo
             XRInputManager.Instance.OnRightPrimary2DAxisValueEvent += OnRight2DAxisValueChange;
             XRInputManager.Instance.OnAButtonDown += OnJump;
             XRInputManager.Instance.OnAButtonUp += OnJumpReset;
+
+            XRInputManager.Instance.OnBButtonDown += () => { VoiceManager.Instance.BeginRecord(); };
+            XRInputManager.Instance.OnBButtonUp += () =>
+            {
+                VoiceManager.Instance.StopRecord();
+                //VoiceManager.Instance.PlayRecord();
+                var msg = new Protoc.BroadCastVoice();
+                //msg.Voice = VoiceManager.Instance.AudioClipByteString;
+                NetworkManager.Instance.SendMsg<Protoc.BroadCastVoice>(msg);
+                NetworkManager.Instance.SendMsg((int)Protoc.OuterOpcode.BroadCastVoice, msg);
+            };
         }
 
         void OnRight2DAxisValueChange(Vector2 value)
