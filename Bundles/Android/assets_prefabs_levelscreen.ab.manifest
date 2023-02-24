@@ -6,7 +6,7 @@ Hashes:
     Hash: 2ef93666ff073ecf99b13f9d0a0c02b7
   TypeTreeHash:
     serializedVersion: 2
-    Hash: e5abe19b0aeb9931dada6237a92137ad
+    Hash: ec15457402aa8485fbc1542e66e2d12f
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -18,19 +18,19 @@ ClassTypes:
 - Class: 48
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: f4fb2f9813fdd4d4fae3c5f88ce588af, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 4bb38db1beff8c84c8a4abc0aacfb2d1, type: 3}
 - Class: 114
@@ -73,9 +73,9 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Prefabs/LevelScreen.prefab
 Dependencies:
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_backgrounds_bg_loadingpage.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_game_btn_tab1_n.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_messagebox_btn_button04_n.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_bg_progress.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_progress1.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_progress2.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_backgrounds_bg_loadingpage.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_game_btn_tab1_n.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_messagebox_btn_button04_n.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_bg_progress.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_progress1.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_progress2.ab

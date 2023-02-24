@@ -19,12 +19,12 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/UI/Atlas/Game.spriteatlasv2
 Dependencies:
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_game_bg_itemintrudction.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_game_btn_tab1_n.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_game_checkbox_select.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_game_dropdown_bg_n.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_game_dropdown_btn_n.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_game_dropdown_menu.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_game_dropdown_menu_bg.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_game_slider2.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_game_slider2_bg.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_game_bg_itemintrudction.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_game_btn_tab1_n.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_game_checkbox_select.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_game_dropdown_bg_n.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_game_dropdown_btn_n.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_game_dropdown_menu.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_game_dropdown_menu_bg.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_game_slider2.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_game_slider2_bg.ab

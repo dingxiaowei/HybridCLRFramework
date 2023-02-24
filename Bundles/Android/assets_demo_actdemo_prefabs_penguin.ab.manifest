@@ -3,7 +3,7 @@ CRC: 2892179504
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: c56ac50b5001f24eb9650195fad00218
+    Hash: c08e7fe57a2c3d737c5e972bb5d32f2a
   TypeTreeHash:
     serializedVersion: 2
     Hash: d8c09b60392572a0571a062a3bb2b43b
@@ -63,7 +63,7 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/ACTDemo/Prefabs/Penguin.prefab
 Dependencies:
-- D:/study/github/HybridCLRFramework/Bundles/Android/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_animations.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_models.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_effects.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_material.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_animations.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_models.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_effects.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_material.ab

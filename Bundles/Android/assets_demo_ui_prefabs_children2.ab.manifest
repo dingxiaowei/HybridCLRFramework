@@ -6,15 +6,15 @@ Hashes:
     Hash: a1e12b088875af81f1a42915cbc3bb03
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 6fe7d6294040bd7b0d3979e34fc5e237
+    Hash: b93285178733bf573e5369f26adb6d2b
 HashAppended: 0
 ClassTypes:
 - Class: 1
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
 - Class: 114
@@ -39,5 +39,5 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Demo/UI/Prefabs/Children2.prefab
 Dependencies:
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_fonts_fzxzzb.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_prefabs_children.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_fonts_fzxzzb.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_prefabs_children.ab

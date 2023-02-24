@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03142c330ced64e0ab46cddcd0484ab7, type: 3}
   m_Name: Rules
   m_EditorClassIdentifier: 
-  build: 96
+  build: 97
   major: 5
   minor: 1
   scenesFolders:
@@ -353,31 +353,6 @@ MonoBehaviour:
   - name: Assets/Scenes/ActDemo.unity
     group: 
     bundle: assets_scenes_actdemo.ab
-    id: 0
-    groupBy: 2
-  - name: Splash.unity
-    group: 
-    bundle: 
-    id: 0
-    groupBy: 3
-  - name: Level.unity
-    group: 
-    bundle: 
-    id: 0
-    groupBy: 3
-  - name: Assets/Demo/ActDemo/Prefabs/ActDemoLoader.prefab
-    group: 
-    bundle: 
-    id: 0
-    groupBy: 2
-  - name: ActDemo.unity
-    group: 
-    bundle: 
-    id: 0
-    groupBy: 3
-  - name: Assets/Demo/ActDemo/Prefabs/Penguin.prefab
-    group: 
-    bundle: 
     id: 0
     groupBy: 2
   patches:

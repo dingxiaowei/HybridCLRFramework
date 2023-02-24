@@ -19,9 +19,9 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/UI/Atlas/Title.spriteatlasv2
 Dependencies:
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_bg_progress.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_btn_user_h.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_btn_user_n.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_progress1.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_progress2.ab
-- D:/study/github/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_title2_bg.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_bg_progress.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_btn_user_h.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_btn_user_n.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_progress1.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_progress2.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_ui_sprites_title_title2_bg.ab
