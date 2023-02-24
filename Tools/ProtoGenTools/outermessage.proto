@@ -18,6 +18,11 @@ message S2C_EnterMap // IResponse
 	bytes Voice = 3;
 }
 
+message BroadCastVoice
+{
+	bytes Voice = 1;
+}
+
 message UnitInfo
 {
 	int64 UnitId  = 1;

@@ -79,6 +79,13 @@ public class ActDemoRoot : MonoBehaviour
         {
             VoiceManager.Instance.PlayRecord();
         }
+        if (GUI.Button(new Rect(10, 550, 150, 50), "发送录音"))
+        {
+            var msg = new BroadCastVoice();
+            msg.Voice = VoiceManager.Instance.AudioClipByteString;
+            //NetworkManager.Instance.SendMsg<BroadCastVoice>(msg);
+            NetworkManager.Instance.SendMsg((int)OuterOpcode.BroadCastVoice, msg);
+        }
     }
 
     private void Update()

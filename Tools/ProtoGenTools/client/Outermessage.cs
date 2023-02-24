@@ -28,18 +28,19 @@ namespace Protoc {
             "DQoFUnBjSWQYWiABKAUifQoMUzJDX0VudGVyTWFwEg0KBVJwY0lkGFogASgF",
             "Eg0KBUVycm9yGFsgASgFEg8KB01lc3NhZ2UYXCABKAkSDgoGVW5pdElkGAEg",
             "ASgDEh8KBVVuaXRzGAIgAygLMhAucHJvdG9jLlVuaXRJbmZvEg0KBVZvaWNl",
-            "GAMgASgMIjsKCFVuaXRJbmZvEg4KBlVuaXRJZBgBIAEoAxIJCgFYGAIgASgC",
-            "EgkKAVkYAyABKAISCQoBWhgEIAEoAiIrCghWZWMzRGF0YRIJCgFYGAEgASgC",
-            "EgkKAVkYAiABKAISCQoBWhgDIAEoAiKaAQoJQ01vdmVEYXRhEg4KBlVzZXJJ",
-            "ZBgBIAEoCRIdCgNQb3MYAiABKAsyEC5wcm90b2MuVmVjM0RhdGESIAoGUm90",
-            "YXRlGAMgASgLMhAucHJvdG9jLlZlYzNEYXRhEhEKCU1vdmVTcGVlZBgEIAEo",
-            "AhIVCg1TeW5jRGVsdGFUaW1lGAUgASgCEhIKCkFjdGlvblR5cGUYBiABKAVi",
-            "BnByb3RvMw=="));
+            "GAMgASgMIh8KDkJyb2FkQ2FzdFZvaWNlEg0KBVZvaWNlGAEgASgMIjsKCFVu",
+            "aXRJbmZvEg4KBlVuaXRJZBgBIAEoAxIJCgFYGAIgASgCEgkKAVkYAyABKAIS",
+            "CQoBWhgEIAEoAiIrCghWZWMzRGF0YRIJCgFYGAEgASgCEgkKAVkYAiABKAIS",
+            "CQoBWhgDIAEoAiKaAQoJQ01vdmVEYXRhEg4KBlVzZXJJZBgBIAEoCRIdCgNQ",
+            "b3MYAiABKAsyEC5wcm90b2MuVmVjM0RhdGESIAoGUm90YXRlGAMgASgLMhAu",
+            "cHJvdG9jLlZlYzNEYXRhEhEKCU1vdmVTcGVlZBgEIAEoAhIVCg1TeW5jRGVs",
+            "dGFUaW1lGAUgASgCEhIKCkFjdGlvblR5cGUYBiABKAViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Protoc.C2S_EnterMap), global::Protoc.C2S_EnterMap.Parser, new[]{ "RpcId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protoc.S2C_EnterMap), global::Protoc.S2C_EnterMap.Parser, new[]{ "RpcId", "Error", "Message", "UnitId", "Units", "Voice" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protoc.BroadCastVoice), global::Protoc.BroadCastVoice.Parser, new[]{ "Voice" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protoc.UnitInfo), global::Protoc.UnitInfo.Parser, new[]{ "UnitId", "X", "Y", "Z" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protoc.Vec3Data), global::Protoc.Vec3Data.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protoc.CMoveData), global::Protoc.CMoveData.Parser, new[]{ "UserId", "Pos", "Rotate", "MoveSpeed", "SyncDeltaTime", "ActionType" }, null, null, null, null)
@@ -607,6 +608,195 @@ namespace Protoc {
 
   }
 
+  public sealed partial class BroadCastVoice : pb::IMessage<BroadCastVoice>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<BroadCastVoice> _parser = new pb::MessageParser<BroadCastVoice>(() => new BroadCastVoice());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<BroadCastVoice> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Protoc.OutermessageReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public BroadCastVoice() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public BroadCastVoice(BroadCastVoice other) : this() {
+      voice_ = other.voice_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public BroadCastVoice Clone() {
+      return new BroadCastVoice(this);
+    }
+
+    /// <summary>Field number for the "Voice" field.</summary>
+    public const int VoiceFieldNumber = 1;
+    private pb::ByteString voice_ = pb::ByteString.Empty;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pb::ByteString Voice {
+      get { return voice_; }
+      set {
+        voice_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as BroadCastVoice);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(BroadCastVoice other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Voice != other.Voice) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Voice.Length != 0) hash ^= Voice.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Voice.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteBytes(Voice);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Voice.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteBytes(Voice);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Voice.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeBytesSize(Voice);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(BroadCastVoice other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Voice.Length != 0) {
+        Voice = other.Voice;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            Voice = input.ReadBytes();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            Voice = input.ReadBytes();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
   public sealed partial class UnitInfo : pb::IMessage<UnitInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -621,7 +811,7 @@ namespace Protoc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Protoc.OutermessageReflection.Descriptor.MessageTypes[2]; }
+      get { return global::Protoc.OutermessageReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -921,7 +1111,7 @@ namespace Protoc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Protoc.OutermessageReflection.Descriptor.MessageTypes[3]; }
+      get { return global::Protoc.OutermessageReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1184,7 +1374,7 @@ namespace Protoc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Protoc.OutermessageReflection.Descriptor.MessageTypes[4]; }
+      get { return global::Protoc.OutermessageReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

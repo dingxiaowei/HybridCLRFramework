@@ -123,6 +123,15 @@ namespace ActDemo
             PlayRecord(rclip);
         }
 
+        public void PlayRecord(Google.Protobuf.ByteString audio)
+        {
+            if (audio != null && !Google.Protobuf.ByteString.Empty.Equals(audio))
+            {
+                var audioClip = WavUtility.ToAudioClip(audio.ToByteArray());
+                PlayRecord(audioClip);
+            }
+        }
+
         public void PlayRecord()
         {
             if (recordedClip != null)

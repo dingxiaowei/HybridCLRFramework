@@ -6,11 +6,19 @@ namespace Protoc
     {
         public const int C2S_HeartBeatRequest = 1;
         public const int S2C_HeartBeatResponse = 2;
-        
+
         public const int C2S_EnterMapRequest = 101;
         public const int S2C_EnterMapResponse = 102;
+        public const int BroadCastVoice = 103;
     }
-    
+
+    [Message(OuterOpcode.BroadCastVoice)]
+    public partial class BroadCastVoice
+    {
+
+    }
+
+
     [Message(OuterOpcode.C2S_HeartBeatRequest)]
     public partial class C2S_HeartBeatRequest
     {
@@ -21,7 +29,7 @@ namespace Protoc
     {
         public void Debug()
         {
-            UnityEngine.Debug.Log($"<color=yellow>服务器心跳回复:{HeartBeatManager.sInstance.ToLocalDateTime(this.ClientTimestamp*1000).ToString("yyyy-MM-dd HH:mm:ss")}</color>");
+            UnityEngine.Debug.Log($"<color=yellow>服务器心跳回复:{HeartBeatManager.sInstance.ToLocalDateTime(this.ClientTimestamp * 1000).ToString("yyyy-MM-dd HH:mm:ss")}</color>");
         }
     }
 
