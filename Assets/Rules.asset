@@ -355,6 +355,31 @@ MonoBehaviour:
     bundle: assets_scenes_actdemo.ab
     id: 0
     groupBy: 2
+  - name: Splash.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: Level.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: Assets/Demo/ActDemo/Prefabs/ActDemoLoader.prefab
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 2
+  - name: ActDemo.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: Assets/Demo/ActDemo/Prefabs/Penguin.prefab
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 2
   patches:
   - name: Splash
     assets:

@@ -40,10 +40,47 @@ message Vec3Data
 
 message CMoveData
 {
-    string UserId = 1;
+    int32 UserId = 1;
 	Vec3Data Pos = 2;
 	Vec3Data Rotate = 3;
 	float MoveSpeed = 4;
 	float SyncDeltaTime = 5;
 	int32 ActionType = 6;
+}
+
+message CUserInfo
+{
+	int32 UserId = 1;
+	string UserName = 2;
+}
+
+message CUserStateInfo
+{
+	CUserInfo UserInfo = 1;
+	Vec3Data Pos = 2;
+	Vec3Data Rotate = 3;
+}
+
+message C2S_RegisterUserInfoRequest // IRequest
+{
+    CUserInfo UserInfo = 1;
+}
+
+message S2C_RegisterUserInfoReponse // IResponse
+{
+	int32 Error = 1;
+	string Message = 2;
+	CUserStateInfo UserStateInfo = 3;
+}
+
+message C2S_UserStateInfosRequest // IRequest
+{
+	int32 MyUserId = 1;
+}
+
+message S2C_UserStateInfosResponse // IResponse
+{
+	int32 Error = 1;
+	string Message = 2;
+	repeated CUserStateInfo UserStateInfos = 3;
 }
