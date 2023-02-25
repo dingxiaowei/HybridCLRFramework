@@ -20,6 +20,11 @@ public class PlayAudioEvent : SystemEventBase
     public byte[] audioBytes;
 }
 
+public class UserRegisterEvent : SystemEventBase
+{
+    public Protoc.CUserStateInfo UserStateInfo;
+}
+
 public class SystemEventManager : ManagerBase<SystemEventManager>
 {
     private Queue<SystemEventBase> mEventQueue = new Queue<SystemEventBase>();

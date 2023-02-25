@@ -10,6 +10,11 @@ namespace Protoc
         public const int C2S_EnterMapRequest = 101;
         public const int S2C_EnterMapResponse = 102;
         public const int BroadCastVoice = 103;
+
+        public const int C2S_RegisterUserInfoRequest = 110;
+        public const int S2C_RegisterUserInfoResponse = 111;
+        public const int C2S_UserStateInfosRequest = 112;
+        public const int S2C_UserStateInfosResponse = 113;
     }
 
     [Message(OuterOpcode.BroadCastVoice)]

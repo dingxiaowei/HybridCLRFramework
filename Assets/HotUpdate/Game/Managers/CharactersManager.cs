@@ -17,9 +17,10 @@ namespace ActDemo
         {
             OnMainPlayerLoadedEvent -= OnMainPlayerLoaded;
             OnMainPlayerLoadedEvent += OnMainPlayerLoaded;
-            LoadMainPlayer();
+            //LoadMainPlayer();
         }
 
+        //¼ÓÔØÖ÷½Ç
         void LoadMainPlayer()
         {
             _mainPlayerRequest = Assets.LoadAssetAsync(PenguinPrefab, typeof(GameObject), (rq) =>

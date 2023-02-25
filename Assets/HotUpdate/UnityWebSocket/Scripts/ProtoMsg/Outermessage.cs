@@ -39,14 +39,14 @@ namespace Protoc {
             "YXRlSW5mbxIjCghVc2VySW5mbxgBIAEoCzIRLnByb3RvYy5DVXNlckluZm8S",
             "HQoDUG9zGAIgASgLMhAucHJvdG9jLlZlYzNEYXRhEiAKBlJvdGF0ZRgDIAEo",
             "CzIQLnByb3RvYy5WZWMzRGF0YSJCChtDMlNfUmVnaXN0ZXJVc2VySW5mb1Jl",
-            "cXVlc3QSIwoIVXNlckluZm8YASABKAsyES5wcm90b2MuQ1VzZXJJbmZvImwK",
-            "G1MyQ19SZWdpc3RlclVzZXJJbmZvUmVwb25zZRINCgVFcnJvchgBIAEoBRIP",
-            "CgdNZXNzYWdlGAIgASgJEi0KDVVzZXJTdGF0ZUluZm8YAyABKAsyFi5wcm90",
-            "b2MuQ1VzZXJTdGF0ZUluZm8iLQoZQzJTX1VzZXJTdGF0ZUluZm9zUmVxdWVz",
-            "dBIQCghNeVVzZXJJZBgBIAEoBSJsChpTMkNfVXNlclN0YXRlSW5mb3NSZXNw",
-            "b25zZRINCgVFcnJvchgBIAEoBRIPCgdNZXNzYWdlGAIgASgJEi4KDlVzZXJT",
-            "dGF0ZUluZm9zGAMgAygLMhYucHJvdG9jLkNVc2VyU3RhdGVJbmZvYgZwcm90",
-            "bzM="));
+            "cXVlc3QSIwoIVXNlckluZm8YASABKAsyES5wcm90b2MuQ1VzZXJJbmZvIm0K",
+            "HFMyQ19SZWdpc3RlclVzZXJJbmZvUmVzcG9uc2USDQoFRXJyb3IYASABKAUS",
+            "DwoHTWVzc2FnZRgCIAEoCRItCg1Vc2VyU3RhdGVJbmZvGAMgASgLMhYucHJv",
+            "dG9jLkNVc2VyU3RhdGVJbmZvIi0KGUMyU19Vc2VyU3RhdGVJbmZvc1JlcXVl",
+            "c3QSEAoITXlVc2VySWQYASABKAUibAoaUzJDX1VzZXJTdGF0ZUluZm9zUmVz",
+            "cG9uc2USDQoFRXJyb3IYASABKAUSDwoHTWVzc2FnZRgCIAEoCRIuCg5Vc2Vy",
+            "U3RhdGVJbmZvcxgDIAMoCzIWLnByb3RvYy5DVXNlclN0YXRlSW5mb2IGcHJv",
+            "dG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -59,7 +59,7 @@ namespace Protoc {
             new pbr::GeneratedClrTypeInfo(typeof(global::Protoc.CUserInfo), global::Protoc.CUserInfo.Parser, new[]{ "UserId", "UserName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protoc.CUserStateInfo), global::Protoc.CUserStateInfo.Parser, new[]{ "UserInfo", "Pos", "Rotate" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protoc.C2S_RegisterUserInfoRequest), global::Protoc.C2S_RegisterUserInfoRequest.Parser, new[]{ "UserInfo" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protoc.S2C_RegisterUserInfoReponse), global::Protoc.S2C_RegisterUserInfoReponse.Parser, new[]{ "Error", "Message", "UserStateInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protoc.S2C_RegisterUserInfoResponse), global::Protoc.S2C_RegisterUserInfoResponse.Parser, new[]{ "Error", "Message", "UserStateInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protoc.C2S_UserStateInfosRequest), global::Protoc.C2S_UserStateInfosRequest.Parser, new[]{ "MyUserId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protoc.S2C_UserStateInfosResponse), global::Protoc.S2C_UserStateInfosResponse.Parser, new[]{ "Error", "Message", "UserStateInfos" }, null, null, null, null)
           }));
@@ -2484,16 +2484,16 @@ namespace Protoc {
 
   }
 
-  public sealed partial class S2C_RegisterUserInfoReponse : pb::IMessage<S2C_RegisterUserInfoReponse>
+  public sealed partial class S2C_RegisterUserInfoResponse : pb::IMessage<S2C_RegisterUserInfoResponse>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<S2C_RegisterUserInfoReponse> _parser = new pb::MessageParser<S2C_RegisterUserInfoReponse>(() => new S2C_RegisterUserInfoReponse());
+    private static readonly pb::MessageParser<S2C_RegisterUserInfoResponse> _parser = new pb::MessageParser<S2C_RegisterUserInfoResponse>(() => new S2C_RegisterUserInfoResponse());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<S2C_RegisterUserInfoReponse> Parser { get { return _parser; } }
+    public static pb::MessageParser<S2C_RegisterUserInfoResponse> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -2509,7 +2509,7 @@ namespace Protoc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public S2C_RegisterUserInfoReponse() {
+    public S2C_RegisterUserInfoResponse() {
       OnConstruction();
     }
 
@@ -2517,7 +2517,7 @@ namespace Protoc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public S2C_RegisterUserInfoReponse(S2C_RegisterUserInfoReponse other) : this() {
+    public S2C_RegisterUserInfoResponse(S2C_RegisterUserInfoResponse other) : this() {
       error_ = other.error_;
       message_ = other.message_;
       userStateInfo_ = other.userStateInfo_ != null ? other.userStateInfo_.Clone() : null;
@@ -2526,8 +2526,8 @@ namespace Protoc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public S2C_RegisterUserInfoReponse Clone() {
-      return new S2C_RegisterUserInfoReponse(this);
+    public S2C_RegisterUserInfoResponse Clone() {
+      return new S2C_RegisterUserInfoResponse(this);
     }
 
     /// <summary>Field number for the "Error" field.</summary>
@@ -2569,12 +2569,12 @@ namespace Protoc {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as S2C_RegisterUserInfoReponse);
+      return Equals(other as S2C_RegisterUserInfoResponse);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(S2C_RegisterUserInfoReponse other) {
+    public bool Equals(S2C_RegisterUserInfoResponse other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -2673,7 +2673,7 @@ namespace Protoc {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(S2C_RegisterUserInfoReponse other) {
+    public void MergeFrom(S2C_RegisterUserInfoResponse other) {
       if (other == null) {
         return;
       }
