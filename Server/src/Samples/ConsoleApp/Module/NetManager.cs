@@ -17,7 +17,7 @@ namespace ServerDemo
 
         public void Connect()
         {
-            server = new WebSocketServer("ws://127.0.0.1:8082");
+            server = new WebSocketServer("ws://127.0.0.1:8081");
             server.Start(socket =>
             {
                 var id = socket.ConnectionInfo.Id;

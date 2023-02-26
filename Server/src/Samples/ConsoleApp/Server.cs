@@ -10,9 +10,9 @@ namespace Fleck.Samples.ConsoleApp
     {
         static void Main()
         {
-            //InitService();
-            FleckLog.Level = LogLevel.Debug;
-            NetManager.Instance.Connect();
+            InitService();
+            //FleckLog.Level = LogLevel.Debug;
+            //NetManager.Instance.Connect();
             var input = Console.ReadLine();
             while (input != "exit")
             {
@@ -21,11 +21,11 @@ namespace Fleck.Samples.ConsoleApp
             }
         }
 
-        //static void InitService()
-        //{
-        //    FleckLog.Level = LogLevel.Debug;
-        //    NetManager.Instance.Connect();
-        //    //GameManager.Instance.RegisterMessageListener();
-        //}
+        static void InitService()
+        {
+            FleckLog.Level = LogLevel.Debug;
+            NetManager.Instance.Connect();
+            //GameManager.Instance.RegisterMessageListener();
+        }
     }
 }
