@@ -93,6 +93,7 @@
     <Compile Include="Message\RoomRecommend.cs" />
     <Compile Include="Message\RoomStatus.cs" />
     <Compile Include="Module\NetManager.cs" />
+    <Compile Include="Module\Session.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

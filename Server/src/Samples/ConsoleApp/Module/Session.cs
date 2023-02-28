@@ -61,18 +61,13 @@ namespace ServerDemo
 
         void OnOpen()
         {
-            //allSockets.Add(socket);
-            //Console.WriteLine(id + ": Connected");
-            //socketIndex++;
-            //socketIdMap.Add(socket, socketIndex);
-            //idSocketMap.Add(socketIndex, socket);
             Console.WriteLine(connectInfoId + ": Connected");
             OnOpenEvent?.Invoke(this);
         }
 
         void OnMessage(string msg)
         {
-
+            NetManager.Instance.BroadCastMsg(msg);
         }
 
         void OnBinaryMsg(byte[] bytes)
@@ -97,17 +92,18 @@ namespace ServerDemo
                         UserId = sid
                     }
                 };
-                var returnMsg = new NetMessage()
-                {
-                    Type = (int)MessageNumber.S2C_RegisterUserInfoResponse,
-                    Content = msg.ToByteString(),
-                };
-                //foreach (var socket in allSockets)
-                //{
-                //    Console.WriteLine($"======给{socket.ConnectionInfo.Id}广播消息");
-                //    socket.Send(returnMsg.ToByteArray());
-                //}
+                Send((int)MessageNumber.S2C_RegisterUserInfoResponse, msg);
             }
+        }
+
+        public void Send(int msgId, IMessage msg)
+        {
+            var returnMsg = new NetMessage()
+            {
+                Type = msgId,
+                Content = msg.ToByteString(),
+            };
+            socket.Send(returnMsg.ToByteArray());
         }
     }
 }

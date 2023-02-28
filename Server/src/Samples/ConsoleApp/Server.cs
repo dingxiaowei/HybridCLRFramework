@@ -1,8 +1,5 @@
 ﻿using ServerDemo;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
 
 namespace Fleck.Samples.ConsoleApp
 {
@@ -11,12 +8,10 @@ namespace Fleck.Samples.ConsoleApp
         static void Main()
         {
             InitService();
-            //FleckLog.Level = LogLevel.Debug;
-            //NetManager.Instance.Connect();
             var input = Console.ReadLine();
             while (input != "exit")
             {
-                NetManager.Instance.BroacastStringMsg(input);
+                NetManager.Instance.BroadCastMsg(input);
                 input = Console.ReadLine();
             }
         }
@@ -25,7 +20,6 @@ namespace Fleck.Samples.ConsoleApp
         {
             FleckLog.Level = LogLevel.Debug;
             NetManager.Instance.Connect();
-            //GameManager.Instance.RegisterMessageListener();
         }
     }
 }
