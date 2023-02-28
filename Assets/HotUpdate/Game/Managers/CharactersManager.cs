@@ -21,17 +21,29 @@ namespace ActDemo
         }
 
         //¼ÓÔØÖ÷½Ç
-        void LoadMainPlayer()
+        public void LoadMainPlayer(Protoc.CUserStateInfo userStateInfo = null)
         {
             _mainPlayerRequest = Assets.LoadAssetAsync(PenguinPrefab, typeof(GameObject), (rq) =>
             {
                 var go = GameObject.Instantiate(rq.asset) as GameObject;
                 if (go != null)
                 {
-                    go.name = rq.asset.name;
-                    go.transform.localPosition = mainPlayerBornVector;
                     go.transform.localScale = Vector3.one;
-                    go.transform.localRotation = Quaternion.identity;
+                    if (userStateInfo == null)
+                    {
+                        go.name = rq.asset.name;
+                        go.transform.localPosition = mainPlayerBornVector;
+                        go.transform.localRotation = Quaternion.identity;
+                    }
+                    else
+                    {
+                        var pos = userStateInfo.Pos.ToVector3();
+                        var dir = userStateInfo.Rotate.ToVector3();
+                        var userInfo = userStateInfo.UserInfo;
+                        go.transform.localPosition = pos;
+                        go.transform.localRotation = Quaternion.Euler(dir.x, dir.y, dir.z);
+                        go.name = userInfo.UserName;
+                    }
                 }
                 ActDemoLoader.Instance.CameraFollow.target = go.transform;
 

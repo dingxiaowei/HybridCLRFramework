@@ -8,7 +8,8 @@ namespace ActDemo
 {
     public class NetworkManager : ManagerBase<NetworkManager>
     {
-        private const string ServerUrl = "ws://116.205.247.142:8081";
+        //private const string ServerUrl = "ws://116.205.247.142:8081";
+        private const string ServerUrl = "ws://127.0.0.1:8081";
         private WSSocketSession socketSession;
 
         public override void Start()
@@ -26,6 +27,7 @@ namespace ActDemo
                 socketSession = new WSSocketSession(ServerUrl, "1001", headers, (res) =>
                 {
                     var connectState = res ? "连接成功" : "连接失败";
+                    SystemEventManager.Instance.RaiseEvent(EventType.ESocketConnectState, new ConnectStateEvent() { EventType = EventType.ESocketConnectState, ConnectState = res });
                     Debug.Log($"websocket {connectState}");
                 });
                 socketSession?.ConnectAsync();

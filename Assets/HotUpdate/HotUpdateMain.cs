@@ -209,7 +209,7 @@ public class HotUpdateMain : MonoBehaviour
         socketSession?.Disconnect();
         MessageDispatcher.sInstance.Dispose();
 
-        SystemEventManager.Instance.UnregisterEvent(EventType.PlayAudio, OnPlayAudio);
+        SystemEventManager.Instance.UnRegisterEvent(EventType.PlayAudio, OnPlayAudio);
     }
 
     string BytesToString(byte[] bytes)

@@ -1,10 +1,16 @@
 ﻿
+using Protoc;
 using System;
 using System.IO;
 using UnityEngine;
 
 public static class ToolUtility
 {
+    public static Vector3 ToVector3(this Vec3Data data)
+    {
+        return new Vector3(data.X, data.Y, data.Z);
+    }
+
     public static string BytesToString(byte[] bytes)
     {
         return System.Text.Encoding.Default.GetString(bytes);
@@ -44,7 +50,7 @@ public static class ToolUtility
         Debug.Log("position=" + position + "  outData.leng=" + outData.Length);
         return outData;
     }
-    
+
     /// <summary>
     /// 写文件头
     /// </summary>

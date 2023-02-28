@@ -1,5 +1,5 @@
-﻿using Google.Protobuf;
-using Protoc;
+﻿using Protoc;
+using ServerDemo;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -14,41 +14,41 @@ public class MessageDispatcher : Singleton<MessageDispatcher>
     protected Type mResponseAttrType = typeof(ResponseAttribute);
 
 
-    public void ResponseAutoRegister()
-    {
-        foreach (var method in ResponseAttribute.GetResponseMethod(Reflection.GetExecutingAssembly()))
-        {
-            var msgIds = ResponseAttribute.GetMsgIds(method);
-            if (msgIds != null)
-            {
-                for (int i = 0; i < msgIds.Length; i++)
-                {
-                    RegisterMethod(msgIds[i], method);
-#if DEBUG_NETWORK
-                    UnityEngine.Debug.Log($"注册消息:{msgIds[i]}  函数名:{method.Name}");
-#endif
-                }
-            }
-        }
-    }
+    //    public void ResponseAutoRegister()
+    //    {
+    //        foreach (var method in ResponseAttribute.GetResponseMethod(Reflection.GetExecutingAssembly()))
+    //        {
+    //            var msgIds = ResponseAttribute.GetMsgIds(method);
+    //            if (msgIds != null)
+    //            {
+    //                for (int i = 0; i < msgIds.Length; i++)
+    //                {
+    //                    RegisterMethod(msgIds[i], method);
+    //#if DEBUG_NETWORK
+    //                    UnityEngine.Debug.Log($"注册消息:{msgIds[i]}  函数名:{method.Name}");
+    //#endif
+    //                }
+    //            }
+    //        }
+    //    }
 
-    public void RegisterOnMessageReceived<T>(Action<object> handler) where T : IMessage
-    {
-        var msgId = NetMessageIdList.TypeToMsgId(typeof(T));
-        if (msgId != 0)
-        {
-            RegisterHandler(msgId, handler);
-        }
-    }
+    //public void RegisterOnMessageReceived<T>(Action<object> handler) where T : IMessage
+    //{
+    //    var msgId = NetMessageIdList.TypeToMsgId(typeof(T));
+    //    if (msgId != 0)
+    //    {
+    //        RegisterHandler(msgId, handler);
+    //    }
+    //}
 
-    public void UnregisterOnMessageReceived<T>(Action<object> handler) where T : IMessage
-    {
-        var msgId = NetMessageIdList.TypeToMsgId(typeof(T));
-        if (msgId != 0)
-        {
-            UnregisterHandler(msgId, handler);
-        }
-    }
+    //public void UnregisterOnMessageReceived<T>(Action<object> handler) where T : IMessage
+    //{
+    //    var msgId = NetMessageIdList.TypeToMsgId(typeof(T));
+    //    if (msgId != 0)
+    //    {
+    //        UnregisterHandler(msgId, handler);
+    //    }
+    //}
 
     public void ReceiveMessage(NetMessage packet)
     {
@@ -162,7 +162,7 @@ public class MessageDispatcher : Singleton<MessageDispatcher>
         this.mMessageBackQueue.Clear();
 
         this.handlers.Clear();
-        OpcodeTypeManager.sInstance.Dispose();
+        //OpcodeTypeManager.sInstance.Dispose();
     }
 
 
@@ -184,7 +184,7 @@ public class MessageDispatcher : Singleton<MessageDispatcher>
         List<IMHandler> actions;
         if (!this.handlers.TryGetValue(msg.Type, out actions))
         {
-            UnityEngine.Debug.LogError($"消息 {msg.Type} 没有处理,请在OuterOpcode中添加消息编号");
+            Console.WriteLine($"消息 {msg.Type} 没有处理");
             return;
         }
 
@@ -196,34 +196,34 @@ public class MessageDispatcher : Singleton<MessageDispatcher>
             }
             catch (Exception e)
             {
-                UnityEngine.Debug.LogError(e);
+                Console.WriteLine(e);
             }
         }
     }
 
-    public void AutoRegistHandlers()
-    {
-        OpcodeTypeManager.sInstance.Init();
-        this.handlers.Clear();
+    //public void AutoRegistHandlers()
+    //{
+    //    //OpcodeTypeManager.sInstance.Init();
+    //    this.handlers.Clear();
 
-        var types = MessageHandlerAttribute.GetMessageHandlerTypes(Reflection.GetExecutingAssembly());
-        foreach (var type in types)
-        {
-            var attrs = type.GetCustomAttributes(typeof(MessageHandlerAttribute), false);
-            if (attrs.Length == 0)
-                continue;
-            var imHandler = Activator.CreateInstance(type) as IMHandler;
-            if (imHandler == null)
-            {
-                UnityEngine.Debug.LogError($"message handle {type.Name} 需要继承 IMHandler");
-                continue;
-            }
-            var messageType = imHandler.GetMessageType();
-            int opcode = OpcodeTypeManager.sInstance.GetOpcode(messageType);
-            if (opcode != 0)
-            {
-                this.RegisterHandler(opcode, imHandler);
-            }
-        }
-    }
+    //    var types = MessageHandlerAttribute.GetMessageHandlerTypes(Reflection.GetExecutingAssembly());
+    //    foreach (var type in types)
+    //    {
+    //        var attrs = type.GetCustomAttributes(typeof(MessageHandlerAttribute), false);
+    //        if (attrs.Length == 0)
+    //            continue;
+    //        var imHandler = Activator.CreateInstance(type) as IMHandler;
+    //        if (imHandler == null)
+    //        {
+    //            Console.WriteLine($"message handle {type.Name} 需要继承 IMHandler");
+    //            continue;
+    //        }
+    //        var messageType = imHandler.GetMessageType();
+    //        int opcode = OpcodeTypeManager.sInstance.GetOpcode(messageType);
+    //        if (opcode != 0)
+    //        {
+    //            this.RegisterHandler(opcode, imHandler);
+    //        }
+    //    }
+    //}
 }

@@ -25,6 +25,21 @@ public class UserRegisterEvent : SystemEventBase
     public Protoc.CUserStateInfo UserStateInfo;
 }
 
+public class UserStateInfosEvent : SystemEventBase
+{
+    public List<Protoc.CUserStateInfo> UserStateInfos;
+}
+
+public class ForceRegisterUserEvent : SystemEventBase
+{
+
+}
+
+public class ConnectStateEvent : SystemEventBase
+{
+    public bool ConnectState;
+}
+
 public class SystemEventManager : ManagerBase<SystemEventManager>
 {
     private Queue<SystemEventBase> mEventQueue = new Queue<SystemEventBase>();
@@ -48,7 +63,7 @@ public class SystemEventManager : ManagerBase<SystemEventManager>
         }
     }
 
-    public void UnregisterEvent(EventType eventType, System.Action<SystemEventBase> eventListener)
+    public void UnRegisterEvent(EventType eventType, System.Action<SystemEventBase> eventListener)
     {
         int eventT = (int)eventType;
         if (mEventMap.ContainsKey(eventT))

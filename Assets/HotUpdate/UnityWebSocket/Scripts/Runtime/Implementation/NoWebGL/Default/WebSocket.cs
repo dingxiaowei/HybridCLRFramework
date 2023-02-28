@@ -74,7 +74,7 @@ namespace UnityWebSocket.NoWebGL.Default
                     socket.Options.SetRequestHeader(pair.Key, pair.Value);
                 }
             }
-            
+
             //socket.Options.KeepAliveInterval = TimeSpan.FromSeconds(20);
             RunConnectAsync();
         }
@@ -270,7 +270,9 @@ namespace UnityWebSocket.NoWebGL.Default
                     switch (result.MessageType)
                     {
                         case WebSocketMessageType.Binary:
-                            HandleMessage(Opcode.Binary, data);
+                            {
+                                HandleMessage(Opcode.Binary, data);
+                            }
                             break;
                         case WebSocketMessageType.Text:
                             HandleMessage(Opcode.Text, data);

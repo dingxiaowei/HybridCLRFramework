@@ -17,6 +17,9 @@ namespace Protoc
         public const int S2C_UserStateInfosResponse = 113;
     }
 
+    [Message(OuterOpcode.S2C_RegisterUserInfoResponse)]
+    public partial class S2C_RegisterUserInfoResponse { }
+
     [Message(OuterOpcode.BroadCastVoice)]
     public partial class BroadCastVoice
     {
