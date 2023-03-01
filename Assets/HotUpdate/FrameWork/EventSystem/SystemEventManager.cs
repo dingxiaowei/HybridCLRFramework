@@ -27,7 +27,7 @@ public class UserRegisterEvent : SystemEventBase
 
 public class UserStateInfosEvent : SystemEventBase
 {
-    public List<Protoc.CUserStateInfo> UserStateInfos;
+    public List<Protoc.CUserStateInfo> UserStateInfos = new List<Protoc.CUserStateInfo>();
 }
 
 public class ForceRegisterUserEvent : SystemEventBase
@@ -86,7 +86,7 @@ public class SystemEventManager : ManagerBase<SystemEventManager>
         }
     }
 
-    public void RaiseEvent(EventType eventType, SystemEventBase eventArg)
+    public void RaiseEvent(SystemEventBase eventArg)
     {
         mEventQueue.Enqueue(eventArg);
     }

@@ -3,13 +3,15 @@ using Dypsloom.DypThePenguin.Scripts.Items;
 using libx;
 using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace ActDemo
 {
     public class CharactersManager : ManagerBase<CharactersManager>
     {
         private const string PenguinPrefab = "Assets/Demo/ActDemo/Prefabs/Penguin.prefab";
-        AssetRequest _mainPlayerRequest;
+        AssetRequest mainPlayerRequest;
+        List<AssetRequest> othersPlayerRequests = new List<AssetRequest>();
         Vector3 mainPlayerBornVector = new Vector3(3.12f, 4.17f, 17.71f);
         public Action<Character> OnMainPlayerLoadedEvent;
         Character mainChar;
@@ -20,10 +22,32 @@ namespace ActDemo
             //LoadMainPlayer();
         }
 
-        //加载主角
-        public void LoadMainPlayer(Protoc.CUserStateInfo userStateInfo = null)
+        public void LoadOtherPlayer(Protoc.CUserStateInfo userStateInfo)
         {
-            _mainPlayerRequest = Assets.LoadAssetAsync(PenguinPrefab, typeof(GameObject), (rq) =>
+            if (userStateInfo == null)
+            {
+                return;
+            }
+            var request = Assets.LoadAssetAsync(PenguinPrefab, typeof(GameObject), (rq) =>
+            {
+                var go = GameObject.Instantiate(rq.asset) as GameObject;
+                if (go != null)
+                {
+                    var pos = userStateInfo.Pos.ToVector3();
+                    var dir = userStateInfo.Rotate.ToVector3();
+                    var userInfo = userStateInfo.UserInfo;
+                    go.transform.localPosition = pos;
+                    go.transform.localRotation = Quaternion.Euler(dir.x, dir.y, dir.z);
+                    go.name = userInfo.UserName;
+                }
+            });
+            othersPlayerRequests.Add(request);
+        }
+
+        //加载主角
+        public void LoadMainPlayer(Protoc.CUserStateInfo userStateInfo = null, Action<int> OnPlaerLoaded = null)
+        {
+            mainPlayerRequest = Assets.LoadAssetAsync(PenguinPrefab, typeof(GameObject), (rq) =>
             {
                 var go = GameObject.Instantiate(rq.asset) as GameObject;
                 if (go != null)
@@ -49,6 +73,7 @@ namespace ActDemo
 
                 var characterController = go.transform.GetComponent<Character>();
                 OnMainPlayerLoadedEvent?.Invoke(characterController);
+                OnPlaerLoaded?.Invoke(userStateInfo.UserInfo.UserId);
             });
         }
 

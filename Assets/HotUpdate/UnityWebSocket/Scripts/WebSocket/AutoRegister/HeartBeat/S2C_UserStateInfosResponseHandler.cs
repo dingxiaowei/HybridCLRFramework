@@ -14,7 +14,10 @@ public class S2C_UserStateInfosResponseHandler : AMHandler<S2C_UserStateInfosRes
         }
         else
         {
-
+            var userStateInfosEvent = new UserStateInfosEvent();
+            userStateInfosEvent.EventType = EventType.EUserStateInfos;
+            userStateInfosEvent.UserStateInfos.AddRange(userStateInfosResponse.UserStateInfos);
+            SystemEventManager.Instance.RaiseEvent(userStateInfosEvent);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace ActDemo
                 socketSession = new WSSocketSession(ServerUrl, "1001", headers, (res) =>
                 {
                     var connectState = res ? "连接成功" : "连接失败";
-                    SystemEventManager.Instance.RaiseEvent(EventType.ESocketConnectState, new ConnectStateEvent() { EventType = EventType.ESocketConnectState, ConnectState = res });
+                    SystemEventManager.Instance.RaiseEvent(new ConnectStateEvent() { EventType = EventType.ESocketConnectState, ConnectState = res });
                     Debug.Log($"websocket {connectState}");
                 });
                 socketSession?.ConnectAsync();
