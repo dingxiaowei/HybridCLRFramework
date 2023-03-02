@@ -7,29 +7,29 @@ namespace ServerDemo
 {
     class NetManager : Singleton<NetManager>
     {
-        Dictionary<int, Session> sessionMap = new Dictionary<int, Session>();
+        public Dictionary<int, Session> SessionMap = new Dictionary<int, Session>();
         WebSocketServer server = null;
         int socketIndex = 0;
 
         public void Connect()
         {
-            server = new WebSocketServer("ws://127.0.0.1:8081");
+            server = new WebSocketServer("ws://0.0.0.0:8081");
             server.Start(socket =>
             {
                 int tempIndex = ++socketIndex;
                 Session session = new Session(tempIndex, socket, (s) =>
                 {
-                    sessionMap.Add(tempIndex, s);
+                    SessionMap.Add(tempIndex, s);
                 }, (s) =>
                 {
-                    sessionMap.Remove(tempIndex);
+                    SessionMap.Remove(tempIndex);
                 });
             });
         }
 
         public void BroadCastMsg(NetMessage msg)
         {
-            foreach (var pair in sessionMap)
+            foreach (var pair in SessionMap)
             {
                 pair.Value.Send(msg.ToByteArray());
             }
@@ -37,7 +37,7 @@ namespace ServerDemo
 
         public void BroadCastMsg(NetMessage msg, int sid)
         {
-            foreach (var pair in sessionMap)
+            foreach (var pair in SessionMap)
             {
                 if (pair.Key != sid)
                 {
@@ -48,14 +48,14 @@ namespace ServerDemo
 
         public void BroadCastMsg(byte[] bytes)
         {
-            foreach (var pair in sessionMap)
+            foreach (var pair in SessionMap)
             {
                 pair.Value.Send(bytes);
             }
         }
         public void BroadCastMsg(string msg)
         {
-            foreach (var pair in sessionMap)
+            foreach (var pair in SessionMap)
             {
                 pair.Value.Send(msg);
             }
@@ -63,7 +63,7 @@ namespace ServerDemo
 
         public void BroadCastMsg(byte[] bytes, int sid)
         {
-            foreach (var pair in sessionMap)
+            foreach (var pair in SessionMap)
             {
                 if (pair.Key != sid)
                 {
@@ -74,7 +74,7 @@ namespace ServerDemo
 
         public void BroadCastMsg(string msg, int sid)
         {
-            foreach (var pair in sessionMap)
+            foreach (var pair in SessionMap)
             {
                 if (pair.Key != sid)
                 {

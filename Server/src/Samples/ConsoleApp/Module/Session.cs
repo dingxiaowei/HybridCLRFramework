@@ -14,6 +14,7 @@ namespace ServerDemo
         private Guid connectInfoId;
         private Action<Session> OnOpenEvent;
         private Action<Session> OnCloseEvent;
+        public PlayerInfo CPlayerInfo { get; set; }
         public Session(int sid, IWebSocketConnection socket, Action<Session> onOpenEvent, Action<Session> onCloseEvent)
         {
             this.sid = sid;
@@ -26,6 +27,7 @@ namespace ServerDemo
             socket.OnError += OnError;
             OnOpenEvent = onOpenEvent;
             OnCloseEvent = onCloseEvent;
+            CPlayerInfo = new PlayerInfo(sid);
         }
 
         public void Release()
@@ -79,45 +81,29 @@ namespace ServerDemo
             if (msgType == (int)MessageNumber.C2S_RegisterUserInfoResquest)
             {
                 var c2s_RegisterUserInfoRequest = C2S_RegisterUserInfoRequest.Parser.ParseFrom(netMsg.Content);
+                CPlayerInfo.SetName(c2s_RegisterUserInfoRequest.UserInfo.UserName);
                 //给当前角色返回消息S2C_RegisterUserInfoResponse
                 var msg = new S2C_RegisterUserInfoResponse();
                 msg.Error = 0;
                 msg.Message = "";
-                msg.UserStateInfo = new CUserStateInfo()
-                {
-                    Rotate = new Vec3Data() { X = 0, Y = 0, Z = 0 },
-                    Pos = new Vec3Data() { X = 3.12f, Y = 4.17f, Z = 17.71f },
-                    UserInfo = new CUserInfo()
-                    {
-                        UserName = c2s_RegisterUserInfoRequest.UserInfo.UserName,
-                        UserId = sid
-                    }
-                };
+                msg.UserStateInfo = CPlayerInfo.UserStateInfo;
                 Send((int)MessageNumber.S2C_RegisterUserInfoResponse, msg);
             }
             else if (msgType == (int)MessageNumber.C2S_UserStateInfosRequest)
             {
                 Console.WriteLine("收到客户端发来的C2S_UserStateInfosRequest");
                 var c2s_UserStateInfosRequest = C2S_UserStateInfosRequest.Parser.ParseFrom(netMsg.Content);
-                var uid = c2s_UserStateInfosRequest.MyUserId;
-                Console.WriteLine("当前传过来的玩家id是:");
-                Console.WriteLine(uid);
-                Console.WriteLine(sid);
                 var msg = new S2C_UserStateInfosResponse();
                 msg.Error = 0;
                 msg.Message = "";
                 List<CUserStateInfo> userStateInfos = new List<CUserStateInfo>();
-                //TODO:添加其他玩家，需要管理Player
-                //userStateInfos.Add(new CUserStateInfo()
-                //{
-                //    Rotate = new Vec3Data() { X = 0, Y = 0, Z = 0 },
-                //    Pos = new Vec3Data() { X = 4.12f, Y = 4.17f, Z = 10.71f },
-                //    UserInfo = new CUserInfo()
-                //    {
-                //        UserName = "test1",
-                //        UserId = 2
-                //    }
-                //});
+                foreach (var pair in NetManager.Instance.SessionMap)
+                {
+                    if (pair.Key != sid)
+                    {
+                        userStateInfos.Add(pair.Value.CPlayerInfo.UserStateInfo);
+                    }
+                }
                 msg.UserStateInfos.AddRange(userStateInfos);
                 Console.WriteLine("发送S2C_UserStateInfosResponse,数量:" + msg.UserStateInfos.Count);
                 Send((int)MessageNumber.S2C_UserStateInfosResponse, msg);
