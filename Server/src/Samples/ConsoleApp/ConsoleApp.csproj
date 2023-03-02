@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Common\Singleton.cs" />
     <Compile Include="Common\TimeUtils.cs" />
+    <Compile Include="Game\PlayerInfo.cs" />
     <Compile Include="Message\AutoRegister\BaseAttribute.cs" />
     <Compile Include="Message\AutoRegister\DoubleMap.cs" />
     <Compile Include="Message\AutoRegister\INetMessage.cs" />
@@ -107,7 +108,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Game\" />
     <Folder Include="ThirdParty\" />
   </ItemGroup>
   <ItemGroup>
