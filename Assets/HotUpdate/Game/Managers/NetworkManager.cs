@@ -55,6 +55,7 @@ namespace ActDemo
 
         public void SendMsg(int msgId, IMessage message)
         {
+            Debug.Log($"发送消息{msgId},消息内容:{message}");
             socketSession.SendAsync(msgId, message);
         }
 

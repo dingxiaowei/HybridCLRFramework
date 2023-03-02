@@ -1,9 +1,7 @@
 ﻿using Fleck;
 using Google.Protobuf;
 using Protoc;
-using System;
 using System.Collections.Generic;
-using System.Reflection.Emit;
 
 namespace ServerDemo
 {
@@ -82,45 +80,6 @@ namespace ServerDemo
                 {
                     pair.Value.Send(msg);
                 }
-            }
-        }
-
-        public void BraocastBinaryMsg(byte[] bytes)
-        {
-            var netMsg = NetMessage.Parser.ParseFrom(bytes);
-            int msgType = netMsg.Type;
-            //TODO:要做消息分发
-            if (msgType == (int)MessageNumber.C2S_RegisterUserInfoResquest)
-            {
-                var c2s_RegisterUserInfoRequest = C2S_RegisterUserInfoRequest.Parser.ParseFrom(netMsg.Content);
-                //给当前角色返回消息S2C_RegisterUserInfoResponse
-                var msg = new S2C_RegisterUserInfoResponse();
-                msg.Error = 0;
-                msg.Message = "";
-                msg.UserStateInfo = new CUserStateInfo()
-                {
-                    Rotate = new Vec3Data() { X = 0, Y = 0, Z = 0 },
-                    Pos = new Vec3Data() { X = 3.12f, Y = 4.17f, Z = 17.71f },
-                    UserInfo = new CUserInfo()
-                    {
-                        UserName = c2s_RegisterUserInfoRequest.UserInfo.UserName,
-                        UserId = socketIndex
-                    }
-                };
-                //var returnMsg = new NetMessage()
-                //{
-                //    Type = (int)MessageNumber.S2C_RegisterUserInfoResponse,
-                //    Content = msg.ToByteString(),
-                //};
-            }
-            else if(msgType == (int)MessageNumber.C2S_UserStateInfosRequest)
-            {
-                //var c2s_RegisterUserInfoRequest = C2S_UserStateInfosRequest.Parser.ParseFrom(netMsg.Content);
-                var msg = new S2C_UserStateInfosResponse();
-                msg.Error = 0;
-                msg.Message = "";
-                //msg.UserStateInfos;
-                //todo:淘汰一半學生到時候想塔反彈就塔防何
             }
         }
     }

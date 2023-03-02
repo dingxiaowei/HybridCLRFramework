@@ -2,6 +2,7 @@
 using Google.Protobuf;
 using Protoc;
 using System;
+using System.Collections.Generic;
 
 namespace ServerDemo
 {
@@ -93,6 +94,33 @@ namespace ServerDemo
                     }
                 };
                 Send((int)MessageNumber.S2C_RegisterUserInfoResponse, msg);
+            }
+            else if (msgType == (int)MessageNumber.C2S_UserStateInfosRequest)
+            {
+                Console.WriteLine("收到客户端发来的C2S_UserStateInfosRequest");
+                var c2s_UserStateInfosRequest = C2S_UserStateInfosRequest.Parser.ParseFrom(netMsg.Content);
+                var uid = c2s_UserStateInfosRequest.MyUserId;
+                Console.WriteLine("当前传过来的玩家id是:");
+                Console.WriteLine(uid);
+                Console.WriteLine(sid);
+                var msg = new S2C_UserStateInfosResponse();
+                msg.Error = 0;
+                msg.Message = "";
+                List<CUserStateInfo> userStateInfos = new List<CUserStateInfo>();
+                //TODO:添加其他玩家，需要管理Player
+                //userStateInfos.Add(new CUserStateInfo()
+                //{
+                //    Rotate = new Vec3Data() { X = 0, Y = 0, Z = 0 },
+                //    Pos = new Vec3Data() { X = 4.12f, Y = 4.17f, Z = 10.71f },
+                //    UserInfo = new CUserInfo()
+                //    {
+                //        UserName = "test1",
+                //        UserId = 2
+                //    }
+                //});
+                msg.UserStateInfos.AddRange(userStateInfos);
+                Console.WriteLine("发送S2C_UserStateInfosResponse,数量:" + msg.UserStateInfos.Count);
+                Send((int)MessageNumber.S2C_UserStateInfosResponse, msg);
             }
         }
 

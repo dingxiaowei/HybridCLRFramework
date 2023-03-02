@@ -30,12 +30,12 @@ namespace ActDemo
             {
                 SaveUser(userStateInfo.UserInfo);
                 CharactersManager.Instance.LoadMainPlayer(userStateInfo, (uid) =>
-                 {
-                     NetworkManager.Instance.SendMsg((int)OuterOpcode.C2S_UserStateInfosRequest, new C2S_UserStateInfosRequest()
-                     {
-                         MyUserId = uid
-                     });
-                 });
+                {
+                    NetworkManager.Instance.SendMsg((int)OuterOpcode.C2S_UserStateInfosRequest, new C2S_UserStateInfosRequest()
+                    {
+                        MyUserId = uid
+                    });
+                });
             }
             else
             {
@@ -44,11 +44,12 @@ namespace ActDemo
         }
         void OnUserStateInfos(SystemEventBase eventArg)
         {
-            Debug.Log("收到加载其他角色的消息");
             var arg = eventArg as UserStateInfosEvent;
             var userInfos = arg.UserStateInfos;
+            Debug.Log("收到加载其他角色的消息:角色数量:" + userInfos.Count);
             foreach (var userInfo in userInfos)
             {
+                Debug.Log("加载角色:" + userInfo.UserInfo.UserName);
                 CharactersManager.Instance.LoadOtherPlayer(userInfo);
             }
         }

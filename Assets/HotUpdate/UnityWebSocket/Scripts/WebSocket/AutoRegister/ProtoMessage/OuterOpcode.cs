@@ -20,6 +20,19 @@ namespace Protoc
     [Message(OuterOpcode.S2C_RegisterUserInfoResponse)]
     public partial class S2C_RegisterUserInfoResponse { }
 
+    [Message(OuterOpcode.S2C_UserStateInfosResponse)]
+    public partial class S2C_UserStateInfosResponse
+    {
+        public void Debug()
+        {
+            UnityEngine.Debug.Log($"S2C_UserStateInfosResponse");
+            foreach (var userStateInfo in this.UserStateInfos)
+            {
+                UnityEngine.Debug.Log($"ID:{userStateInfo.UserInfo.UserId} Name:{userStateInfo.UserInfo.UserName}");
+            }
+        }
+    }
+
     [Message(OuterOpcode.BroadCastVoice)]
     public partial class BroadCastVoice
     {
