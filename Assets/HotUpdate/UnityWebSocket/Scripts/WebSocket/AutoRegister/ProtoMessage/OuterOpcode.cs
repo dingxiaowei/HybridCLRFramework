@@ -17,7 +17,11 @@ namespace Protoc
         public const int C2S_UserStateInfosRequest = 112;
         public const int S2C_UserStateInfosResponse = 113;
         public const int S2C_UserLeave = 114;
+        public const int CMoveDataMsg = 115;
     }
+
+    [Message(OuterOpcode.CMoveDataMsg)]
+    public partial class CMoveData { }
 
     [Message(OuterOpcode.S2C_UserLeave)]
     public partial class S2C_UserLeave { }

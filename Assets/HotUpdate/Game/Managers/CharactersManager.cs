@@ -16,6 +16,7 @@ namespace ActDemo
         Vector3 mainPlayerBornVector = new Vector3(3.12f, 4.17f, 17.71f);
         public Action<Character> OnMainPlayerLoadedEvent;
         Character mainChar;
+        public int MainCharUid;
         public override void Start()
         {
             OnMainPlayerLoadedEvent -= OnMainPlayerLoaded;
@@ -58,6 +59,8 @@ namespace ActDemo
                 go.transform.localPosition = pos;
                 go.transform.localRotation = Quaternion.Euler(dir.x, dir.y, dir.z);
                 go.name = userInfo.UserId.ToString();
+
+                go.AddComponent<CharacterMoveSyncController>();
             }
             //TODO:异步加载两个只加载出来了一个
             //var request = Assets.LoadAssetAsync(OtherPenguinPrefab, typeof(GameObject), (rq) =>
@@ -102,11 +105,13 @@ namespace ActDemo
                         go.name = userInfo.UserId.ToString();
                     }
                 }
+                go.AddComponent<CharacterNetMoveController>();
                 ActDemoLoader.Instance.CameraFollow.target = go.transform;
 
                 var characterController = go.transform.GetComponent<Character>();
                 OnMainPlayerLoadedEvent?.Invoke(characterController);
                 OnPlaerLoaded?.Invoke(userStateInfo.UserInfo.UserId);
+                MainCharUid = userStateInfo.UserInfo.UserId;
             });
         }
 

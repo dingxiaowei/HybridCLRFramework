@@ -11,6 +11,11 @@ public static class ToolUtility
         return new Vector3(data.X, data.Y, data.Z);
     }
 
+    public static Vec3Data ToVec3Data(this Vector3 data)
+    {
+        return new Vec3Data() { X = data.x, Y = data.y, Z = data.z };
+    }
+
     public static string BytesToString(byte[] bytes)
     {
         return System.Text.Encoding.Default.GetString(bytes);
