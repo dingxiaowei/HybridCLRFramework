@@ -20,8 +20,26 @@ namespace ActDemo
             OnMainPlayerLoadedEvent -= OnMainPlayerLoaded;
             OnMainPlayerLoadedEvent += OnMainPlayerLoaded;
             //LoadMainPlayer();
+            RegisterEvents();
         }
 
+        void RegisterEvents()
+        {
+            SystemEventManager.Instance.RegisterEvent(EventType.EUserLeave, OnUserLeave);
+        }
+
+        void UnRegisterEvents()
+        {
+            SystemEventManager.Instance.UnRegisterEvent(EventType.EUserLeave, OnUserLeave);
+        }
+
+        void OnUserLeave(SystemEventBase eventArg)
+        {
+            var arg = eventArg as UserLeaveEvent;
+            int uid = arg.Uid;
+            Debug.Log($"玩家:{arg.Uid}离开");
+        }
+        //TODO:需要角色管理，角色里面有属性还有模型，还有Request
         public void LoadOtherPlayer(Protoc.CUserStateInfo userStateInfo)
         {
             var tempUserStateInfo = userStateInfo;
@@ -154,6 +172,7 @@ namespace ActDemo
             JoyStickMove.Instance.onMoving -= On2DAxisValueChange;
             XRInputManager.Instance.OnRightPrimary2DAxisValueEvent -= On2DAxisValueChange;
             JoyStickMove.Instance.onMoveEnd -= On2DAxisValueStop;
+            UnRegisterEvents();
         }
     }
 }

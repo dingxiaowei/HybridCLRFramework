@@ -2,6 +2,7 @@
 
 namespace Protoc
 {
+    //消息编号
     public static partial class OuterOpcode
     {
         public const int C2S_HeartBeatRequest = 1;
@@ -15,7 +16,11 @@ namespace Protoc
         public const int S2C_RegisterUserInfoResponse = 111;
         public const int C2S_UserStateInfosRequest = 112;
         public const int S2C_UserStateInfosResponse = 113;
+        public const int S2C_UserLeave = 114;
     }
+
+    [Message(OuterOpcode.S2C_UserLeave)]
+    public partial class S2C_UserLeave { }
 
     [Message(OuterOpcode.S2C_RegisterUserInfoResponse)]
     public partial class S2C_RegisterUserInfoResponse { }

@@ -84,3 +84,8 @@ message S2C_UserStateInfosResponse // IResponse
 	string Message = 2;
 	repeated CUserStateInfo UserStateInfos = 3;
 }
+
+message S2C_UserLeave
+{
+	int32 UserId = 1;
+}

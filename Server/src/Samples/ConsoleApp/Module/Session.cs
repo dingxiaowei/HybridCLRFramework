@@ -91,18 +91,24 @@ namespace ServerDemo
             }
             else if (msgType == (int)MessageNumber.C2S_UserStateInfosRequest)
             {
+                var myPlayMsg = new S2C_UserStateInfosResponse();
+                myPlayMsg.Error = 0;
+                myPlayMsg.Message = "";
+                myPlayMsg.UserStateInfos.Add(CPlayerInfo.UserStateInfo);
+
                 Console.WriteLine("收到客户端发来的C2S_UserStateInfosRequest");
                 var c2s_UserStateInfosRequest = C2S_UserStateInfosRequest.Parser.ParseFrom(netMsg.Content);
                 var msg = new S2C_UserStateInfosResponse();
                 msg.Error = 0;
                 msg.Message = "";
                 List<CUserStateInfo> userStateInfos = new List<CUserStateInfo>();
-                foreach (var pair in NetManager.Instance.SessionMap)
+                var othersSession = NetManager.Instance.OthersSession(sid);
+                foreach (var session in othersSession)
                 {
-                    if (pair.Key != sid)
-                    {
-                        userStateInfos.Add(pair.Value.CPlayerInfo.UserStateInfo);
-                    }
+                    //搜集其他玩家的信息
+                    userStateInfos.Add(session.CPlayerInfo.UserStateInfo);
+                    //给其他玩家发送当前玩家的信息
+                    session.Send((int)MessageNumber.S2C_UserStateInfosResponse, myPlayMsg);
                 }
                 msg.UserStateInfos.AddRange(userStateInfos);
                 Console.WriteLine("发送S2C_UserStateInfosResponse,数量:" + msg.UserStateInfos.Count);

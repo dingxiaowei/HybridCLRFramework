@@ -25,6 +25,11 @@ public class UserRegisterEvent : SystemEventBase
     public Protoc.CUserStateInfo UserStateInfo;
 }
 
+public class UserLeaveEvent : SystemEventBase
+{
+    public int Uid;
+}
+
 public class UserStateInfosEvent : SystemEventBase
 {
     public List<Protoc.CUserStateInfo> UserStateInfos = new List<Protoc.CUserStateInfo>();
