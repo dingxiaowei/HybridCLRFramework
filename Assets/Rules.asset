@@ -380,6 +380,16 @@ MonoBehaviour:
     bundle: 
     id: 0
     groupBy: 2
+  - name: Assets/Demo/ActDemo/Prefabs/Penguin1.prefab
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 2
+  - name: TestPrefabs.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
   patches:
   - name: Splash
     assets:
@@ -433,6 +443,7 @@ MonoBehaviour:
     assets:
     - Assets/Demo/ActDemo/Prefabs/Penguin.prefab
     - Assets/Demo/ActDemo/Prefabs/ActDemoLoader.prefab
+    - Assets/Demo/ActDemo/Prefabs/Penguin1.prefab
   bundles:
   - assetBundleName: assets_demo_ui_prefabs_levelscreen.ab
     assetNames:

@@ -22,7 +22,7 @@ namespace ServerDemo
                     SessionMap.Add(tempIndex, s);
                 }, (s) =>
                 {
-                    //给其他人广播该角色被移除
+                    //给其他人广播该角色被移除,想要保存上次的状态，要么数据库，要么就不删除数据
                     var userLeave = new S2C_UserLeave() { UserId = s.Sid };
                     BroadCastMsg((int)MessageNumber.S2C_UserLeave, userLeave, s.Sid);
                     SessionMap.Remove(s.Sid);

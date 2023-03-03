@@ -10,6 +10,7 @@ namespace ActDemo
     public class CharactersManager : ManagerBase<CharactersManager>
     {
         private const string PenguinPrefab = "Assets/Demo/ActDemo/Prefabs/Penguin.prefab";
+        private const string OtherPenguinPrefab = "Assets/Demo/ActDemo/Prefabs/Penguin1.prefab";
         AssetRequest mainPlayerRequest;
         List<AssetRequest> othersPlayerRequests = new List<AssetRequest>();
         Vector3 mainPlayerBornVector = new Vector3(3.12f, 4.17f, 17.71f);
@@ -47,7 +48,7 @@ namespace ActDemo
             {
                 return;
             }
-            var request = Assets.LoadAsset(PenguinPrefab, typeof(GameObject));
+            var request = Assets.LoadAsset(OtherPenguinPrefab, typeof(GameObject));
             var go = GameObject.Instantiate(request.asset) as GameObject;
             if (go != null)
             {
@@ -56,10 +57,10 @@ namespace ActDemo
                 var userInfo = tempUserStateInfo.UserInfo;
                 go.transform.localPosition = pos;
                 go.transform.localRotation = Quaternion.Euler(dir.x, dir.y, dir.z);
-                go.name = userInfo.UserName;
+                go.name = userInfo.UserId.ToString();
             }
             //TODO:异步加载两个只加载出来了一个
-            //var request = Assets.LoadAssetAsync(PenguinPrefab, typeof(GameObject), (rq) =>
+            //var request = Assets.LoadAssetAsync(OtherPenguinPrefab, typeof(GameObject), (rq) =>
             //{
             //    var go = GameObject.Instantiate(rq.asset) as GameObject;
             //    if (go != null)
@@ -98,7 +99,7 @@ namespace ActDemo
                         var userInfo = userStateInfo.UserInfo;
                         go.transform.localPosition = pos;
                         go.transform.localRotation = Quaternion.Euler(dir.x, dir.y, dir.z);
-                        go.name = userInfo.UserName;
+                        go.name = userInfo.UserId.ToString();
                     }
                 }
                 ActDemoLoader.Instance.CameraFollow.target = go.transform;
