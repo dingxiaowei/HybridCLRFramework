@@ -48,6 +48,7 @@ message CMoveData
 	int32 ActionType = 6;
 	float RealtimeSinceStartUp = 7;
 	bool IsMove = 8;
+	bool IsJump = 9;
 }
 
 message CUserInfo
