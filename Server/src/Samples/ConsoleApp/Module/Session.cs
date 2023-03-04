@@ -114,6 +114,14 @@ namespace ServerDemo
                 Console.WriteLine("发送S2C_UserStateInfosResponse,数量:" + msg.UserStateInfos.Count);
                 Send((int)MessageNumber.S2C_UserStateInfosResponse, msg);
             }
+            else if (msgType == (int)MessageNumber.BroadCastVoice) //如果是语音消息还广播给其他所有人
+            {
+                NetManager.Instance.BroadCastMsg(bytes);
+            }
+            else if (msgType == (int)MessageNumber.CMoveDataMsg)
+            {
+                NetManager.Instance.BroadCastMsg(bytes, sid);//将移动消息广播给其他人
+            }
         }
 
         public void Send(int msgId, IMessage msg)

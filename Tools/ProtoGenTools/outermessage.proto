@@ -46,6 +46,8 @@ message CMoveData
 	float MoveSpeed = 4;
 	float SyncDeltaTime = 5;
 	int32 ActionType = 6;
+	float RealtimeSinceStartUp = 7;
+	bool IsMove = 8;
 }
 
 message CUserInfo

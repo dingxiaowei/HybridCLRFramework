@@ -59,18 +59,22 @@ namespace Dypsloom.DypThePenguin.Scripts.Character
                 if (m_IsJumping)
                 {
                     RemoveExternalMover(m_JumpForceMover);
-                    m_IsJumping = false;
+                    m_IsJumping = false; //刚落地
                 }
 
                 if (m_Character.CharacterInput.Jump)
                 {
                     m_Character.IsGrounded = false;
                     m_IsJumping = true;
+                    m_Character.BeginJumpEvent?.Invoke();  //发送起跳事件
                     m_JumpForceMover.StartJump(m_Character.JumpForce, m_Character.JumpFallOff);
                     AddExternalMover(m_JumpForceMover);
                 }
 
-                if (m_Movement.y > c_NoVerticalMovementOffset) { m_GravityMovement = new Vector3(0, 0f, 0); }
+                if (m_Movement.y > c_NoVerticalMovementOffset)
+                {
+                    m_GravityMovement = new Vector3(0, 0f, 0);
+                }
                 else
                 {
                     m_GravityMovement = new Vector3(0, c_StickyGravity, 0);
@@ -87,6 +91,8 @@ namespace Dypsloom.DypThePenguin.Scripts.Character
             }
 
             var movementInput = m_Character.IsDead ? Vector3.zero : new Vector3(m_Character.CharacterInput.Horizontal, 0, m_Character.CharacterInput.Vertical);
+            //抛出移动事件
+            m_Character.MoveEvent?.Invoke(m_Character.CharacterInput.Horizontal, m_Character.CharacterInput.Vertical);
             var movementRelativeCamera = m_Character.CharacterCamera.transform.TransformDirection(movementInput);
             movementRelativeCamera = new Vector3(movementRelativeCamera.x, 0, movementRelativeCamera.z).normalized;
 

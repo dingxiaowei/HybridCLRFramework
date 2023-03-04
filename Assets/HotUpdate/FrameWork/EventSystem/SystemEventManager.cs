@@ -45,6 +45,11 @@ public class ConnectStateEvent : SystemEventBase
     public bool ConnectState;
 }
 
+public class CharMoveEvent : SystemEventBase
+{
+    public Protoc.CMoveData MoveData;
+}
+
 public class SystemEventManager : ManagerBase<SystemEventManager>
 {
     private Queue<SystemEventBase> mEventQueue = new Queue<SystemEventBase>();

@@ -16,9 +16,10 @@ namespace ActDemo
         {
             animator = GetComponent<Animator>();
         }
-        void Start()
-        {
 
+        public void EnqueueMoveData(CMoveData data)
+        {
+            moveDataMsgQueue.Enqueue(data);
         }
 
         // Update is called once per frame

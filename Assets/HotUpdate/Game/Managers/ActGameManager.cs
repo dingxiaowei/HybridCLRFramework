@@ -10,16 +10,24 @@ namespace ActDemo
         public override void Start()
         {
             base.Start();
-            RegisterMsg();
+            RegisterEvents();
         }
 
-        void RegisterMsg()
+        void RegisterEvents()
         {
             //玩家注册消息回调
             SystemEventManager.Instance.RegisterEvent(EventType.EUserRegister, OnUserRegist);
             SystemEventManager.Instance.RegisterEvent(EventType.EUserStateInfos, OnUserStateInfos);
             SystemEventManager.Instance.RegisterEvent(EventType.EForceRegisterUser, ForceRegisterUser);
             SystemEventManager.Instance.RegisterEvent(EventType.ESocketConnectState, OnConnectState);
+        }
+
+        void UnRegisterEvents()
+        {
+            SystemEventManager.Instance.UnRegisterEvent(EventType.EUserRegister, OnUserRegist);
+            SystemEventManager.Instance.UnRegisterEvent(EventType.EUserStateInfos, OnUserStateInfos);
+            SystemEventManager.Instance.UnRegisterEvent(EventType.EForceRegisterUser, ForceRegisterUser);
+            SystemEventManager.Instance.UnRegisterEvent(EventType.ESocketConnectState, OnConnectState);
         }
 
         void OnUserRegist(SystemEventBase eventArg)
@@ -118,10 +126,7 @@ namespace ActDemo
         public override void OnDestroy()
         {
             base.OnDestroy();
-            SystemEventManager.Instance.UnRegisterEvent(EventType.EUserRegister, OnUserRegist);
-            SystemEventManager.Instance.UnRegisterEvent(EventType.EUserStateInfos, OnUserStateInfos);
-            SystemEventManager.Instance.UnRegisterEvent(EventType.EForceRegisterUser, ForceRegisterUser);
-            SystemEventManager.Instance.UnRegisterEvent(EventType.ESocketConnectState, OnConnectState);
+            UnRegisterEvents();
         }
     }
 }

@@ -83,7 +83,18 @@ namespace Dypsloom.DypThePenguin.Scripts.Character
             get => m_GroundedTimer >= Time.time;
             set => m_GroundedTimer = value ? Time.time + m_AdditionalGroundedTime : 0;
         }
-
+        /// <summary>
+        /// 刚落地事件
+        /// </summary>
+        public Action IsGroundedEvent;
+        /// <summary>
+        /// 开始跳事件
+        /// </summary>
+        public Action BeginJumpEvent;
+        /// <summary>
+        /// 移动事件
+        /// </summary>
+        public Action<float, float> MoveEvent;
         /// <summary>
         /// Initialize all the properties.
         /// </summary>
@@ -111,6 +122,14 @@ namespace Dypsloom.DypThePenguin.Scripts.Character
             m_CharacterInput = new CharacterInputs(this);
         }
 
+        private void CheckGrounded()
+        {
+            if (!IsGrounded)
+            {
+                IsGroundedEvent?.Invoke();
+            }
+        }
+
         /// <summary>
         /// Tick all the properties which needs to update every frame.
         /// </summary>
@@ -118,16 +137,19 @@ namespace Dypsloom.DypThePenguin.Scripts.Character
         {
             if (m_CharacterController.isGrounded)
             {
+                CheckGrounded();
                 IsGrounded = true;
             }
             else if (Physics.Raycast(transform.position + transform.up * 0.5f, -1f * transform.up, out var hit, m_GroundRaycastLength + 0.5f, int.MaxValue, QueryTriggerInteraction.Ignore))
             {
                 if (m_CharacterMover.IsJumping == false)
                 {
+                    CheckGrounded();
                     IsGrounded = true;
                 }
                 else
                 {
+
                 }
             }
 

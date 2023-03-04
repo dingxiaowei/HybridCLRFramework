@@ -31,22 +31,23 @@ namespace Protoc {
             "GAMgASgMIh8KDkJyb2FkQ2FzdFZvaWNlEg0KBVZvaWNlGAEgASgMIjsKCFVu",
             "aXRJbmZvEg4KBlVuaXRJZBgBIAEoAxIJCgFYGAIgASgCEgkKAVkYAyABKAIS",
             "CQoBWhgEIAEoAiIrCghWZWMzRGF0YRIJCgFYGAEgASgCEgkKAVkYAiABKAIS",
-            "CQoBWhgDIAEoAiKaAQoJQ01vdmVEYXRhEg4KBlVzZXJJZBgBIAEoBRIdCgNQ",
+            "CQoBWhgDIAEoAiLIAQoJQ01vdmVEYXRhEg4KBlVzZXJJZBgBIAEoBRIdCgNQ",
             "b3MYAiABKAsyEC5wcm90b2MuVmVjM0RhdGESIAoGUm90YXRlGAMgASgLMhAu",
             "cHJvdG9jLlZlYzNEYXRhEhEKCU1vdmVTcGVlZBgEIAEoAhIVCg1TeW5jRGVs",
-            "dGFUaW1lGAUgASgCEhIKCkFjdGlvblR5cGUYBiABKAUiLQoJQ1VzZXJJbmZv",
-            "Eg4KBlVzZXJJZBgBIAEoBRIQCghVc2VyTmFtZRgCIAEoCSJ2Cg5DVXNlclN0",
-            "YXRlSW5mbxIjCghVc2VySW5mbxgBIAEoCzIRLnByb3RvYy5DVXNlckluZm8S",
-            "HQoDUG9zGAIgASgLMhAucHJvdG9jLlZlYzNEYXRhEiAKBlJvdGF0ZRgDIAEo",
-            "CzIQLnByb3RvYy5WZWMzRGF0YSJCChtDMlNfUmVnaXN0ZXJVc2VySW5mb1Jl",
-            "cXVlc3QSIwoIVXNlckluZm8YASABKAsyES5wcm90b2MuQ1VzZXJJbmZvIm0K",
-            "HFMyQ19SZWdpc3RlclVzZXJJbmZvUmVzcG9uc2USDQoFRXJyb3IYASABKAUS",
-            "DwoHTWVzc2FnZRgCIAEoCRItCg1Vc2VyU3RhdGVJbmZvGAMgASgLMhYucHJv",
-            "dG9jLkNVc2VyU3RhdGVJbmZvIi0KGUMyU19Vc2VyU3RhdGVJbmZvc1JlcXVl",
-            "c3QSEAoITXlVc2VySWQYASABKAUibAoaUzJDX1VzZXJTdGF0ZUluZm9zUmVz",
-            "cG9uc2USDQoFRXJyb3IYASABKAUSDwoHTWVzc2FnZRgCIAEoCRIuCg5Vc2Vy",
-            "U3RhdGVJbmZvcxgDIAMoCzIWLnByb3RvYy5DVXNlclN0YXRlSW5mbyIfCg1T",
-            "MkNfVXNlckxlYXZlEg4KBlVzZXJJZBgBIAEoBWIGcHJvdG8z"));
+            "dGFUaW1lGAUgASgCEhIKCkFjdGlvblR5cGUYBiABKAUSHAoUUmVhbHRpbWVT",
+            "aW5jZVN0YXJ0VXAYByABKAISDgoGSXNNb3ZlGAggASgIIi0KCUNVc2VySW5m",
+            "bxIOCgZVc2VySWQYASABKAUSEAoIVXNlck5hbWUYAiABKAkidgoOQ1VzZXJT",
+            "dGF0ZUluZm8SIwoIVXNlckluZm8YASABKAsyES5wcm90b2MuQ1VzZXJJbmZv",
+            "Eh0KA1BvcxgCIAEoCzIQLnByb3RvYy5WZWMzRGF0YRIgCgZSb3RhdGUYAyAB",
+            "KAsyEC5wcm90b2MuVmVjM0RhdGEiQgobQzJTX1JlZ2lzdGVyVXNlckluZm9S",
+            "ZXF1ZXN0EiMKCFVzZXJJbmZvGAEgASgLMhEucHJvdG9jLkNVc2VySW5mbyJt",
+            "ChxTMkNfUmVnaXN0ZXJVc2VySW5mb1Jlc3BvbnNlEg0KBUVycm9yGAEgASgF",
+            "Eg8KB01lc3NhZ2UYAiABKAkSLQoNVXNlclN0YXRlSW5mbxgDIAEoCzIWLnBy",
+            "b3RvYy5DVXNlclN0YXRlSW5mbyItChlDMlNfVXNlclN0YXRlSW5mb3NSZXF1",
+            "ZXN0EhAKCE15VXNlcklkGAEgASgFImwKGlMyQ19Vc2VyU3RhdGVJbmZvc1Jl",
+            "c3BvbnNlEg0KBUVycm9yGAEgASgFEg8KB01lc3NhZ2UYAiABKAkSLgoOVXNl",
+            "clN0YXRlSW5mb3MYAyADKAsyFi5wcm90b2MuQ1VzZXJTdGF0ZUluZm8iHwoN",
+            "UzJDX1VzZXJMZWF2ZRIOCgZVc2VySWQYASABKAViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -55,7 +56,7 @@ namespace Protoc {
             new pbr::GeneratedClrTypeInfo(typeof(global::Protoc.BroadCastVoice), global::Protoc.BroadCastVoice.Parser, new[]{ "Voice" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protoc.UnitInfo), global::Protoc.UnitInfo.Parser, new[]{ "UnitId", "X", "Y", "Z" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protoc.Vec3Data), global::Protoc.Vec3Data.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Protoc.CMoveData), global::Protoc.CMoveData.Parser, new[]{ "UserId", "Pos", "Rotate", "MoveSpeed", "SyncDeltaTime", "ActionType" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Protoc.CMoveData), global::Protoc.CMoveData.Parser, new[]{ "UserId", "Pos", "Rotate", "MoveSpeed", "SyncDeltaTime", "ActionType", "RealtimeSinceStartUp", "IsMove" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protoc.CUserInfo), global::Protoc.CUserInfo.Parser, new[]{ "UserId", "UserName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protoc.CUserStateInfo), global::Protoc.CUserStateInfo.Parser, new[]{ "UserInfo", "Pos", "Rotate" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Protoc.C2S_RegisterUserInfoRequest), global::Protoc.C2S_RegisterUserInfoRequest.Parser, new[]{ "UserInfo" }, null, null, null, null),
@@ -1419,6 +1420,8 @@ namespace Protoc {
       moveSpeed_ = other.moveSpeed_;
       syncDeltaTime_ = other.syncDeltaTime_;
       actionType_ = other.actionType_;
+      realtimeSinceStartUp_ = other.realtimeSinceStartUp_;
+      isMove_ = other.isMove_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1500,6 +1503,30 @@ namespace Protoc {
       }
     }
 
+    /// <summary>Field number for the "RealtimeSinceStartUp" field.</summary>
+    public const int RealtimeSinceStartUpFieldNumber = 7;
+    private float realtimeSinceStartUp_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public float RealtimeSinceStartUp {
+      get { return realtimeSinceStartUp_; }
+      set {
+        realtimeSinceStartUp_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "IsMove" field.</summary>
+    public const int IsMoveFieldNumber = 8;
+    private bool isMove_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool IsMove {
+      get { return isMove_; }
+      set {
+        isMove_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1521,6 +1548,8 @@ namespace Protoc {
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(MoveSpeed, other.MoveSpeed)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(SyncDeltaTime, other.SyncDeltaTime)) return false;
       if (ActionType != other.ActionType) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(RealtimeSinceStartUp, other.RealtimeSinceStartUp)) return false;
+      if (IsMove != other.IsMove) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1534,6 +1563,8 @@ namespace Protoc {
       if (MoveSpeed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(MoveSpeed);
       if (SyncDeltaTime != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(SyncDeltaTime);
       if (ActionType != 0) hash ^= ActionType.GetHashCode();
+      if (RealtimeSinceStartUp != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(RealtimeSinceStartUp);
+      if (IsMove != false) hash ^= IsMove.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1576,6 +1607,14 @@ namespace Protoc {
         output.WriteRawTag(48);
         output.WriteInt32(ActionType);
       }
+      if (RealtimeSinceStartUp != 0F) {
+        output.WriteRawTag(61);
+        output.WriteFloat(RealtimeSinceStartUp);
+      }
+      if (IsMove != false) {
+        output.WriteRawTag(64);
+        output.WriteBool(IsMove);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1610,6 +1649,14 @@ namespace Protoc {
         output.WriteRawTag(48);
         output.WriteInt32(ActionType);
       }
+      if (RealtimeSinceStartUp != 0F) {
+        output.WriteRawTag(61);
+        output.WriteFloat(RealtimeSinceStartUp);
+      }
+      if (IsMove != false) {
+        output.WriteRawTag(64);
+        output.WriteBool(IsMove);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1637,6 +1684,12 @@ namespace Protoc {
       }
       if (ActionType != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(ActionType);
+      }
+      if (RealtimeSinceStartUp != 0F) {
+        size += 1 + 4;
+      }
+      if (IsMove != false) {
+        size += 1 + 1;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1673,6 +1726,12 @@ namespace Protoc {
       }
       if (other.ActionType != 0) {
         ActionType = other.ActionType;
+      }
+      if (other.RealtimeSinceStartUp != 0F) {
+        RealtimeSinceStartUp = other.RealtimeSinceStartUp;
+      }
+      if (other.IsMove != false) {
+        IsMove = other.IsMove;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1719,6 +1778,14 @@ namespace Protoc {
             ActionType = input.ReadInt32();
             break;
           }
+          case 61: {
+            RealtimeSinceStartUp = input.ReadFloat();
+            break;
+          }
+          case 64: {
+            IsMove = input.ReadBool();
+            break;
+          }
         }
       }
     #endif
@@ -1762,6 +1829,14 @@ namespace Protoc {
           }
           case 48: {
             ActionType = input.ReadInt32();
+            break;
+          }
+          case 61: {
+            RealtimeSinceStartUp = input.ReadFloat();
+            break;
+          }
+          case 64: {
+            IsMove = input.ReadBool();
             break;
           }
         }

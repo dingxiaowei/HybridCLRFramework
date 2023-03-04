@@ -6,5 +6,6 @@ public enum EventType
     EUserStateInfos = 3,
     EForceRegisterUser = 4,
     ESocketConnectState = 5,
-    EUserLeave = 6
+    EUserLeave = 6,
+    ECharMove = 7
 }
