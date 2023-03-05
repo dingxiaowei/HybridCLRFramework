@@ -10,7 +10,7 @@ namespace ActDemo
     public class CharactersManager : ManagerBase<CharactersManager>
     {
         public Action<Character> OnMainPlayerLoadedEvent;
-        Dictionary<int, PlayerBase> PlayersMap = new Dictionary<int, PlayerBase>();
+        //Dictionary<int, PlayerBase> PlayersMap = new Dictionary<int, PlayerBase>();
         Dictionary<int, OtherPlayer> OtherPlayersMap = new Dictionary<int, OtherPlayer>();
         public int MainCharUid
         {
@@ -86,7 +86,7 @@ namespace ActDemo
 
                 int uid = tempUserStateInfo.UserInfo.UserId;
                 var otherPlayer = new OtherPlayer(charMoveSyncController, uid, go, request);
-                PlayersMap.Add(uid, otherPlayer);
+                //PlayersMap.Add(uid, otherPlayer);
                 OtherPlayersMap.Add(uid, otherPlayer);
             }
             //TODO:异步加载两个只加载出来了一个
@@ -136,7 +136,7 @@ namespace ActDemo
                 ActDemoLoader.Instance.CameraFollow.target = go.transform;
                 var myPlayer = new MyPlayer(characterController, charMoveController, uid, go, request);
                 mainPlayer = myPlayer;
-                PlayersMap.Add(uid, myPlayer);
+                //PlayersMap.Add(uid, myPlayer);
                 OnMainPlayerLoadedEvent?.Invoke(characterController);
                 OnPlaerLoaded?.Invoke(userStateInfo.UserInfo.UserId);
                 mainPlayer.SetId(userStateInfo.UserInfo.UserId);
@@ -210,17 +210,24 @@ namespace ActDemo
 
         void RemovePlayer(int uid)
         {
-            if (!PlayersMap.ContainsKey(uid))
+            //if (!PlayersMap.ContainsKey(uid))
+            //{
+            //    Debug.LogError($"当前角色 uid:{uid}不存在，没法移除");
+            //    return;
+            //}
+            //var player = PlayersMap[uid];
+            //player.Destroy();
+            //if (PlayersMap.ContainsKey(uid))
+            //    PlayersMap.Remove(uid);
+            if (uid == mainPlayer.Uid)
             {
-                Debug.LogError($"当前角色 uid:{uid}不存在，没法移除");
+                Debug.LogError("不能移除自己的角色");
                 return;
             }
-            var player = PlayersMap[uid];
-            player.Destroy();
-            if (PlayersMap.ContainsKey(uid))
-                PlayersMap.Remove(uid);
             if (OtherPlayersMap.ContainsKey(uid))
                 OtherPlayersMap.Remove(uid);
+            else
+                Debug.LogError($"没有当前要移除的角色:{uid}");
         }
     }
 }

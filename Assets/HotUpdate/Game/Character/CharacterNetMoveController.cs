@@ -62,6 +62,7 @@ namespace ActDemo
         {
             //Debug.Log("¿ªÊ¼ÌøÔ¾");
             isJump = true;
+            MoveMsg(deltaTime, EMoveActionType.Jump);
         }
 
         void OnMove(float horizontalValue, float verticalValue)
