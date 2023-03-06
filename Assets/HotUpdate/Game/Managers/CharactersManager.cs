@@ -1,9 +1,8 @@
 using Dypsloom.DypThePenguin.Scripts.Character;
-using Dypsloom.DypThePenguin.Scripts.Items;
 using libx;
 using System;
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace ActDemo
 {
@@ -60,7 +59,6 @@ namespace ActDemo
             var arg = eventArg as UserLeaveEvent;
             int uid = arg.Uid;
             RemovePlayer(uid);
-            Debug.Log($"玩家:{uid}离开");
         }
 
         //TODO:需要角色管理，角色里面有属性还有模型，还有Request
@@ -210,22 +208,18 @@ namespace ActDemo
 
         void RemovePlayer(int uid)
         {
-            //if (!PlayersMap.ContainsKey(uid))
-            //{
-            //    Debug.LogError($"当前角色 uid:{uid}不存在，没法移除");
-            //    return;
-            //}
-            //var player = PlayersMap[uid];
-            //player.Destroy();
-            //if (PlayersMap.ContainsKey(uid))
-            //    PlayersMap.Remove(uid);
             if (uid == mainPlayer.Uid)
             {
                 Debug.LogError("不能移除自己的角色");
                 return;
             }
             if (OtherPlayersMap.ContainsKey(uid))
+            {
+                var player = OtherPlayersMap[uid];
+                player.Destroy();
                 OtherPlayersMap.Remove(uid);
+                Debug.Log($"玩家:{uid}离开");
+            }
             else
                 Debug.LogError($"没有当前要移除的角色:{uid}");
         }
