@@ -97,7 +97,7 @@ namespace ServerDemo
                 myPlayMsg.UserStateInfos.Add(CPlayerInfo.UserStateInfo);
 
                 Console.WriteLine("收到客户端发来的C2S_UserStateInfosRequest");
-                var c2s_UserStateInfosRequest = C2S_UserStateInfosRequest.Parser.ParseFrom(netMsg.Content);
+                //var c2s_UserStateInfosRequest = C2S_UserStateInfosRequest.Parser.ParseFrom(netMsg.Content);
                 var msg = new S2C_UserStateInfosResponse();
                 msg.Error = 0;
                 msg.Message = "";
@@ -120,6 +120,9 @@ namespace ServerDemo
             }
             else if (msgType == (int)MessageNumber.CMoveDataMsg)
             {
+                var moveMsg = CMoveData.Parser.ParseFrom(netMsg.Content);
+                CPlayerInfo.UserStateInfo.Pos = moveMsg.Pos;
+                CPlayerInfo.UserStateInfo.Rotate = moveMsg.Rotate;
                 NetManager.Instance.BroadCastMsg(bytes, sid);//将移动消息广播给其他人
             }
         }
