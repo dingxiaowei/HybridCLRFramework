@@ -1,6 +1,7 @@
 using Protoc;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using Dypsloom.DypThePenguin.Scripts.Damage;
 
@@ -15,6 +16,7 @@ namespace ActDemo
         private Quaternion lastRot;
         private Vector3 newPos;
         private Quaternion newRot;
+        private Vector3 endRotate;
         private bool firstTime = true;
         //private float syncTimeScale = 1.0f;//加速
         private float deltaTime = 0;
@@ -102,8 +104,9 @@ namespace ActDemo
                 deltaTime += Time.deltaTime;
                 //var t = syncTime > 0 ? deltaTime / (syncTime * syncTimeScale) : 1;
                 var t = (deltaTime / syncTime);
-                transform.localPosition = Vector3.Slerp(lastPos, newPos, t);
-                transform.localRotation = Quaternion.Slerp(lastRot, newRot, t);
+                var currentPos = 
+                transform.position = Vector3.Slerp(lastPos, newPos, t);
+                transform.DORotate(endRotate, t);
                 if (deltaTime >= syncTime)
                 {
                     delWithOnceMoveData = false;
@@ -121,7 +124,7 @@ namespace ActDemo
 
             newPos = data.Pos.ToVector3();
             newRot = Quaternion.Euler(data.Rotate.ToVector3());
-
+            endRotate = data.Rotate.ToVector3();
             Grounded(!data.IsJump);
             HorizontalMove(data.MoveSpeed);
             syncTime = data.SyncDeltaTime; //移动的时间
