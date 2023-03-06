@@ -104,7 +104,6 @@ namespace ActDemo
                 deltaTime += Time.deltaTime;
                 //var t = syncTime > 0 ? deltaTime / (syncTime * syncTimeScale) : 1;
                 var t = (deltaTime / syncTime);
-                var currentPos = 
                 transform.position = Vector3.Slerp(lastPos, newPos, t);
                 transform.DORotate(endRotate, t);
                 if (deltaTime >= syncTime)
