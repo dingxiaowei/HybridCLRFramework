@@ -102,9 +102,8 @@ namespace ActDemo
                 deltaTime += Time.deltaTime;
                 //var t = syncTime > 0 ? deltaTime / (syncTime * syncTimeScale) : 1;
                 var t = (deltaTime / syncTime);
-                var currentPos = 
-                transform.position = Vector3.Slerp(lastPos, newPos, t);
-                transform.rotation = Quaternion.Slerp(lastRot, newRot, t);
+                transform.localPosition = Vector3.Slerp(lastPos, newPos, t);
+                transform.localRotation = Quaternion.Slerp(lastRot, newRot, t);
                 if (deltaTime >= syncTime)
                 {
                     delWithOnceMoveData = false;

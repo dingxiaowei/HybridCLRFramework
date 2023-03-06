@@ -121,7 +121,7 @@ namespace ActDemo
         {
             CMoveData moveData = new CMoveData();
             moveData.UserId = CharactersManager.Instance.MainCharUid;
-            _lastPos = transform.position;
+            _lastPos = transform.localPosition;
             _lastRot = transform.localEulerAngles;
             moveData.Pos = _lastPos.ToVec3Data();
             moveData.Rotate = _lastRot.ToVec3Data();
