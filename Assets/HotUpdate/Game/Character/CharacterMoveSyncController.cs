@@ -16,10 +16,10 @@ namespace ActDemo
         private Vector3 newPos;
         private Quaternion newRot;
         private bool firstTime = true;
-        private float syncTimeScale = 1.0f;
+        //private float syncTimeScale = 1.0f;//加速
         private float deltaTime = 0;
-        private bool canMove = false;
         private float syncTime = 0;
+        private bool delWithOnceMoveData = false;
         private EMoveActionType currentAction = EMoveActionType.Idle;
         private static readonly int m_HorizontalSpeedAnimHash = Animator.StringToHash("Horizontal Speed");
         private static readonly int m_VerticalSpeedAnimHash = Animator.StringToHash("Vertical Speed");
@@ -90,23 +90,25 @@ namespace ActDemo
 
         void Update()
         {
-            if (!canMove && moveDataMsgQueue.Count > 0)
+            if (!delWithOnceMoveData && moveDataMsgQueue.Count > 0)
             {
+                delWithOnceMoveData = true;
                 var moveMsg = moveDataMsgQueue.Dequeue();
                 DealMoveData(moveMsg);
-                syncTimeScale = moveDataMsgQueue.Count > 3 ? 0.9f : 1.0f;
+                //syncTimeScale = moveDataMsgQueue.Count > 3 ? 0.9f : 1.0f; //同步的时间
             }
-            if (canMove)
+            if (delWithOnceMoveData)
             {
                 deltaTime += Time.deltaTime;
-                var t = syncTime > 0 ? deltaTime / (syncTime * syncTimeScale) : 1;
-                var currentPos = Vector3.Slerp(lastPos, newPos, t);
-                transform.position = currentPos;
+                //var t = syncTime > 0 ? deltaTime / (syncTime * syncTimeScale) : 1;
+                var t = (deltaTime / syncTime);
+                var currentPos = 
+                transform.position = Vector3.Slerp(lastPos, newPos, t);
                 transform.rotation = Quaternion.Slerp(lastRot, newRot, t);
-                if(deltaTime >= syncTime)
+                if (deltaTime >= syncTime)
                 {
-                    deltaTime -= syncTime;
-                    canMove = false;
+                    delWithOnceMoveData = false;
+                    deltaTime = 0;
                 }
             }
         }
@@ -115,23 +117,16 @@ namespace ActDemo
         {
             if (data == null)
                 return;
-            if (firstTime)
-            {
-                firstTime = false;
-                lastPos = data.Pos.ToVector3();
-                lastRot = Quaternion.Euler(data.Rotate.ToVector3());
-                currentAction = EMoveActionType.Idle;
-            }
-            else
-            {
-                newPos = data.Pos.ToVector3();
-                newRot = Quaternion.Euler(data.Rotate.ToVector3());
-            }
+            lastPos = transform.position;
+            lastRot = Quaternion.Euler(transform.localPosition);
+
+            newPos = data.Pos.ToVector3();
+            newRot = Quaternion.Euler(data.Rotate.ToVector3());
+
             Grounded(!data.IsJump);
-            //HorizontalMove(data.)
             HorizontalMove(data.MoveSpeed);
-            syncTime = data.SyncDeltaTime;
-            canMove = true;
+            syncTime = data.SyncDeltaTime; //移动的时间
+            deltaTime = 0;
         }
     }
 }
