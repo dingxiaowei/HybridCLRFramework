@@ -3,7 +3,7 @@ CRC: 3883673158
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 9bcc900639d5046243aed68f428c8ab9
+    Hash: 83b8ded7ab50c85258c23e28d5d62f49
   TypeTreeHash:
     serializedVersion: 2
     Hash: 0e1f96a5a6a61700b703ef6cc23f037b
@@ -40,6 +40,6 @@ Assets:
 - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/Trail.mat
 - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/DizzyEffect.prefab
 - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/Star_white.png
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/StarWithTrail.prefab
 - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/HealEffect.prefab
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/StarWithTrail.prefab
 Dependencies: []

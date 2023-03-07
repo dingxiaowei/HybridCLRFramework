@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3984220419
+CRC: 3034544066
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 335f9dfafee0aa7e2877d2aa7e3df39a
+    Hash: d7276a512f4fb2380cad735f5ff49c88
   TypeTreeHash:
     serializedVersion: 2
-    Hash: d1485edceaf595b55eefe6b9b04e5067
+    Hash: 1e4d52256d6036f13b5b571fc33e2c2b
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -25,8 +25,6 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 48
   Script: {instanceID: 0}
-- Class: 54
-  Script: {instanceID: 0}
 - Class: 74
   Script: {instanceID: 0}
 - Class: 90
@@ -35,35 +33,15 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 95
   Script: {instanceID: 0}
-- Class: 96
-  Script: {instanceID: 0}
 - Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: c0bcb3b7024c84441a5be5f4ec5566f8, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: d94070f293f44aa698560678c976cbb5, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 6f1ce8866c3a876428d51b96d263eed1, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: d0bc7b21e5604533b4caa37724e9ecf8, type: 3}
 - Class: 115
-  Script: {instanceID: 0}
-- Class: 135
-  Script: {instanceID: 0}
-- Class: 136
   Script: {instanceID: 0}
 - Class: 137
   Script: {instanceID: 0}
-- Class: 143
-  Script: {instanceID: 0}
 - Class: 156
-  Script: {instanceID: 0}
-- Class: 198
-  Script: {instanceID: 0}
-- Class: 199
-  Script: {instanceID: 0}
-- Class: 212
   Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
@@ -84,18 +62,21 @@ SerializeReferenceClassIdentifiers:
   ClassName: UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
 Assets:
 - Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/Root_Motion/Frank_RPG_Katana_S2_Skill01.FBX
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_idle.fbx
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Textures/T_bag.png
+- Assets/Stylized Nature Environment/Prefabs/sky.prefab
+- Assets/Stylized Nature Environment/Prefabs/tree_g.prefab
+- Assets/3rdParty/Frank_Slash_Pack/Assets/Materials/Frank_Katana_Body.mat
 - Assets/Stylized Nature Environment/Prefabs/mountain.prefab
 - Assets/Stylized Nature Environment/Textures/mountain_normals.psd
 - Assets/Stylized Nature Environment/Terrain/Materials/mesh_low.mat
 - Assets/Stylized Nature Environment/Nature/foliage07.psd
 - Assets/Stylized Nature Environment/Nature/tree_i.fbx
 - Assets/Stylized Nature Environment/Terrain/sky.FBX
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/Trail.mat
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/DizzyEffect.prefab
 - Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/Root_Motion/Frank_RPG_Katana_S1_Combo01_01.FBX
+- Assets/Stylized Nature Environment/Nature/grass01.PSD
+- Assets/Stylized Nature Environment/Textures/sky.png
 - Assets/Stylized Nature Environment/Nature/tree_f.fbx
+- Assets/Stylized Nature Environment/Scene/scenarioSettings.lighting
+- Assets/Stylized Nature Environment/Prefabs/tree_a.prefab
 - Assets/Stylized Nature Environment/Nature/foliage02.psd
 - Assets/Stylized Nature Environment/Nature/foliage06.psd
 - Assets/3rdParty/Frank_Slash_Pack/Assets/Materials/Frank_2Handed_Body_Parts.mat
@@ -103,84 +84,59 @@ Assets:
 - Assets/Stylized Nature Environment/Prefabs/tree_b.prefab
 - Assets/Stylized Nature Environment/Prefabs/tree_j.prefab
 - Assets/3rdParty/Frank_Slash_Pack/Assets/Materials/Frank_Katana_Glow.mat
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Mat_penguin.mat
-- Assets/Stylized Nature Environment/Prefabs/tree_k.prefab
-- Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/Root_Motion/Frank_RPG_Katana_Unequip_Run_Faster_Velocity.FBX
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/StarWithTrail.prefab
-- Assets/3rdParty/Frank_Slash_Pack/Assets/Materials/Frank_2Handed_Unity.mat
-- Assets/Stylized Nature Environment/Nature/tree_d.fbx
-- Assets/Demo/ACTDemo/Prefabs/Penguin.prefab
-- Assets/Demo/ACTDemo/Katana/KatanaAnimCtrl.controller
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_interact.fbx
-- Assets/Stylized Nature Environment/Nature/tree_g.fbx
-- Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/In_Place/Frank_RPG_Katana_Jump_01.FBX
-- Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/In_Place/Frank_RPG_Katana_Stance1_Idle.FBX
-- Assets/Stylized Nature Environment/Prefabs/tree_i.prefab
-- Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/Root_Motion/Frank_RPG_Katana_S1_Combo01_03.FBX
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/Dyp_walk_01.anim
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Models/Dyp.fbx
-- Assets/Stylized Nature Environment/Nature/tree_c.fbx
-- Assets/3rdParty/Frank_Slash_Pack/Assets/Materials/Frank_Katana_Body_Pants.mat
-- Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/Frank_Katana.mask
-- Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/In_Place/Frank_RPG_Katana_Unequip_Run_Faster.FBX
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_hit.fbx
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_death.fbx
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/Star_white.png
-- Assets/Stylized Nature Environment/Textures/ground_a.psd
-- Assets/3rdParty/JoyStick/Res/background.png
-- Assets/Stylized Nature Environment/Terrain/mountain.FBX
-- Assets/Stylized Nature Environment/Nature/tree_k.fbx
-- Assets/Stylized Nature Environment/Nature/foliage04.psd
-- Assets/3rdParty/Frank_Slash_Pack/Assets/Meshes/Frank_2Handed_Skin.FBX
-- Assets/Stylized Nature Environment/Nature/tree_h.fbx
-- Assets/_TerrainAutoUpgrade/layer_ground_aground_a_normald261c09ae55ba1e3.terrainlayer
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Textures/T_Dyp.png
-- Assets/Stylized Nature Environment/Textures/mountain_emission.psd
-- Assets/Stylized Nature Environment/Prefabs/tree_e.prefab
-- Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/In_Place/Frank_RPG_Katana_Unequip_Idle.FBX
-- Assets/Stylized Nature Environment/Prefabs/sky.prefab
-- Assets/3rdParty/Frank_Slash_Pack/Assets/Materials/Frank_Katana_Body.mat
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Mat_Cloud.mat
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Mat_bag.mat
-- Assets/Stylized Nature Environment/Nature/grass01.PSD
-- Assets/Stylized Nature Environment/Textures/sky.png
-- Assets/Stylized Nature Environment/Scene/scenarioSettings.lighting
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_slashAttack.fbx
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_jump.fbx
 - Assets/Stylized Nature Environment/Nature/grass03.PSD
 - Assets/Stylized Nature Environment/Nature/grass02.PSD
+- Assets/Stylized Nature Environment/Prefabs/tree_k.prefab
+- Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/Root_Motion/Frank_RPG_Katana_Unequip_Run_Faster_Velocity.FBX
 - Assets/Stylized Nature Environment/Textures/ground_a_normal.psd
 - Assets/Stylized Nature Environment/Nature/foliage05.psd
+- Assets/3rdParty/Frank_Slash_Pack/Assets/Materials/Frank_2Handed_Unity.mat
 - Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/Root_Motion/Frank_RPG_Katana_S1_Combo01_02.FBX
+- Assets/Stylized Nature Environment/Nature/tree_d.fbx
 - Assets/Stylized Nature Environment/Prefabs/tree_h.prefab
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/Character Animator.controller
+- Assets/Demo/ACTDemo/Katana/KatanaAnimCtrl.controller
 - Assets/Stylized Nature Environment/Nature/Materials/Default.mat
 - Assets/Stylized Nature Environment/Nature/foliage01.psd
+- Assets/Stylized Nature Environment/Nature/tree_g.fbx
 - Assets/3rdParty/Frank_Slash_Pack/Assets/Materials/Frank_Katana_Sowrd.mat
+- Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/In_Place/Frank_RPG_Katana_Jump_01.FBX
 - Assets/3rdParty/Frank_Slash_Pack/Assets/Materials/Frank_Katana_FX_Slash.mat
 - Assets/3rdParty/JoyStick/Prefab/UIControllPanel.prefab
+- Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/In_Place/Frank_RPG_Katana_Stance1_Idle.FBX
 - Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/Root_Motion/Frank_RPG_Katana_Step_B.FBX
+- Assets/Stylized Nature Environment/Prefabs/tree_i.prefab
+- Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/Root_Motion/Frank_RPG_Katana_S1_Combo01_03.FBX
 - Assets/Stylized Nature Environment/Prefabs/tree_f.prefab
 - Assets/Stylized Nature Environment/Prefabs/tree_c.prefab
 - Assets/Stylized Nature Environment/Nature/tree_j.fbx
 - Assets/Stylized Nature Environment/Nature/tree_e.fbx
 - Assets/Stylized Nature Environment/Terrain/Materials/No Name.mat
+- Assets/Stylized Nature Environment/Nature/tree_c.fbx
 - Assets/Stylized Nature Environment/Terrain/Materials/mountain.mat
-- Assets/Stylized Nature Environment/Textures/mountain.psd
+- Assets/3rdParty/Frank_Slash_Pack/Assets/Materials/Frank_Katana_Body_Pants.mat
+- Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/Frank_Katana.mask
 - Assets/Stylized Nature Environment/Nature/foliage03.psd
+- Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/In_Place/Frank_RPG_Katana_Unequip_Run_Faster.FBX
 - Assets/Stylized Nature Environment/Terrain/Terrain.asset
 - Assets/Stylized Nature Environment/Prefabs/tree_d.prefab
+- Assets/Stylized Nature Environment/Textures/mountain.psd
+- Assets/Stylized Nature Environment/Textures/ground_a.psd
+- Assets/3rdParty/JoyStick/Res/background.png
 - Assets/Stylized Nature Environment/Nature/tree_b.fbx
-- Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/Root_Motion/Frank_RPG_Katana_Walk_Velocity.FBX
+- Assets/Stylized Nature Environment/Terrain/mountain.FBX
 - Assets/3rdParty/Frank_Slash_Pack/Assets/Materials/Frank_Katana_Blade.mat
+- Assets/Stylized Nature Environment/Nature/tree_k.fbx
+- Assets/Stylized Nature Environment/Nature/foliage04.psd
+- Assets/3rdParty/Frank_Slash_Pack/Assets/Meshes/Frank_2Handed_Skin.FBX
 - Assets/Stylized Nature Environment/Nature/Materials/branch_tex.mat
-- Assets/Stylized Nature Environment/Prefabs/tree_g.prefab
-- Assets/Stylized Nature Environment/Prefabs/tree_a.prefab
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/HealEffect.prefab
+- Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/Root_Motion/Frank_RPG_Katana_Walk_Velocity.FBX
+- Assets/Stylized Nature Environment/Nature/tree_h.fbx
 - Assets/3rdParty/Frank_Slash_Pack/Assets/Meshes/Frank_Katana_Skin.FBX
+- Assets/_TerrainAutoUpgrade/layer_ground_aground_a_normald261c09ae55ba1e3.terrainlayer
+- Assets/Stylized Nature Environment/Textures/mountain_emission.psd
 - Assets/Stylized Nature Environment/Nature/branch_tex.png
+- Assets/Stylized Nature Environment/Prefabs/tree_e.prefab
 - Assets/Stylized Nature Environment/Nature/tree_a.fbx
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_throw.fbx
+- Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/In_Place/Frank_RPG_Katana_Unequip_Idle.FBX
 - Assets/Stylized Nature Environment/Nature/foliage07-b.psd
-Dependencies:
-- D:/study/github/HybridCLRFramework/Bundles/Android/shaders.ab
+Dependencies: []

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03142c330ced64e0ab46cddcd0484ab7, type: 3}
   m_Name: Rules
   m_EditorClassIdentifier: 
-  build: 97
+  build: 98
   major: 5
   minor: 1
   scenesFolders:
@@ -345,6 +345,21 @@ MonoBehaviour:
     bundle: assets_scenes_actdemo.ab
     id: 0
     groupBy: 2
+  - name: Assets/Demo/ACTDemo/Prefabs/Penguin.prefab
+    group: 
+    bundle: assets_demo_actdemo_prefabs_penguin.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/ACTDemo/Prefabs/Penguin1.prefab
+    group: 
+    bundle: assets_demo_actdemo_prefabs_penguin1.ab
+    id: 0
+    groupBy: 2
+  - name: Assets/Demo/ACTDemo/Prefabs/ActDemoLoader.prefab
+    group: 
+    bundle: assets_demo_actdemo_prefabs_actdemoloader.ab
+    id: 0
+    groupBy: 2
   patches:
   - name: Splash
     assets:
@@ -400,6 +415,9 @@ MonoBehaviour:
     - Assets/Demo/ActDemo/Prefabs/ActDemoLoader.prefab
     - Assets/Demo/ActDemo/Prefabs/Penguin1.prefab
     - Assets/Scenes/ActDemo.unity
+    - Assets/Demo/ACTDemo/Prefabs/Penguin.prefab
+    - Assets/Demo/ACTDemo/Prefabs/Penguin1.prefab
+    - Assets/Demo/ACTDemo/Prefabs/ActDemoLoader.prefab
   bundles:
   - assetBundleName: assets_demo_ui_prefabs_levelscreen.ab
     assetNames:
@@ -504,8 +522,6 @@ MonoBehaviour:
     - Assets/Demo/Shaders/UIBlur.mat
     - Assets/Demo/Shaders/SimpleGrabPassBlur.shader
     - Assets/3rdParty/AVProVideo/Resources/Shaders/AVProVideo-Lit-Diffuse.shader
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Shaders/Shader_Cloud.shader
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Shaders/Shader_Outline.shader
   - assetBundleName: assets_demo_testprefabs_cube1.ab
     assetNames:
     - Assets/Demo/TestPrefabs/Cube1.prefab
@@ -579,6 +595,15 @@ MonoBehaviour:
   - assetBundleName: assets_scenes_actdemo.ab
     assetNames:
     - Assets/Scenes/ActDemo.unity
+  - assetBundleName: assets_demo_actdemo_prefabs_penguin.ab
+    assetNames:
+    - Assets/Demo/ACTDemo/Prefabs/Penguin.prefab
+  - assetBundleName: assets_demo_actdemo_prefabs_penguin1.ab
+    assetNames:
+    - Assets/Demo/ACTDemo/Prefabs/Penguin1.prefab
+  - assetBundleName: assets_demo_actdemo_prefabs_actdemoloader.ab
+    assetNames:
+    - Assets/Demo/ACTDemo/Prefabs/ActDemoLoader.prefab
   - assetBundleName: children_assets_scenes_testhybridclr.ab
     assetNames:
     - Assets/Images/logo.jpg
@@ -589,16 +614,12 @@ MonoBehaviour:
   - assetBundleName: children_assets_scenes_actdemo.ab
     assetNames:
     - Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/Root_Motion/Frank_RPG_Katana_S2_Skill01.FBX
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_idle.fbx
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Textures/T_bag.png
     - Assets/Stylized Nature Environment/Prefabs/mountain.prefab
     - Assets/Stylized Nature Environment/Textures/mountain_normals.psd
     - Assets/Stylized Nature Environment/Terrain/Materials/mesh_low.mat
     - Assets/Stylized Nature Environment/Nature/foliage07.psd
     - Assets/Stylized Nature Environment/Nature/tree_i.fbx
     - Assets/Stylized Nature Environment/Terrain/sky.FBX
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/Trail.mat
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/DizzyEffect.prefab
     - Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/Root_Motion/Frank_RPG_Katana_S1_Combo01_01.FBX
     - Assets/Stylized Nature Environment/Nature/tree_f.fbx
     - Assets/Stylized Nature Environment/Nature/foliage02.psd
@@ -610,27 +631,18 @@ MonoBehaviour:
     - Assets/Stylized Nature Environment/Nature/foliage06.psd
     - Assets/Stylized Nature Environment/Prefabs/tree_k.prefab
     - Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/Root_Motion/Frank_RPG_Katana_Unequip_Run_Faster_Velocity.FBX
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/StarWithTrail.prefab
     - Assets/3rdParty/Frank_Slash_Pack/Assets/Materials/Frank_2Handed_Unity.mat
     - Assets/Stylized Nature Environment/Nature/tree_d.fbx
-    - Assets/Demo/ACTDemo/Prefabs/Penguin.prefab
     - Assets/Demo/ACTDemo/Katana/KatanaAnimCtrl.controller
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Mat_penguin.mat
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_interact.fbx
     - Assets/Stylized Nature Environment/Nature/tree_g.fbx
     - Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/In_Place/Frank_RPG_Katana_Jump_01.FBX
     - Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/In_Place/Frank_RPG_Katana_Stance1_Idle.FBX
     - Assets/Stylized Nature Environment/Prefabs/tree_i.prefab
     - Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/Root_Motion/Frank_RPG_Katana_S1_Combo01_03.FBX
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/Dyp_walk_01.anim
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Models/Dyp.fbx
     - Assets/Stylized Nature Environment/Nature/tree_c.fbx
     - Assets/3rdParty/Frank_Slash_Pack/Assets/Materials/Frank_Katana_Body_Pants.mat
     - Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/Frank_Katana.mask
     - Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/In_Place/Frank_RPG_Katana_Unequip_Run_Faster.FBX
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_hit.fbx
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_death.fbx
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/Star_white.png
     - Assets/Stylized Nature Environment/Textures/ground_a.psd
     - Assets/3rdParty/JoyStick/Res/background.png
     - Assets/Stylized Nature Environment/Terrain/mountain.FBX
@@ -639,27 +651,20 @@ MonoBehaviour:
     - Assets/3rdParty/Frank_Slash_Pack/Assets/Meshes/Frank_2Handed_Skin.FBX
     - Assets/Stylized Nature Environment/Nature/tree_h.fbx
     - Assets/_TerrainAutoUpgrade/layer_ground_aground_a_normald261c09ae55ba1e3.terrainlayer
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Textures/T_Dyp.png
     - Assets/Stylized Nature Environment/Textures/mountain_emission.psd
     - Assets/Stylized Nature Environment/Prefabs/tree_e.prefab
     - Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/In_Place/Frank_RPG_Katana_Unequip_Idle.FBX
     - Assets/Stylized Nature Environment/Prefabs/sky.prefab
     - Assets/3rdParty/Frank_Slash_Pack/Assets/Materials/Frank_Katana_Body.mat
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Mat_Cloud.mat
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Mat_bag.mat
     - Assets/Stylized Nature Environment/Nature/grass01.PSD
     - Assets/Stylized Nature Environment/Textures/sky.png
     - Assets/Stylized Nature Environment/Scene/scenarioSettings.lighting
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_slashAttack.fbx
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_jump.fbx
     - Assets/Stylized Nature Environment/Nature/grass03.PSD
     - Assets/Stylized Nature Environment/Nature/grass02.PSD
     - Assets/Stylized Nature Environment/Textures/ground_a_normal.psd
     - Assets/Stylized Nature Environment/Nature/foliage05.psd
     - Assets/3rdParty/Frank_Slash_Pack/Assets/Animations/Frank_SlashPack_Katana/FBX_Animation/Root_Motion/Frank_RPG_Katana_S1_Combo01_02.FBX
     - Assets/Stylized Nature Environment/Prefabs/tree_h.prefab
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/Character
-      Animator.controller
     - Assets/Stylized Nature Environment/Nature/Materials/Default.mat
     - Assets/Stylized Nature Environment/Nature/foliage01.psd
     - Assets/3rdParty/Frank_Slash_Pack/Assets/Materials/Frank_Katana_Sowrd.mat
@@ -682,11 +687,9 @@ MonoBehaviour:
     - Assets/Stylized Nature Environment/Nature/Materials/branch_tex.mat
     - Assets/Stylized Nature Environment/Prefabs/tree_g.prefab
     - Assets/Stylized Nature Environment/Prefabs/tree_a.prefab
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/HealEffect.prefab
     - Assets/3rdParty/Frank_Slash_Pack/Assets/Meshes/Frank_Katana_Skin.FBX
     - Assets/Stylized Nature Environment/Nature/branch_tex.png
     - Assets/Stylized Nature Environment/Nature/tree_a.fbx
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_throw.fbx
     - Assets/Stylized Nature Environment/Nature/foliage07-b.psd
   - assetBundleName: shared_assets_demo_material.ab
     assetNames:
@@ -694,4 +697,39 @@ MonoBehaviour:
   - assetBundleName: shared_assets_demo.ab
     assetNames:
     - Assets/Demo/AppIcon.png
+  - assetBundleName: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_animations.ab
+    assetNames:
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_idle.fbx
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/Dyp_walk_01.anim
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_hit.fbx
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_jump.fbx
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_slashAttack.fbx
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_death.fbx
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/Character
+      Animator.controller
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_interact.fbx
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_throw.fbx
+  - assetBundleName: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_textures.ab
+    assetNames:
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Textures/T_bag.png
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Textures/T_Dyp.png
+  - assetBundleName: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_material.ab
+    assetNames:
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Mat_Cloud.mat
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Mat_bag.mat
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Mat_penguin.mat
+  - assetBundleName: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_effects.ab
+    assetNames:
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/Trail.mat
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/DizzyEffect.prefab
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/Star_white.png
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/HealEffect.prefab
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/StarWithTrail.prefab
+  - assetBundleName: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_models.ab
+    assetNames:
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Models/Dyp.fbx
+  - assetBundleName: shared_shaders.ab
+    assetNames:
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Shaders/Shader_Cloud.shader
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Shaders/Shader_Outline.shader
   currentScene: ActDemo

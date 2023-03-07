@@ -6,6 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/3rdParty/Dotween/DOTweenPro Examples/DOTweenAnimation_Advanced.unity
+    guid: a5f7a56d339da84449899ecf95fbe33d
+  - enabled: 1
+    path: Assets/3rdParty/Dotween/DOTweenPro Examples/DOTweenAnimation_Basics.unity
+    guid: 6a2ad353325ffe64983c28d69a8738f5
+  - enabled: 1
+    path: Assets/3rdParty/Dotween/DOTweenPro Examples/DOTweenPath.unity
+    guid: a351b59ca54a0bc4083c35844da13a61
+  - enabled: 1
+    path: Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Demo.unity
+    guid: 4819567f1d7824848ae3977a278d7384
+  - enabled: 1
     path: Assets/3rdParty/Feel/FeelDemos/Barbarians/FeelBarbarians.unity
     guid: 1b75a629da2b33344afddc7868b6b810
   - enabled: 1

@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1487320180
+CRC: 513317147
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: f0b2555d96ca8a58c1c77572b41f3123
+    Hash: ad911f83210a4a7d931efe31d91de2b7
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5651999fa58938ac55fc849c3d2539bc
@@ -17,7 +17,5 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/3rdParty/AVProVideo/Resources/Shaders/AVProVideo-Lit-Diffuse.shader
 - Assets/Demo/Shaders/SimpleGrabPassBlur.shader
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Shaders/Shader_Cloud.shader
-- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Shaders/Shader_Outline.shader
 - Assets/Demo/Shaders/UIBlur.mat
 Dependencies: []
