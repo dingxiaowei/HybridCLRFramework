@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03142c330ced64e0ab46cddcd0484ab7, type: 3}
   m_Name: Rules
   m_EditorClassIdentifier: 
-  build: 99
+  build: 100
   major: 5
   minor: 1
   scenesFolders:
@@ -345,9 +345,9 @@ MonoBehaviour:
     bundle: assets_scenes_actdemo.ab
     id: 0
     groupBy: 2
-  - name: Assets/Demo/ACTDemo/Prefabs/Penguin.prefab
+  - name: Assets/Demo/ACTDemo/Prefabs/Penguin1.prefab
     group: 
-    bundle: assets_demo_actdemo_prefabs_penguin.ab
+    bundle: assets_demo_actdemo_prefabs_penguin1.ab
     id: 0
     groupBy: 2
   - name: Assets/Demo/ACTDemo/Prefabs/ActDemoLoader.prefab
@@ -355,9 +355,9 @@ MonoBehaviour:
     bundle: assets_demo_actdemo_prefabs_actdemoloader.ab
     id: 0
     groupBy: 2
-  - name: Assets/Demo/ACTDemo/Prefabs/Penguin1.prefab
+  - name: Assets/Demo/ACTDemo/Prefabs/Penguin.prefab
     group: 
-    bundle: assets_demo_actdemo_prefabs_penguin1.ab
+    bundle: assets_demo_actdemo_prefabs_penguin.ab
     id: 0
     groupBy: 2
   patches:
@@ -595,15 +595,15 @@ MonoBehaviour:
   - assetBundleName: assets_scenes_actdemo.ab
     assetNames:
     - Assets/Scenes/ActDemo.unity
-  - assetBundleName: assets_demo_actdemo_prefabs_penguin.ab
-    assetNames:
-    - Assets/Demo/ACTDemo/Prefabs/Penguin.prefab
-  - assetBundleName: assets_demo_actdemo_prefabs_actdemoloader.ab
-    assetNames:
-    - Assets/Demo/ACTDemo/Prefabs/ActDemoLoader.prefab
   - assetBundleName: assets_demo_actdemo_prefabs_penguin1.ab
     assetNames:
     - Assets/Demo/ACTDemo/Prefabs/Penguin1.prefab
+  - assetBundleName: assets_demo_actdemo_prefabs_actdemoloader.ab
+    assetNames:
+    - Assets/Demo/ACTDemo/Prefabs/ActDemoLoader.prefab
+  - assetBundleName: assets_demo_actdemo_prefabs_penguin.ab
+    assetNames:
+    - Assets/Demo/ACTDemo/Prefabs/Penguin.prefab
   - assetBundleName: children_assets_scenes_testhybridclr.ab
     assetNames:
     - Assets/Images/logo.jpg
@@ -715,14 +715,14 @@ MonoBehaviour:
     - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Textures/T_Dyp.png
   - assetBundleName: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_material.ab
     assetNames:
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Mat_Cloud.mat
     - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Mat_bag.mat
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Mat_Cloud.mat
     - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Mat_penguin.mat
   - assetBundleName: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_effects.ab
     assetNames:
     - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/Trail.mat
-    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/DizzyEffect.prefab
     - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/Star_white.png
+    - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/DizzyEffect.prefab
     - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/HealEffect.prefab
     - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/StarWithTrail.prefab
   - assetBundleName: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_models.ab
