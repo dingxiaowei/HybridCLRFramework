@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 1949423860
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: f76baf2c614a9c23abbf98551fbe38c3
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: ff414f606ea1972259b080d7bcf51689
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Textures/T_bag.png
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Textures/T_Dyp.png
+Dependencies: []

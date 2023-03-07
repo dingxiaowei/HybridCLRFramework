@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3058795936
+CRC: 2151200556
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 28c1cc20fced25d0e9b3f9aa7f13a070
+    Hash: 14d564a6bc188d218650f535db9054ab
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 7d4a7309903307fbf5797798fd6389b8
+    Hash: 79bb302b7182986f27f9f63b5b0bba76
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -30,21 +30,21 @@ ClassTypes:
 - Class: 108
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: c7518c1fa5f4cd64d9679c5413f5beab, type: 3}
+  Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  Script: {fileID: 11500000, guid: c7518c1fa5f4cd64d9679c5413f5beab, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 128
@@ -63,12 +63,10 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 258
   Script: {instanceID: 0}
-- Class: 687078895
-  Script: {instanceID: 0}
 - Class: 850595691
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/Scenes/TestPrefabs.unity
 Dependencies:
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_sprites_messagebox_btn_button04_n.ab
+- D:/study/github/HybridCLRFramework1/Bundles/Windows/assets_demo_ui_sprites_messagebox_btn_button04_n.ab

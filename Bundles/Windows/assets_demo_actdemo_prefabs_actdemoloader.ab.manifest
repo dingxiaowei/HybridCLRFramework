@@ -1,0 +1,23 @@
+ManifestFileVersion: 0
+CRC: 4149852831
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: abf000751306e455ef7492a896b37975
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3b28be31fc9c64a17a9f563505f00670
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 8907c470d5ffdaf42aeaced5b56de864, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/ACTDemo/Prefabs/ActDemoLoader.prefab
+Dependencies: []

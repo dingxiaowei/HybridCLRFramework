@@ -350,21 +350,16 @@ MonoBehaviour:
     bundle: assets_demo_actdemo_prefabs_penguin.ab
     id: 0
     groupBy: 2
-  - name: Assets/Demo/ACTDemo/Prefabs/Penguin1.prefab
-    group: 
-    bundle: assets_demo_actdemo_prefabs_penguin1.ab
-    id: 0
-    groupBy: 2
   - name: Assets/Demo/ACTDemo/Prefabs/ActDemoLoader.prefab
     group: 
     bundle: assets_demo_actdemo_prefabs_actdemoloader.ab
     id: 0
     groupBy: 2
-  - name: Splash.unity
+  - name: Assets/Demo/ACTDemo/Prefabs/Penguin1.prefab
     group: 
-    bundle: 
+    bundle: assets_demo_actdemo_prefabs_penguin1.ab
     id: 0
-    groupBy: 3
+    groupBy: 2
   patches:
   - name: Splash
     assets:
@@ -603,12 +598,12 @@ MonoBehaviour:
   - assetBundleName: assets_demo_actdemo_prefabs_penguin.ab
     assetNames:
     - Assets/Demo/ACTDemo/Prefabs/Penguin.prefab
-  - assetBundleName: assets_demo_actdemo_prefabs_penguin1.ab
-    assetNames:
-    - Assets/Demo/ACTDemo/Prefabs/Penguin1.prefab
   - assetBundleName: assets_demo_actdemo_prefabs_actdemoloader.ab
     assetNames:
     - Assets/Demo/ACTDemo/Prefabs/ActDemoLoader.prefab
+  - assetBundleName: assets_demo_actdemo_prefabs_penguin1.ab
+    assetNames:
+    - Assets/Demo/ACTDemo/Prefabs/Penguin1.prefab
   - assetBundleName: children_assets_scenes_testhybridclr.ab
     assetNames:
     - Assets/Images/logo.jpg
@@ -737,4 +732,4 @@ MonoBehaviour:
     assetNames:
     - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Shaders/Shader_Cloud.shader
     - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Shaders/Shader_Outline.shader
-  currentScene: Loading
+  currentScene: ActDemo

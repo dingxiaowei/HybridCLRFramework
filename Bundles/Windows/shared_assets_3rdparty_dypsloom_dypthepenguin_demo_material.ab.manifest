@@ -1,0 +1,25 @@
+ManifestFileVersion: 0
+CRC: 1986313211
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9612f237fd4179a3fe2b299b2a6b3b51
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2ac4353984f9d013b83e89048e1ecdd0
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Mat_Cloud.mat
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Mat_bag.mat
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Mat_penguin.mat
+Dependencies:
+- D:/study/github/HybridCLRFramework1/Bundles/Windows/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_textures.ab
+- D:/study/github/HybridCLRFramework1/Bundles/Windows/shared_shaders.ab

@@ -1,0 +1,69 @@
+ManifestFileVersion: 0
+CRC: 2808002210
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 933a97ce3467e8d26764354bdd1cb4d5
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d8c09b60392572a0571a062a3bb2b43b
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 96
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: d94070f293f44aa698560678c976cbb5, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6f1ce8866c3a876428d51b96d263eed1, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d0bc7b21e5604533b4caa37724e9ecf8, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 135
+  Script: {instanceID: 0}
+- Class: 136
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 143
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/ACTDemo/Prefabs/Penguin.prefab
+Dependencies:
+- D:/study/github/HybridCLRFramework1/Bundles/Windows/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_animations.ab
+- D:/study/github/HybridCLRFramework1/Bundles/Windows/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_models.ab
+- D:/study/github/HybridCLRFramework1/Bundles/Windows/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_effects.ab
+- D:/study/github/HybridCLRFramework1/Bundles/Windows/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_material.ab

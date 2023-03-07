@@ -1,0 +1,45 @@
+ManifestFileVersion: 0
+CRC: 2730367659
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 72a6ee11f2a53ab090306e00906cfff2
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0e1f96a5a6a61700b703ef6cc23f037b
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 96
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: d94070f293f44aa698560678c976cbb5, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d0bc7b21e5604533b4caa37724e9ecf8, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/Trail.mat
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/DizzyEffect.prefab
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/Star_white.png
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/HealEffect.prefab
+- Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Effects/StarWithTrail.prefab
+Dependencies: []

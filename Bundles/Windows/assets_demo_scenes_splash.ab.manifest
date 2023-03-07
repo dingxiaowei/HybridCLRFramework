@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1712307392
+CRC: 1178827324
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 6a168b83c1570c2346b8ba1c97bffae4
+    Hash: 55f85974017805ff89e767359cd71001
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 13ea0a13e20a728d7f06878e6895ceab
+    Hash: 6903438fd1817a790c337ea94fb8672c
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -36,9 +36,9 @@ ClassTypes:
 - Class: 108
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
 - Class: 114
@@ -67,6 +67,6 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/Scenes/Splash.unity
 Dependencies:
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_scenes.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/assets_demo_ui_animations_splashscreen.ab
-- D:/study/github/HybridCLRFramework/Bundles/Windows/shared_assets_demo.ab
+- D:/study/github/HybridCLRFramework1/Bundles/Windows/assets_demo_scenes.ab
+- D:/study/github/HybridCLRFramework1/Bundles/Windows/assets_demo_ui_animations_splashscreen.ab
+- D:/study/github/HybridCLRFramework1/Bundles/Windows/shared_assets_demo.ab
