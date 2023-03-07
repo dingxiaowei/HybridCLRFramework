@@ -3,7 +3,7 @@ CRC: 2808002210
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 933a97ce3467e8d26764354bdd1cb4d5
+    Hash: 6ed3e632a4cabb70ef13b35feb4c0060
   TypeTreeHash:
     serializedVersion: 2
     Hash: d8c09b60392572a0571a062a3bb2b43b
@@ -63,7 +63,7 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/ACTDemo/Prefabs/Penguin.prefab
 Dependencies:
-- D:/study/github/HybridCLRFramework1/Bundles/Windows/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_animations.ab
-- D:/study/github/HybridCLRFramework1/Bundles/Windows/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_models.ab
-- D:/study/github/HybridCLRFramework1/Bundles/Windows/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_effects.ab
-- D:/study/github/HybridCLRFramework1/Bundles/Windows/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_material.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_animations.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_models.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_effects.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_material.ab
