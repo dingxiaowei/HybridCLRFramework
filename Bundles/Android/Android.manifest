@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1553696262
+CRC: 2752862746
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -239,20 +239,18 @@ AssetBundleManifest:
       Name: assets_demo_scenes.ab
       Dependencies: {}
     Info_56:
-      Name: assets_demo_actdemo_prefabs_actdemoloader.ab
-      Dependencies: {}
-    Info_57:
-      Name: assets_demo_actdemo_prefabs_penguin.ab
+      Name: assets_scenes_actdemo.ab
       Dependencies:
-        Dependency_0: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_animations.ab
-        Dependency_1: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_effects.ab
-        Dependency_2: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_material.ab
-        Dependency_3: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_models.ab
-    Info_58:
+        Dependency_0: children_assets_scenes_actdemo.ab
+    Info_57:
       Name: children_assets_scenes_testhybridclr.ab
       Dependencies: {}
-    Info_59:
+    Info_58:
       Name: children_assets_prefabs_tv.ab
+      Dependencies:
+        Dependency_0: shaders.ab
+    Info_59:
+      Name: children_assets_scenes_actdemo.ab
       Dependencies:
         Dependency_0: shaders.ab
     Info_60:
@@ -260,33 +258,4 @@ AssetBundleManifest:
       Dependencies: {}
     Info_61:
       Name: shared_assets_demo.ab
-      Dependencies: {}
-    Info_62:
-      Name: assets_scenes_actdemo.ab
-      Dependencies:
-        Dependency_0: assets_demo_actdemo_prefabs_penguin.ab
-        Dependency_1: children_assets_scenes_actdemo.ab
-    Info_63:
-      Name: children_assets_scenes_actdemo.ab
-      Dependencies: {}
-    Info_64:
-      Name: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_animations.ab
-      Dependencies:
-        Dependency_0: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_models.ab
-    Info_65:
-      Name: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_textures.ab
-      Dependencies: {}
-    Info_66:
-      Name: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_effects.ab
-      Dependencies: {}
-    Info_67:
-      Name: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_material.ab
-      Dependencies:
-        Dependency_0: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_textures.ab
-        Dependency_1: shared_shaders.ab
-    Info_68:
-      Name: shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_models.ab
-      Dependencies: {}
-    Info_69:
-      Name: shared_shaders.ab
       Dependencies: {}

@@ -8,8 +8,8 @@ namespace ActDemo
 {
     public class NetworkManager : ManagerBase<NetworkManager>
     {
-        //private const string ServerUrl = "ws://116.205.247.142:8082";
-        private const string ServerUrl = "ws://127.0.0.1:8081";
+        private const string ServerUrl = "ws://116.205.247.142:8082";
+        //private const string ServerUrl = "ws://127.0.0.1:8081";
         private WSSocketSession socketSession;
 
         public override void Start()
