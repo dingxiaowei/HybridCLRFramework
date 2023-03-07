@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03142c330ced64e0ab46cddcd0484ab7, type: 3}
   m_Name: Rules
   m_EditorClassIdentifier: 
-  build: 98
+  build: 99
   major: 5
   minor: 1
   scenesFolders:
@@ -360,6 +360,11 @@ MonoBehaviour:
     bundle: assets_demo_actdemo_prefabs_actdemoloader.ab
     id: 0
     groupBy: 2
+  - name: Splash.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
   patches:
   - name: Splash
     assets:
@@ -732,4 +737,4 @@ MonoBehaviour:
     assetNames:
     - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Shaders/Shader_Cloud.shader
     - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Material/Shaders/Shader_Outline.shader
-  currentScene: ActDemo
+  currentScene: Loading
