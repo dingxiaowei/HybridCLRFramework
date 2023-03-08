@@ -3,7 +3,7 @@ CRC: 1917763015
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: d6a46bc467623bb620066aeeb8fa60f2
+    Hash: 173f8f1cb5f3babcdd1fd092076154dc
   TypeTreeHash:
     serializedVersion: 2
     Hash: c834f84159016542e4c4af5cdd547ba4
@@ -29,4 +29,4 @@ Assets:
 - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_interact.fbx
 - Assets/3rdParty/Dypsloom/DypThePenguin/Demo/Characters/Animations/@Dyp_throw.fbx
 Dependencies:
-- D:/study/github/HybridCLRFramework1/Bundles/Windows/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_models.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/shared_assets_3rdparty_dypsloom_dypthepenguin_demo_characters_models.ab

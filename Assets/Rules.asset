@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03142c330ced64e0ab46cddcd0484ab7, type: 3}
   m_Name: Rules
   m_EditorClassIdentifier: 
-  build: 100
+  build: 102
   major: 5
   minor: 1
   scenesFolders:
@@ -360,6 +360,26 @@ MonoBehaviour:
     bundle: assets_demo_actdemo_prefabs_penguin.ab
     id: 0
     groupBy: 2
+  - name: Assets/DllCache/HotUpdateLogic.dll.bytes
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 0
+  - name: Assets/DllCache/System.Core.dll.bytes
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 0
+  - name: Assets/DllCache/System.dll.bytes
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 0
+  - name: Assets/DllCache/mscorlib.dll.bytes
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 0
   patches:
   - name: Splash
     assets:
