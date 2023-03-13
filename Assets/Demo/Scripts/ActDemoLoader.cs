@@ -27,14 +27,12 @@ public class ActDemoLoader : MonoBehaviour
 
     void InitActDemo()
     {
-        _assetRequest = Assets.LoadAssetAsync(ActDemoRootPrefab, typeof(GameObject), (rq) =>
+        _assetRequest = Assets.LoadAsset(ActDemoRootPrefab, typeof(GameObject));
+        var go = Instantiate(_assetRequest.asset) as GameObject;
+        if (go != null)
         {
-            var go = Instantiate(rq.asset) as GameObject;
-            if (go != null)
-            {
-                go.name = rq.asset.name;
-            }
-        });
+            go.name = _assetRequest.asset.name;
+        }
     }
 
     void OnMoveStart()

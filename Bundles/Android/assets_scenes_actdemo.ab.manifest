@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2313969156
+CRC: 1445872937
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 6f8500dc06a1103b6cf79cca0d68654d
+    Hash: cf511c96d8dbbbd94debe4e7c79123a2
   TypeTreeHash:
     serializedVersion: 2
     Hash: f155e8474239d22ec2bde727dbbf4fee
@@ -157,5 +157,5 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Scenes/ActDemo.unity
 Dependencies:
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/assets_demo_actdemo_prefabs_penguin.ab
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Android/children_assets_scenes_actdemo.ab
+- D:/Study/GitHub/HybridCLRFramework1/Bundles/Android/assets_demo_actdemo_prefabs.ab
+- D:/Study/GitHub/HybridCLRFramework1/Bundles/Android/children_assets_scenes_actdemo.ab
