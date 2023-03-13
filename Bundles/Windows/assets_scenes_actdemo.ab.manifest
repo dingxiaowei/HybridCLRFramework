@@ -3,7 +3,7 @@ CRC: 2586762031
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: f2fa8a0a53cd0dff80567a671ad6740d
+    Hash: 5a9bd695eb476bd46fe4aef03800187b
   TypeTreeHash:
     serializedVersion: 2
     Hash: f155e8474239d22ec2bde727dbbf4fee
@@ -157,5 +157,5 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Scenes/ActDemo.unity
 Dependencies:
-- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_actdemo_prefabs_penguin.ab
+- D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/assets_demo_actdemo_prefabs.ab
 - D:/Study/GitHub/HybridCLRFramework/Bundles/Windows/children_assets_scenes_actdemo.ab
