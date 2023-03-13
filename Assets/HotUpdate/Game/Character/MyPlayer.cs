@@ -9,7 +9,7 @@ namespace ActDemo
     public class MyPlayer : PlayerBase
     {
         public static Vector3 MainPlayerBornVector = new Vector3(3.12f, 4.17f, 17.71f);
-        public const string PrefabPath = "Assets/Demo/ActDemo/Prefabs/Penguin.prefab";
+        public const string PrefabPath = "Assets/Demo/ACTDemo/Prefabs/Penguin.prefab";
         private CharacterNetMoveController charMoveController;
         public CharacterNetMoveController CharMoveController { get { return CharMoveController; } }
 

@@ -10,7 +10,7 @@ public class ActDemoLoader : MonoBehaviour
     public XRInputManager XRInputController;
     public CameraFollow CameraFollow;
 
-    private const string ActDemoRootPrefab = "Assets/Demo/ActDemo/Prefabs/ActDemoLoader.prefab";
+    private const string ActDemoRootPrefab = "Assets/Demo/ACTDemo/Prefabs/ActDemoLoader.prefab";
     AssetRequest _assetRequest;
     void Awake()
     {
