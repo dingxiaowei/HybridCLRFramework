@@ -1,4 +1,7 @@
 # HybridCLRFramework
+## 视频效果
+https://www.bilibili.com/video/BV1tx4y1K718/?vd_source=02685a8a05689ff22758c5389478b63d
+
 ## 已有功能
 * ~~1.网络和proto~~
 * ~~2.表格模块~~
@@ -10,6 +13,7 @@
 * ~~8.DOTween~~
 * ~~9.视频模块(支持各种直播)~~
 * ~~10.链式定时器模块~~
+* ~~11.pico输入模块~~
 
 ## TODO功能
 * UI模块
