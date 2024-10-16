@@ -6,8 +6,8 @@ namespace Protoc.Managers
 {
     public class NetManager : Singleton<NetManager>
     {
-        //private string serverUrl = "ws://127.0.0.1:8081";
-        private string serverUrl = "ws://124.223.54.98:8081";
+        private string serverUrl = "ws://0.0.0.0:8082";
+        //private string serverUrl = "ws://124.223.54.98:8081";
 
         public string ServerURL
         {

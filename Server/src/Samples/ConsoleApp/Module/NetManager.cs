@@ -13,7 +13,7 @@ namespace ServerDemo
 
         public void Connect()
         {
-            server = new WebSocketServer("ws://0.0.0.0:8081");
+            server = new WebSocketServer("ws://0.0.0.0:8082");
             server.Start(socket =>
             {
                 int tempIndex = ++socketIndex;

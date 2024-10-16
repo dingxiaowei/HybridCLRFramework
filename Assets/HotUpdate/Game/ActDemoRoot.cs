@@ -24,6 +24,7 @@ public class ActDemoRoot : MonoBehaviour
     private void RegisterAllMgr()
     {
         mMgrList = new List<IMgr>();
+
         mMgrList.Add(SystemEventManager.Instance);
         mMgrList.Add(ActGameManager.Instance);
         mMgrList.Add(CharactersManager.Instance);

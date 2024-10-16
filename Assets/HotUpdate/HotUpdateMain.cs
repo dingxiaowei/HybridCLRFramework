@@ -7,8 +7,8 @@ using System.Linq;
 
 public class HotUpdateMain : MonoBehaviour
 {
-    private string serverUrl = "ws://116.205.247.142:8081";
-    //private string serverUrl = "ws://127.0.0.1:8081";
+    //private string serverUrl = "ws://116.205.247.142:8081";
+    private string serverUrl = "ws://127.0.0.1:8082";
     private WSSocketSession socketSession;
     public string text;
 

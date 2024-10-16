@@ -16,7 +16,7 @@ public class MessageDispatcher : Singleton<MessageDispatcher>
 
     public void ResponseAutoRegister()
     {
-        foreach (var method in ResponseAttribute.GetResponseMethod(Reflection.GetExecutingAssembly()))
+        foreach (var method in ResponseAttribute.GetResponseMethod(Reflection.GetExecutingAssembly())) //遍历所有含有Response标签标记的方法
         {
             var msgIds = ResponseAttribute.GetMsgIds(method);
             if (msgIds != null)

@@ -349,7 +349,7 @@ MonoBehaviour:
     group: 
     bundle: assets_demo_actdemo_prefabs.ab
     id: 0
-    groupBy: 3
+    groupBy: 2
   - name: Assets/DllCache/HotUpdateLogic.dll.bytes
     group: 
     bundle: 
@@ -374,10 +374,40 @@ MonoBehaviour:
     group: 
     bundle: assets_demo_actdemo_prefabs.ab
     id: 0
-    groupBy: 3
+    groupBy: 2
   - name: Assets/Demo/ACTDemo/Prefabs/Penguin.prefab
     group: 
     bundle: assets_demo_actdemo_prefabs.ab
+    id: 0
+    groupBy: 2
+  - name: Splash.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: Level.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: ActDemo.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: scenario.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: TestHybridCLR.unity
+    group: 
+    bundle: 
+    id: 0
+    groupBy: 3
+  - name: Loading.unity
+    group: 
+    bundle: 
     id: 0
     groupBy: 3
   patches:
@@ -402,6 +432,7 @@ MonoBehaviour:
     - Assets/Demo/UI/Sprites/Async2Sync.png
     - Assets/Prefabs/TestHybridCLR.prefab
     - Assets/Demo/ActDemo/Prefabs/ActDemoLoader.prefab
+    - Assets/Demo/ACTDemo/Prefabs/ActDemoLoader.prefab
   - name: Additive2
     assets:
     - Assets/Demo/Scenes/Additive2.unity
